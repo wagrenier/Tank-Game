@@ -16,7 +16,7 @@ import javafx.util.Duration;
  *
  * @author 1530178
  */
-public class MovingBall extends Circle implements Runnable {
+public class MovingBall extends Circle {
     //Circle circle = new Circle(15);
     double xspeed = 0;
     double yspeed = 0;
@@ -31,6 +31,7 @@ public class MovingBall extends Circle implements Runnable {
         this.v = v;
         this.pane = pane;
         this.setRadius(15);
+        movingBallSetup(pane);
     }
     
     private void movingBallSetup(Pane pane){
@@ -39,6 +40,7 @@ public class MovingBall extends Circle implements Runnable {
         setTranslateX(50 * v);
         setTranslateY(200);
         
+        /*
         animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             pane.setOnKeyPressed(x -> {
                 
@@ -54,6 +56,7 @@ public class MovingBall extends Circle implements Runnable {
                     case D: {
                         if(xspeed < .5)
                         xspeed += 0.25;
+                        System.out.println("HI");
                     }break;
                     
                     case W: {
@@ -78,6 +81,7 @@ public class MovingBall extends Circle implements Runnable {
                     case RIGHT: {
                         if(xspeed < .5)
                         xspeed += 0.25;
+                        System.out.println("HI");
                     }break;
                     
                     case UP: {
@@ -121,7 +125,8 @@ public class MovingBall extends Circle implements Runnable {
         
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.play();
-        //pane.getChildren().add(this);
+        pane.getChildren().add(this);
+        */
     }
     
     /*
@@ -129,7 +134,10 @@ public class MovingBall extends Circle implements Runnable {
         return circle;
     }
     */
-    
+    public void playAnimation(){
+        animation.play();
+        pane.getChildren().add(this);
+    }
     public int getY(double x){
         double a = 5.464 * Math.pow(10, -9);
         double b = -0.000013308;
@@ -140,20 +148,14 @@ public class MovingBall extends Circle implements Runnable {
         int y = (int)((a * Math.pow(x, 4)) + (b * Math.pow(x, 3)) + (c * Math.pow(x, 2)) + (d * x) + f);
         return y;
     }
-
+/*
     @Override
     public void run() {
         movingBallSetup(pane);
             
         
     }
-    
-    public void start () {
-      
-         t = new Thread (this, "THread" + v);
-         t.start ();
-      
-   }
+    */
     
    
     

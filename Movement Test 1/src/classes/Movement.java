@@ -5,7 +5,11 @@
  */
 package classes;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.ParallelTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -17,6 +21,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -26,7 +31,14 @@ public class Movement extends Application {
     
     MapGeneration map = new MapGeneration();
     Rectangle rect;
-    
+    Thread lol;
+    double xspeed = 0;
+    double yspeed = 0;
+    double xspeed2 = 0;
+    double yspeed2 = 0;
+    double gravity = 0.0005;
+    double y;
+    double y2;
     @Override
     public void start(Stage primaryStage) {
         Pane pane = new Pane();
@@ -40,14 +52,186 @@ public class Movement extends Application {
     }
     
     public void paneSetup(Pane pane){
+        Group group = new Group();
         frontGroundSetup(pane);
         backGroundSetup(pane);
-        
-        MovingBall ballOne = new MovingBall(pane, 1);
+        MovingBall ballOne = new MovingBall(pane, 1);    
         MovingBall ballTwo = new MovingBall(pane, 2);
+        
+         Timeline animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            pane.setOnKeyPressed(x -> {
                 
-        pane.getChildren().addAll(ballOne, ballTwo);
-        ballOne.start();
+                
+                
+                switch (x.getCode()){
+                    
+                    
+                    case LEFT: {
+                        if(xspeed > -.5)
+                        xspeed -= 0.25;
+                    }break;
+                    
+                    case RIGHT: {
+                        if(xspeed < .5)
+                        xspeed += 0.25;
+                        System.out.println("HI");
+                    }break;
+                    
+                    case UP: {
+                        if(yspeed == 0){
+                        //System.out.println("up");
+                        yspeed = -0.5;
+                        }
+                    }break;
+                case A: {
+                        if(xspeed2 > -.5)
+                        xspeed2 -= 0.25;
+                    }break;
+                    
+                    case D: {
+                        if(xspeed2 < .5)
+                        xspeed2 += 0.25;
+                        System.out.println("HI");
+                    }break;
+                    
+                    case W: {
+                        if(yspeed2 == 0){
+                        //System.out.println("up");
+                        yspeed2 = -0.5;
+                        }
+                    }break;
+                
+                }    
+            });
+            
+            
+            
+            
+            
+            y = ballOne.getY(ballOne.getTranslateX());
+            
+            ballOne.setTranslateY(ballOne.getTranslateY() + yspeed);
+            ballOne.setTranslateX(ballOne.getTranslateX() + xspeed);
+            
+            
+            if(ballOne.getTranslateX()<= 0 || ballOne.getTranslateX() >= 1200){
+                xspeed *= -1;
+            }
+            
+            
+            if (ballOne.getTranslateY() < y){
+                yspeed += gravity;
+            }
+            else
+                yspeed = 0;
+            
+            if(ballOne.getTranslateY()> y){
+                ballOne.setTranslateY(y);
+            } 
+        }));
+         
+         Timeline animationTwo = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            pane.setOnKeyPressed(x -> {
+                
+                
+                
+                switch (x.getCode()){
+                    
+                    case LEFT: {
+                        if(xspeed > -.5)
+                        xspeed -= 0.25;
+                    }break;
+                    
+                    case RIGHT: {
+                        if(xspeed < .5)
+                        xspeed += 0.25;
+                        System.out.println("HI");
+                    }break;
+                    
+                    case UP: {
+                        if(yspeed == 0){
+                        //System.out.println("up");
+                        yspeed = -0.5;
+                        }
+                    }break;
+                    
+                    case A: {
+                        if(xspeed2 > -.5)
+                        xspeed2 -= 0.25;
+                    }break;
+                    
+                    case D: {
+                        if(xspeed2 < .5)
+                        xspeed2 += 0.25;
+                        System.out.println("HI");
+                    }break;
+                    
+                    case W: {
+                        if(yspeed2 == 0){
+                        //System.out.println("up");
+                        yspeed2 = -0.5;
+                        }
+                    }break;
+                
+                
+                }    
+            });
+            
+            
+            
+            
+            
+            y2 = ballTwo.getY(ballTwo.getTranslateX());
+            
+            ballTwo.setTranslateY(ballTwo.getTranslateY() + yspeed2);
+            ballTwo.setTranslateX(ballTwo.getTranslateX() + xspeed2);
+            
+            
+            if(ballTwo.getTranslateX()<= 0 || ballTwo.getTranslateX() >= 1200){
+                xspeed2 *= -1;
+            }
+            
+            
+            if (ballTwo.getTranslateY() < y2){
+                yspeed2 += gravity;
+            }
+            else
+                yspeed2 = 0;
+            
+            if(ballTwo.getTranslateY()> y2){
+                ballTwo.setTranslateY(y2);
+            } 
+        }));
+         
+         //group.getChildren().addAll(ballOne, ballTwo);
+         //animation.setCycleCount(Timeline.INDEFINITE);
+         //animationTwo.setCycleCount(Timeline.INDEFINITE);
+         
+         ParallelTransition pie = new ParallelTransition(animation, animationTwo);
+         //pie.getChildren().addAll(animation, animationTwo);
+         pie.setCycleCount(Timeline.INDEFINITE);
+         pie.play();
+         
+         //pane.getChildren().add(pie);
+         pane.getChildren().addAll(ballOne, ballTwo);
+         
+        
+        /*
+        ThreadTest one = new ThreadTest(pane, 1);
+        ThreadTest ama = new ThreadTest(pane, 2);
+        
+        Thread fun = new Thread(ama, "AWGFTYUI");
+        lol = new Thread(one, "Thread 3");
+        lol.start();
+        fun.start();
+        
+        /*
+        MovingBall ballOne = new MovingBall(pane, 1);    
+        MovingBall ballTwo = new MovingBall(pane, 2);
+        ballOne.playAnimation();
+        ballTwo.playAnimation();
+       // 
+        //ballOne.start();
         //ballTwo.start();
         /*
         Thread one = new Thread(ballOne, "Thread One");
