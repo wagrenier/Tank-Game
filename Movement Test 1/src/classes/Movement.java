@@ -28,35 +28,70 @@ import javafx.util.Duration;
  * @author Cedrik Dubois
  */
 public class Movement extends Application {
-    
+    double width = 1200;
+    double height = 800;
     MapGeneration map = new MapGeneration();
     Rectangle rect;
-    Thread lol;
     double xspeed = 0;
     double yspeed = 0;
     double xspeed2 = 0;
     double yspeed2 = 0;
-    double gravity = 0.0005;
+    double gravity = 0.0005 * height ;
     double y;
     double y2;
+    ParallelTransition pie;
+    
     @Override
     public void start(Stage primaryStage) {
         Pane pane = new Pane();
         
         paneSetup(pane);
         
-        primaryStage.setScene(new Scene(pane, 1200, 800));
+        primaryStage.setTitle("Tanks");
+        
+       
+        
+        Scene scene = new Scene(pane, width, height);
+        
+        scene.setOnDragDetected(e ->{
+            width = pane.getWidth();
+            height = pane.getHeight();
+            
+            pane.getChildren().clear();
+            pie.getChildren().clear();
+            paneSetup(pane);
+            
+            
+            xspeed = 0;
+            yspeed = 0;
+            xspeed2 = 0;
+            yspeed2 = 0;
+            y = 0;
+            y2 = 0;
+            
+            System.out.println(scene.getWidth() + " " + scene.getHeight());
+            System.out.println(width + " " + height);
+            
+        });
+        
+        primaryStage.setScene(scene);
         primaryStage.show();
+        
+        //primaryStage.setResizable(false);
+        
         
         pane.requestFocus();
     }
     
     public void paneSetup(Pane pane){
-        Group group = new Group();
+        
         frontGroundSetup(pane);
-        backGroundSetup(pane);
+        //backGroundSetup(pane);
+        
         MovingBall ballOne = new MovingBall(pane, 1);    
         MovingBall ballTwo = new MovingBall(pane, 2);
+        
+        
         
          Timeline animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             pane.setOnKeyPressed(x -> {
@@ -74,7 +109,7 @@ public class Movement extends Application {
                     case RIGHT: {
                         if(xspeed < .5)
                         xspeed += 0.25;
-                        System.out.println("HI");
+                        //System.out.println("HI");
                     }break;
                     
                     case UP: {
@@ -91,7 +126,7 @@ public class Movement extends Application {
                     case D: {
                         if(xspeed2 < .5)
                         xspeed2 += 0.25;
-                        System.out.println("HI");
+                        //System.out.println("HI");
                     }break;
                     
                     case W: {
@@ -114,7 +149,7 @@ public class Movement extends Application {
             ballOne.setTranslateX(ballOne.getTranslateX() + xspeed);
             
             
-            if(ballOne.getTranslateX()<= 0 || ballOne.getTranslateX() >= 1200){
+            if(ballOne.getTranslateX()<= 0 || ballOne.getTranslateX() >= width){
                 xspeed *= -1;
             }
             
@@ -145,7 +180,7 @@ public class Movement extends Application {
                     case RIGHT: {
                         if(xspeed < .5)
                         xspeed += 0.25;
-                        System.out.println("HI");
+                        
                     }break;
                     
                     case UP: {
@@ -187,7 +222,7 @@ public class Movement extends Application {
             ballTwo.setTranslateX(ballTwo.getTranslateX() + xspeed2);
             
             
-            if(ballTwo.getTranslateX()<= 0 || ballTwo.getTranslateX() >= 1200){
+            if(ballTwo.getTranslateX()<= 0 || ballTwo.getTranslateX() >= width){
                 xspeed2 *= -1;
             }
             
@@ -203,47 +238,24 @@ public class Movement extends Application {
             } 
         }));
          
-         //group.getChildren().addAll(ballOne, ballTwo);
-         //animation.setCycleCount(Timeline.INDEFINITE);
-         //animationTwo.setCycleCount(Timeline.INDEFINITE);
          
-         ParallelTransition pie = new ParallelTransition(animation, animationTwo);
+         
+        pie = new ParallelTransition(animation, animationTwo);
          //pie.getChildren().addAll(animation, animationTwo);
          pie.setCycleCount(Timeline.INDEFINITE);
          pie.play();
          
-         //pane.getChildren().add(pie);
+         
          pane.getChildren().addAll(ballOne, ballTwo);
          
         
-        /*
-        ThreadTest one = new ThreadTest(pane, 1);
-        ThreadTest ama = new ThreadTest(pane, 2);
-        
-        Thread fun = new Thread(ama, "AWGFTYUI");
-        lol = new Thread(one, "Thread 3");
-        lol.start();
-        fun.start();
-        
-        /*
-        MovingBall ballOne = new MovingBall(pane, 1);    
-        MovingBall ballTwo = new MovingBall(pane, 2);
-        ballOne.playAnimation();
-        ballTwo.playAnimation();
-       // 
-        //ballOne.start();
-        //ballTwo.start();
-        /*
-        Thread one = new Thread(ballOne, "Thread One");
-        Thread two = new Thread(ballTwo, "Thread Two");
-        one.start();
-        two.start();
-        */
+       
         
     }
     
     public void backGroundSetup(Pane pane){
-        BackgroundImage myBI= new BackgroundImage(new Image("Pictures/CloudBackground.JPG",1200,800,false,true),
+        
+        BackgroundImage myBI= new BackgroundImage(new Image("Pictures/CloudBackground.JPG", width, height, false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
           BackgroundSize.DEFAULT);
        
@@ -251,12 +263,12 @@ public class Movement extends Application {
     }
     
    public void frontGroundSetup(Pane pane){
-       for (int i = 0; i < 1200; i++){
+       for (int i = 0; i < width; i++){
             rect = new Rectangle();
             rect.setTranslateX(i);
             rect.setTranslateY(map.getY(i));
             rect.setWidth(0.5);
-            rect.setHeight(800 - map.getY(i));
+            rect.setHeight(height - map.getY(i));
             rect.setFill(Color.GREEN);
             rect.setStroke(Color.GREEN);
             pane.getChildren().add(rect);

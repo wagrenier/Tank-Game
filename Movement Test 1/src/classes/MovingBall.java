@@ -20,7 +20,7 @@ public class MovingBall extends Circle {
     //Circle circle = new Circle(15);
     double xspeed = 0;
     double yspeed = 0;
-    double gravity = 0.0005;
+   // double gravity = 0.0005;
     double y;
     int v;
     Timeline animation;
@@ -31,7 +31,12 @@ public class MovingBall extends Circle {
         this.v = v;
         this.pane = pane;
         this.setRadius(15);
-        movingBallSetup(pane);
+        setFill(Color.BLACK);
+        setStroke(Color.BLACK);
+        setTranslateX(50 * v);
+        setTranslateY(200);
+        
+        //movingBallSetup(pane);
     }
     
     private void movingBallSetup(Pane pane){
