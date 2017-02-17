@@ -45,7 +45,7 @@ public class MovingBall extends Circle {
         setTranslateX(50 * v);
         setTranslateY(200);
         
-        /*
+        /**
         animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             pane.setOnKeyPressed(x -> {
                 
@@ -143,7 +143,10 @@ public class MovingBall extends Circle {
         animation.play();
         pane.getChildren().add(this);
     }
-    public int getY(double x){
+    
+    public double getY(double x, double ratio){
+        
+        /*
         double a = 5.464 * Math.pow(10, -9);
         double b = -0.000013308;
         double c = 0.01009;
@@ -152,6 +155,23 @@ public class MovingBall extends Circle {
         
         int y = (int)((a * Math.pow(x, 4)) + (b * Math.pow(x, 3)) + (c * Math.pow(x, 2)) + (d * x) + f);
         return y;
+        */
+        return MapGeneration.getY(x, ratio);
+    }
+    
+    public double getY(double x){
+        
+        /*
+        double a = 5.464 * Math.pow(10, -9);
+        double b = -0.000013308;
+        double c = 0.01009;
+        double d = -2.5108;
+        double f = 647.7;
+        
+        int y = (int)((a * Math.pow(x, 4)) + (b * Math.pow(x, 3)) + (c * Math.pow(x, 2)) + (d * x) + f);
+        return y;
+        */
+        return MapGeneration.getY(x);
     }
 /*
     @Override

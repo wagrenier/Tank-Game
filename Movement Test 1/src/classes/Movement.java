@@ -9,9 +9,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -30,16 +30,16 @@ import javafx.util.Duration;
 public class Movement extends Application {
     double width = 1200;
     double height = 800;
-    MapGeneration map = new MapGeneration();
+    double ratio = 1200 / width;
     Rectangle rect;
     double xspeed = 0;
     double yspeed = 0;
     double xspeed2 = 0;
     double yspeed2 = 0;
-    double gravity = 0.0005 * height ;
+    double gravity = 0.0005;
     double y;
     double y2;
-    ParallelTransition pie;
+    
     
     @Override
     public void start(Stage primaryStage) {
@@ -49,28 +49,21 @@ public class Movement extends Application {
         
         primaryStage.setTitle("Tanks");
         
-       
+        movingBallSetup(pane);
         
         Scene scene = new Scene(pane, width, height);
         
         scene.setOnDragDetected(e ->{
-            width = pane.getWidth();
-            height = pane.getHeight();
-            
-            pane.getChildren().clear();
-            pie.getChildren().clear();
+           width = pane.getWidth();
+           height = pane.getHeight();
+           ratio = 1200 / width;
             paneSetup(pane);
-            
-            
             xspeed = 0;
-            yspeed = 0;
-            xspeed2 = 0;
-            yspeed2 = 0;
-            y = 0;
-            y2 = 0;
+            //pane.getChildren().clear();
+            //pie.getChildren().clear();
+            //paneSetup(pane);
+            pane.resize(pane.getWidth(), pane.getHeight());
             
-            System.out.println(scene.getWidth() + " " + scene.getHeight());
-            System.out.println(width + " " + height);
             
         });
         
@@ -84,21 +77,98 @@ public class Movement extends Application {
     }
     
     public void paneSetup(Pane pane){
+        // pane.getChildren().clear();
+        //movingBallSetup(pane);
         
         frontGroundSetup(pane);
-        //backGroundSetup(pane);
+        backGroundSetup(pane);
+        //movingBallSetup(pane);
+        
+    }
+    
+    public void movingBallSetup(Pane pane){
         
         MovingBall ballOne = new MovingBall(pane, 1);    
         MovingBall ballTwo = new MovingBall(pane, 2);
         
         
-        
          Timeline animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             pane.setOnKeyPressed(x -> {
+                keyPressed(x.getCode());
+            });
+            
+            //rect.setTranslateX(i / ratio);
+            double x = ballOne.getTranslateX();
+            double v = ((x + xspeed) / ratio);
+            y = ballOne.getY(ballOne.getTranslateX(), ratio);
+            ballOne.setTranslateY(ballOne.getTranslateY() + yspeed);
+            ballOne.setTranslateX((x + xspeed));
+           
+            
+            //System.out.println(ratio + " xspeed: " + xspeed + " translateX: " + ballOne.getTranslateX() + " Sum: " + (x + xspeed) / ratio );
+            
+            if(ballOne.getTranslateX()<= 0 || ballOne.getTranslateX() >= width){
+                xspeed *= -1;
+                System.out.println("BOB");
+            }
+            
+            
+            if (ballOne.getTranslateY() < y ){
+                yspeed += gravity;
+            }
+            else
+                yspeed = 0;
+            
+            if(ballOne.getTranslateY() > y){
+                ballOne.setTranslateY(y);
+            } 
+            
+            }));
+         
+
+         Timeline animationTwo = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            pane.setOnKeyPressed(x -> {
+                keyPressed(x.getCode());  
+            });
+            
+            y2 = ballTwo.getY(ballTwo.getTranslateX()) ;
+            
+            ballTwo.setTranslateY(ballTwo.getTranslateY() + yspeed2);
+            ballTwo.setTranslateX(ballTwo.getTranslateX() + xspeed2);
+            
+            
+            if(ballTwo.getTranslateX()<= 0 || ballTwo.getTranslateX() >= width){
                 
-                
-                
-                switch (x.getCode()){
+                //System.out.println("BOB " + ballTwo.getTranslateX() + " width: " + width);
+                xspeed2 *= -1;
+            }
+            
+            
+            if (ballTwo.getTranslateY() < y2){
+                yspeed2 += gravity;
+            }
+            else
+                yspeed2 = 0;
+            
+            if(ballTwo.getTranslateY()> y2){
+                ballTwo.setTranslateY(y2);
+            } 
+        }));
+         
+         
+         
+        ParallelTransition pie = new ParallelTransition(animation, animationTwo);
+         //pie.getChildren().addAll(animation, animationTwo);
+         pie.setCycleCount(Timeline.INDEFINITE);
+         pie.play();
+         
+         
+         pane.getChildren().addAll(ballOne, ballTwo);
+    }
+    
+    public void keyPressed(KeyCode x){
+        
+        switch (x){
                     
                     
                     case LEFT: {
@@ -118,6 +188,7 @@ public class Movement extends Application {
                         yspeed = -0.5;
                         }
                     }break;
+                    
                 case A: {
                         if(xspeed2 > -.5)
                         xspeed2 -= 0.25;
@@ -136,121 +207,7 @@ public class Movement extends Application {
                         }
                     }break;
                 
-                }    
-            });
-            
-            
-            
-            
-            
-            y = ballOne.getY(ballOne.getTranslateX());
-            
-            ballOne.setTranslateY(ballOne.getTranslateY() + yspeed);
-            ballOne.setTranslateX(ballOne.getTranslateX() + xspeed);
-            
-            
-            if(ballOne.getTranslateX()<= 0 || ballOne.getTranslateX() >= width){
-                xspeed *= -1;
-            }
-            
-            
-            if (ballOne.getTranslateY() < y){
-                yspeed += gravity;
-            }
-            else
-                yspeed = 0;
-            
-            if(ballOne.getTranslateY()> y){
-                ballOne.setTranslateY(y);
-            } 
-        }));
-         
-         Timeline animationTwo = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                
-                
-                
-                switch (x.getCode()){
-                    
-                    case LEFT: {
-                        if(xspeed > -.5)
-                        xspeed -= 0.25;
-                    }break;
-                    
-                    case RIGHT: {
-                        if(xspeed < .5)
-                        xspeed += 0.25;
-                        
-                    }break;
-                    
-                    case UP: {
-                        if(yspeed == 0){
-                        //System.out.println("up");
-                        yspeed = -0.5;
-                        }
-                    }break;
-                    
-                    case A: {
-                        if(xspeed2 > -.5)
-                        xspeed2 -= 0.25;
-                    }break;
-                    
-                    case D: {
-                        if(xspeed2 < .5)
-                        xspeed2 += 0.25;
-                        System.out.println("HI");
-                    }break;
-                    
-                    case W: {
-                        if(yspeed2 == 0){
-                        //System.out.println("up");
-                        yspeed2 = -0.5;
-                        }
-                    }break;
-                
-                
-                }    
-            });
-            
-            
-            
-            
-            
-            y2 = ballTwo.getY(ballTwo.getTranslateX());
-            
-            ballTwo.setTranslateY(ballTwo.getTranslateY() + yspeed2);
-            ballTwo.setTranslateX(ballTwo.getTranslateX() + xspeed2);
-            
-            
-            if(ballTwo.getTranslateX()<= 0 || ballTwo.getTranslateX() >= width){
-                xspeed2 *= -1;
-            }
-            
-            
-            if (ballTwo.getTranslateY() < y2){
-                yspeed2 += gravity;
-            }
-            else
-                yspeed2 = 0;
-            
-            if(ballTwo.getTranslateY()> y2){
-                ballTwo.setTranslateY(y2);
-            } 
-        }));
-         
-         
-         
-        pie = new ParallelTransition(animation, animationTwo);
-         //pie.getChildren().addAll(animation, animationTwo);
-         pie.setCycleCount(Timeline.INDEFINITE);
-         pie.play();
-         
-         
-         pane.getChildren().addAll(ballOne, ballTwo);
-         
-        
-       
-        
+                } 
     }
     
     public void backGroundSetup(Pane pane){
@@ -263,12 +220,13 @@ public class Movement extends Application {
     }
     
    public void frontGroundSetup(Pane pane){
+       ratio = 1200 / width;
        for (int i = 0; i < width; i++){
             rect = new Rectangle();
-            rect.setTranslateX(i);
-            rect.setTranslateY(map.getY(i));
+            rect.setTranslateX(i / ratio);
+            rect.setTranslateY(MapGeneration.getY(i, ratio));
             rect.setWidth(0.5);
-            rect.setHeight(height - map.getY(i));
+            rect.setHeight(height - MapGeneration.getY(i, ratio));
             rect.setFill(Color.GREEN);
             rect.setStroke(Color.GREEN);
             pane.getChildren().add(rect);
