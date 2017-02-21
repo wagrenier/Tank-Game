@@ -9,9 +9,13 @@ import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -28,6 +32,7 @@ import javafx.util.Duration;
  * @author Cedrik Dubois
  */
 public class Movement extends Application {
+    
     double width = 1200;
     double height = 800;
     double ratio = 1200 / width;
@@ -39,6 +44,7 @@ public class Movement extends Application {
     double gravity = 0.0005;
     double y;
     double y2;
+    ParallelTransition pie;
     
     
     @Override
@@ -53,37 +59,51 @@ public class Movement extends Application {
         
         Scene scene = new Scene(pane, width, height);
         
+        
+        
+       // primaryStage.addEventHandler(MouseEvent.DRAG_DETECTED, new EventHandler<DragEvent>());
+        
+        scene.widthProperty().add(primaryStage.getWidth());
+        scene.heightProperty().add(primaryStage.getHeight());
+        pane.widthProperty().add(scene.widthProperty().get());
+        pane.heightProperty().add(scene.heightProperty().get());
+        
+        ratio = 1200 / pane.widthProperty().get();
+        
+        
         scene.setOnDragDetected(e ->{
            width = pane.getWidth();
            height = pane.getHeight();
            ratio = 1200 / width;
+           
+           pane.setLayoutX(pane.getTranslateX()/ ratio);
+           pane.setLayoutY(pane.getTranslateY() / ratio);
+            
+            pie.stop();
+            pane.getChildren().clear();
+            pie.getChildren().clear();
             paneSetup(pane);
-            xspeed = 0;
-            //pane.getChildren().clear();
-            //pie.getChildren().clear();
-            //paneSetup(pane);
-            pane.resize(pane.getWidth(), pane.getHeight());
+            movingBallSetup(pane);
+            
             
             
         });
         
+        
+        
         primaryStage.setScene(scene);
         primaryStage.show();
         
-        //primaryStage.setResizable(false);
+       // primaryStage.setResizable(false);
         
-        
+        primaryStage.setMinWidth(primaryStage.getWidth());
+        primaryStage.setMinHeight(primaryStage.getHeight());
         pane.requestFocus();
     }
     
     public void paneSetup(Pane pane){
-        // pane.getChildren().clear();
-        //movingBallSetup(pane);
-        
         frontGroundSetup(pane);
         backGroundSetup(pane);
-        //movingBallSetup(pane);
-        
     }
     
     public void movingBallSetup(Pane pane){
@@ -98,18 +118,33 @@ public class Movement extends Application {
             });
             
             //rect.setTranslateX(i / ratio);
+            
             double x = ballOne.getTranslateX();
-            double v = ((x + xspeed) / ratio);
+            double v = ((x + xspeed) * ratio);
+            
+            if(ratio < 1){
+               ballOne.setLayoutX(x * ratio);
+               
+            
+            }
+            
+            
+            
+            if(ratio == 1){
+                
+            }
+            
             y = ballOne.getY(ballOne.getTranslateX(), ratio);
             ballOne.setTranslateY(ballOne.getTranslateY() + yspeed);
-            ballOne.setTranslateX((x + xspeed));
-           
+            ballOne.setTranslateX((x + xspeed)); 
+            
+            //ballOne.setTranslateX(v);
             
             //System.out.println(ratio + " xspeed: " + xspeed + " translateX: " + ballOne.getTranslateX() + " Sum: " + (x + xspeed) / ratio );
             
-            if(ballOne.getTranslateX()<= 0 || ballOne.getTranslateX() >= width){
+            if(ballOne.getTranslateX()<= 0 || ballOne.getTranslateX() >= width * ratio){
                 xspeed *= -1;
-                System.out.println("BOB");
+               // System.out.println("BOB");
             }
             
             
@@ -131,13 +166,24 @@ public class Movement extends Application {
                 keyPressed(x.getCode());  
             });
             
-            y2 = ballTwo.getY(ballTwo.getTranslateX()) ;
+            if(ratio < 1){
+               ballTwo.setLayoutX(ballTwo.getTranslateX() * ratio);
+            
+            }
+            
+            
+            
+            if(ratio == 1){
+                
+            }
+            
+            y2 = ballTwo.getY(ballTwo.getTranslateX(), ratio) ;
             
             ballTwo.setTranslateY(ballTwo.getTranslateY() + yspeed2);
             ballTwo.setTranslateX(ballTwo.getTranslateX() + xspeed2);
             
             
-            if(ballTwo.getTranslateX()<= 0 || ballTwo.getTranslateX() >= width){
+            if(ballTwo.getTranslateX()<= 0 || ballTwo.getTranslateX() >= width * ratio){
                 
                 //System.out.println("BOB " + ballTwo.getTranslateX() + " width: " + width);
                 xspeed2 *= -1;
@@ -150,14 +196,14 @@ public class Movement extends Application {
             else
                 yspeed2 = 0;
             
-            if(ballTwo.getTranslateY()> y2){
+            if(ballTwo.getTranslateY() > y2){
                 ballTwo.setTranslateY(y2);
             } 
         }));
          
          
          
-        ParallelTransition pie = new ParallelTransition(animation, animationTwo);
+        pie = new ParallelTransition(animation, animationTwo);
          //pie.getChildren().addAll(animation, animationTwo);
          pie.setCycleCount(Timeline.INDEFINITE);
          pie.play();
@@ -221,12 +267,15 @@ public class Movement extends Application {
     
    public void frontGroundSetup(Pane pane){
        ratio = 1200 / width;
+       
        for (int i = 0; i < width; i++){
             rect = new Rectangle();
             rect.setTranslateX(i / ratio);
-            rect.setTranslateY(MapGeneration.getY(i, ratio));
-            rect.setWidth(0.5);
             rect.setHeight(height - MapGeneration.getY(i, ratio));
+            rect.setTranslateY(MapGeneration.getY(i, ratio));
+            
+            rect.setWidth(0.5);
+            
             rect.setFill(Color.GREEN);
             rect.setStroke(Color.GREEN);
             pane.getChildren().add(rect);
