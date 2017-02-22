@@ -21,7 +21,7 @@ public class MovingBall extends Circle {
     
     double xspeed = 0;
     double yspeed = 0;
-    double gravity = 0.0005;
+    //double gravity = 0.0005;
     double ratio;
     double y;
     int v;

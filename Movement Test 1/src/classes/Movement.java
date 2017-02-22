@@ -16,11 +16,13 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -36,6 +38,7 @@ public class Movement extends Application {
     double width = 1200;
     double height = 800;
     double ratio = 1200 / width;
+    double ratioHeight = 800 / height;
     Rectangle rect;
     double xspeed = 0;
     double yspeed = 0;
@@ -49,36 +52,46 @@ public class Movement extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        
+        
         Pane pane = new Pane();
         
-        paneSetup(pane);
         
+        paneSetup(pane);
+        movingBallSetup(pane);
         primaryStage.setTitle("Tanks");
         
-        movingBallSetup(pane);
+       
         
         Scene scene = new Scene(pane, width, height);
         
+       
         
         
-       // primaryStage.addEventHandler(MouseEvent.DRAG_DETECTED, new EventHandler<DragEvent>());
         
-        scene.widthProperty().add(primaryStage.getWidth());
-        scene.heightProperty().add(primaryStage.getHeight());
-        pane.widthProperty().add(scene.widthProperty().get());
-        pane.heightProperty().add(scene.heightProperty().get());
-        
-        ratio = 1200 / pane.widthProperty().get();
+      
         
         
+       /*
         scene.setOnDragDetected(e ->{
+            
+            
            width = pane.getWidth();
+           //System.out.println(width);
            height = pane.getHeight();
            ratio = 1200 / width;
+           ratioHeight = 800 / height;
            
-           pane.setLayoutX(pane.getTranslateX()/ ratio);
-           pane.setLayoutY(pane.getTranslateY() / ratio);
+           pane.setScaleX(ratio);
+           pane.setScaleY(ratioHeight);
+           //pane.resize(width, height);
+           
+           //ratioHeight = 800 / height;
+           //pane.resize(width, height);
+           //pane.setLayoutX(pane.getTranslateX() * ratio);
+           //pane.setLayoutY(pane.getTranslateY() * ratio);
             
+            /**
             pie.stop();
             pane.getChildren().clear();
             pie.getChildren().clear();
@@ -88,16 +101,23 @@ public class Movement extends Application {
             
             
         });
-        
-        
-        
+        */
+       
+       
+       
+        //primaryStage.setFullScreen(true);
+        //primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
         
-       // primaryStage.setResizable(false);
+       primaryStage.setResizable(false);
         
-        primaryStage.setMinWidth(primaryStage.getWidth());
-        primaryStage.setMinHeight(primaryStage.getHeight());
+        
+        primaryStage.setMinHeight(800);
+        primaryStage.setMinWidth(1200);
+        
+        primaryStage.setMaxWidth(1200);
+        primaryStage.setMaxHeight(800);
         pane.requestFocus();
     }
     
@@ -119,11 +139,11 @@ public class Movement extends Application {
             
             //rect.setTranslateX(i / ratio);
             
-            double x = ballOne.getTranslateX();
-            double v = ((x + xspeed) * ratio);
+            
+            
             
             if(ratio < 1){
-               ballOne.setLayoutX(x * ratio);
+               ballOne.setLayoutX(ballOne.getTranslateX());
                
             
             }
@@ -136,13 +156,13 @@ public class Movement extends Application {
             
             y = ballOne.getY(ballOne.getTranslateX(), ratio);
             ballOne.setTranslateY(ballOne.getTranslateY() + yspeed);
-            ballOne.setTranslateX((x + xspeed)); 
+            ballOne.setTranslateX((ballOne.getTranslateX() + xspeed)); 
             
             //ballOne.setTranslateX(v);
             
-            //System.out.println(ratio + " xspeed: " + xspeed + " translateX: " + ballOne.getTranslateX() + " Sum: " + (x + xspeed) / ratio );
+            //System.out.println(width * ratio + " xspeed: " + xspeed + " translateX: " + ballOne.getTranslateX());
             
-            if(ballOne.getTranslateX()<= 0 || ballOne.getTranslateX() >= width * ratio){
+            if(ballOne.getTranslateX()<= 0 || ballOne.getTranslateX() >= 1200){
                 xspeed *= -1;
                // System.out.println("BOB");
             }
@@ -270,8 +290,10 @@ public class Movement extends Application {
        
        for (int i = 0; i < width; i++){
             rect = new Rectangle();
+            
+            
             rect.setTranslateX(i / ratio);
-            rect.setHeight(height - MapGeneration.getY(i, ratio));
+            rect.setHeight(height - MapGeneration.getY(i, ratioHeight));
             rect.setTranslateY(MapGeneration.getY(i, ratio));
             
             rect.setWidth(0.5);
