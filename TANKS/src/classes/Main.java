@@ -148,7 +148,7 @@ public class Main extends Application {
                 
             }
             
-            y = ballOne.getY(ballOne.getTranslateX(), ratio);
+            y = ballOne.getY(ballOne.getTranslateX());
             ballOne.setTranslateY(ballOne.getTranslateY() + yspeed);
             ballOne.setTranslateX((ballOne.getTranslateX() + xspeed)); 
             
@@ -191,7 +191,7 @@ public class Main extends Application {
                 
             }
             
-            y2 = ballTwo.getY(ballTwo.getTranslateX(), ratio) ;
+            y2 = ballTwo.getY(ballTwo.getTranslateX()) ;
             
             ballTwo.setTranslateY(ballTwo.getTranslateY() + yspeed2);
             ballTwo.setTranslateX(ballTwo.getTranslateX() + xspeed2);
@@ -287,8 +287,8 @@ public class Main extends Application {
             
             
             rect.setTranslateX(i / ratio);
-            rect.setHeight(height - MapGeneration.getY(i, ratioHeight));
-            rect.setTranslateY(MapGeneration.getY(i, ratio));
+            rect.setHeight(height - MapGeneration.getY(i));
+            rect.setTranslateY(MapGeneration.getY(i));
             
             rect.setWidth(0.5);
             
