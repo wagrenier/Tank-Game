@@ -34,41 +34,11 @@ public class MainTankMouvementTest extends Application {
         
         Scene scene = new Scene(pane, 1200, 800);
         
-       /*
-        scene.setOnDragDetected(e ->{
-            
-            
-           width = pane.getWidth();
-           //System.out.println(width);
-           height = pane.getHeight();
-           ratio = 1200 / width;
-           ratioHeight = 800 / height;
-           
-           pane.setScaleX(ratio);
-           pane.setScaleY(ratioHeight);
-           //pane.resize(width, height);
-           
-           //ratioHeight = 800 / height;
-           //pane.resize(width, height);
-           //pane.setLayoutX(pane.getTranslateX() * ratio);
-           //pane.setLayoutY(pane.getTranslateY() * ratio);
-            
-            /**
-            pie.stop();
-            pane.getChildren().clear();
-            pie.getChildren().clear();
-            paneSetup(pane);
-            movingBallSetup(pane);
-            
-            
-            
-        });
-        */
        
         primaryStage.setScene(scene);
         primaryStage.show();
         
-       primaryStage.setResizable(false);
+        primaryStage.setResizable(false);
         
         
         primaryStage.setMinHeight(800);
