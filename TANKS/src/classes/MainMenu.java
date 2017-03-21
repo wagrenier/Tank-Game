@@ -27,11 +27,11 @@ public class MainMenu extends Pane{
     private ImageView playBtn;
     private ImageView loadBtn;
     
-    private Image playBtnImage = new Image("images/Play Button.png");
-    private Image playBtnHover = new Image("images/Play Button Hover.png");
+    private Image playBtnImage = new Image("Texture/Menus/MainMenu/Play Button.png");
+    private Image playBtnHover = new Image("Texture/Menus/MainMenu/Play Button Hover.png");
     
-    private Image loadBtnImage = new Image("images/Load Button.png");
-    private Image loadBtnHover = new Image("images/Load Button Hover.png");
+    private Image loadBtnImage = new Image("Texture/Menus/MainMenu/Load Button.png");
+    private Image loadBtnHover = new Image("Texture/Menus/MainMenu/Play Button Hover.png");
     
     public MainMenu(){
         this.setMaxHeight(HEIGHT);
@@ -115,7 +115,7 @@ public class MainMenu extends Pane{
     }
     
     private void setBackground(){
-        BackgroundImage myBI= new BackgroundImage(new Image("images/Background.png", WIDTH, HEIGHT, false, true),
+        BackgroundImage myBI= new BackgroundImage(new Image("Texture/Menus/MainMenu/Background.png", WIDTH, HEIGHT, false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
           BackgroundSize.DEFAULT);
        
