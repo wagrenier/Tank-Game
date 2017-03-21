@@ -7,6 +7,7 @@ package classes;
 
 
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -22,10 +23,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         
+<<<<<<< HEAD
         GamePane pane = new GamePane();
         
         
         
+=======
+        MainMenu pane = new MainMenu();
+>>>>>>> refs/remotes/origin/master
         Scene scene = new Scene(pane, 1200, 800);
         
        /*
