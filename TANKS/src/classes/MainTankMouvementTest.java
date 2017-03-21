@@ -24,13 +24,7 @@ public class MainTankMouvementTest extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-
-        
-        
-        
         GamePane pane = new GamePane();
-
-        
         
         Scene scene = new Scene(pane, 1200, 800);
         

@@ -51,10 +51,13 @@ public class GamePane extends Pane{
     
     public void movingBallSetup(Pane pane){
         
-        Tanks tanksOne = new Tanks(mapGeneration, pane);
-        Tanks tanksTwo = new Tanks(mapGeneration, pane);
-        pane.getChildren().add(tanksOne);
-        pane.getChildren().add(tanksTwo);
+        
+        TanksAnimation tanksAnimation = new TanksAnimation(mapGeneration, pane, 2);
+        //pie = new ParallelTransition(tanksOne.getAnimation(), tanksTwo.getAnimation());
+        //pie.setCycleCount(Timeline.INDEFINITE);
+        //pie.play();
+        
+        //pane.getChildren().add(tanksTwo);
         
         /**
         MovingBall ballOne = new MovingBall(pane, 1, mapGeneration);    
@@ -196,7 +199,7 @@ public class GamePane extends Pane{
     
     public void backGroundSetup(Pane pane){
         
-        BackgroundImage myBI= new BackgroundImage(new Image("Pictures/CloudBackground.JPG", width, height, false, true),
+        BackgroundImage myBI= new BackgroundImage(new Image("Pictures/Backgrounds/Background.png", width, height, false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
           BackgroundSize.DEFAULT);
        

@@ -5,130 +5,31 @@
  */
 package classes;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.ParallelTransition;
-import javafx.animation.Timeline;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 /**
  *
- * @author willi
+ * @author william
  */
 public class Tanks extends Rectangle{
     
-    double width = 1200;
-    double height = 800;
-    double xspeed = 0;
-    double yspeed = 0;
-    double xspeed2 = 0;
-    double yspeed2 = 0;
-    double gravity = 0.0005;
-    double y;
-    double y2;
-    //ParallelTransition pie;
-    Pane pane;
-    MapGeneration mapGeneration;
     
-    Tanks(MapGeneration mapGeneration, Pane pane){
-        this.setWidth(200);
-        this.setHeight(150);
-        setFill(Color.BLACK);
-        setStroke(Color.BLACK);
+    
+    Tanks(){
+        //this.setRadius(15);
+        Image texture = new Image("Texture/Tanks/Canada/Body/Red_Tank.png", 1200, 800, false, false);
+        
+        this.setFill(new ImagePattern(texture, 0, 0, 1, 1, true));
+        //this.setLayoutX(100);
+        //this.setLayoutY(100);
+        this.setWidth(1200);
+        this.setHeight(800);
+        //setFill(Color.BLACK);
+        //setStroke(Color.BLACK);
         setTranslateX(50);
         setTranslateY(200);
-        this.mapGeneration = mapGeneration;
-        this.pane = pane;
-        setupAnimation();
-    }
-    
-    private void setupAnimation(){
-        
-        Timeline animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());
-            });
-            
-            y = mapGeneration.getY(getTranslateX());
-            setTranslateY(getTranslateY() + yspeed);
-            setTranslateX((getTranslateX() + xspeed)); 
-            
-            //setTranslateX(v);
-            
-            //System.out.println(width * ratio + " xspeed: " + xspeed + " translateX: " + getTranslateX());
-            
-            if(getTranslateX()<= 0 || getTranslateX() >= 1200){
-                xspeed *= -1;
-               // System.out.println("BOB");
-            }
-            
-            
-            if (getTranslateY() < y ){
-                yspeed += gravity;
-            }
-            else
-                yspeed = 0;
-            
-            if(getTranslateY() > y){
-                setTranslateY(y);
-            } 
-            
-           
-            }));
-        
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.play();
-         
-         
-    
-                
-    }
-    
-     public void keyPressed(KeyCode x){
-        
-        switch (x){
-                    
-                    
-                    case LEFT: {
-                        if(xspeed > -.5)
-                        xspeed -= 0.25;
-                    }break;
-                    
-                    case RIGHT: {
-                        if(xspeed < .5)
-                        xspeed += 0.25;
-                        //System.out.println("HI");
-                    }break;
-                    
-                    case UP: {
-                        if(yspeed == 0){
-                        //System.out.println("up");
-                        yspeed = -0.5;
-                        }
-                    }break;
-                    
-                case A: {
-                        if(xspeed2 > -.5)
-                        xspeed2 -= 0.25;
-                    }break;
-                    
-                    case D: {
-                        if(xspeed2 < .5)
-                        xspeed2 += 0.25;
-                        //System.out.println("HI");
-                    }break;
-                    
-                    case W: {
-                        if(yspeed2 == 0){
-                        //System.out.println("up");
-                        yspeed2 = -0.5;
-                        }
-                    }break;
-                
-                } 
-    }
-    
+    }  
 }
