@@ -27,8 +27,9 @@ public class MovingBall extends Circle {
     int v;
     Timeline animation;
     Pane pane;
+    MapGeneration mapGeneration;
     
-        MovingBall(Pane pane, int v){
+        MovingBall(Pane pane, int v, MapGeneration mapGeneration){
         this.v = v;
         this.pane = pane;
         this.setRadius(15);
@@ -37,6 +38,7 @@ public class MovingBall extends Circle {
         setStroke(Color.BLACK);
         setTranslateX(50 * v);
         setTranslateY(200);
+        this.mapGeneration = mapGeneration;
         //movingBallSetup(pane);
     }
     
@@ -114,7 +116,7 @@ public class MovingBall extends Circle {
         pane.getChildren().add(this);
     }
     
-        public void keyPressed(KeyCode x){
+    public void keyPressed(KeyCode x){
         
         switch (x){
                     
@@ -162,7 +164,7 @@ public class MovingBall extends Circle {
 
     
     public double getY(double x){
-        return MapGeneration.getY(x);
+        return mapGeneration.getY(x);
     }
 
     public double getRatio() {
