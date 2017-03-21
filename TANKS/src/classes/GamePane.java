@@ -28,9 +28,6 @@ public class GamePane extends Pane{
     
     double width = 1200;
     double height = 800;
-    double ratio = 1200 / width;
-    double ratioHeight = 800 / height;
-    Rectangle rect;
     double xspeed = 0;
     double yspeed = 0;
     double xspeed2 = 0;
@@ -39,6 +36,8 @@ public class GamePane extends Pane{
     double y;
     double y2;
     ParallelTransition pie;
+    Rectangle rect;
+    MapGeneration mapGeneration = new MapGeneration(200, 200, 200);
     
     public GamePane(){
         paneSetup(this);
@@ -52,8 +51,8 @@ public class GamePane extends Pane{
     
     public void movingBallSetup(Pane pane){
         
-        MovingBall ballOne = new MovingBall(pane, 1);    
-        MovingBall ballTwo = new MovingBall(pane, 2);
+        MovingBall ballOne = new MovingBall(pane, 1, mapGeneration);    
+        MovingBall ballTwo = new MovingBall(pane, 2, mapGeneration);
         
         
          Timeline animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
@@ -66,17 +65,11 @@ public class GamePane extends Pane{
             
             
             
-            if(ratio < 1){
-               ballOne.setLayoutX(ballOne.getTranslateX());
-               
-            
-            }
             
             
             
-            if(ratio == 1){
-                
-            }
+            
+            
             
             y = ballOne.getY(ballOne.getTranslateX());
             ballOne.setTranslateY(ballOne.getTranslateY() + yspeed);
@@ -110,16 +103,7 @@ public class GamePane extends Pane{
                 keyPressed(x.getCode());  
             });
             
-            if(ratio < 1){
-               ballTwo.setLayoutX(ballTwo.getTranslateX() * ratio);
             
-            }
-            
-            
-            
-            if(ratio == 1){
-                
-            }
             
             y2 = ballTwo.getY(ballTwo.getTranslateX()) ;
             
@@ -127,7 +111,7 @@ public class GamePane extends Pane{
             ballTwo.setTranslateX(ballTwo.getTranslateX() + xspeed2);
             
             
-            if(ballTwo.getTranslateX()<= 0 || ballTwo.getTranslateX() >= width * ratio){
+            if(ballTwo.getTranslateX()<= 0 || ballTwo.getTranslateX() >= width){
                 
                 //System.out.println("BOB " + ballTwo.getTranslateX() + " width: " + width);
                 xspeed2 *= -1;
@@ -210,17 +194,17 @@ public class GamePane extends Pane{
     }
     
    public void frontGroundSetup(Pane pane){
-       ratio = 1200 / width;
+       
        
        for (int i = 0; i < width; i++){
             rect = new Rectangle();
             
             
-            rect.setTranslateX(i / ratio);
-            rect.setHeight(height - MapGeneration.getY(i));
-            rect.setTranslateY(MapGeneration.getY(i));
+            rect.setTranslateX(i);
+            rect.setHeight(height - mapGeneration.getY(i));
+            rect.setTranslateY(mapGeneration.getY(i));
             
-            rect.setWidth(0.5);
+            rect.setWidth(20);
             
             rect.setFill(Color.GREEN);
             rect.setStroke(Color.GREEN);
