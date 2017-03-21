@@ -5,23 +5,10 @@
  */
 package classes;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.ParallelTransition;
-import javafx.animation.Timeline;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  *
@@ -69,10 +56,6 @@ public class Main extends Application {
         });
         */
        
-       
-       
-        //primaryStage.setFullScreen(true);
-        //primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
         
