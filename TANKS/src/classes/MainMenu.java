@@ -33,6 +33,7 @@ public class MainMenu extends Pane{
     
     private Image loadBtnImage = new Image("Texture/Menus/MainMenu/Load Button.png");
     private Image loadBtnHover = new Image("Texture/Menus/MainMenu/Load Button Hover.png");
+    private Image loadBtnClicked = new Image("Texture/Menus/MainMenu/Load Button Clicked.png");
     
     public MainMenu(){
         this.setMaxHeight(HEIGHT);
@@ -78,6 +79,14 @@ public class MainMenu extends Pane{
         
         loadBtn.setOnMouseClicked(e -> {
             System.out.println("Load button pressed");
+        });
+        
+        loadBtn.setOnMousePressed(e -> {
+            loadBtn.setImage(loadBtnClicked);
+        });
+        
+        loadBtn.setOnMouseReleased(e -> {
+            loadBtn.setImage(loadBtnHover);
         });
     }
     private void setPlayBtn(){
