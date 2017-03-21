@@ -51,6 +51,12 @@ public class GamePane extends Pane{
     
     public void movingBallSetup(Pane pane){
         
+        Tanks tanksOne = new Tanks(mapGeneration, pane);
+        Tanks tanksTwo = new Tanks(mapGeneration, pane);
+        pane.getChildren().add(tanksOne);
+        pane.getChildren().add(tanksTwo);
+        
+        /**
         MovingBall ballOne = new MovingBall(pane, 1, mapGeneration);    
         MovingBall ballTwo = new MovingBall(pane, 2, mapGeneration);
         
@@ -138,6 +144,10 @@ public class GamePane extends Pane{
          
          
          pane.getChildren().addAll(ballOne, ballTwo);
+         * 
+         * */
+        
+        
     }
     
     public void keyPressed(KeyCode x){
