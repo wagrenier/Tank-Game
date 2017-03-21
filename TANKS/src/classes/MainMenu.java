@@ -29,9 +29,10 @@ public class MainMenu extends Pane{
     
     private Image playBtnImage = new Image("Texture/Menus/MainMenu/Play Button.png");
     private Image playBtnHover = new Image("Texture/Menus/MainMenu/Play Button Hover.png");
+    private Image playBtnClicked = new Image("Texture/Menus/MainMenu/Play Button Clicked.png");
     
     private Image loadBtnImage = new Image("Texture/Menus/MainMenu/Load Button.png");
-    private Image loadBtnHover = new Image("Texture/Menus/MainMenu/Play Button Hover.png");
+    private Image loadBtnHover = new Image("Texture/Menus/MainMenu/Load Button Hover.png");
     
     public MainMenu(){
         this.setMaxHeight(HEIGHT);
@@ -100,6 +101,7 @@ public class MainMenu extends Pane{
         });
         */  
         
+        
         playBtn.setOnMouseEntered(e -> {
             playBtn.setImage(playBtnHover);
         });
@@ -108,8 +110,15 @@ public class MainMenu extends Pane{
             playBtn.setImage(playBtnImage);
         });
         
+        
         playBtn.setOnMouseClicked(e -> {
             System.out.println("Play button pressed");
+        });
+        playBtn.setOnMousePressed(e -> {
+            playBtn.setImage(playBtnClicked);
+        });
+        playBtn.setOnMouseReleased(e -> {
+            playBtn.setImage(playBtnHover);
         });
 
     }
