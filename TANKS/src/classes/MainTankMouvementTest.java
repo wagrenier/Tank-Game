@@ -6,6 +6,7 @@
 package classes;
 
 
+
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author Cedrik Dubois
  */
-public class Main extends Application {
+public class MainTankMouvementTest extends Application {
     
     
     
@@ -27,9 +28,9 @@ public class Main extends Application {
         
         
         
-        
+        GamePane pane = new GamePane();
 
-        MainMenu pane = new MainMenu();
+        
         
         Scene scene = new Scene(pane, 1200, 800);
         
