@@ -186,7 +186,7 @@ public class GamePane extends Pane{
     
     public void backGroundSetup(Pane pane){
         
-        BackgroundImage myBI= new BackgroundImage(new Image("Pictures/CloudBackground.JPG", width, height, false, true),
+        BackgroundImage myBI= new BackgroundImage(new Image("Pictures/Background/Background.png", width, height, false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
           BackgroundSize.DEFAULT);
        
