@@ -22,8 +22,8 @@ public class MapGeneration {
     
     MapGeneration(double startingPoint, double amplitudeOfWave, double lengthOfWave){
         this.amplitudeOfWave = (25 + Math.random() * amplitudeOfWave);
-        this.startingPoint = (200 + Math.random() * startingPoint);
-        this.lengthOfWave = (400 + Math.random() * lengthOfWave);
+        this.startingPoint = (350 + Math.random() * startingPoint);
+        this.lengthOfWave = (200 + Math.random() * lengthOfWave);
     }
     
     

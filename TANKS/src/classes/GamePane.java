@@ -28,15 +28,19 @@ public class GamePane extends Pane{
     
     double width = 1200;
     double height = 800;
+    
     double xspeed = 0;
     double yspeed = 0;
+    double y;
+    
     double xspeed2 = 0;
     double yspeed2 = 0;
-    double gravity = 0.0005;
-    double y;
     double y2;
+    
+    double gravity = 0.0005;
     ParallelTransition pie;
-    Rectangle rect;
+    
+    
     MapGeneration mapGeneration = new MapGeneration(200, 200, 200);
     
     public GamePane(){
@@ -53,102 +57,6 @@ public class GamePane extends Pane{
         
         
         TanksAnimation tanksAnimation = new TanksAnimation(mapGeneration, pane, 2);
-        //pie = new ParallelTransition(tanksOne.getAnimation(), tanksTwo.getAnimation());
-        //pie.setCycleCount(Timeline.INDEFINITE);
-        //pie.play();
-        
-        //pane.getChildren().add(tanksTwo);
-        
-        /**
-        MovingBall ballOne = new MovingBall(pane, 1, mapGeneration);    
-        MovingBall ballTwo = new MovingBall(pane, 2, mapGeneration);
-        
-        
-         Timeline animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());
-            });
-            
-            //rect.setTranslateX(i / ratio);
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            y = ballOne.getY(ballOne.getTranslateX());
-            ballOne.setTranslateY(ballOne.getTranslateY() + yspeed);
-            ballOne.setTranslateX((ballOne.getTranslateX() + xspeed)); 
-            
-            //ballOne.setTranslateX(v);
-            
-            //System.out.println(width * ratio + " xspeed: " + xspeed + " translateX: " + ballOne.getTranslateX());
-            
-            if(ballOne.getTranslateX()<= 0 || ballOne.getTranslateX() >= 1200){
-                xspeed *= -1;
-               // System.out.println("BOB");
-            }
-            
-            
-            if (ballOne.getTranslateY() < y ){
-                yspeed += gravity;
-            }
-            else
-                yspeed = 0;
-            
-            if(ballOne.getTranslateY() > y){
-                ballOne.setTranslateY(y);
-            } 
-            
-            }));
-         
-
-         Timeline animationTwo = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
-            
-            
-            
-            y2 = ballTwo.getY(ballTwo.getTranslateX()) ;
-            
-            ballTwo.setTranslateY(ballTwo.getTranslateY() + yspeed2);
-            ballTwo.setTranslateX(ballTwo.getTranslateX() + xspeed2);
-            
-            
-            if(ballTwo.getTranslateX()<= 0 || ballTwo.getTranslateX() >= width){
-                
-                //System.out.println("BOB " + ballTwo.getTranslateX() + " width: " + width);
-                xspeed2 *= -1;
-            }
-            
-            
-            if (ballTwo.getTranslateY() < y2){
-                yspeed2 += gravity;
-            }
-            else
-                yspeed2 = 0;
-            
-            if(ballTwo.getTranslateY() > y2){
-                ballTwo.setTranslateY(y2);
-            } 
-        }));
-         
-         
-         
-        pie = new ParallelTransition(animation, animationTwo);
-         //pie.getChildren().addAll(animation, animationTwo);
-         pie.setCycleCount(Timeline.INDEFINITE);
-         pie.play();
-         
-         
-         pane.getChildren().addAll(ballOne, ballTwo);
-         * 
-         * */
         
         
     }
@@ -208,7 +116,7 @@ public class GamePane extends Pane{
     
    public void frontGroundSetup(Pane pane){
        
-       
+       Rectangle rect;
        for (int i = 0; i < width; i++){
             rect = new Rectangle();
             
@@ -217,7 +125,7 @@ public class GamePane extends Pane{
             rect.setHeight(height - mapGeneration.getY(i));
             rect.setTranslateY(mapGeneration.getY(i));
             
-            rect.setWidth(20);
+            rect.setWidth(.25);
             
             rect.setFill(Color.GREEN);
             rect.setStroke(Color.GREEN);

@@ -39,10 +39,10 @@ public class TanksAnimation {
     MapGeneration mapGeneration;
 
     public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
-        tanksOne = new Tanks();
-        tanksTwo = new Tanks();
-        tanksThree = new Tanks();
-        tanksFour = new Tanks();
+        tanksOne = new Tanks("Texture/Tanks/Canada/Body/Red_Tank_(100x100).png", "Texture/Tanks/Canada/Body/Red_Tank_Flipped.png");
+        tanksTwo = new Tanks("Texture/Tanks/China/Body/Yellow_Tank.png", "Texture/Tanks/China/Body/Yellow_Tank_Flipped.png");
+        tanksThree = new Tanks("Texture/Tanks/NorthKorea/Body/Blue_Tank.png", "Texture/Tanks/NorthKorea/Body/Blue_Tank_Flipped.png");
+        tanksFour = new Tanks("Texture/Tanks/USA/Body/Green_Tank.png", "Texture/Tanks/USA/Body/Green_Tank_Flipped.png");
         this.numOfPlayer = numOfPlayer;     
         this.mapGeneration = mapGeneration;
         this.pane = pane;
@@ -67,6 +67,13 @@ public class TanksAnimation {
             //System.out.println(width * ratio + " xspeed: " + xspeed + " translateX: " + getTranslateX());
             
             if(tanksOne.getTranslateX()<= 0 || tanksOne.getTranslateX() >= 1200){
+                if(tanksOne.getTranslateX()<= 0){
+                    tanksOne.normalTexture();
+                }
+                
+                else{
+                    tanksOne.flipTexture();
+                }
                 xspeed *= -1;
                // System.out.println("BOB");
             }
