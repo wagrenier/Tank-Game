@@ -5,9 +5,8 @@
  */
 package classes;
 
-import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
-import javafx.animation.Timeline;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
@@ -18,7 +17,6 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 /**
  *
@@ -117,18 +115,21 @@ public class GamePane extends Pane{
    public void frontGroundSetup(Pane pane){
        
        Rectangle rect;
+       double yLocation = 0;
+       
        for (int i = 0; i < width; i++){
             rect = new Rectangle();
+            yLocation = mapGeneration.getY(i);
             
-            
+            //rect.setStyle();
             rect.setTranslateX(i);
-            rect.setHeight(height - mapGeneration.getY(i));
-            rect.setTranslateY(mapGeneration.getY(i));
+            rect.setHeight(height - yLocation);
+            rect.setTranslateY(yLocation);
             
             rect.setWidth(.25);
             
-            rect.setFill(Color.GREEN);
-            rect.setStroke(Color.GREEN);
+            //rect.setFill(Color.TRANSPARENT);
+            //rect.setStroke(Color.GREEN);
             pane.getChildren().add(rect);
             
         }

@@ -23,7 +23,11 @@ public class MapGeneration {
     MapGeneration(double startingPoint, double amplitudeOfWave, double lengthOfWave){
         this.amplitudeOfWave = (25 + Math.random() * amplitudeOfWave);
         this.startingPoint = (350 + Math.random() * startingPoint);
-        this.lengthOfWave = (200 + Math.random() * lengthOfWave);
+        this.lengthOfWave = (300 + Math.random() * lengthOfWave);
+    }
+    
+    public double derivativeFunction(double x){
+        return ((amplitudeOfWave / lengthOfWave) * Math.cos( x / lengthOfWave));
     }
     
     

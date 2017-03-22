@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -36,6 +35,9 @@ public class Tanks extends Circle{
         
         texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
         texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
+        
+        //ImageView imageView = new ImageView(texture);
+        
         
         this.setCenterY(-20);
         

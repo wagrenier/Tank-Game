@@ -7,9 +7,11 @@ package classes;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 /**
@@ -37,7 +39,8 @@ public class TanksAnimation {
     Timeline animation4;
     Pane pane;
     MapGeneration mapGeneration;
-
+    
+    
     public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
         tanksOne = new Tanks("Texture/Tanks/Canada/Body/Red_Tank_(100x100).png", "Texture/Tanks/Canada/Body/Red_Tank_Flipped.png");
         tanksTwo = new Tanks("Texture/Tanks/China/Body/Yellow_Tank.png", "Texture/Tanks/China/Body/Yellow_Tank_Flipped.png");
@@ -46,6 +49,7 @@ public class TanksAnimation {
         this.numOfPlayer = numOfPlayer;     
         this.mapGeneration = mapGeneration;
         this.pane = pane;
+        
         setupAnimationForTwoTanks();
         
     }
@@ -88,6 +92,9 @@ public class TanksAnimation {
             if(tanksOne.getTranslateY() > y){
                 tanksOne.setTranslateY(y);
             } 
+            
+            //Rotate rotate = new Rotate(points[((int)tanksOne.getTranslateX())].angle(tanksOne.getTranslateX(), tanksOne.getTranslateY()));
+            tanksOne.setRotate(mapGeneration.derivativeFunction(tanksOne.getTranslateX()));
             
             }));
         
@@ -144,13 +151,13 @@ public class TanksAnimation {
                     
                     
                     case LEFT: {
-                        if(xspeed > -.5)
-                        xspeed -= 0.25;
+                        if(xspeed > -.1)
+                        xspeed -= 0.1;
                     }break;
                     
                     case RIGHT: {
-                        if(xspeed < .5)
-                        xspeed += 0.25;
+                        if(xspeed < .1)
+                        xspeed += 0.1;
                         //System.out.println("HI");
                     }break;
                     
@@ -163,13 +170,13 @@ public class TanksAnimation {
                     
                         
                 case A: {
-                        if(xspeed2 > -.5)
-                        xspeed2 -= 0.25;
+                        if(xspeed2 > -.1)
+                        xspeed2 -= 0.1;
                     }break;
                     
                     case D: {
-                        if(xspeed2 < .5)
-                        xspeed2 += 0.25;
+                        if(xspeed2 < .1)
+                        xspeed2 += 0.1;
                         //System.out.println("HI");
                     }break;
                     
