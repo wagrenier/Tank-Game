@@ -23,6 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         
+<<<<<<< HEAD
 
         
         
@@ -32,6 +33,10 @@ public class Main extends Application {
         MainMenu pane = new MainMenu();
         
         Scene scene = new Scene(pane, 1200, 800);
+=======
+        MainMenu mainMenuPane = new MainMenu();
+        Scene scene = new Scene(mainMenuPane, 1200, 800);
+>>>>>>> refs/remotes/origin/master
         
        /*
         scene.setOnDragDetected(e ->{
@@ -75,7 +80,7 @@ public class Main extends Application {
         
         primaryStage.setMaxWidth(1200);
         primaryStage.setMaxHeight(800);
-        pane.requestFocus();
+        mainMenuPane.requestFocus();
     }
     
 
