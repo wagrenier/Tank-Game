@@ -40,7 +40,7 @@ public class TanksAnimation {
     private double y4;
     
     
-    private double gravity = 0.0005;
+    private double gravity = 0.05;
     
     private int numOfPlayer;
     private Tanks tanksOne;
@@ -64,6 +64,8 @@ public class TanksAnimation {
         this.mapGeneration = mapGeneration;
         this.pane = pane;
         
+        tanksOne.setCenterY(-23);
+        tanksThree.setCenterY(-21);
         setupTanksPlayer();
     }
     
@@ -82,87 +84,18 @@ public class TanksAnimation {
                 keyPressed(x.getCode());
             });
             
-            y = mapGeneration.getY(tanksOne.getTranslateX());
-            tanksOne.setTranslateY(tanksOne.getTranslateY() + yspeed);
-            tanksOne.setTranslateX((tanksOne.getTranslateX() + xspeed)); 
-            
-            //setTranslateX(v);
-            
-            //System.out.println(width * ratio + " xspeed: " + xspeed + " translateX: " + getTranslateX());
-            
-            if(tanksOne.getTranslateX()<= 0 || tanksOne.getTranslateX() >= 1200){
-                if(tanksOne.getTranslateX()<= 0){
-                    tanksOne.normalTexture();
-                }
-                
-                else{
-                    tanksOne.flipTexture();
-                }
-                xspeed *= -1;
-               // System.out.println("BOB");
-            }
-            
-            
-            if (tanksOne.getTranslateY() < y ){
-                yspeed += gravity;
-            }
-            else
-                yspeed = 0;
-            
-            if(tanksOne.getTranslateY() > y){
-                tanksOne.setTranslateY(y);
-            } 
-            
-            //Rotate rotate = new Rotate(points[((int)tanksOne.getTranslateX())].angle(tanksOne.getTranslateX(), tanksOne.getTranslateY()));
-            
-            
+            animationForTankOne();
             }));
         
         
-        //tanksTwo.setCenterX(-20);
+        
         
          animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             pane.setOnKeyPressed(x -> {
                 keyPressed(x.getCode());  
             });
             
-            
-            tanksTwo.setRotate(50 * mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
-            //tanksTwo.setCenterY(-10 + mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
-            
-            
-            y2 = mapGeneration.getY(tanksTwo.getTranslateX()) ;
-            
-            tanksTwo.setTranslateY(tanksTwo.getTranslateY() + yspeed2);
-            tanksTwo.setTranslateX(tanksTwo.getTranslateX() + xspeed2);
-            
-            
-            if(tanksTwo.getTranslateX()<= 0 || tanksTwo.getTranslateX() >= width){
-                if(tanksTwo.getTranslateX()<= 0){
-                    tanksTwo.normalTexture();
-                }
-                
-                else{
-                    tanksTwo.flipTexture();
-                }
-                //System.out.println("BOB " + tanksTwo.getTranslateX() + " width: " + width);
-                xspeed2 *= -1;
-            }
-            
-            
-            if (tanksTwo.getTranslateY() < y2){
-                yspeed2 += gravity;
-            }
-            else
-                yspeed2 = 0;
-            
-            if(tanksTwo.getTranslateY() > y2){
-                tanksTwo.setTranslateY(y2);
-            } 
-            
-            //System.out.println(mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
-            
-            //tanksTwo.setRotate(100 * mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
+            animationForTanksTwo(); 
         }));
          
         
@@ -187,41 +120,7 @@ public class TanksAnimation {
             pane.setOnKeyPressed(x -> {
                 keyPressed(x.getCode());
             });
-            
-            y = mapGeneration.getY(tanksOne.getTranslateX());
-            tanksOne.setTranslateY(tanksOne.getTranslateY() + yspeed);
-            tanksOne.setTranslateX((tanksOne.getTranslateX() + xspeed)); 
-            
-            //setTranslateX(v);
-            
-            //System.out.println(width * ratio + " xspeed: " + xspeed + " translateX: " + getTranslateX());
-            
-            if(tanksOne.getTranslateX()<= 0 || tanksOne.getTranslateX() >= 1200){
-                if(tanksOne.getTranslateX()<= 0){
-                    tanksOne.normalTexture();
-                }
-                
-                else{
-                    tanksOne.flipTexture();
-                }
-                xspeed *= -1;
-               // System.out.println("BOB");
-            }
-            
-            
-            if (tanksOne.getTranslateY() < y ){
-                yspeed += gravity;
-            }
-            else
-                yspeed = 0;
-            
-            if(tanksOne.getTranslateY() > y){
-                tanksOne.setTranslateY(y);
-            } 
-            
-            //Rotate rotate = new Rotate(points[((int)tanksOne.getTranslateX())].angle(tanksOne.getTranslateX(), tanksOne.getTranslateY()));
-            tanksOne.setRotate(mapGeneration.derivativeFunction(tanksOne.getTranslateX()));
-            
+            animationForTankOne();
             }));
         
         
@@ -230,75 +129,14 @@ public class TanksAnimation {
                 keyPressed(x.getCode());  
             });
             
-            
-            
-            y2 = mapGeneration.getY(tanksTwo.getTranslateX()) ;
-            
-            tanksTwo.setTranslateY(tanksTwo.getTranslateY() + yspeed2);
-            tanksTwo.setTranslateX(tanksTwo.getTranslateX() + xspeed2);
-            
-            
-            if(tanksTwo.getTranslateX()<= 0 || tanksTwo.getTranslateX() >= width){
-                if(tanksTwo.getTranslateX()<= 0){
-                    tanksTwo.normalTexture();
-                }
-                
-                else{
-                    tanksTwo.flipTexture();
-                }
-                //System.out.println("BOB " + tanksTwo.getTranslateX() + " width: " + width);
-                xspeed2 *= -1;
-            }
-            
-            
-            if (tanksTwo.getTranslateY() < y2){
-                yspeed2 += gravity;
-            }
-            else
-                yspeed2 = 0;
-            
-            if(tanksTwo.getTranslateY() > y2){
-                tanksTwo.setTranslateY(y2);
-            } 
-            
-            tanksTwo.setRotate(mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
+            animationForTanksTwo();
         }));
         
          animation3 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             pane.setOnKeyPressed(x -> {
                 keyPressed(x.getCode());  
             });
-            
-            
-            
-            y3 = mapGeneration.getY(tanksThree.getTranslateX()) ;
-            
-            tanksThree.setTranslateY(tanksThree.getTranslateY() + yspeed3);
-            tanksThree.setTranslateX(tanksThree.getTranslateX() + xspeed3);
-            
-            
-            if(tanksThree.getTranslateX()<= 0 || tanksThree.getTranslateX() >= width){
-                if(tanksThree.getTranslateX()<= 0){
-                    tanksThree.normalTexture();
-                }
-                
-                else{
-                    tanksThree.flipTexture();
-                }
-                //System.out.println("BOB " + tanksThree.getTranslateX() + " width: " + width);
-                xspeed3 *= -1;
-            }
-            
-            
-            if (tanksThree.getTranslateY() < y3){
-                yspeed3 += gravity;
-            }
-            else
-                yspeed3 = 0;
-            
-            if(tanksThree.getTranslateY() > y3){
-                tanksThree.setTranslateY(y3);
-            } 
+            animationForTankThree();
         }));
         
          
@@ -319,12 +157,6 @@ public class TanksAnimation {
         animation3.setCycleCount(Timeline.INDEFINITE);
         animation3.play();
         
-        
-         
-         
-         
-         
-    
                 
     }
     
@@ -335,13 +167,75 @@ public class TanksAnimation {
                 keyPressed(x.getCode());
             });
             
-            y = mapGeneration.getY(tanksOne.getTranslateX());
+            
+            
+            animationForTankOne();
+            
+            }));
+        
+        
+         animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            pane.setOnKeyPressed(x -> {
+                keyPressed(x.getCode());  
+            });
+            
+            
+            
+            animationForTanksTwo();
+        }));
+        
+         animation3 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            pane.setOnKeyPressed(x -> {
+                keyPressed(x.getCode());  
+            });
+            
+            
+            animationForTankThree();
+            
+        }));
+        
+         
+         animation4 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            pane.setOnKeyPressed(x -> {
+                keyPressed(x.getCode());  
+            });
+            
+            
+            animationForTankFour();
+            
+        }));
+         
+         
+        pane.getChildren().add(tanksOne);
+        pane.getChildren().add(tanksTwo);
+        pane.getChildren().add(tanksThree);
+        pane.getChildren().add(tanksFour);
+        
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.play();
+        
+        animation2.setCycleCount(Timeline.INDEFINITE);
+        animation2.play();
+        
+        animation3.setCycleCount(Timeline.INDEFINITE);
+        animation3.play();
+        
+        animation4.setCycleCount(Timeline.INDEFINITE);
+        animation4.play();
+         
+         
+    
+                
+    }
+    
+    private void animationForTankOne(){
+        tanksOne.setRotate(50 * mapGeneration.derivativeFunction(tanksOne.getTranslateX()));
+        
+        y = mapGeneration.getY(tanksOne.getTranslateX());
             tanksOne.setTranslateY(tanksOne.getTranslateY() + yspeed);
             tanksOne.setTranslateX((tanksOne.getTranslateX() + xspeed)); 
             
-            //setTranslateX(v);
             
-            //System.out.println(width * ratio + " xspeed: " + xspeed + " translateX: " + getTranslateX());
             
             if(tanksOne.getTranslateX()<= 0 || tanksOne.getTranslateX() >= 1200){
                 if(tanksOne.getTranslateX()<= 0){
@@ -365,18 +259,11 @@ public class TanksAnimation {
             if(tanksOne.getTranslateY() > y){
                 tanksOne.setTranslateY(y);
             } 
-            
-            //Rotate rotate = new Rotate(points[((int)tanksOne.getTranslateX())].angle(tanksOne.getTranslateX(), tanksOne.getTranslateY()));
-            tanksOne.setRotate(mapGeneration.derivativeFunction(tanksOne.getTranslateX()));
-            
-            }));
-        
-        
-         animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
-            
+    }
+    
+    private void animationForTanksTwo(){
+        tanksTwo.setRotate(50 * mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
+           
             
             
             y2 = mapGeneration.getY(tanksTwo.getTranslateX()) ;
@@ -407,16 +294,11 @@ public class TanksAnimation {
             if(tanksTwo.getTranslateY() > y2){
                 tanksTwo.setTranslateY(y2);
             } 
-        }));
-        
-         animation3 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
-            
-            
-            
-            y3 = mapGeneration.getY(tanksThree.getTranslateX()) ;
+    }
+    
+    private void animationForTankThree(){
+        tanksThree.setRotate(50 * mapGeneration.derivativeFunction(tanksThree.getTranslateX()));
+        y3 = mapGeneration.getY(tanksThree.getTranslateX()) ;
             
             tanksThree.setTranslateY(tanksThree.getTranslateY() + yspeed3);
             tanksThree.setTranslateX(tanksThree.getTranslateX() + xspeed3);
@@ -444,17 +326,11 @@ public class TanksAnimation {
             if(tanksThree.getTranslateY() > y3){
                 tanksThree.setTranslateY(y3);
             } 
-        }));
-        
-         
-         animation4 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
-            
-            
-            
-            y4 = mapGeneration.getY(tanksFour.getTranslateX()) ;
+    }
+    
+    private void animationForTankFour(){
+        tanksFour.setRotate(50 * mapGeneration.derivativeFunction(tanksFour.getTranslateX()));
+        y4 = mapGeneration.getY(tanksFour.getTranslateX()) ;
             
             tanksFour.setTranslateY(tanksFour.getTranslateY() + yspeed4);
             tanksFour.setTranslateX(tanksFour.getTranslateX() + xspeed4);
@@ -482,29 +358,6 @@ public class TanksAnimation {
             if(tanksFour.getTranslateY() > y4){
                 tanksFour.setTranslateY(y4);
             } 
-        }));
-         
-         
-        pane.getChildren().add(tanksOne);
-        pane.getChildren().add(tanksTwo);
-        pane.getChildren().add(tanksThree);
-        pane.getChildren().add(tanksFour);
-        
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.play();
-        
-        animation2.setCycleCount(Timeline.INDEFINITE);
-        animation2.play();
-        
-        animation3.setCycleCount(Timeline.INDEFINITE);
-        animation3.play();
-        
-        animation4.setCycleCount(Timeline.INDEFINITE);
-        animation4.play();
-         
-         
-    
-                
     }
     
     public void keyPressed(KeyCode x){
@@ -514,14 +367,27 @@ public class TanksAnimation {
                     
                     //Controls for player 1
                 case LEFT: {
-                        if(xspeed > -.1)
+                    
+                    if(xspeed == 0){
+                            xspeed -= 0.1;
+                            tanksOne.flipTexture();
+                        }
+                    else if(xspeed > -.1)
                         xspeed -= 0.1;
+                        
+                        
                     }break;
                     
                 case RIGHT: {
-                        if(xspeed < .1)
+                    
+                    if(xspeed == 0){
+                            xspeed += 0.1;
+                            tanksOne.normalTexture();
+                        }
+                    else if(xspeed < .1)
                         xspeed += 0.1;
                         //System.out.println("HI");
+                        
                     }break;
                     
                 case UP: {
@@ -534,12 +400,23 @@ public class TanksAnimation {
                         
                   //Controls for player 2  
                 case A: {
-                        if(xspeed2 > -.1)
+                    
+                    if(xspeed2 == 0){
+                            xspeed2 -= 0.1;
+                            tanksTwo.flipTexture();
+                        }
+                    else if(xspeed2 > -.1)
                         xspeed2 -= 0.1;
                     }break;
                     
                 case D: {
-                        if(xspeed2 < .1)
+                    
+                    if(xspeed2 == 0){
+                            xspeed2 += 0.1;
+                            tanksTwo.normalTexture();
+                        }
+                    
+                    else if(xspeed2 < .1)
                         xspeed2 += 0.1;
                         //System.out.println("HI");
                     }break;
@@ -554,12 +431,21 @@ public class TanksAnimation {
                     
                     //Controls for player 3
                 case J: {
-                        if(xspeed3 > -.1)
+                    if(xspeed3 == 0){
+                            xspeed3 -= 0.1;
+                            tanksThree.flipTexture();
+                        }
+                    
+                    else if(xspeed3 > -.1)
                         xspeed3 -= 0.1;
                     }break;
                     
                 case L: {
-                        if(xspeed3 < .1)
+                    if(xspeed3 == 0){
+                            xspeed3 += 0.1;
+                            tanksThree.normalTexture();
+                        }
+                    else if(xspeed3 < .1)
                         xspeed3 += 0.1;
                         //System.out.println("HI");
                     }break;
@@ -574,11 +460,19 @@ public class TanksAnimation {
                     
                     //Controls for player 4
                 case V: {
-                        if(xspeed4 > -.1)
+                    if(xspeed4 == 0){
+                            xspeed4 -= 0.1;
+                            tanksFour.flipTexture();
+                        }
+                       else if(xspeed4 > -.1)
                         xspeed4 -= 0.1;
                     }break;
                     
                 case B: {
+                    if(xspeed4 == 0){
+                            xspeed4 += 0.1;
+                            tanksFour.normalTexture();
+                        }
                         if(xspeed4 < .1)
                         xspeed4 += 0.1;
                         //System.out.println("HI");
@@ -593,7 +487,7 @@ public class TanksAnimation {
                 
         }
     }
-
+    
     public double getWidth() {
         return width;
     }

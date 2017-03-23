@@ -37,7 +37,7 @@ public class GamePane extends Pane{
     }
     
     public void movingBallSetup(Pane pane){
-        tanksAnimation = new TanksAnimation(mapGeneration, pane, 2);  
+        tanksAnimation = new TanksAnimation(mapGeneration, pane, 4);  
     }
     
     public void backGroundSetup(Pane pane){
