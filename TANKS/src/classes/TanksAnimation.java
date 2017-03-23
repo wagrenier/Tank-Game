@@ -7,11 +7,8 @@ package classes;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 /**
@@ -21,13 +18,30 @@ import javafx.util.Duration;
 public class TanksAnimation {
     
     double width = 1200;
+    
+    //Variables for tank 1
     double xspeed = 0;
     double yspeed = 0;
+    double y;
+    
+    //Variables for tank 2
     double xspeed2 = 0;
     double yspeed2 = 0;
-    double gravity = 0.0005;
-    double y;
     double y2;
+    
+    //Variables for tanks 3
+    double xspeed3 = 0;
+    double yspeed3 = 0;
+    double y3;
+    
+    //Variables for tank 4
+    double xspeed4 = 0;
+    double yspeed4 = 0;
+    double y4;
+    
+    
+    double gravity = 0.0005;
+    
     int numOfPlayer;
     Tanks tanksOne;
     Tanks tanksTwo;
@@ -42,10 +56,10 @@ public class TanksAnimation {
     
     
     public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
-        tanksOne = new Tanks("Texture/Tanks/Canada/Body/Red_Tank_(100x100).png", "Texture/Tanks/Canada/Body/Red_Tank_Flipped.png");
-        tanksTwo = new Tanks("Texture/Tanks/China/Body/Yellow_Tank.png", "Texture/Tanks/China/Body/Yellow_Tank_Flipped.png");
-        tanksThree = new Tanks("Texture/Tanks/NorthKorea/Body/Blue_Tank.png", "Texture/Tanks/NorthKorea/Body/Blue_Tank_Flipped.png");
-        tanksFour = new Tanks("Texture/Tanks/USA/Body/Green_Tank.png", "Texture/Tanks/USA/Body/Green_Tank_Flipped.png");
+        tanksOne = new Tanks("Texture/Tanks/Canada/Body/Red_Tank_(100x100).png", "Texture/Tanks/Canada/Body/Red_Tank_Flipped_(100x100).png");
+        tanksTwo = new Tanks("Texture/Tanks/China/Body/Yellow_Tank_(100x100).png", "Texture/Tanks/China/Body/Yellow_Tank_Flipped_(100x100).png");
+        tanksThree = new Tanks("Texture/Tanks/NorthKorea/Body/Blue_Tank_(100x100).png", "Texture/Tanks/NorthKorea/Body/Blue_Tank_Flipped_(100x100).png");
+        tanksFour = new Tanks("Texture/Tanks/USA/Body/Green_Tank_(100x100).png", "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png");
         this.numOfPlayer = numOfPlayer;     
         this.mapGeneration = mapGeneration;
         this.pane = pane;
@@ -204,9 +218,5 @@ public class TanksAnimation {
 
     public Tanks getTanksFour() {
         return tanksFour;
-    }
-     
-     
-    
-    
+    }  
 }
