@@ -21,12 +21,14 @@ public class MapGeneration {
     double lengthOfWave;
     
     MapGeneration(double startingPoint, double amplitudeOfWave, double lengthOfWave){
-        this.amplitudeOfWave = (25 + Math.random() * amplitudeOfWave);
-        this.startingPoint = (200 + Math.random() * startingPoint);
-        this.lengthOfWave = (400 + Math.random() * lengthOfWave);
+        this.amplitudeOfWave = (100 + Math.random() * amplitudeOfWave);
+        this.startingPoint = (350 + Math.random() * startingPoint);
+        this.lengthOfWave = (300 + Math.random() * lengthOfWave);
     }
     
-    
+    public double derivativeFunction(double x){
+        return ((amplitudeOfWave * Math.cos( x / lengthOfWave)) / lengthOfWave);
+    }
     
     public double getY(double x){
           return (amplitudeOfWave * Math.sin(x / lengthOfWave) + startingPoint);

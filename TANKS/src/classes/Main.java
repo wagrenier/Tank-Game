@@ -23,8 +23,19 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         
+
+
+        
+        
+        
         MainMenu mainMenuPane = new MainMenu();
+
+        
+        
         Scene scene = new Scene(mainMenuPane, 1200, 800);
+
+        
+        
         
        /*
         scene.setOnDragDetected(e ->{
