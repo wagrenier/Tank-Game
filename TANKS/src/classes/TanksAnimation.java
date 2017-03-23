@@ -114,16 +114,21 @@ public class TanksAnimation {
             } 
             
             //Rotate rotate = new Rotate(points[((int)tanksOne.getTranslateX())].angle(tanksOne.getTranslateX(), tanksOne.getTranslateY()));
-            tanksOne.setRotate(mapGeneration.derivativeFunction(tanksOne.getTranslateX()));
+            
             
             }));
         
+        
+        //tanksTwo.setCenterX(-20);
         
          animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             pane.setOnKeyPressed(x -> {
                 keyPressed(x.getCode());  
             });
             
+            
+            tanksTwo.setRotate(50 * mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
+            //tanksTwo.setCenterY(-10 + mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
             
             
             y2 = mapGeneration.getY(tanksTwo.getTranslateX()) ;
@@ -154,7 +159,12 @@ public class TanksAnimation {
             if(tanksTwo.getTranslateY() > y2){
                 tanksTwo.setTranslateY(y2);
             } 
+            
+            //System.out.println(mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
+            
+            //tanksTwo.setRotate(100 * mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
         }));
+         
         
         pane.getChildren().add(tanksOne);
         pane.getChildren().add(tanksTwo);
@@ -165,7 +175,8 @@ public class TanksAnimation {
         animation2.setCycleCount(Timeline.INDEFINITE);
         animation2.play();
          
-         
+         //tanksOne.setRotate(20);
+         //tanksTwo.setRotate(20);
     
                 
     }
@@ -249,6 +260,8 @@ public class TanksAnimation {
             if(tanksTwo.getTranslateY() > y2){
                 tanksTwo.setTranslateY(y2);
             } 
+            
+            tanksTwo.setRotate(mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
         }));
         
          animation3 = new Timeline(new KeyFrame(Duration.millis(1), e -> {

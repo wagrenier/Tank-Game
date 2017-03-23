@@ -32,10 +32,11 @@ public class MainTankMouvementTest extends Application {
         
         primaryStage.setResizable(false);
         
-        primaryStage.getIcons().add(new Image("Texture/Tanks/Canada/Body/Red_Tank_(100x100).png"));
+        primaryStage.getIcons().add(new Image("Texture/Tanks/USA/Body/Green_Tank_(100x100).png"));
+        primaryStage.setTitle("Tanks");
+        
         primaryStage.setMinHeight(800);
         primaryStage.setMinWidth(1200);
-        primaryStage.setTitle("Tanks");
         primaryStage.setMaxWidth(1200);
         primaryStage.setMaxHeight(800);
         pane.requestFocus();

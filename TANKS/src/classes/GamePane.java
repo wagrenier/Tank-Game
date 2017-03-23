@@ -20,24 +20,24 @@ import javafx.scene.shape.Rectangle;
  */
 public class GamePane extends Pane{
     
-    double width = 1200;
-    double height = 800;
-    
+    private double width = 1200;
+    private double height = 800;
+    private TanksAnimation tanksAnimation;
     
     MapGeneration mapGeneration = new MapGeneration(200, 200, 500);
     
     public GamePane(){
         paneSetup(this);
-        movingBallSetup(this);
     }
     
     public void paneSetup(Pane pane){
         frontGroundSetup(pane);
         backGroundSetup(pane);
+        movingBallSetup(pane);
     }
     
     public void movingBallSetup(Pane pane){
-        TanksAnimation tanksAnimation = new TanksAnimation(mapGeneration, pane, 2);  
+        tanksAnimation = new TanksAnimation(mapGeneration, pane, 2);  
     }
     
     public void backGroundSetup(Pane pane){

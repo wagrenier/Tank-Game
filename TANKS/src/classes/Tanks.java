@@ -6,7 +6,6 @@
 package classes;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -39,13 +38,13 @@ public class Tanks extends Circle{
         //ImageView imageView = new ImageView(texture);
         
         
-        this.setCenterY(-20);
+        this.setCenterY(-18);
         
         this.setFill(texturePattern);
-        
-        setStroke(Color.BLACK);
-        setTranslateX(50);
-        setTranslateY(200);
+        //this.setRotate(20);
+        //setStroke(Color.BLACK);
+        //setTranslateX(50);
+        //setTranslateY(200);
     }  
     
     public void flipTexture(){

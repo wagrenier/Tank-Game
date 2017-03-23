@@ -27,7 +27,7 @@ public class MapGeneration {
     }
     
     public double derivativeFunction(double x){
-        return ((amplitudeOfWave / lengthOfWave) * Math.cos( x / lengthOfWave));
+        return ((amplitudeOfWave * Math.cos( x / lengthOfWave)) / lengthOfWave);
     }
     
     public double getY(double x){
