@@ -10,6 +10,7 @@ package classes;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -18,15 +19,12 @@ import javafx.stage.Stage;
  */
 public class MainTankMouvementTest extends Application {
     
-    
-    
-    
     @Override
     public void start(Stage primaryStage) {
         
         GamePane pane = new GamePane();
         
-        Scene scene = new Scene(pane, 1200, 800);
+        Scene scene = new Scene(pane);
         
        
         primaryStage.setScene(scene);
@@ -34,7 +32,7 @@ public class MainTankMouvementTest extends Application {
         
         primaryStage.setResizable(false);
         
-        
+        primaryStage.getIcons().add(new Image("Texture/Tanks/Canada/Body/Red_Tank_(100x100).png"));
         primaryStage.setMinHeight(800);
         primaryStage.setMinWidth(1200);
         primaryStage.setTitle("Tanks");
