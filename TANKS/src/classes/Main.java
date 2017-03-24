@@ -5,12 +5,10 @@
  */
 package classes;
 
-import java.util.ArrayList;
+
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-
 import javafx.stage.Stage;
 
 /**
@@ -18,66 +16,79 @@ import javafx.stage.Stage;
  * @author Cedrik Dubois
  */
 public class Main extends Application {
-    MainMenu mainMenu = new MainMenu();
-    PlayerMenu playerMenu = new PlayerMenu();
-    CountryMenu countryMenu = new CountryMenu();
     
-    private static int numberOfPlayers;
-    private static int playerCount = 1;
     
-    private static int paneCount = 0;
-    private ArrayList<Pane> paneList = new ArrayList<>();
+    
     
     @Override
-    public void start(Stage stage) {
+    public void start(Stage primaryStage) {
         
-        paneList.add(mainMenu);
-        paneList.add(playerMenu);
-        paneList.add(countryMenu);
-        
-        Scene scene = new Scene(mainMenu);
-        stage.setScene(scene);
-        
-        stage.show();
+
+
         
         
-        mainMenu.getPlayBtn().setOnMouseClicked(e -> {
-            paneCount++;
-            scene.setRoot(paneList.get(paneCount));
-        });
         
-        playerMenu.getBackBtn().setOnMouseClicked(e -> {
-            paneCount--;
-            scene.setRoot(paneList.get(paneCount));
-        });
+        MainMenu mainMenuPane = new MainMenu();
+
         
-        playerMenu.getNextBtn().setOnMouseClicked(e -> {
-            paneCount++;
-            scene.setRoot(paneList.get(paneCount));
-            numberOfPlayers = playerMenu.getNumberOfPlayers();
-        });
-        /*
-        countryMenu.getNextBtn().setOnMouseClicked(e -> {
-            if (playerCount <= numberOfPlayers){
-                countryMenu.resetPane(playerCount);
-                playerCount++;
-            }
-            else{
-                System.out.println("Map Selection Menu");
-            }
+        
+        Scene scene = new Scene(mainMenuPane, 1200, 800);
+
+        
+        
+        
+       /*
+        scene.setOnDragDetected(e ->{
+            
+            
+           width = pane.getWidth();
+           //System.out.println(width);
+           height = pane.getHeight();
+           ratio = 1200 / width;
+           ratioHeight = 800 / height;
+           
+           pane.setScaleX(ratio);
+           pane.setScaleY(ratioHeight);
+           //pane.resize(width, height);
+           
+           //ratioHeight = 800 / height;
+           //pane.resize(width, height);
+           //pane.setLayoutX(pane.getTranslateX() * ratio);
+           //pane.setLayoutY(pane.getTranslateY() * ratio);
+            
+            /**
+            pie.stop();
+            pane.getChildren().clear();
+            pie.getChildren().clear();
+            paneSetup(pane);
+            movingBallSetup(pane);
+            
+            
+            
         });
         */
-        countryMenu.getBackBtn().setOnMouseClicked(e -> {
-            paneCount--;
-            scene.setRoot(paneList.get(paneCount));
-        });
+       
+        primaryStage.setScene(scene);
+        primaryStage.show();
         
+       primaryStage.setResizable(false);
+        
+        
+        primaryStage.setMinHeight(800);
+        primaryStage.setMinWidth(1200);
+        
+        primaryStage.setMaxWidth(1200);
+        primaryStage.setMaxHeight(800);
+        mainMenuPane.requestFocus();
     }
+    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
+
     
 }
