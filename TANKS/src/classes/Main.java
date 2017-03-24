@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author Cedrik Dubois
  */
-public class Game extends Application {
+public class Main extends Application {
     MainMenu mainMenu = new MainMenu();
     PlayerMenu playerMenu = new PlayerMenu();
     CountryMenu countryMenu = new CountryMenu();
