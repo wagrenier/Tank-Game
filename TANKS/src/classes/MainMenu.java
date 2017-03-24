@@ -120,9 +120,7 @@ public class MainMenu extends Pane{
         });
         
         
-        playBtn.setOnMouseClicked(e -> {
-            System.out.println("Play button pressed");
-        });
+        
         playBtn.setOnMousePressed(e -> {
             playBtn.setImage(playBtnClicked);
         });
@@ -130,6 +128,9 @@ public class MainMenu extends Pane{
             playBtn.setImage(playBtnHover);
         });
 
+    }
+    public ImageView getPlayBtn(){
+        return playBtn;
     }
     
     private void setBackground(){
