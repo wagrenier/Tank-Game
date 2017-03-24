@@ -16,12 +16,14 @@ import javafx.scene.shape.Circle;
  */
 public class Tanks extends Circle{
     
-    String imagePath;
-    String imageReversePath;
-    ImagePattern texturePattern;
-    ImagePattern texturePatternFlipped;
-    Image texture;
-    Image textureFlipped;
+    private int lifePoint = 100;
+    private String imagePath;
+    private String imageReversePath;
+    private ImagePattern texturePattern;
+    private ImagePattern texturePatternFlipped;
+    private Image texture;
+    private Image textureFlipped;
+    
     
     Tanks(String imagePath, String imageReversePath){
         this.setRadius(50);
