@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package Weapon;
 
+import MapGeneration.MapGeneration;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -20,8 +22,13 @@ public class MainWeaponTest extends Application{
     @Override
     public void start(Stage primaryStage) {
         
-        GamePane pane = new GamePane();
+        Pane pane = new Pane();
         
+        
+        WeaponManager weaponManager = new WeaponManager();
+        MapGeneration mapGeneration = new MapGeneration(200, 200, 500);
+        //pane.getChildren().add(weaponManager.getWeaponFromWeaponManager(0));
+        WeaponAnimation weaponAnimation = new WeaponAnimation(weaponManager.getWeaponFromWeaponManager(0), mapGeneration, pane);
         Scene scene = new Scene(pane);
         
        

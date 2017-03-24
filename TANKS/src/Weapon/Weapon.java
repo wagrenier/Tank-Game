@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package Weapon;
 
+import MapGeneration.MapGeneration;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 /**
@@ -22,14 +24,20 @@ public class Weapon extends Circle{
     private String soundEffectPath;
     private String weaponName;
     private Image texture;
-    private ImageView textureView;
+    private ImagePattern texturePattern;
     private Media soundEffect;
     private MediaPlayer soundEffectPlayer;
     private MapGeneration mapGeneration;
     
     
-    public Weapon(){
+    public Weapon(String texturePath){
+        this.texturePath = texturePath;
+        //textureView = new ImageView(this.texture);
+        texture = new Image(this.texturePath);
+        texturePattern = new ImagePattern(texture);
+        this.setFill(texturePattern);
         
+        this.setRadius(25);
     }
 
     public Weapon(int costOfWeapon, String weaponName, String texturePath, String soundEffectPath, MapGeneration mapGeneration) {
@@ -42,16 +50,16 @@ public class Weapon extends Circle{
         this.weaponName = weaponName;
         
         texture = new Image(this.texturePath);
-        textureView = new ImageView(this.texture);
+        texturePattern = new ImagePattern(this.texture);
         soundEffect = new Media(this.soundEffectPath);
         soundEffectPlayer = new MediaPlayer(this.soundEffect);
         
     }
 
-    public Weapon(int costOfWeapon, Image texture, ImageView textureView, Media soundEffect, MediaPlayer soundEffectPlayer, MapGeneration mapGeneration) {
+    public Weapon(int costOfWeapon, Image texture, ImagePattern texturePattern, Media soundEffect, MediaPlayer soundEffectPlayer, MapGeneration mapGeneration) {
         this.costOfWeapon = costOfWeapon;
         this.texture = texture;
-        this.textureView = textureView;
+        this.texturePattern = texturePattern;
         this.soundEffect = soundEffect;
         this.soundEffectPlayer = soundEffectPlayer;
         this.mapGeneration = mapGeneration;
@@ -73,12 +81,12 @@ public class Weapon extends Circle{
         this.texture = texture;
     }
 
-    public ImageView getTextureView() {
-        return textureView;
+    public ImagePattern getTextureView() {
+        return texturePattern;
     }
 
-    public void setTextureView(ImageView textureView) {
-        this.textureView = textureView;
+    public void setTextureView(ImagePattern texturePattern) {
+        this.texturePattern = texturePattern;
     }
 
     public Media getSoundEffect() {
