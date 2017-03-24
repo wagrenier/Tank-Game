@@ -78,6 +78,19 @@ public class CountryMenu extends Pane{
         setUsername();
         setBackBtn();
     }
+    public String getPlayerName(){
+        return usernameField.getText();
+    }
+    public String getCountry(){
+        
+        switch (tankCount){
+            case 0: return "North Korea";
+            case 1: return "USA";
+            case 2: return "Canada";
+            case 3: return "China";
+        }
+        return "ERROR: NO TEAM";
+    }
     private void setBackBtn(){
         backBtn = new ImageView(backBtnImage);
         
@@ -157,6 +170,7 @@ public class CountryMenu extends Pane{
             
             tank.setImage(tankList.get(tankCount));
             flag.setImage(flagList.get(tankCount));
+            //getCountry();
         });
         
         leftBtn.setOnMouseEntered(e -> {
@@ -198,6 +212,7 @@ public class CountryMenu extends Pane{
             
             tank.setImage(tankList.get(tankCount));
             flag.setImage(flagList.get(tankCount));
+            //getCountry();
         });
         
         rightBtn.setOnMouseEntered(e -> {
@@ -264,7 +279,12 @@ public class CountryMenu extends Pane{
         flagList.add(new Image("Texture/Menus/CountryMenu/China Flag.png"));
     }
     public void resetPane(int var){
-        usernameField.setText("Player" + player);
+        player = var;
+        usernameField.setText("Player " + player);
+        
+        tankCount = 0;
+        tank.setImage(tankList.get(tankCount));
+        flag.setImage(flagList.get(tankCount));
     }
     private void setNextBtn(){
         nextBtn = new ImageView(nextBtnImage);
