@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package MapGeneration;
 
 /**
  *
@@ -20,7 +20,7 @@ public class MapGeneration {
     double startingPoint;
     double lengthOfWave;
     
-    MapGeneration(double startingPoint, double amplitudeOfWave, double lengthOfWave){
+    public MapGeneration(double startingPoint, double amplitudeOfWave, double lengthOfWave){
         this.amplitudeOfWave = (100 + Math.random() * amplitudeOfWave);
         this.startingPoint = (350 + Math.random() * startingPoint);
         this.lengthOfWave = (300 + Math.random() * lengthOfWave);
