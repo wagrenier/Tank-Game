@@ -68,7 +68,7 @@ public class Main_1 extends Application {
         countryMenu.getNextBtn().setOnMouseClicked(e -> {
             /*
             *
-            *At 3, register last player and switch roots
+            *At last player, register last player and switch roots
             *
             */
             if (playerCount == numberOfPlayers - 1){
