@@ -21,6 +21,7 @@ public class Main_1 extends Application {
     MainMenu mainMenu = new MainMenu();
     PlayerMenu playerMenu = new PlayerMenu();
     CountryMenu countryMenu = new CountryMenu();
+    MapMenu mapMenu = new MapMenu();
     
     private static int numberOfPlayers;
     private static int playerCount = 0;
@@ -36,6 +37,7 @@ public class Main_1 extends Application {
         paneList.add(mainMenu);
         paneList.add(playerMenu);
         paneList.add(countryMenu);
+        paneList.add(mapMenu);
         
         Scene scene = new Scene(mainMenu);
         stage.setScene(scene);
@@ -73,7 +75,7 @@ public class Main_1 extends Application {
             */
             if (playerCount == numberOfPlayers - 1){
                 registerPlayer();
-                System.out.println("Switch Menu");
+                scene.setRoot(mapMenu);
                 
                 for (int i = 0; i < playerList.size(); i++){
                     System.out.println(playerList.get(i).toString());
