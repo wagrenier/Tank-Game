@@ -74,7 +74,7 @@ public class Main_1 extends Application {
             *
             */
             if (playerCount == numberOfPlayers - 1){
-                registerPlayer();
+                registerPlayer(true);
                 scene.setRoot(mapMenu);
                 
                 for (int i = 0; i < playerList.size(); i++){
@@ -82,7 +82,7 @@ public class Main_1 extends Application {
                 }
             }
             
-            registerPlayer();
+            registerPlayer(false);
             playerCount++;
             countryMenu.resetPane(playerCount + 1);
         });
@@ -98,9 +98,12 @@ public class Main_1 extends Application {
         });
         
     }
-    private void registerPlayer(){
+    private void registerPlayer(boolean lastplayer){
+        
         playerList.get(playerCount).setName(countryMenu.getPlayerName());
         playerList.get(playerCount).setTeam(countryMenu.getCountry());
+        if (!lastplayer)
+            countryMenu.removeTeam(countryMenu.getTankCount());
     }
     /**
      * @param args the command line arguments

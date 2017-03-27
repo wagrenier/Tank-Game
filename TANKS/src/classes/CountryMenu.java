@@ -78,8 +78,16 @@ public class CountryMenu extends Pane{
         setUsername();
         setBackBtn();
     }
+    public void removeTeam(int country){
+        tankList.remove(country);
+        flagList.remove(country);
+        
+    }
     public String getPlayerName(){
         return usernameField.getText();
+    }
+    public int getTankCount(){
+        return tankCount;
     }
     public String getCountry(){
         
@@ -164,13 +172,12 @@ public class CountryMenu extends Pane{
         */
         leftBtn.setOnMouseClicked(e -> {
             if (tankCount == 0)
-                tankCount = 3;
+                tankCount = tankList.size() - 1;
             else
                 tankCount--;
             
             tank.setImage(tankList.get(tankCount));
             flag.setImage(flagList.get(tankCount));
-            //getCountry();
         });
         
         leftBtn.setOnMouseEntered(e -> {
@@ -205,7 +212,7 @@ public class CountryMenu extends Pane{
         });
         */
         rightBtn.setOnMouseClicked(e -> {
-            if (tankCount == 3)
+            if (tankCount == tankList.size() - 1)
                 tankCount = 0;
             else
                 tankCount++;
@@ -267,12 +274,14 @@ public class CountryMenu extends Pane{
         
     }
     private void setTankList(){
+        tankList.clear();
         tankList.add(new Image("Texture/Menus/CountryMenu/North Korea Selection Tank.png"));
         tankList.add(new Image("Texture/Menus/CountryMenu/USA Selection Tank.png"));
         tankList.add(new Image("Texture/Menus/CountryMenu/Canada Selection Tank.png"));
         tankList.add(new Image("Texture/Menus/CountryMenu/China Selection Tank.png"));
     }
     private void setFlagList(){
+        flagList.clear();
         flagList.add(new Image("Texture/Menus/CountryMenu/North Korea Flag.png"));
         flagList.add(new Image("Texture/Menus/CountryMenu/USA Flag.png"));
         flagList.add(new Image("Texture/Menus/CountryMenu/Canada Flag.png"));
