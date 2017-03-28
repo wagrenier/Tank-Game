@@ -24,6 +24,39 @@ public class WeaponAnimation {
      * 
      */
     
+    
+    /**
+     * d = distance
+     * v = speed at which the projectile is launched
+     * g = gravity
+     * yi = initial y position (obtained from the location of the tank)
+     * 
+     */
+    
+    
+    /**
+     * 
+     * Formula for the diatance
+     * d =  (v * cosθ / g) * (v * sinθ + sqrt((vsinθ) ^ 2 + 2 * g * yi))
+     * 
+     * Formula for the time
+     * t = d / (v * cos(θ))
+     * 
+     * Formula for the x position of the projectile, (will not be used)
+     * x = xi + v * cos(θ) * t
+     * 
+     * Formula for the speed in X
+     * Vxi = Vxf
+     * 
+     * Formula for the y position of the projectile
+     * y = yi + x * Tan(θ) - ( (g * x ^ 2) / (2 * (v * cos(θ)) ^ 2)
+     * 
+     * Formula for the speed in Y
+     * Vy = v * sin(θ) - ((g * x) / (v * cos(θ)))
+     * 
+     */
+    
+    
     private double initialXPosition;
     private double initialYPosition;
     private double yspeed = 1;
@@ -35,7 +68,7 @@ public class WeaponAnimation {
     
     MapGeneration mapGeneration;
     Weapon weapon;
-    Timeline animation;
+    Timeline animationWeapon;
     Tanks tank;
     Pane pane;
     
@@ -62,10 +95,8 @@ public class WeaponAnimation {
     private void setupAnimation(){
         
         
-        animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                
-            });
+        animationWeapon =  new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            
             
             weapon.setRotate(50 * mapGeneration.derivativeFunction(weapon.getTranslateX()));
         
@@ -92,10 +123,15 @@ public class WeaponAnimation {
             
             }));
         
+        
+    }
+    
+    public void launchAnimation(){
+        weapon.setTranslateX(tank.getTranslateX());
         pane.getChildren().add(weapon);
         
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.play();
+        animationWeapon.setCycleCount(Timeline.INDEFINITE);
+        animationWeapon.play();
     }
     
     

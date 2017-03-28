@@ -7,6 +7,8 @@ package GamePane;
 
 import Tanks.TanksAnimation;
 import MapGeneration.MapGeneration;
+import Weapon.WeaponAnimation;
+import Weapon.WeaponManager;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -25,6 +27,8 @@ public class GamePane extends Pane{
     private double width = 1200;
     private double height = 800;
     private TanksAnimation tanksAnimation;
+    private WeaponAnimation weaponAnimation;
+    WeaponManager weaponManager;
     
     MapGeneration mapGeneration = new MapGeneration(200, 200, 500);
     
@@ -35,10 +39,19 @@ public class GamePane extends Pane{
     public void paneSetup(Pane pane){
         frontGroundSetup(pane);
         backGroundSetup(pane);
-        movingBallSetup(pane);
+        tanksSetup(pane);
+        weaponSetup(pane);
     }
     
-    public void movingBallSetup(Pane pane){
+    private void weaponSetup(Pane pane){
+        weaponManager = new WeaponManager();
+        
+        weaponAnimation = new WeaponAnimation(weaponManager.getWeaponFromWeaponManager(0), tanksAnimation.getTanksOne(), mapGeneration, pane);
+        
+        weaponAnimation.launchAnimation();
+    }
+    
+    public void tanksSetup(Pane pane){
         tanksAnimation = new TanksAnimation(mapGeneration, pane, 4);  
     }
     
