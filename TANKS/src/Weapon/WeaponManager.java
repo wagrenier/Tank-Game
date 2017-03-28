@@ -33,7 +33,6 @@ public class WeaponManager {
         return weaponArrayList.get(index);
     }
     
-    
     public ArrayList<Weapon> getWeaponArrayList() {
         return weaponArrayList;
     }

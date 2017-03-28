@@ -31,6 +31,7 @@ public class MapGeneration {
     }
     
     public double getY(double x){
-          return (amplitudeOfWave * Math.sin(x / lengthOfWave) + startingPoint);
+          //return (amplitudeOfWave * Math.sin(x / lengthOfWave) + startingPoint);
+          return 700;
     }
 }

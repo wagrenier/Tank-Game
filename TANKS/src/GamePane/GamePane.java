@@ -65,7 +65,7 @@ public class GamePane extends Pane{
         pane.setBackground(new Background(myBI));
     }
     
-   public void frontGroundSetup(Pane pane){
+    public void frontGroundSetup(Pane pane){
        
        Rectangle rect;
        double yLocation = 0;

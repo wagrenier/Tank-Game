@@ -6,6 +6,7 @@
 package Weapon;
 
 import MapGeneration.MapGeneration;
+import Tanks.TanksAnimation;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
@@ -25,10 +26,13 @@ public class MainWeaponTest extends Application{
         Pane pane = new Pane();
         
         
+        
         WeaponManager weaponManager = new WeaponManager();
         MapGeneration mapGeneration = new MapGeneration(200, 200, 500);
         //pane.getChildren().add(weaponManager.getWeaponFromWeaponManager(0));
-        WeaponAnimation weaponAnimation = new WeaponAnimation(weaponManager.getWeaponFromWeaponManager(0), mapGeneration, pane);
+        
+        TanksAnimation tanksAnimation = new TanksAnimation(mapGeneration, pane, 4); 
+        WeaponAnimation weaponAnimation = new WeaponAnimation(weaponManager.getWeaponFromWeaponManager(0),tanksAnimation.getTanksOne(), mapGeneration, pane);
         Scene scene = new Scene(pane);
         
        
