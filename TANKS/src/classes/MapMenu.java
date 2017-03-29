@@ -5,6 +5,7 @@
  */
 package classes;
 
+import java.util.ArrayList;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,6 +15,9 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -32,19 +36,19 @@ public class MapMenu extends Pane{
     *
     */
     
-    private Background mountainBackground;
-    private Background desertBackground;
-    private BackgroundImage desertImage = new BackgroundImage(new Image("Texture/Menus/MapMenu/Desert Map.png", WIDTH, HEIGHT, false, true), 
-            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-            BackgroundSize.DEFAULT);
-    private BackgroundImage mountainImage = new BackgroundImage(new Image("Texture/Menus/MapMenu/Mountain Map.png", WIDTH, HEIGHT, false, true), 
-            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-            BackgroundSize.DEFAULT);
-    private int var = 0;
+    private Background[] backgrounds = new Background[4];
+    private static int backgroundIndex = 1;
     
     private ImageView playBtn;
     private ImageView backBtn;
     private ImageView rightBtn;
+    
+    private Image[] tanks = new Image[4];
+    
+    private Image usaTank = new Image("Texture/Menus/MapMenu/USA.png");
+    private Image northKoreaTank = new Image("Texture/Menus/MapMenu/North Korea.png");
+    private Image canadaTank = new Image("Texture/Menus/MapMenu/Canada.png");
+    private Image chinaTank = new Image("Texture/Menus/MapMenu/China.png");
     
     private Image playBtnImage = new Image("Texture/Menus/MapMenu/Play Button.png");
     private Image playBtnHover = new Image("Texture/Menus/MapMenu/Play Button Hover.png");
@@ -58,6 +62,13 @@ public class MapMenu extends Pane{
     private Image rightBtnHover = new Image("Texture/Menus/PlayerMenu/Right Arrow Hover.png");
     private Image rightBtnClicked = new Image("Texture/Menus/PlayerMenu/Right Arrow Clicked.png");
     
+    private ArrayList<Player> players;
+    private ArrayList<Text> playerNames = new ArrayList<Text>();
+    private ArrayList<ImageView> playerTanks = new ArrayList<ImageView>();
+    
+    
+    private static Text p;
+    
     public MapMenu(){
         this.setMinWidth(WIDTH);
         this.setMaxWidth(WIDTH);
@@ -65,10 +76,53 @@ public class MapMenu extends Pane{
         this.setMaxHeight(HEIGHT);
         
         setBackgrounds();
+        setTankList();
         setPlayBtn();
         setBackBtn();
         setRightBtn();
         
+        
+    }
+    private void setPlayerTanks(){
+        for (int i = 0; i < players.size(); i++){
+            System.out.println(players.get(i).getTeam());
+        }
+    }
+    private void setTankList(){
+        tanks[0] = northKoreaTank;
+        tanks[1] = usaTank;
+        tanks[2] = canadaTank;
+        tanks[3] = chinaTank;
+    }
+    private void setLeaderboard(){
+        
+        
+        for (int i = 0; i < playerNames.size(); i++){
+            this.getChildren().add(playerNames.get(i));
+        }
+        
+        playerNames.get(0).setTranslateX(400);
+        playerNames.get(0).setTranslateY(280);
+        
+        for (int i = 1; i < playerNames.size(); i++){
+            playerNames.get(i).setTranslateX(playerNames.get(i - 1).getTranslateX());
+            playerNames.get(i).setTranslateY(playerNames.get(i - 1).getTranslateY() + 80);
+        }
+        
+        
+    }
+    public void setPlayers(){
+        for (int i = 0; i < players.size(); i++){
+            playerNames.add(new Text(players.get(i).getUsername()));
+        }
+        for (int i = 0; i < playerNames.size(); i++){
+            playerNames.get(i).setFont(Font.font("Verdana", FontWeight.BOLD, 35));
+        }
+        setLeaderboard();
+        setPlayerTanks();
+    }
+    public void setPlayerList(ArrayList<Player> players){
+        this.players = players;
     }
     private void setRightBtn(){
         rightBtn = new ImageView(rightBtnImage);
@@ -87,14 +141,12 @@ public class MapMenu extends Pane{
         */
         
         rightBtn.setOnMouseClicked(e -> {
-            if (var == 0){
-                this.setBackground(desertBackground);
-                var = 1;
-            }
-            else if (var == 1){
-                this.setBackground(mountainBackground);
-                var = 0;
-            }
+            if (backgroundIndex == 3)
+                backgroundIndex = 0;
+            else
+                backgroundIndex++;
+            
+            this.setBackground(backgrounds[backgroundIndex]);
         });
         
         rightBtn.setOnMouseEntered(e -> {
@@ -179,9 +231,20 @@ public class MapMenu extends Pane{
         });
     }
     private void setBackgrounds(){
-        mountainBackground = new Background(mountainImage);
-        desertBackground = new Background(desertImage);
+        backgrounds[0] = new Background(new BackgroundImage(new Image("Texture/Menus/MapMenu/Desert Map.png", WIDTH, HEIGHT, false, true), 
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT));
+        backgrounds[1] = new Background(new BackgroundImage(new Image("Texture/Menus/MapMenu/Mountain Map.png", WIDTH, HEIGHT, false, true), 
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT));
+        backgrounds[2] = new Background(new BackgroundImage(new Image("Texture/Menus/MapMenu/Space Map.png", WIDTH, HEIGHT, false, true), 
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT));
+        backgrounds[3] = new Background(new BackgroundImage(new Image("Texture/Menus/MapMenu/Snow Map.png", WIDTH, HEIGHT, false, true), 
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT));
         
-        this.setBackground(mountainBackground);
+        
+        this.setBackground(backgrounds[backgroundIndex]);
     }
 }

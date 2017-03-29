@@ -11,12 +11,12 @@ package classes;
  */
 public class Player {
     private String username;
-    private String team;
+    private int team;
     
     public Player(){
         
     }
-    public Player(String username, String team){
+    public Player(String username, int team){
         this.username = username;
         this.team = team;
     }
@@ -25,7 +25,7 @@ public class Player {
         this.username = name;
     }
     
-    public void setTeam(String team){
+    public void setTeam(int team){
         this.team = team;
     }
     
@@ -33,7 +33,7 @@ public class Player {
         return this.username;
     }
     
-    public String getTeam(){
+    public int getTeam(){
         return this.team;
     }
     

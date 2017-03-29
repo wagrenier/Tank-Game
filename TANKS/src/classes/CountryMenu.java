@@ -291,9 +291,11 @@ public class CountryMenu extends Pane{
         player = var;
         usernameField.setText("Player " + player);
         
-        tankCount = 0;
-        tank.setImage(tankList.get(tankCount));
-        flag.setImage(flagList.get(tankCount));
+        if (tankList.size() > 0){
+            tankCount = 0;
+            tank.setImage(tankList.get(tankCount));
+            flag.setImage(flagList.get(tankCount));
+        }
     }
     private void setNextBtn(){
         nextBtn = new ImageView(nextBtnImage);

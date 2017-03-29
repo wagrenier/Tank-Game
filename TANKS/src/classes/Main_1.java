@@ -64,7 +64,7 @@ public class Main_1 extends Application {
                 playerList.add(new Player());
             }
             
-            System.out.println(playerList.size());
+            
         });
         
         countryMenu.getNextBtn().setOnMouseClicked(e -> {
@@ -76,10 +76,10 @@ public class Main_1 extends Application {
             if (playerCount == numberOfPlayers - 1){
                 registerPlayer(true);
                 scene.setRoot(mapMenu);
+                mapMenu.setPlayerList(playerList);
+                mapMenu.setPlayers();
                 
-                for (int i = 0; i < playerList.size(); i++){
-                    System.out.println(playerList.get(i).toString());
-                }
+                
             }
             
             registerPlayer(false);
@@ -101,7 +101,7 @@ public class Main_1 extends Application {
     private void registerPlayer(boolean lastplayer){
         
         playerList.get(playerCount).setName(countryMenu.getPlayerName());
-        playerList.get(playerCount).setTeam(countryMenu.getCountry());
+        playerList.get(playerCount).setTeam(countryMenu.getTankCount());
         if (!lastplayer)
             countryMenu.removeTeam(countryMenu.getTankCount());
     }
