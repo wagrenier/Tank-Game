@@ -46,6 +46,8 @@ public class GamePane extends Pane{
     private void weaponSetup(Pane pane){
         weaponManager = new WeaponManager();
         
+        tanksAnimation.getTanksOne().setTranslateY(700);
+        
         weaponAnimation = new WeaponAnimation(weaponManager.getWeaponFromWeaponManager(0), tanksAnimation.getTanksOne(), mapGeneration, pane);
         
         weaponAnimation.launchAnimation();
