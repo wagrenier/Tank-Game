@@ -24,47 +24,16 @@ public class WeaponAnimation {
      * 
      */
     
-    
-    /**
-     * d = distance
-     * v = speed at which the projectile is launched
-     * g = gravity
-     * yi = initial y position (obtained from the location of the tank)
-     * 
-     */
-    
-    
-    /**
-     * 
-     * Formula for the diatance
-     * d =  (v * cosθ / g) * (v * sinθ + sqrt((vsinθ) ^ 2 + 2 * g * yi))
-     * 
-     * Formula for the time
-     * t = d / (v * cos(θ))
-     * 
-     * Formula for the x position of the projectile, (will not be used)
-     * x = xi + v * cos(θ) * t
-     * 
-     * Formula for the speed in X
-     * Vxi = Vxf
-     * 
-     * Formula for the y position of the projectile
-     * y = yi + x * Tan(θ) - ( (g * x ^ 2) / (2 * (v * cos(θ)) ^ 2)
-     * 
-     * Formula for the speed in Y
-     * Vy = v * sin(θ) - ((g * x) / (v * cos(θ)))
-     * 
-     */
-    
-    
     private double initialXPosition;
     private double initialYPosition;
-    private double initialVelocity = -.5;
+    private double initialVelocity = .5;
     private double gravity = .0005;
     private double currentYPosition;
-    private double angleLaunched = Math.PI / 3; // angle must be between 0 and 1 included
-    private double yspeed = initialVelocity * Math.sin(angleLaunched);
-    private double xspeed = -initialVelocity * Math.cos(angleLaunched);
+    private double canonAngle = Math.PI / 2;
+    private double angleLaunched; // angle must be between 0 and 1 included
+    private double initialYVelocity;
+    private double yspeed;
+    private double xspeed;
     
     MapGeneration mapGeneration;
     Weapon weapon;
@@ -79,6 +48,10 @@ public class WeaponAnimation {
         this.mapGeneration = mapGeneration;
         this.initialXPosition = tank.getTranslateX();
         this.initialYPosition = tank.getTranslateY();
+        angleLaunched = mapGeneration.derivativeFunction(tank.getTranslateX()) - canonAngle;
+        initialYVelocity = initialVelocity * Math.sin(angleLaunched);
+        yspeed = initialVelocity * Math.sin(angleLaunched);
+        xspeed = initialVelocity * Math.cos(angleLaunched);
         setupAnimation();
     }
     
@@ -95,8 +68,10 @@ public class WeaponAnimation {
        
         
         weapon.setTranslateX(weapon.getTranslateX() + initialXPosition);
-        weapon.setTranslateY(weapon.getTranslateY() + initialYPosition -1);
-        //System.out.println(weapon.getTranslateY() + " " + initialYPosition);
+        weapon.setTranslateY(weapon.getTranslateY() + initialYPosition - 1);
+        
+        
+        weapon.setRotate(Math.toDegrees(angleLaunched));
         
         animationWeapon =  new Timeline(new KeyFrame(Duration.millis(1), e -> {
             
@@ -104,7 +79,7 @@ public class WeaponAnimation {
             weapon.setTranslateY(weapon.getTranslateY() + yspeed);
             weapon.setTranslateX(weapon.getTranslateX() + xspeed); 
             
-           // System.out.println("weapon Translate X: " + weapon.getTranslateX() + " Weapon Translate Y: " + weapon.getTranslateY() + " Tank Translate X: " + tank.getTranslateX() + " Tank Translate Y: " + tank.getTranslateY() +" currentYPos: " + currentYPosition + " xspeed: " + xspeed + " yspeed: " + yspeed);
+           //System.out.println("weapon Translate X: " + weapon.getTranslateX() + " Weapon Translate Y: " + weapon.getTranslateY() + " Tank Translate X: " + tank.getTranslateX() + " Tank Translate Y: " + tank.getTranslateY() +" currentYPos: " + currentYPosition + " xspeed: " + xspeed + " yspeed: " + yspeed + " rotation angle:" + angleLaunched);
             
             if(weapon.getTranslateX()<= 0 || weapon.getTranslateX() >= 1200){
                 xspeed *= -1;  
@@ -119,6 +94,7 @@ public class WeaponAnimation {
             if(weapon.getTranslateY() > currentYPosition){
                 weapon.setTranslateY(currentYPosition);
             } 
+            weapon.setRotate(projectileRotation());
             }));
     }
     
@@ -128,6 +104,10 @@ public class WeaponAnimation {
         pane.getChildren().add(weapon);
         animationWeapon.setCycleCount(Timeline.INDEFINITE);
         animationWeapon.play();
+    }
+    
+    private double projectileRotation(){
+        return Math.toDegrees(Math.asin((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));
     }
       
 }

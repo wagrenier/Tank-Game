@@ -17,8 +17,8 @@ import javafx.stage.Stage;
 /**
  *
  * @author Cedrik Dubois
- */
-public class MainTankMouvementTest extends Application {
+ */ 
+public class MainTankMouvementTest extends Application { 
     
     @Override
     public void start(Stage primaryStage) {
@@ -49,7 +49,5 @@ public class MainTankMouvementTest extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-
-    
+    }   
 }
