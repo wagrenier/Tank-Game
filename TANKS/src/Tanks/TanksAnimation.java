@@ -28,6 +28,8 @@ public class TanksAnimation {
     private double y;
     String pathForTextureTankOne = "Texture/Tanks/Canada/Body/Red_Tank_(100x100).png";
     String pathForTextureFlippedTankOne = "Texture/Tanks/Canada/Body/Red_Tank_Flipped_(100x100).png";
+    String pathForTextureCannonOne = "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100).png";
+    String pathForTextureFlippedCannonOne = "Texture/Tanks/Canada/Cannon/Red_Cannon_Flipped_(100x100).png";
     
     //Variables for tank 2
     private double xspeed2 = 0;
@@ -35,6 +37,8 @@ public class TanksAnimation {
     private double y2;
     String pathForTextureTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_(100x100).png";
     String pathForTextureFlippedTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_Flipped_(100x100).png";
+    String pathForTextureCannonTwo = "Texture/Tanks/China/Cannon/Yellow_Cannon_(100x100).png";
+    String pathForTextureFlippedCannonTwo = "Texture/Tanks/China/Cannon/Yellow_Cannon_Flipped_(100x100).png";
     
     //Variables for tanks 3
     private double xspeed3 = 0;
@@ -42,6 +46,8 @@ public class TanksAnimation {
     private double y3;
     String pathForTextureTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_(100x100).png";
     String pathForTextureFlippedTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_Flipped_(100x100).png";
+    String pathForTextureCannonThree = "Texture/Tanks/NorthKorea/Cannon/Blue_Cannon_(100x100).png";
+    String pathForTextureFlippedCannonThree = "Texture/Tanks/NorthKorea/Cannon/Blue_Cannon_Flipped_(100x100).png";
     
     //Variables for tank 4
     private double xspeed4 = 0;
@@ -49,6 +55,8 @@ public class TanksAnimation {
     private double y4;
     String pathForTextureTankFour = "Texture/Tanks/USA/Body/Green_Tank_(100x100).png";
     String pathForTextureFlippedTankFour = "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png";
+    String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
+    String pathForTextureFlippedCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_Flipped_(100x100).png";
     
     
     private double gravity = 0.05;
@@ -67,10 +75,10 @@ public class TanksAnimation {
     
     
     public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
-        tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne);
-        tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo);
-        tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree);
-        tanksFour = new Tanks(pathForTextureTankFour, pathForTextureFlippedTankFour);
+        tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, pathForTextureFlippedCannonOne);
+        tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo, pathForTextureFlippedCannonTwo);
+        tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree, pathForTextureCannonThree, pathForTextureFlippedCannonThree);
+        tanksFour = new Tanks(pathForTextureTankFour, pathForTextureFlippedTankFour, pathForTextureCannonFour, pathForTextureFlippedCannonFour);
         this.numOfPlayer = numOfPlayer;     
         this.mapGeneration = mapGeneration;
         this.pane = pane;
@@ -93,7 +101,8 @@ public class TanksAnimation {
         animationForTankOne();
         animationForTanksTwo();
         
-         
+        pane.getChildren().add(tanksOne.getCannon());
+        pane.getChildren().add(tanksTwo.getCannon());
         
         pane.getChildren().add(tanksOne);
         pane.getChildren().add(tanksTwo);
@@ -117,8 +126,9 @@ public class TanksAnimation {
         animationForTanksTwo();
         animationForTankThree();
          
-         
-         
+        pane.getChildren().add(tanksOne.getCannon());
+        pane.getChildren().add(tanksTwo.getCannon());
+        pane.getChildren().add(tanksThree.getCannon());
          
         pane.getChildren().add(tanksOne);
         pane.getChildren().add(tanksTwo);
@@ -142,8 +152,14 @@ public class TanksAnimation {
         animationForTanksTwo();
         animationForTankThree();
         animationForTankFour();
-         
+        
+        pane.getChildren().add(tanksOne.getCannon());
+        pane.getChildren().add(tanksTwo.getCannon());
+        pane.getChildren().add(tanksThree.getCannon());
+        pane.getChildren().add(tanksFour.getCannon());
+        
         pane.getChildren().add(tanksOne);
+        
         pane.getChildren().add(tanksTwo);
         pane.getChildren().add(tanksThree);
         pane.getChildren().add(tanksFour);

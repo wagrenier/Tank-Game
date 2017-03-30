@@ -12,11 +12,12 @@ import javafx.scene.shape.Circle;
 
 /**
  *
- * @author william
+ * @author willi
  */
-public class Tanks extends Circle{
+public class Cannon extends Circle{
     
-    private int lifePoint = 100;
+    
+    
     private String imagePath;
     private String imageReversePath;
     private ImagePattern texturePattern;
@@ -24,34 +25,26 @@ public class Tanks extends Circle{
     private Image texture;
     private Image textureFlipped;
     private boolean isImageFlipped = false;
-    private Cannon cannon;
     
-    Tanks(String imagePath, String imageReversePath, String imagePathCannon, String imageReversePathCannon){
+    
+    Cannon(String imagePath, String imageReversePath){
         this.setRadius(50);
         
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
         
         texture = new Image(this.imagePath);
-        textureFlipped = new Image(this.imageReversePath);
+        //textureFlipped = new Image(this.imageReversePath);
         
         texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
-        texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
+        //texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
         
         //ImageView imageView = new ImageView(texture);
         
         
-        this.setCenterY(-18);
+        
         
         this.setFill(texturePattern);
-        
-        cannon = new Cannon(imagePathCannon, imageReversePathCannon);
-        
-        
-        cannon.centerXProperty().bind(this.translateXProperty());
-        cannon.centerYProperty().bind(this.translateYProperty().add(-35));
-        cannon.rotateProperty().bind(this.rotateProperty());
-        
         //this.setRotate(20);
         //setStroke(Color.BLACK);
         //setTranslateX(50);
@@ -71,11 +64,5 @@ public class Tanks extends Circle{
     public boolean isIsImageFlipped() {
         return isImageFlipped;
     }
-
-    public Cannon getCannon() {
-        return cannon;
-    }
-    
-    
     
 }
