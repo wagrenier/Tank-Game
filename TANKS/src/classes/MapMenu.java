@@ -67,8 +67,6 @@ public class MapMenu extends Pane{
     private ArrayList<ImageView> playerTanks = new ArrayList<ImageView>();
     
     
-    private static Text p;
-    
     public MapMenu(){
         this.setMinWidth(WIDTH);
         this.setMaxWidth(WIDTH);
@@ -83,9 +81,36 @@ public class MapMenu extends Pane{
         
         
     }
+    public ImageView getBackBtn(){
+        return backBtn;
+    }
+    public void resetPane(){
+        for (int i = 0; i < playerNames.size(); i++){
+            this.getChildren().remove(playerNames.get(i));
+            this.getChildren().remove(playerTanks.get(i));
+        }
+        
+        
+        
+        playerTanks.clear();
+        playerNames.clear();
+        players.clear();
+    }
     private void setPlayerTanks(){
         for (int i = 0; i < players.size(); i++){
-            System.out.println(players.get(i).getTeam());
+            playerTanks.add(new ImageView(tanks[players.get(i).getTeam()]));
+        }
+        
+        for (int i = 0; i < playerTanks.size(); i++){
+            this.getChildren().add(playerTanks.get(i));
+        }
+        
+        playerTanks.get(0).setTranslateX(110.0);
+        playerTanks.get(0).setTranslateY(-140.0);
+        
+        for (int i = 1; i < playerTanks.size(); i++){
+            playerTanks.get(i).setTranslateX(110.0);
+            playerTanks.get(i).setTranslateY(playerTanks.get(i - 1).getTranslateY() + 80);
         }
     }
     private void setTankList(){

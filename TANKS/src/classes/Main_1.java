@@ -75,7 +75,8 @@ public class Main_1 extends Application {
             */
             if (playerCount == numberOfPlayers - 1){
                 registerPlayer(true);
-                scene.setRoot(mapMenu);
+                paneCount++;
+                scene.setRoot(paneList.get(paneCount));
                 mapMenu.setPlayerList(playerList);
                 mapMenu.setPlayers();
                 
@@ -84,7 +85,7 @@ public class Main_1 extends Application {
             
             registerPlayer(false);
             playerCount++;
-            countryMenu.resetPane(playerCount + 1);
+            countryMenu.refreshPane(playerCount + 1);
         });
         
         countryMenu.getBackBtn().setOnMouseClicked(e -> {
@@ -94,14 +95,30 @@ public class Main_1 extends Application {
             //Reset variables for countryMenu
             playerCount = 0;
             playerList.clear();
-            countryMenu.resetPane(1);
+            countryMenu.refreshPane(1);
+            countryMenu.resetPane();
+        });
+        
+        mapMenu.getBackBtn().setOnMouseClicked(e -> {
+            paneCount--;
+            paneCount--;
+            scene.setRoot(paneList.get(paneCount));
+            
+            //Reset variables for mapMenu
+            mapMenu.resetPane();
+            
+            //Reset variables for countryMenu
+            playerCount = 0;
+            playerList.clear();
+            countryMenu.refreshPane(1);
+            countryMenu.resetPane();
         });
         
     }
     private void registerPlayer(boolean lastplayer){
         
         playerList.get(playerCount).setName(countryMenu.getPlayerName());
-        playerList.get(playerCount).setTeam(countryMenu.getTankCount());
+        playerList.get(playerCount).setTeam(countryMenu.getCountry());
         if (!lastplayer)
             countryMenu.removeTeam(countryMenu.getTankCount());
     }

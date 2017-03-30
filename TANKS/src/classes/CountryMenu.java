@@ -57,6 +57,11 @@ public class CountryMenu extends Pane{
     private Image rightBtnHover = new Image("Texture/Menus/PlayerMenu/Right Arrow Hover.png");
     private Image rightBtnClicked = new Image("Texture/Menus/PlayerMenu/Right Arrow Clicked.png");
     
+    Image northkorea = new Image("Texture/Menus/CountryMenu/North Korea Selection Tank.png");
+    Image usa = new Image("Texture/Menus/CountryMenu/USA Selection Tank.png");
+    Image canada = new Image("Texture/Menus/CountryMenu/Canada Selection Tank.png");
+    Image china = new Image("Texture/Menus/CountryMenu/China Selection Tank.png");
+    
     
     private TextField usernameField;
     
@@ -78,6 +83,14 @@ public class CountryMenu extends Pane{
         setUsername();
         setBackBtn();
     }
+    public void resetPane(){
+        setTankList();
+        setFlagList();
+        tankCount = 0;
+        player = 0;
+        tank.setImage(tankList.get(tankCount));
+        flag.setImage(flagList.get(tankCount));
+    }
     public void removeTeam(int country){
         tankList.remove(country);
         flagList.remove(country);
@@ -89,15 +102,17 @@ public class CountryMenu extends Pane{
     public int getTankCount(){
         return tankCount;
     }
-    public String getCountry(){
-        
-        switch (tankCount){
-            case 0: return "North Korea";
-            case 1: return "USA";
-            case 2: return "Canada";
-            case 3: return "China";
-        }
-        return "ERROR: NO TEAM";
+    public int getCountry(){
+        if (tankList.get(tankCount).equals(northkorea))
+            return 0;
+        else if (tankList.get(tankCount).equals(usa))
+            return 1;
+        else if (tankList.get(tankCount).equals(canada))
+            return 2;
+        else if (tankList.get(tankCount).equals(china))
+            return 3;
+        else
+            return -1; //Will cause error if method return -1;
     }
     private void setBackBtn(){
         backBtn = new ImageView(backBtnImage);
@@ -275,19 +290,22 @@ public class CountryMenu extends Pane{
     }
     private void setTankList(){
         tankList.clear();
-        tankList.add(new Image("Texture/Menus/CountryMenu/North Korea Selection Tank.png"));
-        tankList.add(new Image("Texture/Menus/CountryMenu/USA Selection Tank.png"));
-        tankList.add(new Image("Texture/Menus/CountryMenu/Canada Selection Tank.png"));
-        tankList.add(new Image("Texture/Menus/CountryMenu/China Selection Tank.png"));
+        
+        tankList.add(northkorea);
+        tankList.add(usa);
+        tankList.add(canada);
+        tankList.add(china);
+        
     }
     private void setFlagList(){
         flagList.clear();
+        
         flagList.add(new Image("Texture/Menus/CountryMenu/North Korea Flag.png"));
         flagList.add(new Image("Texture/Menus/CountryMenu/USA Flag.png"));
         flagList.add(new Image("Texture/Menus/CountryMenu/Canada Flag.png"));
         flagList.add(new Image("Texture/Menus/CountryMenu/China Flag.png"));
     }
-    public void resetPane(int var){
+    public void refreshPane(int var){
         player = var;
         usernameField.setText("Player " + player);
         
