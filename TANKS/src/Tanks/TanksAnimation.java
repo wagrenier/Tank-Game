@@ -5,6 +5,7 @@
  */
 package Tanks;
 
+import GamePane.GamePane;
 import Tanks.Tanks;
 import MapGeneration.MapGeneration;
 import javafx.animation.KeyFrame;
@@ -349,6 +350,10 @@ public class TanksAnimation {
         
          
         switch (x){
+            
+            case SPACE: {
+                ((GamePane)pane).launchAnimation();break;
+            }
                     
                     //Controls for player 1
                 case LEFT: {

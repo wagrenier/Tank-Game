@@ -50,7 +50,7 @@ public class GamePane extends Pane{
         
         weaponAnimation = new WeaponAnimation(weaponManager.getWeaponFromWeaponManager(0), tanksAnimation.getTanksOne(), mapGeneration, pane);
         
-        weaponAnimation.launchAnimation();
+        //weaponAnimation.launchAnimation();
     }
     
     public void tanksSetup(Pane pane){
@@ -89,5 +89,9 @@ public class GamePane extends Pane{
             
         }
    }
+    
+    public void launchAnimation(){
+        weaponAnimation.launchAnimation();
+    }
 
 }
