@@ -29,7 +29,7 @@ public class WeaponAnimation {
     private double initialVelocity = .5;
     private double gravity = .0005;
     private double currentYPosition;
-    private double canonAngle = Math.PI / 2;
+    private double canonAngle = Math.PI / 3;
     private double angleLaunched; // angle must be between 0 and 1 included
     private double initialYVelocity;
     private double yspeed;
@@ -55,10 +55,17 @@ public class WeaponAnimation {
     }
     
     private void setupAnimation(){
-       
+        pane.getChildren().remove(weapon);
         this.initialXPosition = tank.getTranslateX();
         this.initialYPosition = tank.getTranslateY();
+        
+        if(tank.isIsImageFlipped()){
+            canonAngle += Math.PI / 2;
+        }
+        
         angleLaunched = mapGeneration.derivativeFunction(tank.getTranslateX()) - canonAngle;
+        
+        
         initialYVelocity = initialVelocity * Math.sin(angleLaunched);
         yspeed = initialVelocity * Math.sin(angleLaunched);
         xspeed = initialVelocity * Math.cos(angleLaunched);
@@ -78,7 +85,11 @@ public class WeaponAnimation {
            //System.out.println("weapon Translate X: " + weapon.getTranslateX() + " Weapon Translate Y: " + weapon.getTranslateY() + " Tank Translate X: " + tank.getTranslateX() + " Tank Translate Y: " + tank.getTranslateY() +" currentYPos: " + currentYPosition + " xspeed: " + xspeed + " yspeed: " + yspeed + " rotation angle:" + angleLaunched);
             
             if(weapon.getTranslateX()<= 0 || weapon.getTranslateX() >= 1200){
-                xspeed *= -1;  
+                yspeed = 0;
+                xspeed = 0;
+                pane.getChildren().remove(weapon);
+                //add animation explosion
+                
             }
             if (weapon.getTranslateY() < currentYPosition ){
                 yspeed += gravity;
@@ -86,25 +97,34 @@ public class WeaponAnimation {
             else{
                 yspeed = 0;
                 xspeed = 0;
+                pane.getChildren().remove(weapon);
             }
             if(weapon.getTranslateY() > currentYPosition){
                 weapon.setTranslateY(currentYPosition);
             } 
+            
+            if(tank.isIsImageFlipped()){
+            weapon.setRotate(projectileRotationReverse() + 90);
+        }
+            
+            else
             weapon.setRotate(projectileRotation());
             }));
         
-        animationWeapon.setOnFinished(e ->{
-            pane.getChildren().remove(weapon);
-        });
+        
     }
     
     public void launchAnimation(){
-        //weapon.setTranslateY(weapon.getTranslateY() + initialYPosition + 1);
-        //weapon.setTranslateX(tank.getTranslateX());
+        
         setupAnimation();
+        
         pane.getChildren().add(weapon);
         animationWeapon.setCycleCount(Timeline.INDEFINITE);
         animationWeapon.play();
+    }
+    
+    private double projectileRotationReverse(){
+        return Math.toDegrees(Math.acos((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));
     }
     
     private double projectileRotation(){

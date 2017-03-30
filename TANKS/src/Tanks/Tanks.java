@@ -23,6 +23,7 @@ public class Tanks extends Circle{
     private ImagePattern texturePatternFlipped;
     private Image texture;
     private Image textureFlipped;
+    private boolean isImageFlipped = false;
     
     
     Tanks(String imagePath, String imageReversePath){
@@ -51,11 +52,18 @@ public class Tanks extends Circle{
     
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
+        isImageFlipped = true;
     }
     
     public void normalTexture(){
         this.setFill(texturePattern);
+        isImageFlipped = false;
     }
+
+    public boolean isIsImageFlipped() {
+        return isImageFlipped;
+    }
+    
     
     
 }

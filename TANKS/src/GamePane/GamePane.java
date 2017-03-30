@@ -40,17 +40,17 @@ public class GamePane extends Pane{
         frontGroundSetup(pane);
         backGroundSetup(pane);
         tanksSetup(pane);
-        weaponSetup(pane);
+        //weaponSetup(pane);
     }
     
-    private void weaponSetup(Pane pane){
+    public void weaponSetup(Pane pane){
         weaponManager = new WeaponManager();
         
         tanksAnimation.getTanksOne().setTranslateY(mapGeneration.getY(tanksAnimation.getTanksOne().getTranslateX()));
         
         weaponAnimation = new WeaponAnimation(weaponManager.getWeaponFromWeaponManager(0), tanksAnimation.getTanksOne(), mapGeneration, pane);
         
-        //weaponAnimation.launchAnimation();
+        weaponAnimation.launchAnimation();
     }
     
     public void tanksSetup(Pane pane){
@@ -91,7 +91,7 @@ public class GamePane extends Pane{
    }
     
     public void launchAnimation(){
-        weaponAnimation.launchAnimation();
+        //weaponAnimation.launchAnimation();
     }
 
 }

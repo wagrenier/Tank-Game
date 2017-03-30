@@ -352,7 +352,7 @@ public class TanksAnimation {
         switch (x){
             
             case SPACE: {
-                ((GamePane)pane).launchAnimation();break;
+                ((GamePane)pane).weaponSetup(pane);break;
             }
                     
                     //Controls for player 1
