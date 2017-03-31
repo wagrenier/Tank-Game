@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 /**
  *
@@ -37,7 +38,7 @@ public class MapMenu extends Pane{
     */
     
     private Background[] backgrounds = new Background[4];
-    private static int backgroundIndex = 1;
+    private static int backgroundIndex = 0;
     
     private ImageView playBtn;
     private ImageView backBtn;
@@ -66,6 +67,10 @@ public class MapMenu extends Pane{
     private ArrayList<Text> playerNames = new ArrayList<Text>();
     private ArrayList<ImageView> playerTanks = new ArrayList<ImageView>();
     
+    private Text mapTitle = new Text();
+    private String[] titleList = new String[4];
+    
+    
     
     public MapMenu(){
         this.setMinWidth(WIDTH);
@@ -75,11 +80,36 @@ public class MapMenu extends Pane{
         
         setBackgrounds();
         setTankList();
+        setTitleList();
         setPlayBtn();
         setBackBtn();
         setRightBtn();
+        setMapTitle();
         
         
+    }
+    private void setTitleList(){
+        titleList[1] = "Mountains";
+        titleList[2] = "Space";
+        titleList[3] = "Artic";
+        titleList[0] = "Desert";
+    }
+    private void setMapTitle(){
+        this.getChildren().add(mapTitle);
+        mapTitle.setText(titleList[backgroundIndex]);
+        mapTitle.setTextAlignment(TextAlignment.CENTER);
+        mapTitle.setTranslateX(511.5);
+        mapTitle.setTranslateY(203.5);
+        mapTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
+        
+        
+        /*
+        mapTitle.setOnMouseDragged(e -> {
+            mapTitle.setTranslateX(e.getSceneX());
+            mapTitle.setTranslateY(e.getSceneY());
+            System.out.println(mapTitle.getTranslateX() + ", " + mapTitle.getTranslateY());
+        });
+        */
     }
     public ImageView getBackBtn(){
         return backBtn;
@@ -154,8 +184,8 @@ public class MapMenu extends Pane{
         
         this.getChildren().add(rightBtn);
         
-        rightBtn.setTranslateX(146.0);
-        rightBtn.setTranslateY(-203.0);
+        rightBtn.setTranslateX(151.0);
+        rightBtn.setTranslateY(-203.5);
         
         /*
         rightBtn.setOnMouseDragged(e -> {
@@ -172,6 +202,7 @@ public class MapMenu extends Pane{
                 backgroundIndex++;
             
             this.setBackground(backgrounds[backgroundIndex]);
+            mapTitle.setText(titleList[backgroundIndex]);
         });
         
         rightBtn.setOnMouseEntered(e -> {
