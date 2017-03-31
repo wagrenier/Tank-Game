@@ -68,7 +68,7 @@ public class Cannon extends Circle{
     public void lowerAngle(){
        
         if(canonAngle > 0){
-        canonAngle -= 1 / Math.PI;
+        canonAngle -= Math.PI / 25;
         System.out.println(canonAngle);//this.setRotate(-Math.toDegrees(getCanonAngle()));
         }
     }
@@ -76,7 +76,7 @@ public class Cannon extends Circle{
     public void higherAngle(){
         
         if(canonAngle < (Math.PI / 2)){
-        canonAngle += 1/ Math.PI;
+        canonAngle += Math.PI / 25;
         
         //this.setRotate(Math.toDegrees(getCanonAngle()));
         }
