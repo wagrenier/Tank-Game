@@ -52,7 +52,8 @@ public class Cannon extends Circle{
     }  
     
     public void flipTexture(){
-        this.setFill(texturePatternFlipped);
+        //this.setFill(texturePatternFlipped);
+        
         isImageFlipped = true;
     }
     
@@ -75,7 +76,7 @@ public class Cannon extends Circle{
     
     public void higherAngle(){
         
-        if(canonAngle < (Math.PI / 2)){
+        if(canonAngle < (0.879645943005142)){
         canonAngle += Math.PI / 25;
         
         //this.setRotate(Math.toDegrees(getCanonAngle()));
@@ -83,12 +84,8 @@ public class Cannon extends Circle{
         
     }
     
-    
-
     public double getCanonAngle() {
         return canonAngle;
     }
-    
-    
-    
+     
 }

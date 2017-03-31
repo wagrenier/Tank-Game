@@ -56,8 +56,7 @@ public class WeaponAnimation {
     
     private void setupAnimation(){
         pane.getChildren().remove(weapon);
-        this.initialXPosition = tank.getTranslateX() + 25;
-        this.initialYPosition = tank.getTranslateY() - 35;
+        
         
         
         canonAngle = tank.getCannon().getCanonAngle();
@@ -65,10 +64,15 @@ public class WeaponAnimation {
         
         
         if(tank.isIsImageFlipped()){
-            canonAngle += Math.PI / 2;
+            canonAngle = Math.PI - canonAngle;
         }
         
+        
+        
         angleLaunched = mapGeneration.derivativeFunction(tank.getTranslateX()) - canonAngle;
+        
+        this.initialXPosition = tank.getTranslateX() + (50 * Math.cos(angleLaunched));
+        this.initialYPosition = tank.getTranslateY() + (50 * Math.sin(angleLaunched) - 35);
         
         
         initialYVelocity = initialVelocity * Math.sin(angleLaunched);

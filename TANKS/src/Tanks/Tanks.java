@@ -59,17 +59,29 @@ public class Tanks extends Circle{
     }  
     
     public void updateSomething(){
+        if(!isImageFlipped){
         cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
+        cannon.centerYProperty().bind(this.translateYProperty().add(-35));
+        }
+        
+        else{
+            cannon.rotateProperty().bind(this.rotateProperty().add(180 + Math.toDegrees(cannon.getCanonAngle())));
+            cannon.centerYProperty().bind(this.translateYProperty().add(-30));
+        }
     }
     
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
         isImageFlipped = true;
+        updateSomething();
+        
     }
     
     public void normalTexture(){
         this.setFill(texturePattern);
         isImageFlipped = false;
+        updateSomething();
+        
     }
 
     public boolean isIsImageFlipped() {
