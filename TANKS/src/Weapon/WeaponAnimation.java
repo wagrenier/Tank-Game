@@ -46,6 +46,8 @@ public class WeaponAnimation {
         this.tank = tank;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
+        setupAnimation();
+        launchAnimation();
     }
     
     public WeaponAnimation(Weapon weapon, MapGeneration mapGeneration, Pane pane){
@@ -55,7 +57,7 @@ public class WeaponAnimation {
     }
     
     private void setupAnimation(){
-        pane.getChildren().remove(weapon);
+       // pane.getChildren().remove(weapon);
         
         
         
@@ -96,6 +98,10 @@ public class WeaponAnimation {
             if(weapon.getTranslateX()<= 0 || weapon.getTranslateX() >= 1200){
                 yspeed = 0;
                 xspeed = 0;
+                animationWeapon.getKeyFrames().clear();
+                animationWeapon.stop();
+                
+                pane.getChildren().remove(animationWeapon);
                 pane.getChildren().remove(weapon);
                 //add animation explosion
                 
@@ -106,7 +112,11 @@ public class WeaponAnimation {
             else{
                 yspeed = 0;
                 xspeed = 0;
-                pane.getChildren().remove(weapon);
+                animationWeapon.getKeyFrames().clear();
+                animationWeapon.stop();
+                pane.getChildren().remove(animationWeapon);
+                
+                //pane.getChildren().removeAll(weapon);
             }
             if(weapon.getTranslateY() > currentYPosition){
                 weapon.setTranslateY(currentYPosition);
@@ -123,18 +133,23 @@ public class WeaponAnimation {
         
     }
     
+    
     public void launchAnimation(){
         
-        setupAnimation();
-        
+        //setupAnimation();
+        //pane.getChildren().remove(weapon);
         pane.getChildren().add(weapon);
-        animationWeapon.setCycleCount(Timeline.INDEFINITE);
-        animationWeapon.play();
+        animationWeapon.setCycleCount(2000);
+        animationWeapon.playFromStart();
+        //animationWeapon.play();
+        
+        animationWeapon.setOnFinished(e ->{
+            System.out.println("Hey");
+            pane.getChildren().removeAll(weapon);
+            animationWeapon.getKeyFrames().clear();
+            
+        });
     }
-    
-    
-    
-    
     
     private double projectileRotationReverse(){
         return Math.toDegrees(Math.acos((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));

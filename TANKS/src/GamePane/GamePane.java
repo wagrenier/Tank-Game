@@ -7,6 +7,7 @@ package GamePane;
 
 import Tanks.TanksAnimation;
 import MapGeneration.MapGeneration;
+import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;
 import javafx.scene.image.Image;
@@ -41,17 +42,21 @@ public class GamePane extends Pane{
         frontGroundSetup(pane);
         backGroundSetup(pane);
         tanksSetup(pane);
+        weaponManager = new WeaponManager();
         //weaponSetup(pane);
     }
     
     public void weaponSetup(Pane pane){
-        weaponManager = new WeaponManager();
         
-        tanksAnimation.getTanksOne().setTranslateY(mapGeneration.getY(tanksAnimation.getTanksOne().getTranslateX()));
         
-        weaponAnimation = new WeaponAnimation(weaponManager.getWeaponFromWeaponManager(0), tanksAnimation.getTanksOne(), mapGeneration, pane);
+        //tanksAnimation.getTanksOne().setTranslateY(mapGeneration.getY(tanksAnimation.getTanksOne().getTranslateX()));
+        Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(0).getTexturePath());
+                
         
-        weaponAnimation.launchAnimation();
+        new WeaponAnimation(weapon, tanksAnimation.getTanksOne(), mapGeneration, pane);
+        System.gc();
+        //weaponAnimation.launchAnimation();
+        
     }
     
     public void tanksSetup(Pane pane){

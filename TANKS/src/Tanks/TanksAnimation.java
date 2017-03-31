@@ -211,6 +211,7 @@ public class TanksAnimation {
                     tanksOne.flipTexture();
                 }
                 xspeed *= -1;
+                
                // System.out.println("BOB");
             }
             
@@ -370,8 +371,8 @@ public class TanksAnimation {
         switch (x){
             
             case SPACE: {
-                ((GamePane)pane).weaponSetup(pane);break;
-            }
+                ((GamePane)pane).weaponSetup(pane);
+            }break;
                     
                     //Controls for player 1
                 case LEFT: {

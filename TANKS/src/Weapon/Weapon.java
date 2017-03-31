@@ -112,6 +112,10 @@ public class Weapon extends Circle{
     public void setMapGeneration(MapGeneration mapGeneration) {
         this.mapGeneration = mapGeneration;
     }
+
+    public String getTexturePath() {
+        return texturePath;
+    }
     
     
     
