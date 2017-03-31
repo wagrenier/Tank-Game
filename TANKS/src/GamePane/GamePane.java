@@ -16,6 +16,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -30,7 +31,7 @@ public class GamePane extends Pane{
     private WeaponAnimation weaponAnimation;
     WeaponManager weaponManager;
     
-    MapGeneration mapGeneration = new MapGeneration(200, 200, 500);
+    MapGeneration mapGeneration = new MapGeneration(450, 300, 500);
     
     public GamePane(){
         paneSetup(this);

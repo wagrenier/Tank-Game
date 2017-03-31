@@ -193,7 +193,8 @@ public class TanksAnimation {
             
             
             
-        tanksOne.setRotate(50 * mapGeneration.derivativeFunction(tanksOne.getTranslateX()));
+        //tanksOne.setRotate(100 * mapGeneration.derivativeFunction(tanksOne.getTranslateX()));
+        //tanksOne.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())));
         
         y = mapGeneration.getY(tanksOne.getTranslateX());
             tanksOne.setTranslateY(tanksOne.getTranslateY() + yspeed);
@@ -224,6 +225,7 @@ public class TanksAnimation {
                 tanksOne.setTranslateY(y);
             } 
             
+            tanksOne.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())));
             }));
     }
     
