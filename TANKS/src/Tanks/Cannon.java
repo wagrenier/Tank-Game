@@ -17,7 +17,7 @@ import javafx.scene.shape.Circle;
 public class Cannon extends Circle{
     
     
-    
+    private double canonAngle = 0;
     private String imagePath;
     private String imageReversePath;
     private ImagePattern texturePattern;
@@ -64,5 +64,31 @@ public class Cannon extends Circle{
     public boolean isIsImageFlipped() {
         return isImageFlipped;
     }
+    
+    public void lowerAngle(){
+       
+        if(canonAngle > 0){
+        canonAngle -= 1 / Math.PI;
+        System.out.println(canonAngle);//this.setRotate(-Math.toDegrees(getCanonAngle()));
+        }
+    }
+    
+    public void higherAngle(){
+        
+        if(canonAngle < (Math.PI / 2)){
+        canonAngle += 1/ Math.PI;
+        
+        //this.setRotate(Math.toDegrees(getCanonAngle()));
+        }
+        
+    }
+    
+    
+
+    public double getCanonAngle() {
+        return canonAngle;
+    }
+    
+    
     
 }

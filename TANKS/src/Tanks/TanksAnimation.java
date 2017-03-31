@@ -397,13 +397,14 @@ public class TanksAnimation {
                     }break;
                     
                 case UP: {
-                        if(yspeed == 0){
-                        //System.out.println("up");
-                        yspeed = -0.5;
-                        }
+                        tanksOne.getCannon().higherAngle();
+                        tanksOne.updateSomething();
                     }break;
                     
-                        
+                case DOWN: {
+                    tanksOne.getCannon().lowerAngle();
+                    tanksOne.updateSomething();break;
+                }        
                   //Controls for player 2  
                 case A: {
                     

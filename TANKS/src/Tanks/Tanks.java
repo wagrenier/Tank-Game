@@ -50,13 +50,17 @@ public class Tanks extends Circle{
         
         cannon.centerXProperty().bind(this.translateXProperty());
         cannon.centerYProperty().bind(this.translateYProperty().add(-35));
-        cannon.rotateProperty().bind(this.rotateProperty());
+        cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
         
         //this.setRotate(20);
         //setStroke(Color.BLACK);
         //setTranslateX(50);
         //setTranslateY(200);
     }  
+    
+    public void updateSomething(){
+        cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
+    }
     
     public void flipTexture(){
         this.setFill(texturePatternFlipped);

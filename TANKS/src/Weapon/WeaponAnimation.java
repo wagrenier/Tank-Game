@@ -29,7 +29,7 @@ public class WeaponAnimation {
     private double initialVelocity = .5;
     private double gravity = .0005;
     private double currentYPosition;
-    private double canonAngle = Math.PI / 3;
+    private double canonAngle;
     private double angleLaunched; // angle must be between 0 and 1 included
     private double initialYVelocity;
     private double yspeed;
@@ -56,8 +56,13 @@ public class WeaponAnimation {
     
     private void setupAnimation(){
         pane.getChildren().remove(weapon);
-        this.initialXPosition = tank.getTranslateX();
-        this.initialYPosition = tank.getTranslateY();
+        this.initialXPosition = tank.getTranslateX() + 25;
+        this.initialYPosition = tank.getTranslateY() - 35;
+        
+        
+        canonAngle = tank.getCannon().getCanonAngle();
+        
+        
         
         if(tank.isIsImageFlipped()){
             canonAngle += Math.PI / 2;
@@ -122,6 +127,10 @@ public class WeaponAnimation {
         animationWeapon.setCycleCount(Timeline.INDEFINITE);
         animationWeapon.play();
     }
+    
+    
+    
+    
     
     private double projectileRotationReverse(){
         return Math.toDegrees(Math.acos((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));
