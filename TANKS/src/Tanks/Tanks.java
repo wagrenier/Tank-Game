@@ -23,9 +23,10 @@ public class Tanks extends Circle{
     private ImagePattern texturePatternFlipped;
     private Image texture;
     private Image textureFlipped;
+    private boolean isImageFlipped = false;
+    private Cannon cannon;
     
-    
-    Tanks(String imagePath, String imageReversePath){
+    Tanks(String imagePath, String imageReversePath, String imagePathCannon, String imageReversePathCannon){
         this.setRadius(50);
         
         this.imageReversePath = imageReversePath;
@@ -43,19 +44,54 @@ public class Tanks extends Circle{
         this.setCenterY(-18);
         
         this.setFill(texturePattern);
+        
+        cannon = new Cannon(imagePathCannon, imageReversePathCannon);
+        
+        
+        cannon.centerXProperty().bind(this.translateXProperty());
+        cannon.centerYProperty().bind(this.translateYProperty().add(-35));
+        cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
+        
         //this.setRotate(20);
         //setStroke(Color.BLACK);
         //setTranslateX(50);
         //setTranslateY(200);
     }  
     
+    public void updateSomething(){
+        if(!isImageFlipped){
+        cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
+        cannon.centerYProperty().bind(this.translateYProperty().add(-35));
+        }
+        
+        else{
+            cannon.rotateProperty().bind(this.rotateProperty().add(180 + Math.toDegrees(cannon.getCanonAngle())));
+            cannon.centerYProperty().bind(this.translateYProperty().add(-30));
+        }
+    }
+    
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
+        isImageFlipped = true;
+        updateSomething();
+        
     }
     
     public void normalTexture(){
         this.setFill(texturePattern);
+        isImageFlipped = false;
+        updateSomething();
+        
     }
+
+    public boolean isIsImageFlipped() {
+        return isImageFlipped;
+    }
+
+    public Cannon getCannon() {
+        return cannon;
+    }
+    
     
     
 }

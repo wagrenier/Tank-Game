@@ -5,6 +5,7 @@
  */
 package Tanks;
 
+import GamePane.GamePane;
 import Tanks.Tanks;
 import MapGeneration.MapGeneration;
 import javafx.animation.KeyFrame;
@@ -25,21 +26,37 @@ public class TanksAnimation {
     private double xspeed = 0;
     private double yspeed = 0;
     private double y;
+    String pathForTextureTankOne = "Texture/Tanks/Canada/Body/Red_Tank_(100x100).png";
+    String pathForTextureFlippedTankOne = "Texture/Tanks/Canada/Body/Red_Tank_Flipped_(100x100).png";
+    String pathForTextureCannonOne = "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100).png";
+    String pathForTextureFlippedCannonOne = "Texture/Tanks/Canada/Cannon/Red_Cannon_Flipped_(100x100).png";
     
     //Variables for tank 2
     private double xspeed2 = 0;
     private double yspeed2 = 0;
     private double y2;
+    String pathForTextureTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_(100x100).png";
+    String pathForTextureFlippedTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_Flipped_(100x100).png";
+    String pathForTextureCannonTwo = "Texture/Tanks/China/Cannon/Yellow_Cannon_(100x100).png";
+    String pathForTextureFlippedCannonTwo = "Texture/Tanks/China/Cannon/Yellow_Cannon_Flipped_(100x100).png";
     
     //Variables for tanks 3
     private double xspeed3 = 0;
     private double yspeed3 = 0;
     private double y3;
+    String pathForTextureTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_(100x100).png";
+    String pathForTextureFlippedTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_Flipped_(100x100).png";
+    String pathForTextureCannonThree = "Texture/Tanks/NorthKorea/Cannon/Blue_Cannon_(100x100).png";
+    String pathForTextureFlippedCannonThree = "Texture/Tanks/NorthKorea/Cannon/Blue_Cannon_Flipped_(100x100).png";
     
     //Variables for tank 4
     private double xspeed4 = 0;
     private double yspeed4 = 0;
     private double y4;
+    String pathForTextureTankFour = "Texture/Tanks/USA/Body/Green_Tank_(100x100).png";
+    String pathForTextureFlippedTankFour = "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png";
+    String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
+    String pathForTextureFlippedCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_Flipped_(100x100).png";
     
     
     private double gravity = 0.05;
@@ -58,10 +75,10 @@ public class TanksAnimation {
     
     
     public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
-        tanksOne = new Tanks("Texture/Tanks/Canada/Body/Red_Tank_(100x100).png", "Texture/Tanks/Canada/Body/Red_Tank_Flipped_(100x100).png");
-        tanksTwo = new Tanks("Texture/Tanks/China/Body/Yellow_Tank_(100x100).png", "Texture/Tanks/China/Body/Yellow_Tank_Flipped_(100x100).png");
-        tanksThree = new Tanks("Texture/Tanks/NorthKorea/Body/Blue_Tank_(100x100).png", "Texture/Tanks/NorthKorea/Body/Blue_Tank_Flipped_(100x100).png");
-        tanksFour = new Tanks("Texture/Tanks/USA/Body/Green_Tank_(100x100).png", "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png");
+        tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, pathForTextureFlippedCannonOne);
+        tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo, pathForTextureFlippedCannonTwo);
+        tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree, pathForTextureCannonThree, pathForTextureFlippedCannonThree);
+        tanksFour = new Tanks(pathForTextureTankFour, pathForTextureFlippedTankFour, pathForTextureCannonFour, pathForTextureFlippedCannonFour);
         this.numOfPlayer = numOfPlayer;     
         this.mapGeneration = mapGeneration;
         this.pane = pane;
@@ -81,25 +98,11 @@ public class TanksAnimation {
     
     private void setupAnimationForTwoTanks(){
         
-        animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());
-            });
-            
-            animationForTankOne();
-            }));
+        animationForTankOne();
+        animationForTanksTwo();
         
-        
-        
-        
-         animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
-            
-            animationForTanksTwo(); 
-        }));
-         
+        pane.getChildren().add(tanksOne.getCannon());
+        pane.getChildren().add(tanksTwo.getCannon());
         
         pane.getChildren().add(tanksOne);
         pane.getChildren().add(tanksTwo);
@@ -118,32 +121,14 @@ public class TanksAnimation {
     
     private void setupAnimationForThreeTanks(){
         
-        animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());
-            });
-            animationForTankOne();
-            }));
         
-        
-         animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
-            
-            animationForTanksTwo();
-        }));
-        
-         animation3 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
-            animationForTankThree();
-        }));
-        
+        animationForTankOne();
+        animationForTanksTwo();
+        animationForTankThree();
          
-         
-         
+        pane.getChildren().add(tanksOne.getCannon());
+        pane.getChildren().add(tanksTwo.getCannon());
+        pane.getChildren().add(tanksThree.getCannon());
          
         pane.getChildren().add(tanksOne);
         pane.getChildren().add(tanksTwo);
@@ -163,52 +148,18 @@ public class TanksAnimation {
     }
     
     private void setupAnimationForFourTanks(){
+        animationForTankOne();
+        animationForTanksTwo();
+        animationForTankThree();
+        animationForTankFour();
         
-        animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());
-            });
-            
-            
-            
-            animationForTankOne();
-            
-            }));
+        pane.getChildren().add(tanksOne.getCannon());
+        pane.getChildren().add(tanksTwo.getCannon());
+        pane.getChildren().add(tanksThree.getCannon());
+        pane.getChildren().add(tanksFour.getCannon());
         
-        
-         animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
-            
-            
-            
-            animationForTanksTwo();
-        }));
-        
-         animation3 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
-            
-            
-            animationForTankThree();
-            
-        }));
-        
-         
-         animation4 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
-            
-            
-            animationForTankFour();
-            
-        }));
-         
-         
         pane.getChildren().add(tanksOne);
+        
         pane.getChildren().add(tanksTwo);
         pane.getChildren().add(tanksThree);
         pane.getChildren().add(tanksFour);
@@ -231,6 +182,17 @@ public class TanksAnimation {
     }
     
     private void animationForTankOne(){
+        
+        animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            pane.setOnKeyPressed(x -> {
+                keyPressed(x.getCode());
+            });
+            
+            
+            
+            
+            
+            
         tanksOne.setRotate(50 * mapGeneration.derivativeFunction(tanksOne.getTranslateX()));
         
         y = mapGeneration.getY(tanksOne.getTranslateX());
@@ -261,9 +223,21 @@ public class TanksAnimation {
             if(tanksOne.getTranslateY() > y){
                 tanksOne.setTranslateY(y);
             } 
+            
+            }));
     }
     
     private void animationForTanksTwo(){
+        
+        animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            pane.setOnKeyPressed(x -> {
+                keyPressed(x.getCode());  
+            });
+            
+            
+            
+            
+        
         tanksTwo.setRotate(50 * mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
            
             
@@ -296,9 +270,21 @@ public class TanksAnimation {
             if(tanksTwo.getTranslateY() > y2){
                 tanksTwo.setTranslateY(y2);
             } 
+            
+            }));
     }
     
     private void animationForTankThree(){
+        
+        animation3 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            pane.setOnKeyPressed(x -> {
+                keyPressed(x.getCode());  
+            });
+            
+            
+            
+            
+        
         tanksThree.setRotate(50 * mapGeneration.derivativeFunction(tanksThree.getTranslateX()));
         y3 = mapGeneration.getY(tanksThree.getTranslateX()) ;
             
@@ -328,9 +314,21 @@ public class TanksAnimation {
             if(tanksThree.getTranslateY() > y3){
                 tanksThree.setTranslateY(y3);
             } 
+            
+            }));
     }
     
     private void animationForTankFour(){
+        
+        animation4 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            pane.setOnKeyPressed(x -> {
+                keyPressed(x.getCode());  
+            });
+            
+            
+            
+            
+        
         tanksFour.setRotate(50 * mapGeneration.derivativeFunction(tanksFour.getTranslateX()));
         y4 = mapGeneration.getY(tanksFour.getTranslateX()) ;
             
@@ -360,12 +358,18 @@ public class TanksAnimation {
             if(tanksFour.getTranslateY() > y4){
                 tanksFour.setTranslateY(y4);
             } 
+            
+            }));
     }
     
     public void keyPressed(KeyCode x){
         
          
         switch (x){
+            
+            case SPACE: {
+                ((GamePane)pane).weaponSetup(pane);break;
+            }
                     
                     //Controls for player 1
                 case LEFT: {
@@ -393,13 +397,14 @@ public class TanksAnimation {
                     }break;
                     
                 case UP: {
-                        if(yspeed == 0){
-                        //System.out.println("up");
-                        yspeed = -0.5;
-                        }
+                        tanksOne.getCannon().higherAngle();
+                        tanksOne.updateSomething();
                     }break;
                     
-                        
+                case DOWN: {
+                    tanksOne.getCannon().lowerAngle();
+                    tanksOne.updateSomething();break;
+                }        
                   //Controls for player 2  
                 case A: {
                     

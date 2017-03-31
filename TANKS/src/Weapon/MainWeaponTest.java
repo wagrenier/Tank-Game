@@ -3,28 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tanks;
+package Weapon;
 
-
-
-import GamePane.GamePane;
+import MapGeneration.MapGeneration;
+import Tanks.TanksAnimation;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
  *
- * @author Cedrik Dubois
- */ 
-public class MainTankMouvementTest extends Application { 
+ * @author willi
+ */
+public class MainWeaponTest extends Application{
     
     @Override
     public void start(Stage primaryStage) {
         
-        GamePane pane = new GamePane();
+        Pane pane = new Pane();
         
+        
+        
+        WeaponManager weaponManager = new WeaponManager();
+        MapGeneration mapGeneration = new MapGeneration(200, 200, 500);
+        //pane.getChildren().add(weaponManager.getWeaponFromWeaponManager(0));
+        
+        TanksAnimation tanksAnimation = new TanksAnimation(mapGeneration, pane, 4); 
+        WeaponAnimation weaponAnimation = new WeaponAnimation(weaponManager.getWeaponFromWeaponManager(0),tanksAnimation.getTanksOne(), mapGeneration, pane);
         Scene scene = new Scene(pane);
         
        
@@ -49,5 +57,6 @@ public class MainTankMouvementTest extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }   
+    }
+    
 }
