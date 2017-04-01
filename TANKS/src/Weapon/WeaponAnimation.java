@@ -136,19 +136,19 @@ public class WeaponAnimation {
     
     public void launchAnimation(){
         
-        //setupAnimation();
-        //pane.getChildren().remove(weapon);
+        
         pane.getChildren().add(weapon);
         animationWeapon.setCycleCount(2000);
-        //animationWeapon.playFromStart();
         animationWeapon.play();
         
+        
         animationWeapon.setOnFinished(e ->{
-            System.out.println("Hey");
+            
             pane.getChildren().removeAll(weapon);
-            animationWeapon.getKeyFrames().clear();
+            
             
         });
+            
     }
     
     private double projectileRotationReverse(){
