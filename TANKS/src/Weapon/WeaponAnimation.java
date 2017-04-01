@@ -98,11 +98,11 @@ public class WeaponAnimation {
             if(weapon.getTranslateX()<= 0 || weapon.getTranslateX() >= 1200){
                 yspeed = 0;
                 xspeed = 0;
-                animationWeapon.getKeyFrames().clear();
-                animationWeapon.stop();
+                //animationWeapon.getKeyFrames().clear();
+                //animationWeapon.stop();
                 
-                pane.getChildren().remove(animationWeapon);
-                pane.getChildren().remove(weapon);
+                //pane.getChildren().remove(animationWeapon);
+                //pane.getChildren().remove(weapon);
                 //add animation explosion
                 
             }
@@ -112,9 +112,9 @@ public class WeaponAnimation {
             else{
                 yspeed = 0;
                 xspeed = 0;
-                animationWeapon.getKeyFrames().clear();
-                animationWeapon.stop();
-                pane.getChildren().remove(animationWeapon);
+                //animationWeapon.getKeyFrames().clear();
+                //animationWeapon.stop();
+                //pane.getChildren().remove(animationWeapon);
                 
                 //pane.getChildren().removeAll(weapon);
             }
@@ -140,8 +140,8 @@ public class WeaponAnimation {
         //pane.getChildren().remove(weapon);
         pane.getChildren().add(weapon);
         animationWeapon.setCycleCount(2000);
-        animationWeapon.playFromStart();
-        //animationWeapon.play();
+        //animationWeapon.playFromStart();
+        animationWeapon.play();
         
         animationWeapon.setOnFinished(e ->{
             System.out.println("Hey");

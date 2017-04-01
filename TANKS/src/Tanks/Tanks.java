@@ -38,7 +38,7 @@ public class Tanks extends Circle{
         texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
         texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
         
-        //ImageView imageView = new ImageView(texture);
+        
         
         
         this.setCenterY(-18);
@@ -48,9 +48,9 @@ public class Tanks extends Circle{
         cannon = new Cannon(imagePathCannon, imageReversePathCannon);
         
         
-        cannon.centerXProperty().bind(this.translateXProperty());
-        cannon.centerYProperty().bind(this.translateYProperty().add(-35));
-        cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
+        //cannon.centerXProperty().bind(this.translateXProperty());
+        //cannon.centerYProperty().bind(this.translateYProperty().add(-35));
+        //cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
         
         //this.setRotate(20);
         //setStroke(Color.BLACK);
@@ -58,29 +58,33 @@ public class Tanks extends Circle{
         //setTranslateY(200);
     }  
     
+    
     public void updateSomething(){
         if(!isImageFlipped){
-        cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
-        cannon.centerYProperty().bind(this.translateYProperty().add(-35));
+            
+        //cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
+        //cannon.centerYProperty().bind(this.translateYProperty().add(-35));
         }
         
         else{
-            cannon.rotateProperty().bind(this.rotateProperty().add(180 + Math.toDegrees(cannon.getCanonAngle())));
-            cannon.centerYProperty().bind(this.translateYProperty().add(-30));
+            //cannon.setRotate(BASELINE_OFFSET_SAME_AS_HEIGHT);
+            //cannon.rotateProperty().bind(this.rotateProperty().add(180 + Math.toDegrees(cannon.getCanonAngle())));
+            //cannon.centerYProperty().bind(this.translateYProperty().add(-30));
         }
     }
+
     
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
         isImageFlipped = true;
-        updateSomething();
+        //updateSomething();
         
     }
     
     public void normalTexture(){
         this.setFill(texturePattern);
         isImageFlipped = false;
-        updateSomething();
+        //updateSomething();
         
     }
 

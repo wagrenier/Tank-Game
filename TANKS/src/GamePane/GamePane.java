@@ -32,7 +32,7 @@ public class GamePane extends Pane{
     private WeaponAnimation weaponAnimation;
     WeaponManager weaponManager;
     
-    MapGeneration mapGeneration = new MapGeneration(450, 300, 500);
+    MapGeneration mapGeneration = new MapGeneration(450, 200, 500);
     
     public GamePane(){
         paneSetup(this);
@@ -50,11 +50,13 @@ public class GamePane extends Pane{
         
         
         //tanksAnimation.getTanksOne().setTranslateY(mapGeneration.getY(tanksAnimation.getTanksOne().getTranslateX()));
-        Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(0).getTexturePath());
-                
+        //Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(0).getTexturePath());
+        Weapon weapon = new Weapon("Texture/weapon.png");        
         
         new WeaponAnimation(weapon, tanksAnimation.getTanksOne(), mapGeneration, pane);
-        System.gc();
+        //System.gc();
+        
+        //Garbage collector commented out since it uses a lot of ressources for nothing
         //weaponAnimation.launchAnimation();
         
     }
