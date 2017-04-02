@@ -149,7 +149,7 @@ public class CountryMenu extends Pane{
     }
     private void setUsername(){
         usernameField = new TextField("Player " + player);
-        
+        usernameField.setStyle("-fx-background-color: transparent;");
         this.getChildren().add(usernameField);
         
         usernameField.setTranslateX(470.5);
@@ -314,6 +314,8 @@ public class CountryMenu extends Pane{
             tank.setImage(tankList.get(tankCount));
             flag.setImage(flagList.get(tankCount));
         }
+        
+        usernameField.setStyle("-fx-background-color: transparent;");
     }
     private void setNextBtn(){
         nextBtn = new ImageView(nextBtnImage);
