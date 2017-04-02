@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package Tanks;
 
 
 
+import GamePane.GamePane;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
@@ -16,8 +17,8 @@ import javafx.stage.Stage;
 /**
  *
  * @author Cedrik Dubois
- */
-public class MainTankMouvementTest extends Application {
+ */ 
+public class MainTankMouvementTest extends Application { 
     
     @Override
     public void start(Stage primaryStage) {
@@ -26,6 +27,7 @@ public class MainTankMouvementTest extends Application {
         
         Scene scene = new Scene(pane);
         
+        pane.setSnapToPixel(false);
        
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -48,7 +50,5 @@ public class MainTankMouvementTest extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-
-    
+    }   
 }

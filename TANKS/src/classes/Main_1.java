@@ -115,6 +115,7 @@ public class Main_1 extends Application {
         });
         
     }
+
     private void registerPlayer(boolean lastplayer){
         
         playerList.get(playerCount).setName(countryMenu.getPlayerName());
@@ -122,6 +123,7 @@ public class Main_1 extends Application {
         if (!lastplayer)
             countryMenu.removeTeam(countryMenu.getTankCount());
     }
+
     /**
      * @param args the command line arguments
      */
