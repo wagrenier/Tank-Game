@@ -58,8 +58,6 @@ public class TanksAnimation {
     final String pathForTextureFlippedTankFour = "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png";
     final String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
     
-    
-    
     private double gravity = 0.05;
     
     private int numOfPlayer;
@@ -73,7 +71,6 @@ public class TanksAnimation {
     private Timeline animation4;
     private Pane pane;
     private MapGeneration mapGeneration;
-    
     
     public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne);
@@ -187,18 +184,10 @@ public class TanksAnimation {
         tanksOne.getCannon().setTranslateY(tanksOne.getTranslateY() + yspeed - 35);
         
         
-        //tanksOne.getCannon().setRotate(90);
+        
         animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            
-            
-            
-            
-            
             tanksOne.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())));
             
-            
-        
-        
         y = mapGeneration.getY(tanksOne.getTranslateX());
             tanksOne.setTranslateY(tanksOne.getTranslateY() + yspeed);
             tanksOne.setTranslateX((tanksOne.getTranslateX() + xspeed)); 
@@ -206,38 +195,38 @@ public class TanksAnimation {
             if(xspeed < 0){
                 tanksOne.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())) + Math.toDegrees(tanksOne.getCannon().getCanonAngle()) - 180);
                 tanksOne.getCannon().setTranslateY(tanksOne.getTranslateY() + yspeed - 30);
+                tanksOne.getCannon().setTranslateX((tanksOne.getTranslateX() + xspeed)); 
             }
             
             else if(xspeed == 0){
                 if(tanksOne.isIsImageFlipped()){
                     tanksOne.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())) + Math.toDegrees(tanksOne.getCannon().getCanonAngle()) - 180);
                     tanksOne.getCannon().setTranslateY(tanksOne.getTranslateY() + yspeed - 30);
+                    tanksOne.getCannon().setTranslateX((tanksOne.getTranslateX() + xspeed)); 
                 }
                 else{
                     tanksOne.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())) - Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
                     tanksOne.getCannon().setTranslateY(tanksOne.getTranslateY() + yspeed - 35);
+                    tanksOne.getCannon().setTranslateX((tanksOne.getTranslateX() + xspeed)); 
                 }
             }
             
             else if(xspeed > 0){
                 tanksOne.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())) - Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
                 tanksOne.getCannon().setTranslateY(tanksOne.getTranslateY() + yspeed - 35);
+                tanksOne.getCannon().setTranslateX((tanksOne.getTranslateX() + xspeed)); 
             }
             
             
-            tanksOne.getCannon().setTranslateX((tanksOne.getTranslateX() + xspeed)); 
+            
             
             
             if(tanksOne.getTranslateX()<= 0 || tanksOne.getTranslateX() >= 1200){
                 if(tanksOne.getTranslateX()<= 0){
-                    //tanksOne.setRotate(90);
-                    //tanksOne.getCannon().setRotate((180 + Math.toDegrees(tanksOne.getCannon().getCanonAngle())));
                     tanksOne.normalTexture();
                 }
                 
                 else{
-                   // tanksOne.setRotate(-90);
-                   //tanksOne.getCannon().setRotate((180 - Math.toDegrees(tanksOne.getCannon().getCanonAngle())));
                     tanksOne.flipTexture();
                 }
                 xspeed *= -1;
@@ -263,41 +252,57 @@ public class TanksAnimation {
         
         tanksTwo.setTranslateX(500);
         tanksTwo.setTranslateY(mapGeneration.getY(500));
-        tanksTwo.getCannon().setTranslateY(tanksTwo.getTranslateY() + yspeed2 - 35);
+       // tanksTwo.getCannon().setTranslateY(tanksTwo.getTranslateY());
+        //tanksTwo.getCannon().setTranslateY(tanksTwo.getTranslateY());
+        //tanksTwo.getCannon().setTranslateX((tanksTwo.getTranslateX())); 
+        //tanksTwo.setCenterX(width);
         
+        tanksTwo.getCannon().setTranslateX(500);
+        tanksTwo.getCannon().setTranslateY(mapGeneration.getY(500));
+        tanksTwo.getCannon().setCenterY(-35);
         animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             
             
         
-        tanksTwo.setRotate(50 * mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
+        tanksTwo.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksTwo.getTranslateX())));
             y2 = mapGeneration.getY(tanksTwo.getTranslateX()) ;
             
             tanksTwo.setTranslateY(tanksTwo.getTranslateY() + yspeed2);
             tanksTwo.setTranslateX(tanksTwo.getTranslateX() + xspeed2);
+            tanksTwo.getCannon().setTranslateY(tanksTwo.getTranslateY());
+            tanksTwo.getCannon().setTranslateX((tanksTwo.getTranslateX())); 
             
             if(xspeed2 < 0){
                 tanksTwo.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksTwo.getTranslateX())) + Math.toDegrees(tanksTwo.getCannon().getCanonAngle()) - 180);
-                tanksTwo.getCannon().setTranslateY(tanksTwo.getTranslateY() + yspeed2 - 30);
+                tanksTwo.getCannon().setCenterY(-30);
+                
             }
             
             else if(xspeed2 == 0){
                 if(tanksTwo.isIsImageFlipped()){
                     tanksTwo.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksTwo.getTranslateX())) + Math.toDegrees(tanksTwo.getCannon().getCanonAngle()) - 180);
-                    tanksTwo.getCannon().setTranslateY(tanksTwo.getTranslateY() + yspeed2 - 30);
+                    tanksTwo.getCannon().setCenterY(-30);
+                    
+                    
+                    
                 }
                 else{
                     tanksTwo.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksTwo.getTranslateX())) - Math.toDegrees(tanksTwo.getCannon().getCanonAngle()));
-                    tanksTwo.getCannon().setTranslateY(tanksTwo.getTranslateY() + yspeed2 - 35);
+                    tanksTwo.getCannon().setCenterY(-35);
+                    
+                    
                 }
             }
             
             else if(xspeed2 > 0){
                 tanksTwo.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksTwo.getTranslateX())) - Math.toDegrees(tanksTwo.getCannon().getCanonAngle()));
-                tanksTwo.getCannon().setTranslateY(tanksTwo.getTranslateY() + yspeed2 - 35);
+                tanksTwo.getCannon().setCenterY(-35);
+                
+                
             }
             
             
-            tanksTwo.getCannon().setTranslateX((tanksTwo.getTranslateX() + xspeed2)); 
+            
             
             
             if(tanksTwo.getTranslateX()<= 0 || tanksTwo.getTranslateX() >= width){
@@ -308,7 +313,6 @@ public class TanksAnimation {
                 else{
                     tanksTwo.flipTexture();
                 }
-                //System.out.println("BOB " + tanksTwo.getTranslateX() + " width: " + width);
                 xspeed2 *= -1;
             }
             
@@ -320,8 +324,11 @@ public class TanksAnimation {
                 yspeed2 = 0;
             
             if(tanksTwo.getTranslateY() > y2){
+                tanksTwo.getCannon().setTranslateY(y2);
                 tanksTwo.setTranslateY(y2);
             } 
+            
+            
             
             }));
     }
@@ -413,14 +420,14 @@ public class TanksAnimation {
             if(xspeed4 < 0){
                 tanksFour.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksFour.getTranslateX())) + Math.toDegrees(tanksFour.getCannon().getCanonAngle()) - 180);
                 tanksFour.getCannon().setTranslateY(tanksFour.getTranslateY() + yspeed4 - 30);
-                tanksFour.getCannon().setTranslateX(tanksFour.getTranslateX() + xspeed4); 
+                tanksFour.getCannon().setTranslateX(tanksFour.getTranslateX() + xspeed4 + 5); 
             }
             
             else if(xspeed4 == 0){
                 if(tanksFour.isIsImageFlipped()){
                     tanksFour.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksFour.getTranslateX())) + Math.toDegrees(tanksFour.getCannon().getCanonAngle()) - 180);
                     tanksFour.getCannon().setTranslateY(tanksFour.getTranslateY() + yspeed4 - 30);
-                    tanksFour.getCannon().setTranslateX(tanksFour.getTranslateX() + xspeed4); 
+                    tanksFour.getCannon().setTranslateX(tanksFour.getTranslateX() + xspeed4 + 5); 
                 }
                 else{
                     tanksFour.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksFour.getTranslateX())) - Math.toDegrees(tanksFour.getCannon().getCanonAngle()));

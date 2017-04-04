@@ -28,7 +28,7 @@ public class MapGeneration {
         this.startingPoint = (400);
         //this.amplitudeOfWave = (300);
         //this.lengthOfWave = (150);
-        this.amplitudeOfWave = (100 + Math.random() * amplitudeOfWave);
+        this.amplitudeOfWave = ( Math.random() * amplitudeOfWave);
         this.lengthOfWave = (300 + Math.random() * lengthOfWave);
     }
     

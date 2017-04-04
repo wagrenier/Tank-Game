@@ -29,7 +29,6 @@ public class Weapon extends Circle{
     private MediaPlayer soundEffectPlayer;
     private MapGeneration mapGeneration;
     
-    
     public Weapon(String texturePath){
         this.texturePath = texturePath;
         //textureView = new ImageView(this.texture);
@@ -116,7 +115,4 @@ public class Weapon extends Circle{
     public String getTexturePath() {
         return texturePath;
     }
-    
-    
-    
 }

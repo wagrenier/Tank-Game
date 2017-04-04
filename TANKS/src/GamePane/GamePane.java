@@ -30,7 +30,7 @@ public class GamePane extends Pane{
     private double height = 800;
     private TanksAnimation tanksAnimation;
     WeaponManager weaponManager;
-    MapGeneration mapGeneration = new MapGeneration(450, 200, 500);
+    MapGeneration mapGeneration = new MapGeneration(450, 100, 500);
     
     public GamePane(){
         paneSetup(this);
@@ -51,7 +51,7 @@ public class GamePane extends Pane{
     
     public void tanksSetup(Pane pane){
 
-        tanksAnimation = new TanksAnimation(mapGeneration, pane, 2);  
+        tanksAnimation = new TanksAnimation(mapGeneration, pane, 4);  
     }
     
     public void backGroundSetup(Pane pane){

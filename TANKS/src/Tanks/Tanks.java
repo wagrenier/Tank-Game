@@ -6,7 +6,6 @@
 package Tanks;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
@@ -38,33 +37,15 @@ public class Tanks extends Circle{
         this.setFill(texturePattern);
         cannon = new Cannon(imagePathCannon);
     }  
-    
-    public void updateSomething(){
-        if(!isImageFlipped){
-            
-        //cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
-        //cannon.centerYProperty().bind(this.translateYProperty().add(-35));
-        }
-        
-        else{
-            //cannon.setRotate(BASELINE_OFFSET_SAME_AS_HEIGHT);
-            //cannon.rotateProperty().bind(this.rotateProperty().add(180 + Math.toDegrees(cannon.getCanonAngle())));
-            //cannon.centerYProperty().bind(this.translateYProperty().add(-30));
-        }
-    }
 
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
         isImageFlipped = true;
-        //updateSomething();
-        
     }
     
     public void normalTexture(){
         this.setFill(texturePattern);
-        isImageFlipped = false;
-        //updateSomething();
-        
+        isImageFlipped = false; 
     }
 
     public boolean isIsImageFlipped() {
