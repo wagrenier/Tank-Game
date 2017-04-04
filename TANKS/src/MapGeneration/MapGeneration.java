@@ -21,13 +21,19 @@ public class MapGeneration {
     double lengthOfWave;
     
     public MapGeneration(double startingPoint, double amplitudeOfWave, double lengthOfWave){
+        
+        //The lower the curve can go is 0 and the max is 700
+        //Thus, the starting point + amplitude < 700 & starting point - amplitude > 0
+        //this.startingPoint = (350 + Math.random() * startingPoint);
+        this.startingPoint = (400);
+        //this.amplitudeOfWave = (300);
+        //this.lengthOfWave = (150);
         this.amplitudeOfWave = (100 + Math.random() * amplitudeOfWave);
-        this.startingPoint = (350 + Math.random() * startingPoint);
         this.lengthOfWave = (300 + Math.random() * lengthOfWave);
     }
     
     public double derivativeFunction(double x){
-        return ((amplitudeOfWave * Math.cos( x / lengthOfWave)) / lengthOfWave);
+        return ((amplitudeOfWave * Math.cos( x / lengthOfWave)) / lengthOfWave) ;
     }
     
     public double getY(double x){
