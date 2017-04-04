@@ -26,47 +26,47 @@ public class TanksAnimation {
     private double xspeed = 0;
     private double yspeed = 0;
     private double y;
-    String pathForTextureTankOne = "Texture/Tanks/Canada/Body/Red_Tank_(100x100).png";
-    String pathForTextureFlippedTankOne = "Texture/Tanks/Canada/Body/Red_Tank_Flipped_(100x100).png";
-    String pathForTextureCannonOne = "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100).png";
-    String pathForTextureFlippedCannonOne = "Texture/Tanks/Canada/Cannon/Red_Cannon_Flipped_(100x100).png";
+    final String  pathForTextureTankOne = "Texture/Tanks/Canada/Body/Red_Tank_(100x100).png";
+    final String pathForTextureFlippedTankOne = "Texture/Tanks/Canada/Body/Red_Tank_Flipped_(100x100).png";
+    final String pathForTextureCannonOne = "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100).png";
+    
     //Cannon cannon;
     
     //Variables for tank 2
     private double xspeed2 = 0;
     private double yspeed2 = 0;
     private double y2;
-    String pathForTextureTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_(100x100).png";
-    String pathForTextureFlippedTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_Flipped_(100x100).png";
-    String pathForTextureCannonTwo = "Texture/Tanks/China/Cannon/Yellow_Cannon_(100x100).png";
-    String pathForTextureFlippedCannonTwo = "Texture/Tanks/China/Cannon/Yellow_Cannon_Flipped_(100x100).png";
+    final String pathForTextureTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_(100x100).png";
+    final String pathForTextureFlippedTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_Flipped_(100x100).png";
+    final String pathForTextureCannonTwo = "Texture/Tanks/China/Cannon/Yellow_Cannon_(100x100).png";
+    
     
     //Variables for tanks 3
     private double xspeed3 = 0;
     private double yspeed3 = 0;
     private double y3;
-    String pathForTextureTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_(100x100).png";
-    String pathForTextureFlippedTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_Flipped_(100x100).png";
-    String pathForTextureCannonThree = "Texture/Tanks/NorthKorea/Cannon/Blue_Cannon_(100x100).png";
-    String pathForTextureFlippedCannonThree = "Texture/Tanks/NorthKorea/Cannon/Blue_Cannon_Flipped_(100x100).png";
+    final String pathForTextureTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_(100x100).png";
+    final String pathForTextureFlippedTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_Flipped_(100x100).png";
+    final String pathForTextureCannonThree = "Texture/Tanks/NorthKorea/Cannon/Blue_Cannon_(100x100).png";
+    
     
     //Variables for tank 4
     private double xspeed4 = 0;
     private double yspeed4 = 0;
     private double y4;
-    String pathForTextureTankFour = "Texture/Tanks/USA/Body/Green_Tank_(100x100).png";
-    String pathForTextureFlippedTankFour = "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png";
-    String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
-    String pathForTextureFlippedCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_Flipped_(100x100).png";
+    final String pathForTextureTankFour = "Texture/Tanks/USA/Body/Green_Tank_(100x100).png";
+    final String pathForTextureFlippedTankFour = "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png";
+    final String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
+    
     
     
     private double gravity = 0.05;
     
     private int numOfPlayer;
-    private Tanks tanksOne;
-    private Tanks tanksTwo;
-    private Tanks tanksThree;
-    private Tanks tanksFour;
+    private final Tanks tanksOne;
+    private final Tanks tanksTwo;
+    private final Tanks tanksThree;
+    private final Tanks tanksFour;
     private Timeline animation;
     private Timeline animation2;
     private Timeline animation3;
@@ -76,10 +76,10 @@ public class TanksAnimation {
     
     
     public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
-        tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, pathForTextureFlippedCannonOne);
-        tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo, pathForTextureFlippedCannonTwo);
-        tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree, pathForTextureCannonThree, pathForTextureFlippedCannonThree);
-        tanksFour = new Tanks(pathForTextureTankFour, pathForTextureFlippedTankFour, pathForTextureCannonFour, pathForTextureFlippedCannonFour);
+        tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne);
+        tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo);
+        tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree, pathForTextureCannonThree);
+        tanksFour = new Tanks(pathForTextureTankFour, pathForTextureFlippedTankFour, pathForTextureCannonFour);
         this.numOfPlayer = numOfPlayer;     
         this.mapGeneration = mapGeneration;
         this.pane = pane;
@@ -87,6 +87,10 @@ public class TanksAnimation {
         tanksOne.setCenterY(-23);
         tanksThree.setCenterY(-21);
         setupTanksPlayer();
+        
+        pane.setOnKeyPressed(x -> {
+                keyPressed(x.getCode());
+            });
     }
     
     private void setupTanksPlayer(){
@@ -177,16 +181,15 @@ public class TanksAnimation {
     }
     
     private void animationForTankOne(){
-        
+        tanksOne.setCenterY(-23);
         tanksOne.setTranslateX(300);
         tanksOne.setTranslateY(mapGeneration.getY(300));
         tanksOne.getCannon().setTranslateY(tanksOne.getTranslateY() + yspeed - 35);
         
+        
         //tanksOne.getCannon().setRotate(90);
         animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());
-            });
+            
             
             
             
@@ -250,6 +253,8 @@ public class TanksAnimation {
             if(tanksOne.getTranslateY() > y){
                 tanksOne.setTranslateY(y);
             } 
+            
+            
             }));
         
     }
@@ -261,9 +266,7 @@ public class TanksAnimation {
         tanksTwo.getCannon().setTranslateY(tanksTwo.getTranslateY() + yspeed2 - 35);
         
         animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
+            
             
         
         tanksTwo.setRotate(50 * mapGeneration.derivativeFunction(tanksTwo.getTranslateX()));
@@ -330,9 +333,7 @@ public class TanksAnimation {
         tanksThree.getCannon().setTranslateY(tanksThree.getTranslateY() + yspeed3 - 35);
         
         animation3 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
+            
             
         tanksThree.setRotate(50 * mapGeneration.derivativeFunction(tanksThree.getTranslateX()));
         y3 = mapGeneration.getY(tanksThree.getTranslateX()) ;
@@ -398,9 +399,6 @@ public class TanksAnimation {
         tanksFour.getCannon().setTranslateY(tanksFour.getTranslateY() + yspeed4 - 30);
         
         animation4 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode());  
-            });
             
             
             
@@ -472,11 +470,13 @@ public class TanksAnimation {
          
         switch (x){
             
+            
+            //Controls for player 1
             case SPACE: {
-                ((GamePane)pane).weaponSetup(pane);
+                ((GamePane)pane).weaponSetup(pane, tanksOne);
             }break;
                     
-                    //Controls for player 1
+                    
                 case LEFT: {
                     
                     if(xspeed == 0){
@@ -515,7 +515,14 @@ public class TanksAnimation {
                 }break;        
                 
                 
+                
+                
                   //Controls for player 2  
+                
+                case E: {
+                ((GamePane)pane).weaponSetup(pane, tanksTwo);
+            }break;
+            
                 case A: {
                     
                     if(xspeed2 == 0){
@@ -539,14 +546,21 @@ public class TanksAnimation {
                     }break;
                     
                 case W: {
-                        if(yspeed2 == 0){
-                        //System.out.println("up");
-                        yspeed2 = -0.5;
-                        }
+                        tanksTwo.getCannon().higherAngle();
                     }break;
                     
+                case S: {
+                    tanksTwo.getCannon().lowerAngle();
+                }break;
                     
+                    
+                
+                
                     //Controls for player 3
+                case O: {
+                ((GamePane)pane).weaponSetup(pane, tanksThree);
+            }break;
+            
                 case J: {
                     if(xspeed3 == 0){
                             xspeed3 -= 0.1;
@@ -568,15 +582,23 @@ public class TanksAnimation {
                     }break;
                     
                 case I: {
-                        if(yspeed3 == 0){
-                        //System.out.println("up");
-                        yspeed3 = -0.5;
-                        }
+                        tanksThree.getCannon().higherAngle();
+                        
                     }break;
                     
                     
+                case K:{
+                    tanksThree.getCannon().lowerAngle();
+                }break;
+                    
+                    
+                
+                
                     //Controls for player 4
-                case V: {
+                case Y: {
+                ((GamePane)pane).weaponSetup(pane, tanksFour);
+            }break;
+                case F: {
                     if(xspeed4 == 0){
                             xspeed4 -= 0.1;
                             tanksFour.flipTexture();
@@ -585,7 +607,7 @@ public class TanksAnimation {
                         xspeed4 -= 0.1;
                     }break;
                     
-                case B: {
+                case H: {
                     if(xspeed4 == 0){
                             xspeed4 += 0.1;
                             tanksFour.normalTexture();
@@ -595,12 +617,13 @@ public class TanksAnimation {
                         //System.out.println("HI");
                     }break;
                     
-                case G: {
-                        if(yspeed4 == 0){
-                        //System.out.println("up");
-                        yspeed4 = -0.5;
-                        }
+                case T: {
+                        tanksFour.getCannon().higherAngle();
                     }break;
+                    
+                case G:{
+                    tanksFour.getCannon().lowerAngle();
+                }
                 
         }
     }

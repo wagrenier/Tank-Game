@@ -18,42 +18,21 @@ public class Cannon extends Circle{
     
     
     private double canonAngle = 0;
-    private String imagePath;
-    private String imageReversePath;
-    private ImagePattern texturePattern;
-    private ImagePattern texturePatternFlipped;
-    private Image texture;
-    private Image textureFlipped;
+    private final String imagePath;
+    private final ImagePattern texturePattern;
+    private final Image texture;
     private boolean isImageFlipped = false;
     
     
-    Cannon(String imagePath, String imageReversePath){
+    Cannon(String imagePath){
         this.setRadius(50);
-        
-        this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
-        
         texture = new Image(this.imagePath);
-        //textureFlipped = new Image(this.imageReversePath);
-        
         texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
-        //texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
-        
-        //ImageView imageView = new ImageView(texture);
-        
-        
-        
-        
         this.setFill(texturePattern);
-        //this.setRotate(20);
-        //setStroke(Color.BLACK);
-        //setTranslateX(50);
-        //setTranslateY(200);
     }  
     
     public void flipTexture(){
-        //this.setFill(texturePatternFlipped);
-        
         isImageFlipped = true;
     }
     

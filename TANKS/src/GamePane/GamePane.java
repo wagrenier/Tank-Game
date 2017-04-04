@@ -7,6 +7,7 @@ package GamePane;
 
 import Tanks.TanksAnimation;
 import MapGeneration.MapGeneration;
+import Tanks.Tanks;
 import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;
@@ -17,7 +18,6 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -28,14 +28,8 @@ public class GamePane extends Pane{
     
     private double width = 1200;
     private double height = 800;
-
-    //private TanksAnimation tanksAnimation;
-
     private TanksAnimation tanksAnimation;
-    private WeaponAnimation weaponAnimation;
     WeaponManager weaponManager;
-
-    
     MapGeneration mapGeneration = new MapGeneration(450, 200, 500);
     
     public GamePane(){
@@ -49,24 +43,15 @@ public class GamePane extends Pane{
         weaponManager = new WeaponManager();
     }
     
-    public void weaponSetup(Pane pane){
-        
-        
-        //tanksAnimation.getTanksOne().setTranslateY(mapGeneration.getY(tanksAnimation.getTanksOne().getTranslateX()));
-        //Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(0).getTexturePath());
+    public void weaponSetup(Pane pane, Tanks tank){
         Weapon weapon = new Weapon("Texture/weapon.png");        
         
-        new WeaponAnimation(weapon, tanksAnimation.getTanksOne(), mapGeneration, pane);
-        //System.gc();
-        
-        //Garbage collector commented out since it uses a lot of ressources for nothing
-        //weaponAnimation.launchAnimation();
-        
+        new WeaponAnimation(weapon, tank, mapGeneration, pane);
     }
     
     public void tanksSetup(Pane pane){
 
-        tanksAnimation = new TanksAnimation(mapGeneration, pane, 4);  
+        tanksAnimation = new TanksAnimation(mapGeneration, pane, 2);  
     }
     
     public void backGroundSetup(Pane pane){

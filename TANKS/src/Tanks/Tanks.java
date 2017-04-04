@@ -17,47 +17,27 @@ import javafx.scene.shape.Circle;
 public class Tanks extends Circle{
     
     private int lifePoint = 100;
-    private String imagePath;
-    private String imageReversePath;
-    private ImagePattern texturePattern;
-    private ImagePattern texturePatternFlipped;
-    private Image texture;
-    private Image textureFlipped;
+    private final String imagePath;
+    private final String imageReversePath;
+    private final ImagePattern texturePattern;
+    private final ImagePattern texturePatternFlipped;
+    private final Image texture;
+    private final Image textureFlipped;
     private boolean isImageFlipped = false;
-    private Cannon cannon;
+    private final Cannon cannon;
     
-    Tanks(String imagePath, String imageReversePath, String imagePathCannon, String imageReversePathCannon){
+    Tanks(String imagePath, String imageReversePath, String imagePathCannon){
         this.setRadius(50);
-        
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
-        
         texture = new Image(this.imagePath);
         textureFlipped = new Image(this.imageReversePath);
-        
         texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
         texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
-        
-        
-        
-        
         this.setCenterY(-18);
-        
         this.setFill(texturePattern);
-        
-        cannon = new Cannon(imagePathCannon, imageReversePathCannon);
-        
-        
-        //cannon.centerXProperty().bind(this.translateXProperty());
-        //cannon.centerYProperty().bind(this.translateYProperty().add(-35));
-        //cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
-        
-        //this.setRotate(20);
-        //setStroke(Color.BLACK);
-        //setTranslateX(50);
-        //setTranslateY(200);
+        cannon = new Cannon(imagePathCannon);
     }  
-    
     
     public void updateSomething(){
         if(!isImageFlipped){
@@ -73,7 +53,6 @@ public class Tanks extends Circle{
         }
     }
 
-    
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
         isImageFlipped = true;
@@ -95,7 +74,4 @@ public class Tanks extends Circle{
     public Cannon getCannon() {
         return cannon;
     }
-    
-    
-    
 }
