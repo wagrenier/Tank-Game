@@ -6,6 +6,7 @@
 package classes;
 
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +25,8 @@ import javafx.scene.text.Text;
  * @author Cedrik Dubois
  */
 public class PlayerMenu extends Pane{
+    
+    private Scene scene;
     
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 800;
@@ -68,6 +71,9 @@ public class PlayerMenu extends Pane{
         setBackBtn();
         
         
+    }
+    public void setScene(Scene scene){
+        this.scene = scene;
     }
     public int getNumberOfPlayers(){
         return numberOfPlayers;

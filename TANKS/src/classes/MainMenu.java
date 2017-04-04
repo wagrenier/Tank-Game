@@ -6,6 +6,8 @@
 package classes;
 
 import java.util.ArrayList;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -20,6 +22,8 @@ import javafx.scene.image.ImageView;
  * @author Cedrik Dubois
  */
 public class MainMenu extends Pane{
+    
+    private Scene scene;
     
     private static final int HEIGHT = 800;
     private static final int WIDTH = 1200;
@@ -49,6 +53,9 @@ public class MainMenu extends Pane{
         this.requestFocus();
         
     }
+    public void setScene(Scene scene){
+        this.scene = scene;
+    }
     private void setLoadBtn(){
         loadBtn = new ImageView(loadBtnImage);
         
@@ -71,10 +78,12 @@ public class MainMenu extends Pane{
         
         loadBtn.setOnMouseEntered(e -> {
             loadBtn.setImage(loadBtnHover);
+            scene.setCursor(Cursor.HAND);
         });
         
         loadBtn.setOnMouseExited(e -> {
             loadBtn.setImage(loadBtnImage);
+            scene.setCursor(Cursor.DEFAULT);
         });
         
         loadBtn.setOnMouseClicked(e -> {
@@ -113,10 +122,12 @@ public class MainMenu extends Pane{
         
         playBtn.setOnMouseEntered(e -> {
             playBtn.setImage(playBtnHover);
+            scene.setCursor(Cursor.HAND);
         });
         
         playBtn.setOnMouseExited(e -> {
             playBtn.setImage(playBtnImage);
+            scene.setCursor(Cursor.DEFAULT);
         });
         
         

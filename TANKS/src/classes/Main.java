@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     
     
-    
+    Scene scene;
     
     @Override
     public void start(Stage primaryStage) {
@@ -33,7 +33,7 @@ public class Main extends Application {
 
         
         
-        Scene scene = new Scene(mainMenuPane, 1200, 800);
+        scene = new Scene(mainMenuPane, 1200, 800);
 
         
         primaryStage.getIcons().add(new Image("Texture/Tanks/USA/Body/Green_Tank_(100x100).png"));

@@ -7,6 +7,7 @@ package classes;
 
 import java.util.ArrayList;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +25,8 @@ import javafx.scene.text.FontWeight;
  * @author Cedrik Dubois
  */
 public class CountryMenu extends Pane{
+    
+    private Scene scene;
     
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 800;
@@ -82,6 +85,9 @@ public class CountryMenu extends Pane{
         setFlag();
         setUsername();
         setBackBtn();
+    }
+    public void setScene(Scene scene){
+        this.scene = scene;
     }
     public void resetPane(){
         setTankList();

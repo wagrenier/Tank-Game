@@ -18,6 +18,8 @@ import javafx.stage.Stage;
  * @author Cedrik Dubois
  */
 public class Main_1 extends Application {
+    private Scene scene;
+    
     MainMenu mainMenu = new MainMenu();
     PlayerMenu playerMenu = new PlayerMenu();
     CountryMenu countryMenu = new CountryMenu();
@@ -31,6 +33,8 @@ public class Main_1 extends Application {
     
     private ArrayList<Player> playerList = new ArrayList<>();
     
+    
+    
     @Override
     public void start(Stage stage) {
         
@@ -39,8 +43,13 @@ public class Main_1 extends Application {
         paneList.add(countryMenu);
         paneList.add(mapMenu);
         
-        Scene scene = new Scene(mainMenu);
+        scene = new Scene(mainMenu);
         stage.setScene(scene);
+        
+        mainMenu.setScene(scene);
+        playerMenu.setScene(scene);
+        countryMenu.setScene(scene);
+        mapMenu.setScene(scene);
         
         stage.show();
         

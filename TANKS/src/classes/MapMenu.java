@@ -6,6 +6,7 @@
 package classes;
 
 import java.util.ArrayList;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +26,8 @@ import javafx.scene.text.TextAlignment;
  * @author Cedrik Dubois
  */
 public class MapMenu extends Pane{
+    
+    private Scene scene;
     
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 800;
@@ -87,6 +90,9 @@ public class MapMenu extends Pane{
         setMapTitle();
         
         
+    }
+    public void setScene(Scene scene){
+        this.scene = scene;
     }
     private void setTitleList(){
         titleList[1] = "Mountains";
