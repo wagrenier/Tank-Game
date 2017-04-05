@@ -102,7 +102,7 @@ public class WeaponAnimation {
                 //animationWeapon.stop();
                 
                 //pane.getChildren().remove(animationWeapon);
-                //pane.getChildren().remove(weapon);
+                pane.getChildren().remove(weapon);
                 //add animation explosion
                 
             }
