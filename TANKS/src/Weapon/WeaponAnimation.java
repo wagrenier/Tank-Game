@@ -8,7 +8,9 @@ package Weapon;
 import MapGeneration.MapGeneration;
 import Tanks.Tanks;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -35,6 +37,7 @@ public class WeaponAnimation {
     private double yspeed;
     private double xspeed;
     
+    ProgressBar bar = new ProgressBar(0);
     MapGeneration mapGeneration;
     Weapon weapon;
     Timeline animationWeapon;
@@ -47,6 +50,29 @@ public class WeaponAnimation {
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
         setupAnimation();
+         
+        
+         
+       bar.setPrefSize(200, 24);
+
+        Timeline task = new Timeline(
+        new KeyFrame(
+                Duration.ZERO,       
+                new KeyValue(bar.progressProperty(), 0)
+        ),
+        new KeyFrame(
+                Duration.seconds(2), 
+                new KeyValue(bar.progressProperty(), 1)
+        )
+    );
+        
+        task.setCycleCount(Timeline.INDEFINITE);
+       bar.setTranslateX(tank.getTranslateX() - 50);
+       bar.setTranslateY(tank.getTranslateY() - 100);
+       pane.getChildren().add(bar);
+       task.setAutoReverse(true);
+       
+        task.play();
         launchAnimation();
     }
     
@@ -144,7 +170,7 @@ public class WeaponAnimation {
         animationWeapon.setOnFinished(e ->{
             
             pane.getChildren().removeAll(weapon);
-            
+           // pane.getChildren().removeAll(bar);
             
         });
             
@@ -157,5 +183,15 @@ public class WeaponAnimation {
     private double projectileRotation(){
         return Math.toDegrees(Math.asin((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));
     }
+
+    public double getInitialVelocity() {
+        return initialVelocity;
+    }
+
+    public void setInitialVelocity(double initialVelocity) {
+        this.initialVelocity = initialVelocity;
+    }
+    
+    
       
 }

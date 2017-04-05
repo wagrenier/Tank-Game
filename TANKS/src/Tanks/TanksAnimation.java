@@ -6,7 +6,6 @@
 package Tanks;
 
 import GamePane.GamePane;
-import Tanks.Tanks;
 import MapGeneration.MapGeneration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -84,10 +83,13 @@ public class TanksAnimation {
         tanksOne.setCenterY(-23);
         tanksThree.setCenterY(-21);
         setupTanksPlayer();
-        
         pane.setOnKeyPressed(x -> {
                 keyPressed(x.getCode());
             });
+    }
+    
+    private void weaponAnimationTanks(){
+        
     }
     
     private void setupTanksPlayer(){
