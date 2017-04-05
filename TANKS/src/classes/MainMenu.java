@@ -16,6 +16,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
@@ -23,7 +24,8 @@ import javafx.scene.image.ImageView;
  */
 public class MainMenu extends Pane{
     
-    private Scene scene;
+   
+    
     
     private static final int HEIGHT = 800;
     private static final int WIDTH = 1200;
@@ -53,9 +55,47 @@ public class MainMenu extends Pane{
         this.requestFocus();
         
     }
-    public void setScene(Scene scene){
-        this.scene = scene;
+    public void setScene(Scene scene, ImageView cursor){
+        
+        scene.setOnMouseEntered(e -> {
+            this.getChildren().add(cursor);
+            cursor.setTranslateX(e.getSceneX());
+            cursor.setTranslateY(e.getSceneY());
+        });
+        
+        scene.setOnMouseExited(e -> {
+            this.getChildren().remove(cursor);
+        });
+        
+        scene.setOnMouseMoved(e -> {
+            cursor.setTranslateX(e.getSceneX());
+            cursor.setTranslateY(e.getSceneY());
+        });
     }
+    public void setScene(Scene scene, ImageView cursor, MouseEvent m){
+        this.getChildren().remove(cursor);
+        
+        this.getChildren().add(cursor);
+        cursor.setTranslateX(m.getSceneX());
+        cursor.setTranslateY(m.getSceneY());
+        
+        scene.setOnMouseEntered(e -> {
+            this.getChildren().add(cursor);
+            cursor.setTranslateX(e.getSceneX());
+            cursor.setTranslateY(e.getSceneY());
+        });
+        
+        scene.setOnMouseExited(e -> {
+            this.getChildren().remove(cursor);
+        });
+        
+        scene.setOnMouseMoved(e -> {
+            cursor.setTranslateX(e.getSceneX());
+            cursor.setTranslateY(e.getSceneY());
+        });
+        
+    }
+    
     private void setLoadBtn(){
         loadBtn = new ImageView(loadBtnImage);
         
@@ -78,12 +118,12 @@ public class MainMenu extends Pane{
         
         loadBtn.setOnMouseEntered(e -> {
             loadBtn.setImage(loadBtnHover);
-            scene.setCursor(Cursor.HAND);
+            
         });
         
         loadBtn.setOnMouseExited(e -> {
             loadBtn.setImage(loadBtnImage);
-            scene.setCursor(Cursor.DEFAULT);
+            
         });
         
         loadBtn.setOnMouseClicked(e -> {
@@ -122,15 +162,13 @@ public class MainMenu extends Pane{
         
         playBtn.setOnMouseEntered(e -> {
             playBtn.setImage(playBtnHover);
-            scene.setCursor(Cursor.HAND);
+            
         });
         
         playBtn.setOnMouseExited(e -> {
             playBtn.setImage(playBtnImage);
-            scene.setCursor(Cursor.DEFAULT);
+            
         });
-        
-        
         
         playBtn.setOnMousePressed(e -> {
             playBtn.setImage(playBtnClicked);

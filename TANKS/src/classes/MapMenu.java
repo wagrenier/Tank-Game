@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -91,8 +92,27 @@ public class MapMenu extends Pane{
         
         
     }
-    public void setScene(Scene scene){
-        this.scene = scene;
+    public void setScene(Scene scene, ImageView cursor, MouseEvent m){
+        this.getChildren().remove(cursor);
+        
+        this.getChildren().add(cursor);
+        cursor.setTranslateX(m.getSceneX());
+        cursor.setTranslateY(m.getSceneY());
+        
+        scene.setOnMouseEntered(e -> {
+            this.getChildren().add(cursor);
+            cursor.setTranslateX(e.getSceneX());
+            cursor.setTranslateY(e.getSceneY());
+        });
+        
+        scene.setOnMouseExited(e -> {
+            this.getChildren().remove(cursor);
+        });
+        
+        scene.setOnMouseMoved(e -> {
+            cursor.setTranslateX(e.getSceneX());
+            cursor.setTranslateY(e.getSceneY());
+        });
     }
     private void setTitleList(){
         titleList[1] = "Mountains";
@@ -148,6 +168,7 @@ public class MapMenu extends Pane{
             playerTanks.get(i).setTranslateX(110.0);
             playerTanks.get(i).setTranslateY(playerTanks.get(i - 1).getTranslateY() + 80);
         }
+        
     }
     private void setTankList(){
         tanks[0] = northKoreaTank;

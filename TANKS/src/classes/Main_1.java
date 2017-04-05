@@ -8,7 +8,10 @@ package classes;
 import java.util.ArrayList;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import javafx.stage.Stage;
@@ -33,6 +36,8 @@ public class Main_1 extends Application {
     
     private ArrayList<Player> playerList = new ArrayList<>();
     
+    private ImageView cursor = new ImageView(new Image("Texture/Cursor/Cursor.png"));
+    
     
     
     @Override
@@ -46,10 +51,12 @@ public class Main_1 extends Application {
         scene = new Scene(mainMenu);
         stage.setScene(scene);
         
-        mainMenu.setScene(scene);
-        playerMenu.setScene(scene);
-        countryMenu.setScene(scene);
-        mapMenu.setScene(scene);
+        mainMenu.setScene(scene, cursor);
+        
+        
+        scene.setCursor(Cursor.NONE);
+        
+        
         
         stage.show();
         
@@ -57,16 +64,19 @@ public class Main_1 extends Application {
         mainMenu.getPlayBtn().setOnMouseClicked(e -> {
             paneCount++;
             scene.setRoot(paneList.get(paneCount));
+            playerMenu.setScene(scene, cursor, e);
         });
         
         playerMenu.getBackBtn().setOnMouseClicked(e -> {
             paneCount--;
             scene.setRoot(paneList.get(paneCount));
+            mainMenu.setScene(scene, cursor, e);
         });
         
         playerMenu.getNextBtn().setOnMouseClicked(e -> {
             paneCount++;
             scene.setRoot(paneList.get(paneCount));
+            countryMenu.setScene(scene, cursor, e);
             numberOfPlayers = playerMenu.getNumberOfPlayers();
             
             for (int i = 0; i < numberOfPlayers; i++){
@@ -86,9 +96,10 @@ public class Main_1 extends Application {
                 registerPlayer(true);
                 paneCount++;
                 scene.setRoot(paneList.get(paneCount));
+                
                 mapMenu.setPlayerList(playerList);
                 mapMenu.setPlayers();
-                
+                mapMenu.setScene(scene, cursor, e);
                 
             }
             
@@ -100,7 +111,7 @@ public class Main_1 extends Application {
         countryMenu.getBackBtn().setOnMouseClicked(e -> {
             paneCount--;
             scene.setRoot(paneList.get(paneCount));
-            
+            playerMenu.setScene(scene, cursor, e);
             //Reset variables for countryMenu
             playerCount = 0;
             playerList.clear();
@@ -112,7 +123,7 @@ public class Main_1 extends Application {
             paneCount--;
             paneCount--;
             scene.setRoot(paneList.get(paneCount));
-            
+            playerMenu.setScene(scene, cursor, e);
             //Reset variables for mapMenu
             mapMenu.resetPane();
             
