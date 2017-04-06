@@ -7,6 +7,9 @@ package Tanks;
 
 import GamePane.GamePane;
 import MapGeneration.MapGeneration;
+import Weapon.Weapon;
+import Weapon.WeaponAnimation;
+import Weapon.WeaponManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.input.KeyCode;
@@ -70,6 +73,7 @@ public class TanksAnimation {
     private Timeline animation4;
     private Pane pane;
     private MapGeneration mapGeneration;
+    WeaponManager weaponManager;
     
     public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png");
@@ -83,12 +87,14 @@ public class TanksAnimation {
         tanksOne.setCenterY(-23);
         tanksThree.setCenterY(-21);
         setupTanksPlayer();
+        weaponManager = new WeaponManager();
+        
         pane.setOnKeyPressed(x -> {
                 keyPressed(x.getCode());
             });
     }
     
-    private void weaponAnimationTanks(){
+    private void progressBarInitialSetup(){
         
     }
     
@@ -477,6 +483,12 @@ public class TanksAnimation {
             }));
     }
     
+    public void weaponSetup(Pane pane, Tanks tank){
+        Weapon weapon = new Weapon("Texture/weapon.png");        
+        
+        new WeaponAnimation(weapon, tank, mapGeneration, pane);
+    }
+    
     public void keyPressed(KeyCode x){
         
          
@@ -485,7 +497,7 @@ public class TanksAnimation {
             
             //Controls for player 1
             case SPACE: {
-                ((GamePane)pane).weaponSetup(pane, tanksOne);
+                weaponSetup(pane, tanksOne);
             }break;
                     
                     
@@ -534,7 +546,7 @@ public class TanksAnimation {
                   //Controls for player 2  
                 
                 case E: {
-                ((GamePane)pane).weaponSetup(pane, tanksTwo);
+                weaponSetup(pane, tanksTwo);
             }break;
             
                 case A: {
@@ -572,7 +584,7 @@ public class TanksAnimation {
                 
                     //Controls for player 3
                 case O: {
-                ((GamePane)pane).weaponSetup(pane, tanksThree);
+                weaponSetup(pane, tanksThree);
             }break;
             
                 case J: {
@@ -610,7 +622,7 @@ public class TanksAnimation {
                 
                     //Controls for player 4
                 case Y: {
-                ((GamePane)pane).weaponSetup(pane, tanksFour);
+                weaponSetup(pane, tanksFour);
             }break;
                 case F: {
                     if(xspeed4 == 0){

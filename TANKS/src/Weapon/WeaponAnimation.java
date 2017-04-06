@@ -83,7 +83,7 @@ public class WeaponAnimation {
     }
     
     private void setupAnimation(){
-       // pane.getChildren().remove(weapon);
+       
         
         
         
@@ -95,7 +95,9 @@ public class WeaponAnimation {
             canonAngle = Math.PI - canonAngle;
         }
         
-        
+        if(tank.isIsImageFlipped()){
+            weapon.setRotate(projectileRotationReverse() + 90);
+        }
         
         angleLaunched = mapGeneration.derivativeFunction(tank.getTranslateX()) - canonAngle;
         
@@ -148,9 +150,7 @@ public class WeaponAnimation {
                 weapon.setTranslateY(currentYPosition);
             } 
             
-            if(tank.isIsImageFlipped()){
-            weapon.setRotate(projectileRotationReverse() + 90);
-        }
+            
             
             else
             weapon.setRotate(projectileRotation());

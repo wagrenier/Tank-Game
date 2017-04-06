@@ -29,7 +29,6 @@ public class GamePane extends Pane{
     private double width = 1200;
     private double height = 800;
     private TanksAnimation tanksAnimation;
-    WeaponManager weaponManager;
     MapGeneration mapGeneration = new MapGeneration(450, 100, 500);
     
     public GamePane(){
@@ -40,17 +39,9 @@ public class GamePane extends Pane{
         frontGroundSetup(pane);
         backGroundSetup(pane);
         tanksSetup(pane);
-        weaponManager = new WeaponManager();
-    }
-    
-    public void weaponSetup(Pane pane, Tanks tank){
-        Weapon weapon = new Weapon("Texture/weapon.png");        
-        
-        new WeaponAnimation(weapon, tank, mapGeneration, pane);
     }
     
     public void tanksSetup(Pane pane){
-
         tanksAnimation = new TanksAnimation(mapGeneration, pane, 4);  
     }
     
@@ -87,9 +78,5 @@ public class GamePane extends Pane{
         }
 
    }
-    
-    public void launchAnimation(){
-        //weaponAnimation.launchAnimation();
-    }
 
 }
