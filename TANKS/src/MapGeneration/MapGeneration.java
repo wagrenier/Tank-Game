@@ -25,10 +25,10 @@ public class MapGeneration {
         //The lower the curve can go is 0 and the max is 700
         //Thus, the starting point + amplitude < 700 & starting point - amplitude > 0
         //this.startingPoint = (350 + Math.random() * startingPoint);
-        this.startingPoint = (200);
-        this.amplitudeOfWave = (300);
+        this.startingPoint = (500);
+        //this.amplitudeOfWave = (300);
         //this.lengthOfWave = (150);
-        //this.amplitudeOfWave = ( Math.random() * amplitudeOfWave);
+        this.amplitudeOfWave = ( Math.random() * amplitudeOfWave);
         this.lengthOfWave = (300 + Math.random() * lengthOfWave);
     }
     

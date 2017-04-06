@@ -32,6 +32,8 @@ public class GamePane extends Pane{
     MapGeneration mapGeneration = new MapGeneration(450, 100, 500);
     
     public GamePane(){
+        this.setMinSize(width, height);
+        this.setMaxSize(width, height);
         paneSetup(this);
     }
     

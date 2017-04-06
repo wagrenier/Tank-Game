@@ -36,7 +36,6 @@ public class MainTankMouvementTest extends Application {
         
         Scene scene = new Scene(gamePane);
         
-        pane.setSnapToPixel(false);
        
         primaryStage.setScene(scene);
         primaryStage.show();

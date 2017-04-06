@@ -6,7 +6,6 @@
 package Tanks;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
@@ -50,7 +49,7 @@ public class Tanks extends Circle{
         this.setCenterY(-18);
         this.setFill(texturePattern);
         cannon = new Cannon(imagePathCannon, reverse);
-        this.setStroke(Color.BLACK);
+        //this.setStroke(Color.BLACK);
     } 
 
     public void flipTexture(){

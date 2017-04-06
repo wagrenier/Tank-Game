@@ -37,7 +37,7 @@ public class WeaponAnimation {
     private double yspeed;
     private double xspeed;
     
-    ProgressBar bar = new ProgressBar(0);
+    
     MapGeneration mapGeneration;
     Weapon weapon;
     Timeline animationWeapon;
@@ -49,30 +49,17 @@ public class WeaponAnimation {
         this.tank = tank;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
-        setupAnimation();
-         
-        
-         
-       bar.setPrefSize(200, 24);
-
-        Timeline task = new Timeline(
-        new KeyFrame(
-                Duration.ZERO,       
-                new KeyValue(bar.progressProperty(), 0)
-        ),
-        new KeyFrame(
-                Duration.seconds(2), 
-                new KeyValue(bar.progressProperty(), 1)
-        )
-    );
-        
-        task.setCycleCount(Timeline.INDEFINITE);
-       bar.setTranslateX(tank.getTranslateX() - 50);
-       bar.setTranslateY(tank.getTranslateY() - 100);
-       pane.getChildren().add(bar);
-       task.setAutoReverse(true);
-       
-        task.play();
+        setupAnimation(); 
+        launchAnimation();
+    }
+    
+    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, double initialVelocity){
+        this.pane = pane;
+        this.tank = tank;
+        this.weapon = weapon;
+        this.mapGeneration = mapGeneration;
+        this.initialVelocity = initialVelocity;
+        setupAnimation(); 
         launchAnimation();
     }
     
@@ -95,9 +82,7 @@ public class WeaponAnimation {
             canonAngle = Math.PI - canonAngle;
         }
         
-        if(tank.isIsImageFlipped()){
-            weapon.setRotate(projectileRotationReverse() + 90);
-        }
+        
         
         angleLaunched = mapGeneration.derivativeFunction(tank.getTranslateX()) - canonAngle;
         
@@ -134,24 +119,22 @@ public class WeaponAnimation {
                 //add animation explosion
                 
             }
+            if(weapon.getTranslateY() <= 0){
+                yspeed *= -1;
+            }
             if (weapon.getTranslateY() < currentYPosition ){
                 yspeed += gravity;
             }
             else{
                 yspeed = 0;
                 xspeed = 0;
-                //animationWeapon.getKeyFrames().clear();
-                //animationWeapon.stop();
-                //pane.getChildren().remove(animationWeapon);
-                
-                //pane.getChildren().removeAll(weapon);
             }
             if(weapon.getTranslateY() > currentYPosition){
                 weapon.setTranslateY(currentYPosition);
             } 
-            
-            
-            
+            if(tank.isIsImageFlipped()){
+            weapon.setRotate(projectileRotationReverse() + 90);
+        }
             else
             weapon.setRotate(projectileRotation());
             }));

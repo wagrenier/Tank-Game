@@ -10,8 +10,11 @@ import MapGeneration.MapGeneration;
 import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;
+import static javafx.animation.Animation.Status.RUNNING;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -32,7 +35,7 @@ public class TanksAnimation {
     final String pathForTextureFlippedTankOne = "Texture/Tanks/Canada/Body/Red_Tank_Flipped_(100x100).png";
     final String pathForTextureCannonOne = "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100).png";
     
-    //Cannon cannon;
+    
     
     //Variables for tank 2
     private double xspeed2 = 0;
@@ -71,9 +74,17 @@ public class TanksAnimation {
     private Timeline animation2;
     private Timeline animation3;
     private Timeline animation4;
+    private Timeline progressBarAnimationOne;
+    private Timeline progressBarAnimationTwo;
+    private Timeline progressBarAnimationThree;
+    private Timeline progressBarAnimationFour;
     private Pane pane;
     private MapGeneration mapGeneration;
     WeaponManager weaponManager;
+    ProgressBar barOne = new ProgressBar(0);
+    ProgressBar barTwo = new ProgressBar(0);
+    ProgressBar barThree = new ProgressBar(0);
+    ProgressBar barFour = new ProgressBar(0);
     
     public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png");
@@ -89,13 +100,54 @@ public class TanksAnimation {
         setupTanksPlayer();
         weaponManager = new WeaponManager();
         
+        progressBarAnimationOne = progressBarInitialSetup(barOne);
+        progressBarAnimationTwo = progressBarInitialSetup(barTwo);
+        progressBarAnimationThree = progressBarInitialSetup(barThree);
+        progressBarAnimationFour = progressBarInitialSetup(barFour);
+        
         pane.setOnKeyPressed(x -> {
                 keyPressed(x.getCode());
             });
     }
     
-    private void progressBarInitialSetup(){
+    private Timeline progressBarInitialSetup(ProgressBar bar){
+        bar.setPrefSize(200, 24);
+
+        Timeline progressBarAnimation = new Timeline(
+        new KeyFrame(
+                Duration.ZERO,       
+                new KeyValue(bar.progressProperty(), 0)
+        ),
+        new KeyFrame(
+                Duration.seconds(2), 
+                new KeyValue(bar.progressProperty(), 1)
+        )
+    );
         
+        progressBarAnimation.setCycleCount(Timeline.INDEFINITE);
+        return progressBarAnimation;
+    }
+    
+    private void progressBarInGameAnimationPlay(Tanks tank, Timeline progressBarAnimation, ProgressBar bar){
+        if(progressBarAnimation.getStatus().compareTo(RUNNING) == 0){
+            progressBarInGameAnimationStop(tank, progressBarAnimation, bar);
+        }
+        
+        else{
+            bar.setTranslateX(tank.getTranslateX() - 50);
+            bar.setTranslateY(tank.getTranslateY() - 100);
+            pane.getChildren().add(bar);
+            progressBarAnimation.setAutoReverse(true);
+            progressBarAnimation.playFromStart();
+        }
+       
+        
+    }
+    
+    private void progressBarInGameAnimationStop(Tanks tank, Timeline progressBarAnimation, ProgressBar bar){
+        weaponSetup(tank, bar.getProgress());
+        progressBarAnimation.stop();
+        pane.getChildren().remove(bar);
     }
     
     private void setupTanksPlayer(){
@@ -196,6 +248,11 @@ public class TanksAnimation {
         animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             tanksOne.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())));
             
+            if(progressBarAnimationOne.getStatus().compareTo(RUNNING) == 0){
+            xspeed = 0;
+            yspeed = 0;
+        }
+            
         y = mapGeneration.getY(tanksOne.getTranslateX());
             tanksOne.setTranslateY(tanksOne.getTranslateY() + yspeed);
             tanksOne.setTranslateX((tanksOne.getTranslateX() + xspeed)); 
@@ -273,7 +330,10 @@ public class TanksAnimation {
         tanksTwo.getCannon().setCenterY(-35);
         animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             
-            
+            if(progressBarAnimationTwo.getStatus().compareTo(RUNNING) == 0){
+            xspeed2 = 0;
+            yspeed2 = 0;
+        }
         
         tanksTwo.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksTwo.getTranslateX())));
             y2 = mapGeneration.getY(tanksTwo.getTranslateX()) ;
@@ -352,7 +412,10 @@ public class TanksAnimation {
         
         animation3 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             
-            
+            if(progressBarAnimationThree.getStatus().compareTo(RUNNING) == 0){
+            xspeed3 = 0;
+            yspeed3 = 0;
+        }
         tanksThree.setRotate(50 * mapGeneration.derivativeFunction(tanksThree.getTranslateX()));
         y3 = mapGeneration.getY(tanksThree.getTranslateX()) ;
             
@@ -419,7 +482,10 @@ public class TanksAnimation {
         animation4 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             
             
-            
+            if(progressBarAnimationFour.getStatus().compareTo(RUNNING) == 0){
+            xspeed4 = 0;
+            yspeed4 = 0;
+        }
             
         
         tanksFour.setRotate(50 * mapGeneration.derivativeFunction(tanksFour.getTranslateX()));
@@ -483,10 +549,10 @@ public class TanksAnimation {
             }));
     }
     
-    public void weaponSetup(Pane pane, Tanks tank){
+    public void weaponSetup(Tanks tank, double x){
         Weapon weapon = new Weapon("Texture/weapon.png");        
         
-        new WeaponAnimation(weapon, tank, mapGeneration, pane);
+        new WeaponAnimation(weapon, tank, mapGeneration, pane, x);
     }
     
     public void keyPressed(KeyCode x){
@@ -497,7 +563,7 @@ public class TanksAnimation {
             
             //Controls for player 1
             case SPACE: {
-                weaponSetup(pane, tanksOne);
+                progressBarInGameAnimationPlay(tanksOne, progressBarAnimationOne, barOne);
             }break;
                     
                     
@@ -546,7 +612,7 @@ public class TanksAnimation {
                   //Controls for player 2  
                 
                 case E: {
-                weaponSetup(pane, tanksTwo);
+                progressBarInGameAnimationPlay(tanksTwo, progressBarAnimationTwo, barTwo);
             }break;
             
                 case A: {
@@ -584,7 +650,7 @@ public class TanksAnimation {
                 
                     //Controls for player 3
                 case O: {
-                weaponSetup(pane, tanksThree);
+                progressBarInGameAnimationPlay(tanksThree, progressBarAnimationThree, barThree);
             }break;
             
                 case J: {
@@ -622,7 +688,7 @@ public class TanksAnimation {
                 
                     //Controls for player 4
                 case Y: {
-                weaponSetup(pane, tanksFour);
+                progressBarInGameAnimationPlay(tanksFour, progressBarAnimationFour, barFour);
             }break;
                 case F: {
                     if(xspeed4 == 0){

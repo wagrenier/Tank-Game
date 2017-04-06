@@ -6,7 +6,6 @@
 package Tanks;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
@@ -44,7 +43,7 @@ public class Cannon extends Circle{
         
         this.setFill(texturePattern);
         //this.setRotate(20);
-        setStroke(Color.RED);
+        //setStroke(Color.RED);
         //setTranslateX(50);
         //setTranslateY(200);
     }  
