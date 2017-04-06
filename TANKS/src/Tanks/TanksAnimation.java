@@ -138,6 +138,7 @@ public class TanksAnimation {
     );
         
         progressBarAnimation.setCycleCount(Timeline.INDEFINITE);
+        
         return progressBarAnimation;
     }
     
