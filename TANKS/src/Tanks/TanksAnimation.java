@@ -5,7 +5,6 @@
  */
 package Tanks;
 
-import GamePane.GamePane;
 import MapGeneration.MapGeneration;
 import Weapon.Weapon;
 import Weapon.WeaponAnimation;
@@ -550,7 +549,7 @@ public class TanksAnimation {
     }
     
     public void weaponSetup(Tanks tank, double x){
-        Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(5).getTexturePath());        
+        Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getTexturePath());        
         
         new WeaponAnimation(weapon, tank, mapGeneration, pane, x);
     }

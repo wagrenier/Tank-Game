@@ -44,6 +44,8 @@ public class WeaponManager {
        //Static Weapons
        //This weapon is dropped at the tank's current location and stays there until an enemy runs over it
        weaponArrayList.add(new Weapon(35, 100, "Mine", "Texture/Items/Static/Mine.png"));
+       
+       //There is a total of 9 weapons
     }
     
     public Weapon getWeaponFromWeaponManager(int index){
