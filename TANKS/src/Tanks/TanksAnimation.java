@@ -118,7 +118,7 @@ public class TanksAnimation {
                 new KeyValue(bar.progressProperty(), 0)
         ),
         new KeyFrame(
-                Duration.seconds(2), 
+                Duration.millis(500), 
                 new KeyValue(bar.progressProperty(), 1)
         )
     );
