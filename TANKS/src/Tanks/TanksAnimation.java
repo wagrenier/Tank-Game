@@ -24,6 +24,7 @@ import javafx.util.Duration;
  */
 public class TanksAnimation {
     
+    //Width of the pane
     double width = 1200;
     
     //Variables for tank 1
@@ -69,21 +70,34 @@ public class TanksAnimation {
     private final Tanks tanksTwo;
     private final Tanks tanksThree;
     private final Tanks tanksFour;
+    
+    //Variable for the tanks' animation
     private Timeline animation;
     private Timeline animation2;
     private Timeline animation3;
     private Timeline animation4;
+    
+    //Variables for the tanks' progress bar animation, which serves as the setter for the initial velocity
     private Timeline progressBarAnimationOne;
     private Timeline progressBarAnimationTwo;
     private Timeline progressBarAnimationThree;
     private Timeline progressBarAnimationFour;
-    private Pane pane;
-    private MapGeneration mapGeneration;
-    WeaponManager weaponManager;
+    
+    //Progress Bar of the tanks
     ProgressBar barOne = new ProgressBar(0);
     ProgressBar barTwo = new ProgressBar(0);
     ProgressBar barThree = new ProgressBar(0);
     ProgressBar barFour = new ProgressBar(0);
+    
+    //Pane of the game
+    private Pane pane;
+    
+    //This variable generates the map of the game
+    private MapGeneration mapGeneration;
+    
+    //Contains all the available weapons in the game
+    WeaponManager weaponManager;
+    
     
     public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png");
