@@ -20,6 +20,7 @@ import javafx.scene.shape.Circle;
 public class Weapon extends Circle{
     
     private int costOfWeapon;
+    private int damage;
     private String texturePath;
     private String soundEffectPath;
     private String weaponName;
@@ -27,7 +28,7 @@ public class Weapon extends Circle{
     private ImagePattern texturePattern;
     private Media soundEffect;
     private MediaPlayer soundEffectPlayer;
-    private MapGeneration mapGeneration;
+   
     
     public Weapon(String texturePath){
         this.texturePath = texturePath;
@@ -38,13 +39,28 @@ public class Weapon extends Circle{
         
         this.setRadius(25);
     }
-
-    public Weapon(int costOfWeapon, String weaponName, String texturePath, String soundEffectPath, MapGeneration mapGeneration) {
+    
+    public Weapon(int damage, int costOfWeapon, String weaponName, String texturePath) {
         this.setRadius(25);
         this.costOfWeapon = costOfWeapon;
         this.texturePath = texturePath;
         this.soundEffectPath = soundEffectPath;
-        this.mapGeneration = mapGeneration;
+        this.damage = damage;
+        
+        this.weaponName = weaponName;
+        
+        texture = new Image(this.texturePath);
+        texturePattern = new ImagePattern(this.texture);
+        
+        
+    }
+
+    public Weapon(int costOfWeapon, String weaponName, String texturePath, String soundEffectPath) {
+        this.setRadius(25);
+        this.costOfWeapon = costOfWeapon;
+        this.texturePath = texturePath;
+        this.soundEffectPath = soundEffectPath;
+        
         
         this.weaponName = weaponName;
         
@@ -53,15 +69,6 @@ public class Weapon extends Circle{
         soundEffect = new Media(this.soundEffectPath);
         soundEffectPlayer = new MediaPlayer(this.soundEffect);
         
-    }
-
-    public Weapon(int costOfWeapon, Image texture, ImagePattern texturePattern, Media soundEffect, MediaPlayer soundEffectPlayer, MapGeneration mapGeneration) {
-        this.costOfWeapon = costOfWeapon;
-        this.texture = texture;
-        this.texturePattern = texturePattern;
-        this.soundEffect = soundEffect;
-        this.soundEffectPlayer = soundEffectPlayer;
-        this.mapGeneration = mapGeneration;
     }
 
     public int getCostOfWeapon() {
@@ -102,14 +109,6 @@ public class Weapon extends Circle{
 
     public void setSoundEffectPlayer(MediaPlayer soundEffectPlayer) {
         this.soundEffectPlayer = soundEffectPlayer;
-    }
-
-    public MapGeneration getMapGeneration() {
-        return mapGeneration;
-    }
-
-    public void setMapGeneration(MapGeneration mapGeneration) {
-        this.mapGeneration = mapGeneration;
     }
 
     public String getTexturePath() {

@@ -97,14 +97,14 @@ public class TanksAnimation {
         
         tanksOne.setCenterY(-23);
         tanksThree.setCenterY(-21);
-        setupTanksPlayer();
+        
         weaponManager = new WeaponManager();
         
         progressBarAnimationOne = progressBarInitialSetup(barOne);
         progressBarAnimationTwo = progressBarInitialSetup(barTwo);
         progressBarAnimationThree = progressBarInitialSetup(barThree);
         progressBarAnimationFour = progressBarInitialSetup(barFour);
-        
+        setupTanksPlayer();
         pane.setOnKeyPressed(x -> {
                 keyPressed(x.getCode());
             });
@@ -550,7 +550,7 @@ public class TanksAnimation {
     }
     
     public void weaponSetup(Tanks tank, double x){
-        Weapon weapon = new Weapon("Texture/weapon.png");        
+        Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(5).getTexturePath());        
         
         new WeaponAnimation(weapon, tank, mapGeneration, pane, x);
     }
