@@ -27,14 +27,18 @@ public class MainTankMouvementTest extends Application {
     @Override
     public void start(Stage primaryStage) {
         BorderPane gamePane = new BorderPane();
+        Scene scene = new Scene(gamePane);
+        
         
         GamePane pane = new GamePane();
-        HUD hud = new HUD();
+        
+        
+        HUD hud = new HUD(scene);
         
         gamePane.setCenter(pane);
         gamePane.setTop(hud);
         
-        Scene scene = new Scene(gamePane);
+       
         
        
         primaryStage.setScene(scene);

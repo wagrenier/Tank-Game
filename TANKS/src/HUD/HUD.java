@@ -7,7 +7,10 @@ package HUD;
 
 
 import java.util.ArrayList;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -24,6 +27,8 @@ import javafx.scene.text.Text;
  */
 public class HUD extends Pane{
     
+    Scene gameScene;
+    
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 150;
     
@@ -31,14 +36,78 @@ public class HUD extends Pane{
     private ArrayList<String> playerNames = new ArrayList<>();
     private static int playerIndex = 0;
     
+    private Text weapon = new Text("Missile");
+    private ImageView weaponLogo = new ImageView(new Image("Texture/Items/Normal/Missile.png"));
+    
+    private ImageView weaponBtn;
+    private Image weaponBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
     
     
-    public HUD(){
+    public HUD(Scene scene){
+        gameScene = scene;
+        
         this.setMinSize(WIDTH, HEIGHT);
         this.setMaxSize(WIDTH, HEIGHT);
         
         setBackground();
         setPlayer();
+        setWeapon();
+        setWeaponBtn();
+    }
+    private void setWeaponBtn(){
+        weaponBtn = new ImageView(weaponBtnImage);
+        this.getChildren().add(weaponBtn);
+        
+        weaponBtn.setTranslateX(322.5);
+        weaponBtn.setTranslateY(10.5);
+        
+        
+        /*
+        weaponBtn.setOnMouseDragged(e -> {
+            weaponBtn.setTranslateX(e.getSceneX());
+            weaponBtn.setTranslateY(e.getSceneY());
+            System.out.println(weaponBtn.getTranslateX() + ", " + weaponBtn.getTranslateY());
+        });
+        */
+        
+        weaponBtn.setOnMouseEntered(e -> {
+            gameScene.setCursor(Cursor.HAND);
+        });
+        
+        weaponBtn.setOnMouseExited(e -> {
+            gameScene.setCursor(Cursor.DEFAULT);
+        });
+        
+    }
+    private void setWeapon(){
+        //The list of weapons will be passed on by some method
+        this.getChildren().add(weapon);
+        this.getChildren().add(weaponLogo);
+        
+        weapon.setTranslateX(26.0);
+        weapon.setTranslateY(48.0);
+        
+        weaponLogo.setTranslateX(218.5);
+        weaponLogo.setTranslateY(-13.5);
+        
+        /*
+        weapon.setOnMouseDragged(e -> {
+            weapon.setTranslateX(e.getSceneX());
+            weapon.setTranslateY(e.getSceneY());
+            System.out.println(weapon.getTranslateX() + ", " + weapon.getTranslateY());
+        });
+        */
+        /*
+        weaponLogo.setOnMouseDragged(e -> {
+            weaponLogo.setTranslateX(e.getSceneX());
+            weaponLogo.setTranslateY(e.getSceneY());
+            System.out.println(weaponLogo.getTranslateX() + ", " + weaponLogo.getTranslateY());
+        });
+        */
+        
+        weapon.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
+        weaponLogo.setFitHeight(100);
+        weaponLogo.setFitWidth(100);
     }
     private void setPlayer(){
         //Using player 1 - 4 for now, but these names will be passed by the Player objects

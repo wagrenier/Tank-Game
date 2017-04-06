@@ -6,6 +6,7 @@
 package Weapon;
 
 import MapGeneration.MapGeneration;
+import Tanks.MainTankMouvementTest;
 import Tanks.Tanks;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -153,6 +154,7 @@ public class WeaponAnimation {
         animationWeapon.setOnFinished(e ->{
             
             pane.getChildren().removeAll(weapon);
+            
            // pane.getChildren().removeAll(bar);
             
         });
