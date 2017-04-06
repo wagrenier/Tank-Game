@@ -72,7 +72,7 @@ public class TanksAnimation {
     private MapGeneration mapGeneration;
     
     public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
-        tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne);
+        tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png");
         tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo);
         tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree, pathForTextureCannonThree);
         tanksFour = new Tanks(pathForTextureTankFour, pathForTextureFlippedTankFour, pathForTextureCannonFour);
@@ -194,16 +194,17 @@ public class TanksAnimation {
             tanksOne.setTranslateY(tanksOne.getTranslateY() + yspeed);
             tanksOne.setTranslateX((tanksOne.getTranslateX() + xspeed)); 
             
+            
             if(xspeed < 0){
-                tanksOne.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())) + Math.toDegrees(tanksOne.getCannon().getCanonAngle()) - 180);
-                tanksOne.getCannon().setTranslateY(tanksOne.getTranslateY() + yspeed - 30);
+                tanksOne.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())) + Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
+                tanksOne.getCannon().setTranslateY(tanksOne.getTranslateY() + yspeed - 35);
                 tanksOne.getCannon().setTranslateX((tanksOne.getTranslateX() + xspeed)); 
             }
             
             else if(xspeed == 0){
                 if(tanksOne.isIsImageFlipped()){
-                    tanksOne.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())) + Math.toDegrees(tanksOne.getCannon().getCanonAngle()) - 180);
-                    tanksOne.getCannon().setTranslateY(tanksOne.getTranslateY() + yspeed - 30);
+                    tanksOne.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())) + Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
+                    tanksOne.getCannon().setTranslateY(tanksOne.getTranslateY() + yspeed - 35);
                     tanksOne.getCannon().setTranslateX((tanksOne.getTranslateX() + xspeed)); 
                 }
                 else{
@@ -226,10 +227,12 @@ public class TanksAnimation {
             if(tanksOne.getTranslateX()<= 0 || tanksOne.getTranslateX() >= 1200){
                 if(tanksOne.getTranslateX()<= 0){
                     tanksOne.normalTexture();
+                    tanksOne.getCannon().normalTexture();
                 }
                 
                 else{
                     tanksOne.flipTexture();
+                    tanksOne.getCannon().flipTexture();
                 }
                 xspeed *= -1;
             }
@@ -493,6 +496,7 @@ public class TanksAnimation {
                             //tanksOne.setRotate(90);
                             
                             tanksOne.flipTexture();
+                            tanksOne.getCannon().flipTexture();
                             //tanksOne.getCannon().setRotate(180 - Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
                         }
                     else if(xspeed > -.1)
@@ -506,6 +510,7 @@ public class TanksAnimation {
                     if(xspeed == 0){
                             xspeed += 0.1;
                             tanksOne.normalTexture();
+                            tanksOne.getCannon().normalTexture();
                             //tanksOne.getCannon().setRotate(180 + Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
                             //cannon.setRotate(180 - Math.toDegrees(cannon.getCanonAngle()));
                         }
