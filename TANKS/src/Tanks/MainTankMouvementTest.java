@@ -48,7 +48,7 @@ public class MainTankMouvementTest extends Application {
         primaryStage.setMinHeight(800);
         primaryStage.setMinWidth(1200);
         primaryStage.setMaxWidth(1200);
-        //primaryStage.setMaxHeight(800);
+        primaryStage.setMaxHeight(950);
         pane.requestFocus();
     }
     
