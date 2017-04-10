@@ -114,4 +114,22 @@ public class Weapon extends Circle{
     public String getTexturePath() {
         return texturePath;
     }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public String getSoundEffectPath() {
+        return soundEffectPath;
+    }
+
+    public String getWeaponName() {
+        return weaponName;
+    }
+
+    public ImagePattern getTexturePattern() {
+        return texturePattern;
+    }
+    
+    
 }

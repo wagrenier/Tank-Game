@@ -6,6 +6,7 @@
 package HUD;
 
 
+import Weapon.WeaponManager;
 import java.util.ArrayList;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -28,7 +29,7 @@ import javafx.scene.text.Text;
  */
 public class HUD extends Pane{
     
-    Scene gameScene;
+    //Scene gameScene;
     
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 150;
@@ -37,9 +38,15 @@ public class HUD extends Pane{
     private ArrayList<String> playerNames = new ArrayList<>();
     private static int playerIndex = 0;
     
-    private Text weapon = new Text("Missile");
-    private Text weaponCost = new Text("($0.00)");
-    private ImageView weaponLogo = new ImageView(new Image("Texture/Items/Normal/Missile.png"));
+    WeaponManager weaponManager;
+    private int weaponIndex = 0;
+    
+    //private Text weapon = new Text("Missile");
+    //private Text weaponCost = new Text("($0.00)");
+    //private ImageView weaponLogo = new ImageView(new Image("Texture/Items/Normal/Missile.png"));
+    private Text weapon = new Text();
+    private Text weaponCost = new Text();
+    private ImageView weaponLogo;
     
     private ImageView weaponBtn;
     private Image weaponBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
@@ -54,11 +61,15 @@ public class HUD extends Pane{
     private ColoredProgressBar playerHealth = new ColoredProgressBar("green-bar", 1);
     
     
-    public HUD(Scene scene){
-        gameScene = scene;
-        
+    public HUD(WeaponManager weaponManager){
+        //gameScene = scene;
+        this.weaponManager = weaponManager;
         this.setMinSize(WIDTH, HEIGHT);
         this.setMaxSize(WIDTH, HEIGHT);
+        
+        weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
+        weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
+        weaponLogo = new ImageView(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
         
         setBackground();
         setPlayer();
@@ -144,15 +155,26 @@ public class HUD extends Pane{
         */
         
         weaponBtn.setOnMouseEntered(e -> {
-            gameScene.setCursor(Cursor.HAND);
+            this.setCursor(Cursor.HAND);
         });
         
         weaponBtn.setOnMouseExited(e -> {
-            gameScene.setCursor(Cursor.DEFAULT);
+            this.setCursor(Cursor.DEFAULT);
         });
         
         weaponBtn.setOnMousePressed(e -> {
             weaponBtn.setImage(weaponBtnClicked);
+            if(weaponIndex > 0 || weaponIndex < 8)
+            weaponIndex++;
+            
+            else
+                weaponIndex--;
+            
+            this.getChildren().remove(weaponLogo);
+            weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
+        weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
+        weaponLogo = new ImageView(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
+         this.getChildren().add(weaponLogo);
         });
         
         weaponBtn.setOnMouseReleased(e -> {
@@ -232,6 +254,30 @@ public class HUD extends Pane{
             playerIndex++;
         
         player.setText(playerNames.get(playerIndex));
+    }
+
+    public Text getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Text weapon) {
+        this.weapon = weapon;
+    }
+
+    public Text getWeaponCost() {
+        return weaponCost;
+    }
+
+    public void setWeaponCost(Text weaponCost) {
+        this.weaponCost = weaponCost;
+    }
+
+    public ImageView getWeaponLogo() {
+        return weaponLogo;
+    }
+
+    public void setWeaponLogo(ImageView weaponLogo) {
+        this.weaponLogo = weaponLogo;
     }
     
     private void setBackground(){

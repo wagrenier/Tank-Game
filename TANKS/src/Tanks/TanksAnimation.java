@@ -5,6 +5,7 @@
  */
 package Tanks;
 
+import HUD.HUD;
 import MapGeneration.MapGeneration;
 import Weapon.Weapon;
 import Weapon.WeaponAnimation;
@@ -26,6 +27,9 @@ public class TanksAnimation {
     
     //Width of the pane
     double width = 1200;
+    
+    //HUD for the game
+    private HUD hud;
     
     //Variables for tank 1
     private double xspeed = 0;
@@ -112,12 +116,14 @@ public class TanksAnimation {
         tanksThree.setCenterY(-21);
         
         weaponManager = new WeaponManager();
+        hud = new HUD(weaponManager);
         
         progressBarAnimationOne = progressBarInitialSetup(barOne);
         progressBarAnimationTwo = progressBarInitialSetup(barTwo);
         progressBarAnimationThree = progressBarInitialSetup(barThree);
         progressBarAnimationFour = progressBarInitialSetup(barFour);
         setupTanksPlayer();
+        
         pane.setOnKeyPressed(x -> {
                 keyPressed(x.getCode());
             });
@@ -917,4 +923,10 @@ public class TanksAnimation {
     public Tanks getTanksFour() {
         return tanksFour;
     }  
+
+    public HUD getHud() {
+        return hud;
+    }
+    
+    
 }

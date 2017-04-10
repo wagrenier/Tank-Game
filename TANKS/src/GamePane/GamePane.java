@@ -5,6 +5,7 @@
  */
 package GamePane;
 
+import HUD.HUD;
 import Tanks.TanksAnimation;
 import MapGeneration.MapGeneration;
 import Tanks.Tanks;
@@ -80,5 +81,8 @@ public class GamePane extends Pane{
         }
 
    }
-
+    
+    public HUD getHUD(){
+        return tanksAnimation.getHud();
+    }
 }

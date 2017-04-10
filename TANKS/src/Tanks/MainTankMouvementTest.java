@@ -33,10 +33,10 @@ public class MainTankMouvementTest extends Application {
         GamePane pane = new GamePane();
         
         
-        HUD hud = new HUD(scene);
+       // HUD hud = new HUD(scene);
         
         gamePane.setCenter(pane);
-        gamePane.setTop(hud);
+        gamePane.setTop(pane.getHUD());
         
        
         
