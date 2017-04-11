@@ -142,8 +142,8 @@ public class HUD extends Pane{
         weaponBtn = new ImageView(weaponBtnImage);
         this.getChildren().add(weaponBtn);
         
-        weaponBtn.setTranslateX(430.0);
-        weaponBtn.setTranslateY(12.0);
+        weaponBtn.setTranslateX(406.0);
+        weaponBtn.setTranslateY(8.5);
         
         
         /*
@@ -164,17 +164,17 @@ public class HUD extends Pane{
         
         weaponBtn.setOnMousePressed(e -> {
             weaponBtn.setImage(weaponBtnClicked);
-            if(weaponIndex > 0 || weaponIndex < 8)
-            weaponIndex++;
+            if(weaponIndex < 8)
+                weaponIndex++;
             
             else
-                weaponIndex--;
+                weaponIndex = 0;
             
-            this.getChildren().remove(weaponLogo);
+            
             weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
-        weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
-        weaponLogo = new ImageView(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
-         this.getChildren().add(weaponLogo);
+            weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
+            weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
+            
         });
         
         weaponBtn.setOnMouseReleased(e -> {
@@ -218,7 +218,7 @@ public class HUD extends Pane{
        */ 
        
         weapon.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
-        weaponCost.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        weaponCost.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         weaponLogo.setFitHeight(100);
         weaponLogo.setFitWidth(100);
     }

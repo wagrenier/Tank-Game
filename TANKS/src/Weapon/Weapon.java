@@ -28,6 +28,7 @@ public class Weapon extends Circle{
     private ImagePattern texturePattern;
     private Media soundEffect;
     private MediaPlayer soundEffectPlayer;
+    
    
     
     public Weapon(String texturePath){
