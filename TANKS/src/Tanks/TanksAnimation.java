@@ -5,6 +5,7 @@
  */
 package Tanks;
 
+import GamePane.GamePane;
 import HUD.HUD;
 import MapGeneration.MapGeneration;
 import Weapon.Weapon;
@@ -116,7 +117,7 @@ public class TanksAnimation {
         tanksThree.setCenterY(-21);
         
         weaponManager = new WeaponManager();
-        hud = new HUD(weaponManager);
+        hud = new HUD(weaponManager, this.pane);
         
         progressBarAnimationOne = progressBarInitialSetup(barOne);
         progressBarAnimationTwo = progressBarInitialSetup(barTwo);
