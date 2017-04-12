@@ -282,7 +282,7 @@ public class HUD extends Pane{
             
             else
                 weaponIndex = 0;
-            
+
             
             weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
             weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
