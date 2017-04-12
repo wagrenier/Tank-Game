@@ -168,7 +168,7 @@ public class HUD extends Pane{
             weaponIndex++;
             
             else
-                weaponIndex--;
+                weaponIndex = 0;
             
             this.getChildren().remove(weaponLogo);
             weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
