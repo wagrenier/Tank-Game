@@ -6,7 +6,6 @@
 package Tanks;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
@@ -16,16 +15,14 @@ import javafx.scene.shape.Circle;
  */
 public class Cannon extends Circle{
     
-    
     private double canonAngle = 0;
-    private String imagePath;
-    private String imageReversePath;
-    private ImagePattern texturePattern;
+    private final String imagePath;
+    private final ImagePattern texturePattern;
+    private String imageReversePath ;
     private ImagePattern texturePatternFlipped;
-    private Image texture;
+    private final Image texture;
     private Image textureFlipped;
     private boolean isImageFlipped = false;
-    
     
     Cannon(String imagePath, String imageReversePath){
         this.setRadius(50);
@@ -34,10 +31,10 @@ public class Cannon extends Circle{
         this.imagePath = imagePath;
         
         texture = new Image(this.imagePath);
-        //textureFlipped = new Image(this.imageReversePath);
+        textureFlipped = new Image(this.imageReversePath);
         
         texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
-        //texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
+        texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
         
         //ImageView imageView = new ImageView(texture);
         
@@ -46,14 +43,22 @@ public class Cannon extends Circle{
         
         this.setFill(texturePattern);
         //this.setRotate(20);
-        //setStroke(Color.BLACK);
+        //setStroke(Color.RED);
         //setTranslateX(50);
         //setTranslateY(200);
     }  
     
+    
+    Cannon(String imagePath){
+        this.setRadius(50);
+        this.imagePath = imagePath;
+        texture = new Image(this.imagePath);
+        texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
+        this.setFill(texturePattern);
+    }  
+    
     public void flipTexture(){
-        //this.setFill(texturePatternFlipped);
-        
+        this.setFill(texturePatternFlipped);
         isImageFlipped = true;
     }
     

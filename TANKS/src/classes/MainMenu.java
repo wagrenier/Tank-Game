@@ -132,7 +132,6 @@ public class MainMenu extends Pane{
     public ImageView getPlayBtn(){
         return playBtn;
     }
-    
     private void setBackground(){
         BackgroundImage myBI= new BackgroundImage(new Image("Texture/Menus/MainMenu/Background.png", WIDTH, HEIGHT, false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,

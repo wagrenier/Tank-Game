@@ -26,7 +26,26 @@ public class WeaponManager {
     }
     
     public void setupWeaponManager(){
-       weaponArrayList.add(new Weapon("Texture/weapon.png"));
+        //Linear Weapons
+        //The weapon will be dropped at the tank's location and it will drive itself towards
+       weaponArrayList.add(new Weapon(10, 30, "C4-RC", "Texture/Items/Linear/C4 RC.png"));
+       
+       //Normal Weapons
+       weaponArrayList.add(new Weapon(35, 100, "Atomic", "Texture/Items/Normal/Atomic Bomb.png"));
+       weaponArrayList.add(new Weapon(25, 50, "Missile", "Texture/Items/Normal/Missile.png"));
+       weaponArrayList.add(new Weapon(5, 25, "Shrapnel", "Texture/Items/Normal/Shrapnel.png"));
+       weaponArrayList.add(new Weapon(7, 0, "Normal", "Texture/Items/Normal/Standard Round.png"));
+       weaponArrayList.add(new Weapon(15, 75, "Laser", "Texture/Items/Normal/Laser.png"));
+       
+       //Normal Weapons but with randomized velocity
+       weaponArrayList.add(new Weapon(5, 45, "HMG", "Texture/Items/Normal/Burst (Machine Guns)/HMG.png"));
+       weaponArrayList.add(new Weapon(5, 45, "LMG", "Texture/Items/Normal/Burst (Machine Guns)/LMG.png"));
+       
+       //Static Weapons
+       //This weapon is dropped at the tank's current location and stays there until an enemy runs over it
+       weaponArrayList.add(new Weapon(35, 20, "Mine", "Texture/Items/Static/Mine.png"));
+       
+       //There is a total of 9 weapons
     }
     
     public Weapon getWeaponFromWeaponManager(int index){

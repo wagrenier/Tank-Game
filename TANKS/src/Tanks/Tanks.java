@@ -6,7 +6,6 @@
 package Tanks;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
@@ -17,75 +16,50 @@ import javafx.scene.shape.Circle;
 public class Tanks extends Circle{
     
     private int lifePoint = 100;
-    private String imagePath;
-    private String imageReversePath;
-    private ImagePattern texturePattern;
-    private ImagePattern texturePatternFlipped;
-    private Image texture;
-    private Image textureFlipped;
+    private final String imagePath;
+    private final String imageReversePath;
+    private final ImagePattern texturePattern;
+    private final ImagePattern texturePatternFlipped;
+    private final Image texture;
+    private final Image textureFlipped;
     private boolean isImageFlipped = false;
-    private Cannon cannon;
+    private final Cannon cannon;
     
-    Tanks(String imagePath, String imageReversePath, String imagePathCannon, String imageReversePathCannon){
+    Tanks(String imagePath, String imageReversePath, String imagePathCannon){
         this.setRadius(50);
-        
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
-        
         texture = new Image(this.imagePath);
         textureFlipped = new Image(this.imageReversePath);
-        
         texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
         texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
-        
-        
-        
-        
         this.setCenterY(-18);
-        
         this.setFill(texturePattern);
-        
-        cannon = new Cannon(imagePathCannon, imageReversePathCannon);
-        
-        
-        //cannon.centerXProperty().bind(this.translateXProperty());
-        //cannon.centerYProperty().bind(this.translateYProperty().add(-35));
-        //cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
-        
-        //this.setRotate(20);
-        //setStroke(Color.BLACK);
-        //setTranslateX(50);
-        //setTranslateY(200);
+        cannon = new Cannon(imagePathCannon);
     }  
     
-    
-    public void updateSomething(){
-        if(!isImageFlipped){
-            
-        //cannon.rotateProperty().bind(this.rotateProperty().add(-Math.toDegrees(cannon.getCanonAngle())));
-        //cannon.centerYProperty().bind(this.translateYProperty().add(-35));
-        }
-        
-        else{
-            //cannon.setRotate(BASELINE_OFFSET_SAME_AS_HEIGHT);
-            //cannon.rotateProperty().bind(this.rotateProperty().add(180 + Math.toDegrees(cannon.getCanonAngle())));
-            //cannon.centerYProperty().bind(this.translateYProperty().add(-30));
-        }
-    }
+    Tanks(String imagePath, String imageReversePath, String imagePathCannon, String reverse){
+        this.setRadius(50);
+        this.imageReversePath = imageReversePath;
+        this.imagePath = imagePath;
+        texture = new Image(this.imagePath);
+        textureFlipped = new Image(this.imageReversePath);
+        texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
+        texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
+        this.setCenterY(-18);
+        this.setFill(texturePattern);
+        cannon = new Cannon(imagePathCannon, reverse);
+        //this.setStroke(Color.BLACK);
+    } 
 
-    
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
         isImageFlipped = true;
-        //updateSomething();
-        
     }
     
     public void normalTexture(){
         this.setFill(texturePattern);
-        isImageFlipped = false;
-        //updateSomething();
-        
+        isImageFlipped = false; 
     }
 
     public boolean isIsImageFlipped() {
@@ -95,7 +69,4 @@ public class Tanks extends Circle{
     public Cannon getCannon() {
         return cannon;
     }
-    
-    
-    
 }

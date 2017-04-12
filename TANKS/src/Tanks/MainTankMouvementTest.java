@@ -8,11 +8,15 @@ package Tanks;
 
 
 import GamePane.GamePane;
+import HUD.HUD;
+
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+;
 
 /**
  *
@@ -22,12 +26,20 @@ public class MainTankMouvementTest extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        BorderPane gamePane = new BorderPane();
+        Scene scene = new Scene(gamePane);
+        
         
         GamePane pane = new GamePane();
         
-        Scene scene = new Scene(pane);
         
-        pane.setSnapToPixel(false);
+       // HUD hud = new HUD(scene);
+        
+        gamePane.setCenter(pane);
+        gamePane.setTop(pane.getHUD());
+        
+       
+        
        
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -40,7 +52,7 @@ public class MainTankMouvementTest extends Application {
         primaryStage.setMinHeight(800);
         primaryStage.setMinWidth(1200);
         primaryStage.setMaxWidth(1200);
-        primaryStage.setMaxHeight(800);
+        primaryStage.setMaxHeight(950);
         pane.requestFocus();
     }
     

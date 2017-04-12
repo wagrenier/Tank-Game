@@ -5,8 +5,10 @@
  */
 package GamePane;
 
+import HUD.HUD;
 import Tanks.TanksAnimation;
 import MapGeneration.MapGeneration;
+import Tanks.Tanks;
 import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;
@@ -17,7 +19,6 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -28,17 +29,12 @@ public class GamePane extends Pane{
     
     private double width = 1200;
     private double height = 800;
-
-    //private TanksAnimation tanksAnimation;
-
     private TanksAnimation tanksAnimation;
-    private WeaponAnimation weaponAnimation;
-    WeaponManager weaponManager;
-
-    
-    MapGeneration mapGeneration = new MapGeneration(450, 200, 500);
+    MapGeneration mapGeneration = new MapGeneration(450, 100, 500);
     
     public GamePane(){
+        this.setMinSize(width, height);
+        this.setMaxSize(width, height);
         paneSetup(this);
     }
     
@@ -46,26 +42,9 @@ public class GamePane extends Pane{
         frontGroundSetup(pane);
         backGroundSetup(pane);
         tanksSetup(pane);
-        weaponManager = new WeaponManager();
-    }
-    
-    public void weaponSetup(Pane pane){
-        
-        
-        //tanksAnimation.getTanksOne().setTranslateY(mapGeneration.getY(tanksAnimation.getTanksOne().getTranslateX()));
-        //Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(0).getTexturePath());
-        Weapon weapon = new Weapon("Texture/weapon.png");        
-        
-        new WeaponAnimation(weapon, tanksAnimation.getTanksOne(), mapGeneration, pane);
-        //System.gc();
-        
-        //Garbage collector commented out since it uses a lot of ressources for nothing
-        //weaponAnimation.launchAnimation();
-        
     }
     
     public void tanksSetup(Pane pane){
-
         tanksAnimation = new TanksAnimation(mapGeneration, pane, 4);  
     }
     
@@ -103,8 +82,7 @@ public class GamePane extends Pane{
 
    }
     
-    public void launchAnimation(){
-        //weaponAnimation.launchAnimation();
+    public HUD getHUD(){
+        return tanksAnimation.getHud();
     }
-
 }

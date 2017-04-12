@@ -6,9 +6,12 @@
 package Weapon;
 
 import MapGeneration.MapGeneration;
+import Tanks.MainTankMouvementTest;
 import Tanks.Tanks;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -35,6 +38,7 @@ public class WeaponAnimation {
     private double yspeed;
     private double xspeed;
     
+    
     MapGeneration mapGeneration;
     Weapon weapon;
     Timeline animationWeapon;
@@ -46,7 +50,17 @@ public class WeaponAnimation {
         this.tank = tank;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
-        setupAnimation();
+        setupAnimation(); 
+        launchAnimation();
+    }
+    
+    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, double initialVelocity){
+        this.pane = pane;
+        this.tank = tank;
+        this.weapon = weapon;
+        this.mapGeneration = mapGeneration;
+        this.initialVelocity = initialVelocity;
+        setupAnimation(); 
         launchAnimation();
     }
     
@@ -57,7 +71,7 @@ public class WeaponAnimation {
     }
     
     private void setupAnimation(){
-       // pane.getChildren().remove(weapon);
+       
         
         
         
@@ -102,9 +116,12 @@ public class WeaponAnimation {
                 //animationWeapon.stop();
                 
                 //pane.getChildren().remove(animationWeapon);
-                //pane.getChildren().remove(weapon);
+                pane.getChildren().remove(weapon);
                 //add animation explosion
                 
+            }
+            if(weapon.getTranslateY() <= 0){
+                yspeed *= -1;
             }
             if (weapon.getTranslateY() < currentYPosition ){
                 yspeed += gravity;
@@ -112,27 +129,19 @@ public class WeaponAnimation {
             else{
                 yspeed = 0;
                 xspeed = 0;
-                //animationWeapon.getKeyFrames().clear();
-                //animationWeapon.stop();
-                //pane.getChildren().remove(animationWeapon);
-                
-                //pane.getChildren().removeAll(weapon);
             }
             if(weapon.getTranslateY() > currentYPosition){
                 weapon.setTranslateY(currentYPosition);
             } 
-            
             if(tank.isIsImageFlipped()){
             weapon.setRotate(projectileRotationReverse() + 90);
         }
-            
             else
             weapon.setRotate(projectileRotation());
             }));
         
         
     }
-    
     
     public void launchAnimation(){
         
@@ -146,6 +155,7 @@ public class WeaponAnimation {
             
             pane.getChildren().removeAll(weapon);
             
+           // pane.getChildren().removeAll(bar);
             
         });
             
@@ -158,5 +168,15 @@ public class WeaponAnimation {
     private double projectileRotation(){
         return Math.toDegrees(Math.asin((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));
     }
+
+    public double getInitialVelocity() {
+        return initialVelocity;
+    }
+
+    public void setInitialVelocity(double initialVelocity) {
+        this.initialVelocity = initialVelocity;
+    }
+    
+    
       
 }
