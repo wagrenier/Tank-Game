@@ -13,6 +13,7 @@ import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -43,6 +44,7 @@ public class GamePane extends Pane{
         backGroundSetup(pane);
         tanksSetup(pane);
     }
+    
     
     public void tanksSetup(Pane pane){
         tanksAnimation = new TanksAnimation(mapGeneration, pane, 4);  

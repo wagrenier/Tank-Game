@@ -7,6 +7,7 @@ package Tanks;
 
 import GamePane.GamePane;
 import HUD.HUD;
+import HUD.PauseMenu;
 import MapGeneration.MapGeneration;
 import Weapon.Weapon;
 import Weapon.WeaponAnimation;
