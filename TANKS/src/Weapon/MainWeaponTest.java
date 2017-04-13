@@ -22,7 +22,7 @@ public class MainWeaponTest extends Application{
     
     @Override
     public void start(Stage primaryStage) {
-        
+        /*
         Pane pane = new Pane();
         
         
@@ -31,7 +31,7 @@ public class MainWeaponTest extends Application{
         MapGeneration mapGeneration = new MapGeneration(200, 200, 500);
         //pane.getChildren().add(weaponManager.getWeaponFromWeaponManager(0));
         
-        TanksAnimation tanksAnimation = new TanksAnimation(mapGeneration, pane, 4); 
+        //TanksAnimation tanksAnimation = new TanksAnimation(mapGeneration, pane, 4); 
         WeaponAnimation weaponAnimation = new WeaponAnimation(weaponManager.getWeaponFromWeaponManager(0),tanksAnimation.getTanksOne(), mapGeneration, pane);
         Scene scene = new Scene(pane);
         
@@ -49,6 +49,7 @@ public class MainWeaponTest extends Application{
         primaryStage.setMaxWidth(1200);
         primaryStage.setMaxHeight(800);
         pane.requestFocus();
+        */
     }
     
 
