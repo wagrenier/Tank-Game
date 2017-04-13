@@ -73,7 +73,7 @@ public class HitDetection extends Thread{
            System.out.println(tanksOne.getLifePoint());
            hud.updateHealth(tanksOne.getLifePoint());
            
-           //weaponAnimation.removeWeaponFromPane();
+           weaponAnimation.setHitSomething(true);
            if(!tanksOne.isTankAlive()){
                animation.stop();
                //pane.getChildren().remove(tanksOne);
@@ -87,7 +87,7 @@ public class HitDetection extends Thread{
            tanksTwo.damageDone(weapon.getDamage());
            System.out.println(tanksTwo.getLifePoint());
            hud.updateHealth(tank.getLifePoint());
-           
+           weaponAnimation.setHitSomething(true);
            //weaponAnimation.removeWeaponFromPane();
            if(!tanksTwo.isTankAlive()){
                animation2.stop();
@@ -102,7 +102,7 @@ public class HitDetection extends Thread{
            tanksThree.damageDone(weapon.getDamage());
            System.out.println(tanksThree.getLifePoint());
            //hud.updateHealth(tank.getLifePoint());
-           
+           weaponAnimation.setHitSomething(true);
           // weaponAnimation.removeWeaponFromPane();
            if(!tanksThree.isTankAlive()){
                animation3.stop();
@@ -117,7 +117,7 @@ public class HitDetection extends Thread{
            tanksFour.damageDone(weapon.getDamage());
            System.out.println(tanksFour.getLifePoint());
            //hud.updateHealth(tank.getLifePoint());
-           
+           weaponAnimation.setHitSomething(true);
           // weaponAnimation.removeWeaponFromPane();
            if(!tanksFour.isTankAlive()){
                animation4.stop();

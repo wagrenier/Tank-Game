@@ -695,9 +695,7 @@ public class TanksAnimation {
                pane.getChildren().remove(tanksFour.getCannon());
            }
     }
-    
-    
-        
+       
     public void keyPressed(KeyCode x){
         if(hud.getPauseMenu().isGamePaused()){
             
