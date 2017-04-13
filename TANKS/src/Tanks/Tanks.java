@@ -16,6 +16,7 @@ import javafx.scene.shape.Circle;
 public class Tanks extends Circle{
     
     private int lifePoint = 100;
+    private boolean isTankAlive = true;
     private final String imagePath;
     private final String imageReversePath;
     private final ImagePattern texturePattern;
@@ -69,4 +70,41 @@ public class Tanks extends Circle{
     public Cannon getCannon() {
         return cannon;
     }
+    
+    public void damageDone(int damage){
+        lifePoint -= damage;
+        if(lifePoint <= 0){
+            isTankAlive = false;
+        }
+    }
+
+    public int getLifePoint() {
+        return lifePoint;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public String getImageReversePath() {
+        return imageReversePath;
+    }
+
+    public ImagePattern getTexturePattern() {
+        return texturePattern;
+    }
+
+    public ImagePattern getTexturePatternFlipped() {
+        return texturePatternFlipped;
+    }
+
+    public Image getTexture() {
+        return texture;
+    }
+
+    public Image getTextureFlipped() {
+        return textureFlipped;
+    }
+    
+    
 }

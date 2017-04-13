@@ -5,6 +5,8 @@
  */
 package HUD;
 
+import GamePane.GamePane;
+import static javafx.animation.Animation.Status.RUNNING;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,9 +18,15 @@ import javafx.scene.layout.Pane;
  */
 public class PauseMenu {
     
-    private Pane gamePane ;
+    private GamePane gamePane ;
     
-    private boolean gamePaused = false;
+    private boolean isGamePaused = false;
+    
+    private boolean isProgressBarStopped1 = false;
+    private boolean isProgressBarStopped2 = false;
+    private boolean isProgressBarStopped3 = false;
+    private boolean isProgressBarStopped4 = false;
+    private boolean isWeaponAnimationStopped = false;
     
     private ImageView pauseMenu = new ImageView(new Image("Texture/Menus/PauseMenu/Pause Menu.png"));
     
@@ -39,7 +47,7 @@ public class PauseMenu {
     private Image exitBtnClicked = new Image("Texture/Menus/PauseMenu/Exit Button Clicked.png");
     
     
-    public PauseMenu(Pane gamePane){
+    public PauseMenu(GamePane gamePane){
         this.gamePane = gamePane;
         
         
@@ -149,17 +157,82 @@ public class PauseMenu {
         });
     }
     public void resumeGame(){
+        
+        isGamePaused = false;
+        
+        
+        gamePane.getTanksAnimation().getAnimation().play();
+        gamePane.getTanksAnimation().getAnimation2().play();
+        gamePane.getTanksAnimation().getAnimation3().play();
+        gamePane.getTanksAnimation().getAnimation4().play();
+        
+        if(isWeaponAnimationStopped){
+            isWeaponAnimationStopped = false;
+            gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().play();
+        }
+        
+        if(isProgressBarStopped1){
+            isProgressBarStopped1 = false;
+            gamePane.getTanksAnimation().getProgressBarAnimationOne().play();
+        }
+        
+        if(isProgressBarStopped2){
+            isProgressBarStopped2 = false;
+            gamePane.getTanksAnimation().getProgressBarAnimationTwo().play();
+        }
+        
+        if(isProgressBarStopped3){
+            isProgressBarStopped3 = false;
+            gamePane.getTanksAnimation().getProgressBarAnimationThree().play();
+        }
+        
+        if(isProgressBarStopped4){
+            isProgressBarStopped4 = false;
+            gamePane.getTanksAnimation().getProgressBarAnimationFour().play();
+        }
+        
         gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn);
-        gamePaused = false;
     }
     
     public void pauseGame(){
+        isGamePaused = true;
+        gamePane.getTanksAnimation().getAnimation().pause();
+        gamePane.getTanksAnimation().getAnimation2().pause();
+        gamePane.getTanksAnimation().getAnimation3().pause();
+        gamePane.getTanksAnimation().getAnimation4().pause();
+        
+        if(gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(RUNNING) == 0){
+            isWeaponAnimationStopped = true;
+            gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().pause();
+        }
+        
+        if(gamePane.getTanksAnimation().getProgressBarAnimationOne().getStatus().compareTo(RUNNING) == 0){
+            isProgressBarStopped1 = true;
+            gamePane.getTanksAnimation().getProgressBarAnimationOne().pause();
+        }
+        
+        if(gamePane.getTanksAnimation().getProgressBarAnimationTwo().getStatus().compareTo(RUNNING) == 0){
+            isProgressBarStopped2 = true;
+            gamePane.getTanksAnimation().getProgressBarAnimationTwo().pause();
+        }
+        
+        if(gamePane.getTanksAnimation().getProgressBarAnimationThree().getStatus().compareTo(RUNNING) == 0){
+            isProgressBarStopped3 = true;
+            gamePane.getTanksAnimation().getProgressBarAnimationThree().pause();
+        }
+        
+        if(gamePane.getTanksAnimation().getProgressBarAnimationFour().getStatus().compareTo(RUNNING) == 0){
+            isProgressBarStopped4 = true;
+            gamePane.getTanksAnimation().getProgressBarAnimationFour().pause();
+        }
+        
+        
         gamePane.getChildren().addAll(pauseMenu, resumeBtn, saveBtn, exitBtn);
-        gamePaused = true;
     }
     
-    public boolean getGamePaused(){
-        return this.gamePaused;
+    public boolean isGamePaused(){
+        return this.isGamePaused;
     }
+    
     
 }

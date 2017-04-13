@@ -38,6 +38,12 @@ public class GamePane extends Pane{
         paneSetup(this);
     }
     
+    private void gameLoop(){
+        while(true){
+            
+        }
+    }
+    
     public void paneSetup(Pane pane){
         frontGroundSetup(pane);
         backGroundSetup(pane);
@@ -45,7 +51,7 @@ public class GamePane extends Pane{
     }
     
     public void tanksSetup(Pane pane){
-        tanksAnimation = new TanksAnimation(mapGeneration, pane, 4);  
+        tanksAnimation = new TanksAnimation(mapGeneration, this, 4);  
     }
     
     public void backGroundSetup(Pane pane){
@@ -85,4 +91,10 @@ public class GamePane extends Pane{
     public HUD getHUD(){
         return tanksAnimation.getHud();
     }
+
+    public TanksAnimation getTanksAnimation() {
+        return tanksAnimation;
+    }
+    
+    
 }

@@ -29,9 +29,9 @@ import javafx.scene.text.Text;
  */
 public class HUD extends Pane{
     
-    Pane gamePane;
+    private GamePane gamePane;
     
-    PauseMenu pauseMenu;
+    private PauseMenu pauseMenu;
     
     //Scene gameScene;
     
@@ -80,7 +80,7 @@ public class HUD extends Pane{
     private Image canadaTank = new Image("Texture/Menus/HUD/Canada Tank.png");
     
     
-    public HUD(WeaponManager weaponManager, Pane gamePane){
+    public HUD(WeaponManager weaponManager, GamePane gamePane){
         this.gamePane = gamePane;
         this.pauseMenu = new PauseMenu(this.gamePane);
         
@@ -131,7 +131,7 @@ public class HUD extends Pane{
         pauseBtn.setOnMousePressed(e -> {
             pauseBtn.setImage(pauseBtnClicked);
             
-            if (pauseMenu.getGamePaused() == false)
+            if (pauseMenu.isGamePaused() == false)
                 pauseMenu.pauseGame();
             else
                 pauseMenu.resumeGame();
@@ -219,6 +219,11 @@ public class HUD extends Pane{
              }
          });
     }
+    
+    public void updateHealth(int lifePoints){
+        playerHealth.setProgress(lifePoints / 100.0);
+    }
+    
     private void setWind(){
         this.getChildren().add(wind);
         
@@ -393,4 +398,114 @@ public class HUD extends Pane{
        
         this.setBackground(new Background(myBI));
     }
+
+    public GamePane getGamePane() {
+        return gamePane;
+    }
+
+    public PauseMenu getPauseMenu() {
+        return pauseMenu;
+    }
+
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public Text getPlayer() {
+        return player;
+    }
+
+    public ArrayList<String> getPlayerNames() {
+        return playerNames;
+    }
+
+    public static int getPlayerIndex() {
+        return playerIndex;
+    }
+
+    public WeaponManager getWeaponManager() {
+        return weaponManager;
+    }
+
+    public int getWeaponIndex() {
+        return weaponIndex;
+    }
+
+    public ImageView getWeaponBtn() {
+        return weaponBtn;
+    }
+
+    public Image getWeaponBtnImage() {
+        return weaponBtnImage;
+    }
+
+    public Image getWeaponBtnClicked() {
+        return weaponBtnClicked;
+    }
+
+    public ImageView getStoreBtn() {
+        return storeBtn;
+    }
+
+    public Image getStoreBtnImage() {
+        return storeBtnImage;
+    }
+
+    public Image getStoreBtnClicked() {
+        return storeBtnClicked;
+    }
+
+    public ImageView getPauseBtn() {
+        return pauseBtn;
+    }
+
+    public Image getPauseBtnImage() {
+        return pauseBtnImage;
+    }
+
+    public Image getPauseBtnClicked() {
+        return pauseBtnClicked;
+    }
+
+    public String getGravity() {
+        return gravity;
+    }
+
+    public Text getGravityLbl() {
+        return gravityLbl;
+    }
+
+    public int getWindResistance() {
+        return windResistance;
+    }
+
+    public Text getWind() {
+        return wind;
+    }
+
+    public ColoredProgressBar getPlayerHealth() {
+        return playerHealth;
+    }
+
+    public ImageView getPlayerTank() {
+        return playerTank;
+    }
+
+    public Image[] getTanks() {
+        return tanks;
+    }
+
+    public Image getCanadaTank() {
+        return canadaTank;
+    }
+    
+    
 }

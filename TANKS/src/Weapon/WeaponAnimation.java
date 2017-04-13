@@ -176,7 +176,18 @@ public class WeaponAnimation {
     public void setInitialVelocity(double initialVelocity) {
         this.initialVelocity = initialVelocity;
     }
+
+    public Timeline getAnimationWeapon() {
+        return animationWeapon;
+    }
+
+    public Tanks getTank() {
+        return tank;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
     
     
-      
 }

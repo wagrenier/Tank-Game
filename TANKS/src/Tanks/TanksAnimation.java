@@ -17,7 +17,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 /**
@@ -95,7 +94,7 @@ public class TanksAnimation {
     ProgressBar barFour = new ProgressBar(0);
     
     //Pane of the game
-    private Pane pane;
+    private GamePane pane;
     
     //This variable generates the map of the game
     private MapGeneration mapGeneration;
@@ -103,8 +102,9 @@ public class TanksAnimation {
     //Contains all the available weapons in the game
     WeaponManager weaponManager;
     
+    WeaponAnimation weaponAnimation;
     
-    public TanksAnimation(MapGeneration mapGeneration, Pane pane, int numOfPlayer) {
+    public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer) {
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png");
         tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo);
         tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree, pathForTextureCannonThree);
@@ -242,16 +242,16 @@ public class TanksAnimation {
         pane.getChildren().add(tanksFour);
         
         animation.setCycleCount(Timeline.INDEFINITE);
-        animation.play();
+        animation.playFromStart();
         
         animation2.setCycleCount(Timeline.INDEFINITE);
-        animation2.play();
+        animation2.playFromStart();
         
         animation3.setCycleCount(Timeline.INDEFINITE);
-        animation3.play();
+        animation3.playFromStart();
         
         animation4.setCycleCount(Timeline.INDEFINITE);
-        animation4.play();
+        animation4.playFromStart();
          
          
     
@@ -267,6 +267,8 @@ public class TanksAnimation {
         
         
         animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+            
+            
             tanksOne.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())));
             
             if(progressBarAnimationOne.getStatus().compareTo(RUNNING) == 0){
@@ -571,14 +573,23 @@ public class TanksAnimation {
     }
     
     public void weaponSetup(Tanks tank, double x){
-        Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getTexturePath());        
+        Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getDamage(), weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getTexturePath());        
         
-        new WeaponAnimation(weapon, tank, mapGeneration, pane, x);
+       weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, x);
+       
+       if(weaponAnimation.getWeapon().intersects(tanksOne.getLayoutBounds())){
+           System.out.println(weapon.getDamage());
+           tanksOne.damageDone(weapon.getDamage());
+           hud.updateHealth(tanksOne.getLifePoint());
+       }
     }
     
     public void keyPressed(KeyCode x){
-        
+        if(hud.getPauseMenu().isGamePaused()){
+            
+        }
          
+        else{
         switch (x){
             
             
@@ -739,6 +750,7 @@ public class TanksAnimation {
                 }
                 
         }
+        }
     }
     
     public double getWidth() {
@@ -893,11 +905,11 @@ public class TanksAnimation {
         this.animation4 = animation4;
     }
 
-    public Pane getPane() {
+    public GamePane getPane() {
         return pane;
     }
 
-    public void setPane(Pane pane) {
+    public void setPane(GamePane pane) {
         this.pane = pane;
     }
 
@@ -928,6 +940,25 @@ public class TanksAnimation {
     public HUD getHud() {
         return hud;
     }
-    
+
+    public Timeline getProgressBarAnimationOne() {
+        return progressBarAnimationOne;
+    }
+
+    public Timeline getProgressBarAnimationTwo() {
+        return progressBarAnimationTwo;
+    }
+
+    public Timeline getProgressBarAnimationThree() {
+        return progressBarAnimationThree;
+    }
+
+    public Timeline getProgressBarAnimationFour() {
+        return progressBarAnimationFour;
+    }
+
+    public WeaponAnimation getWeaponAnimation() {
+        return weaponAnimation;
+    }
     
 }
