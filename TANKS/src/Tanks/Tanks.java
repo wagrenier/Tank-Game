@@ -72,7 +72,9 @@ public class Tanks extends Circle{
     }
     
     public void damageDone(int damage){
+        if(lifePoint > 0)
         lifePoint -= damage;
+        
         if(lifePoint <= 0){
             isTankAlive = false;
         }
@@ -104,6 +106,10 @@ public class Tanks extends Circle{
 
     public Image getTextureFlipped() {
         return textureFlipped;
+    }
+
+    public boolean isTankAlive() {
+        return isTankAlive;
     }
     
     

@@ -201,7 +201,11 @@ public class PauseMenu {
         gamePane.getTanksAnimation().getAnimation3().pause();
         gamePane.getTanksAnimation().getAnimation4().pause();
         
-        if(gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(RUNNING) == 0){
+        if(gamePane.getTanksAnimation().getWeaponAnimation() == null){
+            
+        }
+        
+        else if(gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(RUNNING) == 0){
             isWeaponAnimationStopped = true;
             gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().pause();
         }
