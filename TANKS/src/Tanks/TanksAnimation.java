@@ -584,7 +584,8 @@ public class TanksAnimation {
     private void hitDetection(Tanks tank, Weapon weapon){
         
         
-        if(weaponAnimation.getWeapon().intersects(tanksOne.getBoundsInLocal()) && tank != tanksOne && tanksOne.isTankAlive()){
+        
+        if(weaponAnimation.getWeapon().getBoundsInLocal().intersects(tanksOne.getBoundsInLocal()) && tank != tanksOne && tanksOne.isTankAlive()){
            //System.out.println(weapon.getDamage());
            tanksOne.damageDone(weapon.getDamage());
            System.out.println(tanksOne.getLifePoint());
@@ -596,7 +597,7 @@ public class TanksAnimation {
            }
        }
         
-        else if(weaponAnimation.getWeapon().intersects(tanksTwo.getBoundsInLocal())&& tank != tanksTwo && tanksTwo.isTankAlive()){
+        else if(weaponAnimation.getWeapon().getBoundsInLocal().intersects(tanksTwo.getBoundsInLocal())&& tank != tanksTwo && tanksTwo.isTankAlive()){
            //System.out.println(weapon.getDamage());
            tanksTwo.damageDone(weapon.getDamage());
            System.out.println(tanksTwo.getLifePoint());
@@ -608,7 +609,7 @@ public class TanksAnimation {
            }
        }
         
-        else if(weaponAnimation.getWeapon().intersects(tanksThree.getBoundsInLocal())&& tank != tanksThree && tanksThree.isTankAlive()){
+        else if(weaponAnimation.getWeapon().getBoundsInLocal().intersects(tanksThree.getBoundsInLocal())&& tank != tanksThree && tanksThree.isTankAlive()){
            //System.out.println(weapon.getDamage());
            tanksThree.damageDone(weapon.getDamage());
            System.out.println(tanksThree.getLifePoint());
@@ -620,7 +621,7 @@ public class TanksAnimation {
            }
        }
         
-        else if(weaponAnimation.getWeapon().intersects(tanksFour.getBoundsInLocal())&& tank != tanksFour && tanksFour.isTankAlive()){
+        else if(weaponAnimation.getWeapon().getBoundsInLocal().intersects(tanksFour.getBoundsInLocal())&& tank != tanksFour && tanksFour.isTankAlive()){
            //System.out.println(weapon.getDamage());
            tanksFour.damageDone(weapon.getDamage());
            System.out.println(tanksFour.getLifePoint());
