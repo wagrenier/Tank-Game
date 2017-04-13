@@ -1,5 +1,4 @@
 .root { -fx-background-color: cornsilk; -fxpadding: 15; }
 
 .green-bar  { -fx-accent: green;  }
-.yellow-bar { -fx-accent: yellow; }
 .red-bar    { -fx-accent: red;    }

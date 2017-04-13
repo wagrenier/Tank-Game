@@ -30,7 +30,7 @@ import javafx.scene.text.Text;
 public class HUD extends Pane{
     
 
-    private ImageView pointer = new ImageView(new Image("Texture/Teleport.png"));
+    
     
     
     
@@ -284,7 +284,13 @@ public class HUD extends Pane{
 
 
     public void updateHealth(int lifePoints){
-        playerHealth.setProgress(lifePoints / 100.0);
+        if (lifePoints < 0)
+            playerHealth.setProgress(0);
+        else
+            playerHealth.setProgress(lifePoints / 100.0);
+        
+        if ((lifePoints) <= 30)
+            playerHealth.setColor("red-bar");
     }
     
 

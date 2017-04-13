@@ -8,15 +8,22 @@ package HUD;
 import GamePane.GamePane;
 import static javafx.animation.Animation.Status.RUNNING;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  *
  * @author Cedrik Dubois
  */
 public class PauseMenu {
+    
     
     private GamePane gamePane ;
     
@@ -57,6 +64,7 @@ public class PauseMenu {
         setExitBtn();
         
     }
+   
     private void setExitBtn(){
         exitBtn = new ImageView(exitBtnImage);
         
