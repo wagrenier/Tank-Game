@@ -29,14 +29,12 @@ import javafx.scene.text.Text;
  */
 public class HUD extends Pane{
     
-
-    
-    
-    
     
     private GamePane gamePane;
     
     private PauseMenu pauseMenu;
+    
+    private Store storeMenu;
     
     //Scene gameScene;
     
@@ -92,6 +90,7 @@ public class HUD extends Pane{
     public HUD(WeaponManager weaponManager, GamePane gamePane){
         this.gamePane = gamePane;
         this.pauseMenu = new PauseMenu(this.gamePane);
+        this.storeMenu = new Store(this.gamePane);
         
         //gameScene = scene;
         this.weaponManager = weaponManager;
@@ -223,6 +222,10 @@ public class HUD extends Pane{
         
         storeBtn.setOnMouseReleased(e -> {
             storeBtn.setImage(storeBtnImage);
+            if (storeMenu.isStoreOpened() == false)
+                storeMenu.openStore();
+            else
+                storeMenu.closeStore();
         });
         
     }
@@ -281,8 +284,6 @@ public class HUD extends Pane{
          });
     }
     
-
-
     public void updateHealth(int lifePoints){
         if (lifePoints < 0)
             playerHealth.setProgress(0);
@@ -293,7 +294,6 @@ public class HUD extends Pane{
             playerHealth.setColor("red-bar");
     }
     
-
     private void setWind(){
         this.getChildren().add(wind);
         

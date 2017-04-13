@@ -6,6 +6,8 @@
 package HUD;
 
 import GamePane.GamePane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -13,10 +15,28 @@ import GamePane.GamePane;
  */
 public class Store {
     
+    private boolean storeOpened = false;
+    
     private GamePane gamePane;
+    
+    private ImageView storeBackground = new ImageView(new Image("Texture/Menus/Store/Store.png"));
     
     public Store(GamePane gamePane){
         this.gamePane = gamePane;
+    }
+    
+    public void openStore(){//Will later request the player accessing the store
+        this.gamePane.getChildren().add(storeBackground);
+        storeOpened = true;
+    }
+    
+    public void closeStore(){
+        this.gamePane.getChildren().remove(storeBackground);
+        storeOpened = false;
+    }
+    
+    public boolean isStoreOpened(){
+        return storeOpened;
     }
     
 }
