@@ -154,7 +154,7 @@ public class WeaponAnimation {
         animationWeapon.setOnFinished(e ->{
             
             pane.getChildren().removeAll(weapon);
-            
+            animationWeapon.stop();
            // pane.getChildren().removeAll(bar);
             
         });
@@ -189,5 +189,8 @@ public class WeaponAnimation {
         return weapon;
     }
     
+    public void removeWeaponFromPane(){
+        pane.getChildren().removeAll(weapon);
+    }
     
 }

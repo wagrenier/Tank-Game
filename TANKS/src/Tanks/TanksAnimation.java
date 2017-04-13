@@ -268,7 +268,7 @@ public class TanksAnimation {
         
         
         animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            
+            updateTankOneStatus();
             
             tanksOne.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())));
             
@@ -353,7 +353,7 @@ public class TanksAnimation {
         tanksTwo.getCannon().setTranslateY(mapGeneration.getY(500));
         tanksTwo.getCannon().setCenterY(-35);
         animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            
+            updateTanksTwoStatus();
             if(progressBarAnimationTwo.getStatus().compareTo(RUNNING) == 0){
             xspeed2 = 0;
             yspeed2 = 0;
@@ -435,7 +435,7 @@ public class TanksAnimation {
         tanksThree.getCannon().setTranslateY(tanksThree.getTranslateY() + yspeed3 - 35);
         
         animation3 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            
+            updateTanksThreeStatus();
             if(progressBarAnimationThree.getStatus().compareTo(RUNNING) == 0){
             xspeed3 = 0;
             yspeed3 = 0;
@@ -504,7 +504,7 @@ public class TanksAnimation {
         tanksFour.getCannon().setTranslateY(tanksFour.getTranslateY() + yspeed4 - 30);
         
         animation4 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            
+            updateTanksFourStatus();
             
             if(progressBarAnimationFour.getStatus().compareTo(RUNNING) == 0){
             xspeed4 = 0;
@@ -582,58 +582,122 @@ public class TanksAnimation {
     }
     
     private void hitDetection(Tanks tank, Weapon weapon){
-        
-        
-        
-        if(weaponAnimation.getWeapon().getBoundsInLocal().intersects(tanksOne.getBoundsInLocal()) && tank != tanksOne && tanksOne.isTankAlive()){
-           //System.out.println(weapon.getDamage());
-           tanksOne.damageDone(weapon.getDamage());
-           System.out.println(tanksOne.getLifePoint());
-           hud.updateHealth(tanksOne.getLifePoint());
-           if(!tanksOne.isTankAlive()){
+        HitDetection hitDetection = new HitDetection(weaponAnimation, hud, tanksOne, tanksTwo, tanksThree, tanksFour, tank, animation, animation2, animation3, animation4, pane, weapon);
+        hitDetection.start();
+    }
+    
+    public void updateTankOneStatus(){
+        if(!tanksOne.isTankAlive()){
                animation.stop();
                pane.getChildren().remove(tanksOne);
                pane.getChildren().remove(tanksOne.getCannon());
            }
-       }
-        
-        else if(weaponAnimation.getWeapon().getBoundsInLocal().intersects(tanksTwo.getBoundsInLocal())&& tank != tanksTwo && tanksTwo.isTankAlive()){
-           //System.out.println(weapon.getDamage());
-           tanksTwo.damageDone(weapon.getDamage());
-           System.out.println(tanksTwo.getLifePoint());
-           hud.updateHealth(tank.getLifePoint());
-           if(!tanksTwo.isTankAlive()){
+        if(!tanksTwo.isTankAlive()){
                animation2.stop();
                pane.getChildren().remove(tanksTwo);
                pane.getChildren().remove(tanksTwo.getCannon());
            }
-       }
         
-        else if(weaponAnimation.getWeapon().getBoundsInLocal().intersects(tanksThree.getBoundsInLocal())&& tank != tanksThree && tanksThree.isTankAlive()){
-           //System.out.println(weapon.getDamage());
-           tanksThree.damageDone(weapon.getDamage());
-           System.out.println(tanksThree.getLifePoint());
-           //hud.updateHealth(tank.getLifePoint());
-           if(!tanksThree.isTankAlive()){
+        if(!tanksThree.isTankAlive()){
                animation3.stop();
                pane.getChildren().remove(tanksThree);
                pane.getChildren().remove(tanksThree.getCannon());
            }
-       }
+       
         
-        else if(weaponAnimation.getWeapon().getBoundsInLocal().intersects(tanksFour.getBoundsInLocal())&& tank != tanksFour && tanksFour.isTankAlive()){
-           //System.out.println(weapon.getDamage());
-           tanksFour.damageDone(weapon.getDamage());
-           System.out.println(tanksFour.getLifePoint());
-           //hud.updateHealth(tank.getLifePoint());
+        
            if(!tanksFour.isTankAlive()){
                animation4.stop();
                pane.getChildren().remove(tanksFour);
                pane.getChildren().remove(tanksFour.getCannon());
            }
-       }
     }
     
+    public void updateTanksTwoStatus(){
+           if(!tanksOne.isTankAlive()){
+               animation.stop();
+               pane.getChildren().remove(tanksOne);
+               pane.getChildren().remove(tanksOne.getCannon());
+           }
+        if(!tanksTwo.isTankAlive()){
+               animation2.stop();
+               pane.getChildren().remove(tanksTwo);
+               pane.getChildren().remove(tanksTwo.getCannon());
+           }
+        
+        if(!tanksThree.isTankAlive()){
+               animation3.stop();
+               pane.getChildren().remove(tanksThree);
+               pane.getChildren().remove(tanksThree.getCannon());
+           }
+       
+        
+        
+           if(!tanksFour.isTankAlive()){
+               animation4.stop();
+               pane.getChildren().remove(tanksFour);
+               pane.getChildren().remove(tanksFour.getCannon());
+           }
+    }
+    
+    public void updateTanksThreeStatus(){
+        
+           if(!tanksOne.isTankAlive()){
+               animation.stop();
+               pane.getChildren().remove(tanksOne);
+               pane.getChildren().remove(tanksOne.getCannon());
+           }
+        if(!tanksTwo.isTankAlive()){
+               animation2.stop();
+               pane.getChildren().remove(tanksTwo);
+               pane.getChildren().remove(tanksTwo.getCannon());
+           }
+        
+        if(!tanksThree.isTankAlive()){
+               animation3.stop();
+               pane.getChildren().remove(tanksThree);
+               pane.getChildren().remove(tanksThree.getCannon());
+           }
+       
+        
+        
+           if(!tanksFour.isTankAlive()){
+               animation4.stop();
+               pane.getChildren().remove(tanksFour);
+               pane.getChildren().remove(tanksFour.getCannon());
+           }
+    }
+    
+    public void updateTanksFourStatus(){
+        
+           if(!tanksOne.isTankAlive()){
+               animation.stop();
+               pane.getChildren().remove(tanksOne);
+               pane.getChildren().remove(tanksOne.getCannon());
+           }
+        if(!tanksTwo.isTankAlive()){
+               animation2.stop();
+               pane.getChildren().remove(tanksTwo);
+               pane.getChildren().remove(tanksTwo.getCannon());
+           }
+        
+        if(!tanksThree.isTankAlive()){
+               animation3.stop();
+               pane.getChildren().remove(tanksThree);
+               pane.getChildren().remove(tanksThree.getCannon());
+           }
+       
+        
+        
+           if(!tanksFour.isTankAlive()){
+               animation4.stop();
+               pane.getChildren().remove(tanksFour);
+               pane.getChildren().remove(tanksFour.getCannon());
+           }
+    }
+    
+    
+        
     public void keyPressed(KeyCode x){
         if(hud.getPauseMenu().isGamePaused()){
             
