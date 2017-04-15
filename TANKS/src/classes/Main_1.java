@@ -5,12 +5,8 @@
  */
 package classes;
 
-import java.util.ArrayList;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-
 import javafx.stage.Stage;
 
 /**
@@ -19,13 +15,17 @@ import javafx.stage.Stage;
  */
 public class Main_1 extends Application {
     
+    
     @Override
     public void start(Stage stage) {
         
-        MainMenuManagerPane mainMenu = new MainMenuManagerPane();
-        stage.setScene(mainMenu.getThisScene());
+        MainMenuManagerPane mainMenuManagerPane = new MainMenuManagerPane();
+        stage.setScene(mainMenuManagerPane.getThisScene());
+        
         
         stage.show();
+        
+        
         
     }
 

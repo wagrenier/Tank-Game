@@ -5,8 +5,10 @@
  */
 package classes;
 
+import GamePane.GamePane;
 import java.util.ArrayList;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -14,7 +16,10 @@ import javafx.stage.Stage;
  *
  * @author willi
  */
-public class MainMenuManagerPane extends Pane{
+public class MainMenuManagerPane{
+    
+    GamePane gamePane;
+    BorderPane borderPane = new BorderPane();
     private MainMenu mainMenu = new MainMenu();
     private PlayerMenu playerMenu = new PlayerMenu();
     private CountryMenu countryMenu = new CountryMenu();
@@ -22,6 +27,7 @@ public class MainMenuManagerPane extends Pane{
     private Scene scene;
     private static int numberOfPlayers;
     private static int playerCount = 0;
+    private boolean gameLaunch = false;
     
     private static int paneCount = 0;
     private ArrayList<Pane> paneList = new ArrayList<>();
@@ -91,6 +97,18 @@ public class MainMenuManagerPane extends Pane{
             countryMenu.resetPane();
         });
         
+        mapMenu.getPlayBtn().setOnMouseReleased(e ->{
+            mapMenu.getPlayBtn().setImage(mapMenu.getPlayBtnHover());
+            gameLaunch = true;
+            
+            gamePane = new GamePane();
+            
+            borderPane.setCenter(gamePane);
+            borderPane.setTop(gamePane.getHUD());
+            scene.setRoot(borderPane);
+            //System.out.println("Launch");
+        });
+        
         mapMenu.getBackBtn().setOnMouseClicked(e -> {
             paneCount--;
             paneCount--;
@@ -154,6 +172,11 @@ public class MainMenuManagerPane extends Pane{
     public ArrayList<Player> getPlayerList() {
         return playerList;
     }
+
+    public boolean isGameLaunch() {
+        return gameLaunch;
+    }
+    
     
     
 }

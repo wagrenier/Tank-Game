@@ -35,6 +35,8 @@ public class GamePane extends Pane{
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
         paneSetup(this);
+        //this.setCenter(this);
+        
     }
     
     private void gameLoop(){
@@ -93,6 +95,10 @@ public class GamePane extends Pane{
 
     public TanksAnimation getTanksAnimation() {
         return tanksAnimation;
+    }
+    
+    public void setPlayerArrayList(ArrayList<Player> playerArrayList){
+        this.playerArrayList = playerArrayList;
     }
     
     public void addPlayer(Player player){
