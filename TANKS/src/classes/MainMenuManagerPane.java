@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author willi
  */
-public class MainMenuManagerPane{
+public class MainMenuManagerPane extends Pane{
     
     GamePane gamePane;
     BorderPane borderPane = new BorderPane();
@@ -24,10 +24,10 @@ public class MainMenuManagerPane{
     private PlayerMenu playerMenu = new PlayerMenu();
     private CountryMenu countryMenu = new CountryMenu();
     private MapMenu mapMenu = new MapMenu();
-    private Scene scene;
+    
     private static int numberOfPlayers;
     private static int playerCount = 0;
-    private boolean gameLaunch = false;
+    
     
     private static int paneCount = 0;
     private ArrayList<Pane> paneList = new ArrayList<>();
@@ -40,22 +40,27 @@ public class MainMenuManagerPane{
         paneList.add(countryMenu);
         paneList.add(mapMenu);
         
-        scene = new Scene(mainMenu);
         
+        this.getChildren().add(mainMenu);
         
         mainMenu.getPlayBtn().setOnMouseClicked(e -> {
             paneCount++;
-            scene.setRoot(paneList.get(paneCount));
+            this.getChildren().add(paneList.get(paneCount));
+            //scene.setRoot(paneList.get(paneCount));
         });
         
         playerMenu.getBackBtn().setOnMouseClicked(e -> {
             paneCount--;
-            scene.setRoot(paneList.get(paneCount));
+            this.getChildren().clear();
+            this.getChildren().add(paneList.get(paneCount));
+           // scene.setRoot(paneList.get(paneCount));
         });
         
         playerMenu.getNextBtn().setOnMouseClicked(e -> {
             paneCount++;
-            scene.setRoot(paneList.get(paneCount));
+            this.getChildren().clear();
+            this.getChildren().add(paneList.get(paneCount));
+            //scene.setRoot(paneList.get(paneCount));
             numberOfPlayers = playerMenu.getNumberOfPlayers();
             
             for (int i = 0; i < numberOfPlayers; i++){
@@ -74,7 +79,10 @@ public class MainMenuManagerPane{
             if (playerCount == numberOfPlayers - 1){
                 registerPlayer(true);
                 paneCount++;
-                scene.setRoot(paneList.get(paneCount));
+                this.getChildren().clear();
+                this.getChildren().add(paneList.get(paneCount));
+                
+                //scene.setRoot(paneList.get(paneCount));
                 mapMenu.setPlayerList(playerList);
                 mapMenu.setPlayers();
                 
@@ -88,7 +96,9 @@ public class MainMenuManagerPane{
         
         countryMenu.getBackBtn().setOnMouseClicked(e -> {
             paneCount--;
-            scene.setRoot(paneList.get(paneCount));
+            this.getChildren().clear();
+            this.getChildren().add(paneList.get(paneCount));
+            //scene.setRoot(paneList.get(paneCount));
             
             //Reset variables for countryMenu
             playerCount = 0;
@@ -99,20 +109,30 @@ public class MainMenuManagerPane{
         
         mapMenu.getPlayBtn().setOnMouseReleased(e ->{
             mapMenu.getPlayBtn().setImage(mapMenu.getPlayBtnHover());
-            gameLaunch = true;
+            this.getChildren().clear();
             
-            gamePane = new GamePane();
+            this.setMinSize(1200, 950);
+            this.setMaxSize(1200, 950);
+            
+            gamePane = new GamePane(numberOfPlayers, playerList);
+            gamePane.setPlayerArrayList(playerList);
             
             borderPane.setCenter(gamePane);
             borderPane.setTop(gamePane.getHUD());
-            scene.setRoot(borderPane);
-            //System.out.println("Launch");
+            
+            gamePane.setFocusTraversable(true);
+            this.getChildren().add(borderPane);
+            
+            
+            this.autosize();
         });
         
         mapMenu.getBackBtn().setOnMouseClicked(e -> {
             paneCount--;
             paneCount--;
-            scene.setRoot(paneList.get(paneCount));
+            this.getChildren().clear();
+            this.getChildren().add(paneList.get(paneCount));
+            //scene.setRoot(paneList.get(paneCount));
             
             //Reset variables for mapMenu
             mapMenu.resetPane();
@@ -149,10 +169,6 @@ public class MainMenuManagerPane{
         return mapMenu;
     }
 
-    public Scene getThisScene() {
-        return scene;
-    }
-
     public static int getNumberOfPlayers() {
         return numberOfPlayers;
     }
@@ -171,12 +187,6 @@ public class MainMenuManagerPane{
 
     public ArrayList<Player> getPlayerList() {
         return playerList;
-    }
-
-    public boolean isGameLaunch() {
-        return gameLaunch;
-    }
-    
-    
+    } 
     
 }

@@ -16,7 +16,7 @@ import javafx.scene.shape.Circle;
 public class Tanks extends Circle{
     
     private int lifePoint = 100;
-    private boolean isTankAlive = true;
+    private boolean isTankAlive = false;
     private final String imagePath;
     private final String imageReversePath;
     private final ImagePattern texturePattern;
@@ -111,6 +111,11 @@ public class Tanks extends Circle{
     public boolean isTankAlive() {
         return isTankAlive;
     }
+
+    public void setIsTankAlive(boolean isTankAlive) {
+        this.isTankAlive = isTankAlive;
+    }
+    
     
     
 }
