@@ -28,7 +28,13 @@ import javafx.scene.text.Text;
  * @author Cedrik Dubois
  */
 public class HUD extends Pane{
+
+
+    private ImageView pointer = new ImageView(new Image("Texture/Teleport.png"));
+
     
+    
+
     
     private GamePane gamePane;
     
