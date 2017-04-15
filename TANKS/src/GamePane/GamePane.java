@@ -8,10 +8,9 @@ package GamePane;
 import HUD.HUD;
 import Tanks.TanksAnimation;
 import MapGeneration.MapGeneration;
-import Tanks.Tanks;
-import Weapon.Weapon;
-import Weapon.WeaponAnimation;
-import Weapon.WeaponManager;
+import classes.Player;
+import java.util.ArrayList;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -27,15 +26,29 @@ import javafx.scene.shape.Rectangle;
  */
 public class GamePane extends Pane{
     
+    private int numOfPlayers;
     private double width = 1200;
     private double height = 800;
     private TanksAnimation tanksAnimation;
     MapGeneration mapGeneration = new MapGeneration(450, 100, 500);
+    private ArrayList<Player> playerArrayList = new ArrayList<>();
+    private Timeline[] tanksAnimationArrayUsed;
     
-    public GamePane(){
+    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList){
+        this.playerArrayList = playerArrayList;
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
-        paneSetup(this);
+        this.numOfPlayers = numOfPlayers;
+        paneSetup(this);   
+        gameLoop();
+    }
+    
+    //The game's main loop
+    private void gameLoop(){
+        int indexOfCurrentPlayerTurn = 0;
+        while(tanksAnimation.moreThanOneTankAlive()){
+            playerTurn(indexOfCurrentPlayerTurn);
+        }
     }
     
     public void paneSetup(Pane pane){
@@ -45,7 +58,8 @@ public class GamePane extends Pane{
     }
     
     public void tanksSetup(Pane pane){
-        tanksAnimation = new TanksAnimation(mapGeneration, pane, 4);  
+        tanksAnimation = new TanksAnimation(mapGeneration, this, numOfPlayers, playerArrayList);  
+        tanksAnimationArrayUsed = tanksAnimation.getTanksAnimationArrayUsed();
     }
     
     public void backGroundSetup(Pane pane){
@@ -82,7 +96,31 @@ public class GamePane extends Pane{
 
    }
     
+    private void playerTurn(int indexOfCurrentPlayer){
+        for(int i = 0; i < tanksAnimationArrayUsed.length; i++){
+            if(i == indexOfCurrentPlayer){
+                tanksAnimationArrayUsed[i].play();
+            }
+            else{
+                tanksAnimationArrayUsed[i].pause();
+            }
+        }
+    }
+    
     public HUD getHUD(){
         return tanksAnimation.getHud();
     }
+
+    public TanksAnimation getTanksAnimation() {
+        return tanksAnimation;
+    }
+    
+    public void setPlayerArrayList(ArrayList<Player> playerArrayList){
+        this.playerArrayList = playerArrayList;
+    }
+    
+    public void addPlayer(Player player){
+        playerArrayList.add(player);
+    }
+    
 }
