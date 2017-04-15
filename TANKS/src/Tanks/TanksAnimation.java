@@ -12,12 +12,15 @@ import MapGeneration.MapGeneration;
 import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;
+import classes.Player;
+import java.util.ArrayList;
 import static javafx.animation.Animation.Status.RUNNING;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 /**
@@ -31,6 +34,7 @@ public class TanksAnimation {
     
     //HUD for the game
     private HUD hud;
+    
     
     //Variables for tank 1
     private double xspeed = 0;
@@ -68,6 +72,7 @@ public class TanksAnimation {
     final String pathForTextureFlippedTankFour = "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png";
     final String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
     
+    
     private double gravity = 0.05;
     
     private int numOfPlayer;
@@ -96,7 +101,7 @@ public class TanksAnimation {
     
     //Pane of the game
     private GamePane pane;
-    
+    private Pane pane1;
     //This variable generates the map of the game
     private MapGeneration mapGeneration;
     
@@ -104,13 +109,58 @@ public class TanksAnimation {
     WeaponManager weaponManager;
     
     WeaponAnimation weaponAnimation;
+    private Player[] playerArray;
+    private Tanks[] tanksArray = new Tanks[4];
+    private Tanks[] tanksArrayUsed;
+    private Timeline[] tanksAnimationArrayUsed;
     
-    public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer) {
+    public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList) {
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png");
         tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo);
         tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree, pathForTextureCannonThree);
         tanksFour = new Tanks(pathForTextureTankFour, pathForTextureFlippedTankFour, pathForTextureCannonFour);
-        this.numOfPlayer = numOfPlayer;     
+        
+        tanksArray[0] = tanksOne;
+        tanksArray[1] = tanksTwo;
+        tanksArray[2] = tanksThree;
+        tanksArray[3] = tanksFour;
+        
+        this.numOfPlayer = numOfPlayer; 
+        this.playerArray = new Player[this.numOfPlayer];
+        tanksArrayUsed = new Tanks[numOfPlayer];
+        tanksAnimationArrayUsed = new Timeline[numOfPlayer];
+        
+        for(int i = 0; i < playerArray.length; i++){
+            playerArray[i] = playerArrayList.get(i);
+            
+            switch(playerArray[i].getTeam()){
+                case 0:{ 
+                    tanksArrayUsed[i] = tanksArray[2];
+                    tanksAnimationArrayUsed[i] = animation3;
+                    
+                }
+                break;
+                
+                case 1: {
+                    tanksArrayUsed[i] = tanksArray[3];
+                    tanksAnimationArrayUsed[i] = animation4;
+                }break;
+                
+                case 2: {
+                    tanksArrayUsed[i] = tanksArray[0];
+                    tanksAnimationArrayUsed[i] = animation;
+                }break;
+                
+                case 3: {
+                    tanksArrayUsed[i] = tanksArray[1];
+                    tanksAnimationArrayUsed[i] = animation2;
+                }break;
+                }
+            }
+        
+        
+        
+        
         this.mapGeneration = mapGeneration;
         this.pane = pane;
         
@@ -124,6 +174,7 @@ public class TanksAnimation {
         progressBarAnimationTwo = progressBarInitialSetup(barTwo);
         progressBarAnimationThree = progressBarInitialSetup(barThree);
         progressBarAnimationFour = progressBarInitialSetup(barFour);
+        
         setupTanksPlayer();
         
         pane.setOnKeyPressed(x -> {
@@ -173,90 +224,35 @@ public class TanksAnimation {
     }
     
     private void setupTanksPlayer(){
-        switch(this.numOfPlayer){
-            case 2: setupAnimationForTwoTanks(); break;
-            case 3: setupAnimationForThreeTanks(); break;
-            case 4: setupAnimationForFourTanks(); break;
-        }
-    }
-    
-    private void setupAnimationForTwoTanks(){
-        
-        animationForTankOne();
-        animationForTanksTwo();
-        
-        pane.getChildren().add(tanksOne.getCannon());
-        pane.getChildren().add(tanksTwo.getCannon());
-        
-        pane.getChildren().add(tanksOne);
-        pane.getChildren().add(tanksTwo);
-        
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.play();
-        
-        animation2.setCycleCount(Timeline.INDEFINITE);
-        animation2.play();         
-    }
-    
-    private void setupAnimationForThreeTanks(){
-        
-        
-        animationForTankOne();
-        animationForTanksTwo();
-        animationForTankThree();
-         
-        pane.getChildren().add(tanksOne.getCannon());
-        pane.getChildren().add(tanksTwo.getCannon());
-        pane.getChildren().add(tanksThree.getCannon());
-         
-        pane.getChildren().add(tanksOne);
-        pane.getChildren().add(tanksTwo);
-        pane.getChildren().add(tanksThree);
-        
-        
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.play();
-        
-        animation2.setCycleCount(Timeline.INDEFINITE);
-        animation2.play();
-        
-        animation3.setCycleCount(Timeline.INDEFINITE);
-        animation3.play();
-        
-                
-    }
-    
-    private void setupAnimationForFourTanks(){
         animationForTankOne();
         animationForTanksTwo();
         animationForTankThree();
         animationForTankFour();
         
-        pane.getChildren().add(tanksOne.getCannon());
-        pane.getChildren().add(tanksTwo.getCannon());
-        pane.getChildren().add(tanksThree.getCannon());
-        pane.getChildren().add(tanksFour.getCannon());
+        for(int i = 0; i < tanksArrayUsed.length; i++){
+            pane.getChildren().add(tanksArrayUsed[i].getCannon());
+            pane.getChildren().add(tanksArrayUsed[i]);
+            tanksArrayUsed[i].setIsTankAlive(true);
+        }
         
-        pane.getChildren().add(tanksOne);
-        pane.getChildren().add(tanksTwo);
-        pane.getChildren().add(tanksThree);
-        pane.getChildren().add(tanksFour);
-        
+        if(tanksOne.isTankAlive()){
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.playFromStart();
+        }
         
+        if(tanksTwo.isTankAlive()){
         animation2.setCycleCount(Timeline.INDEFINITE);
         animation2.playFromStart();
+        }
         
+        if(tanksThree.isTankAlive()){
         animation3.setCycleCount(Timeline.INDEFINITE);
         animation3.playFromStart();
-        
+       }
+        if(tanksFour.isTankAlive()){
         animation4.setCycleCount(Timeline.INDEFINITE);
         animation4.playFromStart();
-         
-         
-    
-                
+        }
     }
     
     private void animationForTankOne(){
@@ -695,7 +691,22 @@ public class TanksAnimation {
                pane.getChildren().remove(tanksFour.getCannon());
            }
     }
-       
+    
+    public boolean moreThanOneTankAlive(){
+        int numOfTanksAlive = 0;
+        
+        for(int i = 0; i < tanksArrayUsed.length; i++){
+            if(!tanksArrayUsed[i].isTankAlive()){
+                numOfTanksAlive++;
+            }
+            
+            if(numOfTanksAlive > 1){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public void keyPressed(KeyCode x){
         if(hud.getPauseMenu().isGamePaused()){
             
@@ -742,11 +753,13 @@ public class TanksAnimation {
                     }break;
                     
                 case UP: {
+                    if(tanksOne.isTankAlive())
                         tanksOne.getCannon().higherAngle();
                         //tanksOne.updateSomething();
                     }break;
                     
                 case DOWN: {
+                    if(tanksOne.isTankAlive())
                     tanksOne.getCannon().lowerAngle();
                     //tanksOne.updateSomething();break;
                 }break;        
@@ -784,10 +797,12 @@ public class TanksAnimation {
                     }break;
                     
                 case W: {
+                    if(tanksTwo.isTankAlive())
                         tanksTwo.getCannon().higherAngle();
                     }break;
                     
                 case S: {
+                    if(tanksTwo.isTankAlive())
                     tanksTwo.getCannon().lowerAngle();
                 }break;
                     
@@ -821,12 +836,14 @@ public class TanksAnimation {
                     }break;
                     
                 case I: {
+                    if(tanksThree.isTankAlive())
                         tanksThree.getCannon().higherAngle();
                         
                     }break;
                     
                     
                 case K:{
+                    if(tanksThree.isTankAlive())
                     tanksThree.getCannon().lowerAngle();
                 }break;
                     
@@ -858,10 +875,12 @@ public class TanksAnimation {
                     }break;
                     
                 case T: {
+                    if(tanksFour.isTankAlive())
                         tanksFour.getCannon().higherAngle();
                     }break;
                     
                 case G:{
+                    if(tanksFour.isTankAlive())
                     tanksFour.getCannon().lowerAngle();
                 }
                 
@@ -1076,5 +1095,10 @@ public class TanksAnimation {
     public WeaponAnimation getWeaponAnimation() {
         return weaponAnimation;
     }
+
+    public Timeline[] getTanksAnimationArrayUsed() {
+        return tanksAnimationArrayUsed;
+    }
+    
     
 }

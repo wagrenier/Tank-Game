@@ -13,9 +13,20 @@ public class Player {
     private String username;
     private int team;
     
+    /**
+     * Index of the teams
+     * 
+     * 0 = North Korea
+     * 1 = United States
+     * 2 = Canada
+     * 3 = China
+     * 
+     */
+    
     public Player(){
         
     }
+    
     public Player(String username, int team){
         this.username = username;
         this.team = team;

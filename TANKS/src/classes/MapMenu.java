@@ -282,9 +282,11 @@ public class MapMenu extends Pane{
             playBtn.setImage(playBtnClicked);
         });
         
+        /*
         playBtn.setOnMouseReleased(e -> {
             playBtn.setImage(playBtnHover);
-        });
+            
+        });*/
     }
     private void setBackgrounds(){
         backgrounds[0] = new Background(new BackgroundImage(new Image("Texture/Menus/MapMenu/Desert Map.png", WIDTH, HEIGHT, false, true), 
@@ -303,4 +305,14 @@ public class MapMenu extends Pane{
         
         this.setBackground(backgrounds[backgroundIndex]);
     }
+
+    public ImageView getPlayBtn() {
+        return playBtn;
+    }
+
+    public Image getPlayBtnHover() {
+        return playBtnHover;
+    }
+    
+    
 }

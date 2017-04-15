@@ -75,7 +75,6 @@ public class Cannon extends Circle{
        
         if(canonAngle > 0){
         canonAngle -= Math.PI / 25;
-        System.out.println(canonAngle);//this.setRotate(-Math.toDegrees(getCanonAngle()));
         }
     }
     
