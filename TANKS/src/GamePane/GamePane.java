@@ -8,6 +8,8 @@ package GamePane;
 import HUD.HUD;
 import Tanks.TanksAnimation;
 import MapGeneration.MapGeneration;
+import classes.Player;
+import java.util.ArrayList;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -27,6 +29,7 @@ public class GamePane extends Pane{
     private double height = 800;
     private TanksAnimation tanksAnimation;
     MapGeneration mapGeneration = new MapGeneration(450, 100, 500);
+    private ArrayList<Player> playerArrayList = new ArrayList<>();
     
     public GamePane(){
         this.setMinSize(width, height);
@@ -45,7 +48,6 @@ public class GamePane extends Pane{
         backGroundSetup(pane);
         tanksSetup(pane);
     }
-    
     
     public void tanksSetup(Pane pane){
         tanksAnimation = new TanksAnimation(mapGeneration, this, 4);  
@@ -93,5 +95,8 @@ public class GamePane extends Pane{
         return tanksAnimation;
     }
     
+    public void addPlayer(Player player){
+        playerArrayList.add(player);
+    }
     
 }

@@ -16,6 +16,7 @@ public class Player {
     public Player(){
         
     }
+    
     public Player(String username, int team){
         this.username = username;
         this.team = team;
