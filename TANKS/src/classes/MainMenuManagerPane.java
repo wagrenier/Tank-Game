@@ -123,7 +123,7 @@ public class MainMenuManagerPane extends Pane{
             gamePane.setFocusTraversable(true);
             this.getChildren().add(borderPane);
             
-            
+            gamePane.gameLoop();
             this.autosize();
         });
         

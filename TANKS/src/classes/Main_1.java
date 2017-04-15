@@ -40,6 +40,8 @@ public class Main_1 extends Application {
         primaryStage.setMaxHeight(950);
         
         primaryStage.sizeToScene();
+        
+        
     }
 
     /**

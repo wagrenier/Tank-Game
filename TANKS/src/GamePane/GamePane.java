@@ -10,6 +10,8 @@ import Tanks.TanksAnimation;
 import MapGeneration.MapGeneration;
 import classes.Player;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
@@ -33,6 +35,7 @@ public class GamePane extends Pane{
     MapGeneration mapGeneration = new MapGeneration(450, 100, 500);
     private ArrayList<Player> playerArrayList = new ArrayList<>();
     private Timeline[] tanksAnimationArrayUsed;
+    GameLoop gameLoop;
     
     public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList){
         this.playerArrayList = playerArrayList;
@@ -40,15 +43,17 @@ public class GamePane extends Pane{
         this.setMaxSize(width, height);
         this.numOfPlayers = numOfPlayers;
         paneSetup(this);   
-        gameLoop();
+        
     }
     
     //The game's main loop
-    private void gameLoop(){
-        int indexOfCurrentPlayerTurn = 0;
-        while(tanksAnimation.moreThanOneTankAlive()){
-            playerTurn(indexOfCurrentPlayerTurn);
-        }
+    public void gameLoop(){
+        
+        
+        gameLoop = new GameLoop(tanksAnimation, tanksAnimationArrayUsed, tanksAnimation.getTanksArrayUsed());
+        
+        gameLoop.start();
+        
     }
     
     public void paneSetup(Pane pane){
@@ -96,16 +101,7 @@ public class GamePane extends Pane{
 
    }
     
-    private void playerTurn(int indexOfCurrentPlayer){
-        for(int i = 0; i < tanksAnimationArrayUsed.length; i++){
-            if(i == indexOfCurrentPlayer){
-                tanksAnimationArrayUsed[i].play();
-            }
-            else{
-                tanksAnimationArrayUsed[i].pause();
-            }
-        }
-    }
+    
     
     public HUD getHUD(){
         return tanksAnimation.getHud();

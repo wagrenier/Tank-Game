@@ -36,6 +36,8 @@ public class TanksAnimation {
     private HUD hud;
     
     
+    private boolean shotFired = false;
+    
     //Variables for tank 1
     private double xspeed = 0;
     private double yspeed = 0;
@@ -102,6 +104,7 @@ public class TanksAnimation {
     //Pane of the game
     private GamePane pane;
     private Pane pane1;
+    
     //This variable generates the map of the game
     private MapGeneration mapGeneration;
     
@@ -115,6 +118,8 @@ public class TanksAnimation {
     private Timeline[] tanksAnimationArrayUsed;
     
     public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList) {
+        this.mapGeneration = mapGeneration;
+        this.pane = pane;
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png");
         tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo);
         tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree, pathForTextureCannonThree);
@@ -129,6 +134,11 @@ public class TanksAnimation {
         this.playerArray = new Player[this.numOfPlayer];
         tanksArrayUsed = new Tanks[numOfPlayer];
         tanksAnimationArrayUsed = new Timeline[numOfPlayer];
+        
+        animationForTankOne();
+        animationForTanksTwo();
+        animationForTankThree();
+        animationForTankFour();
         
         for(int i = 0; i < playerArray.length; i++){
             playerArray[i] = playerArrayList.get(i);
@@ -161,8 +171,7 @@ public class TanksAnimation {
         
         
         
-        this.mapGeneration = mapGeneration;
-        this.pane = pane;
+        
         
         tanksOne.setCenterY(-23);
         tanksThree.setCenterY(-21);
@@ -224,10 +233,7 @@ public class TanksAnimation {
     }
     
     private void setupTanksPlayer(){
-        animationForTankOne();
-        animationForTanksTwo();
-        animationForTankThree();
-        animationForTankFour();
+        
         
         for(int i = 0; i < tanksArrayUsed.length; i++){
             pane.getChildren().add(tanksArrayUsed[i].getCannon());
@@ -498,6 +504,8 @@ public class TanksAnimation {
         tanksFour.setTranslateX(100);
         tanksFour.setTranslateY(mapGeneration.getY(100));
         tanksFour.getCannon().setTranslateY(tanksFour.getTranslateY() + yspeed4 - 30);
+        tanksFour.getCannon().setTranslateX(100);
+        tanksFour.setRotate(50 * mapGeneration.derivativeFunction(tanksFour.getTranslateX()));
         
         animation4 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             updateTanksFourStatus();
@@ -575,6 +583,21 @@ public class TanksAnimation {
        weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, x);
        
        hitDetection(tank, weapon);
+       shotFired = true;
+    }
+    
+    public void resetSpeed(){
+        xspeed = 0;
+        yspeed = 0;
+        
+        xspeed2 = 0;
+        yspeed2 = 0;
+        
+        xspeed3 = 0;
+        yspeed3 = 0;
+        
+        xspeed4 = 0;
+        yspeed4 = 0;
     }
     
     private void hitDetection(Tanks tank, Weapon weapon){
@@ -696,11 +719,11 @@ public class TanksAnimation {
         int numOfTanksAlive = 0;
         
         for(int i = 0; i < tanksArrayUsed.length; i++){
-            if(!tanksArrayUsed[i].isTankAlive()){
+            if(tanksArrayUsed[i].isTankAlive()){
                 numOfTanksAlive++;
             }
-            
-            if(numOfTanksAlive > 1){
+            System.out.println(numOfTanksAlive);
+            if(numOfTanksAlive == 2){
                 return true;
             }
         }
@@ -718,13 +741,14 @@ public class TanksAnimation {
             
             //Controls for player 1
             case SPACE: {
-                if(tanksOne.isTankAlive())
+                if(tanksOne.isTankAlive() && animation.getStatus().compareTo(RUNNING) == 0)
                 progressBarInGameAnimationPlay(tanksOne, progressBarAnimationOne, barOne);
             }break;
                     
                     
                 case LEFT: {
                     
+                    if(tanksOne.isTankAlive() && animation.getStatus().compareTo(RUNNING) == 0){
                     if(xspeed == 0){
                             xspeed -= 0.1;
                             //tanksOne.setRotate(90);
@@ -736,11 +760,11 @@ public class TanksAnimation {
                     else if(xspeed > -.1)
                         xspeed -= 0.1;
                         
-                        
+                    }
                     }break;
                     
                 case RIGHT: {
-                    
+                    if(tanksOne.isTankAlive() && animation.getStatus().compareTo(RUNNING) == 0){
                     if(xspeed == 0){
                             xspeed += 0.1;
                             tanksOne.normalTexture();
@@ -750,16 +774,17 @@ public class TanksAnimation {
                         }
                     else if(xspeed < .1)
                         xspeed += 0.1;
+                    }
                     }break;
                     
                 case UP: {
-                    if(tanksOne.isTankAlive())
+                    if(tanksOne.isTankAlive() && animation.getStatus().compareTo(RUNNING) == 0)
                         tanksOne.getCannon().higherAngle();
                         //tanksOne.updateSomething();
                     }break;
                     
                 case DOWN: {
-                    if(tanksOne.isTankAlive())
+                    if(tanksOne.isTankAlive() && animation.getStatus().compareTo(RUNNING) == 0)
                     tanksOne.getCannon().lowerAngle();
                     //tanksOne.updateSomething();break;
                 }break;        
@@ -770,22 +795,24 @@ public class TanksAnimation {
                   //Controls for player 2  
                 
                 case E: {
-                    if(tanksTwo.isTankAlive())
+                    if(tanksTwo.isTankAlive() && animation2.getStatus().compareTo(RUNNING) == 0)
                 progressBarInGameAnimationPlay(tanksTwo, progressBarAnimationTwo, barTwo);
             }break;
             
                 case A: {
                     
+                    if(tanksTwo.isTankAlive() && animation2.getStatus().compareTo(RUNNING) == 0){
                     if(xspeed2 == 0){
                             xspeed2 -= 0.1;
                             tanksTwo.flipTexture();
                         }
                     else if(xspeed2 > -.1)
                         xspeed2 -= 0.1;
+                    }
                     }break;
                     
                 case D: {
-                    
+                    if(tanksTwo.isTankAlive() && animation2.getStatus().compareTo(RUNNING) == 0){
                     if(xspeed2 == 0){
                             xspeed2 += 0.1;
                             tanksTwo.normalTexture();
@@ -794,15 +821,16 @@ public class TanksAnimation {
                     else if(xspeed2 < .1)
                         xspeed2 += 0.1;
                         //System.out.println("HI");
+                    }
                     }break;
                     
                 case W: {
-                    if(tanksTwo.isTankAlive())
+                    if(tanksTwo.isTankAlive() && animation2.getStatus().compareTo(RUNNING) == 0)
                         tanksTwo.getCannon().higherAngle();
                     }break;
                     
                 case S: {
-                    if(tanksTwo.isTankAlive())
+                    if(tanksTwo.isTankAlive() && animation2.getStatus().compareTo(RUNNING) == 0)
                     tanksTwo.getCannon().lowerAngle();
                 }break;
                     
@@ -811,11 +839,12 @@ public class TanksAnimation {
                 
                     //Controls for player 3
                 case O: {
-                    if(tanksThree.isTankAlive())
+                    if(tanksThree.isTankAlive() && animation3.getStatus().compareTo(RUNNING) == 0)
                 progressBarInGameAnimationPlay(tanksThree, progressBarAnimationThree, barThree);
             }break;
             
                 case J: {
+                    if(tanksThree.isTankAlive() && animation3.getStatus().compareTo(RUNNING) == 0){
                     if(xspeed3 == 0){
                             xspeed3 -= 0.1;
                             tanksThree.flipTexture();
@@ -823,9 +852,11 @@ public class TanksAnimation {
                     
                     else if(xspeed3 > -.1)
                         xspeed3 -= 0.1;
+                    }
                     }break;
                     
                 case L: {
+                    if(tanksThree.isTankAlive() && animation3.getStatus().compareTo(RUNNING) == 0){
                     if(xspeed3 == 0){
                             xspeed3 += 0.1;
                             tanksThree.normalTexture();
@@ -833,17 +864,18 @@ public class TanksAnimation {
                     else if(xspeed3 < .1)
                         xspeed3 += 0.1;
                         //System.out.println("HI");
+                    }
                     }break;
                     
                 case I: {
-                    if(tanksThree.isTankAlive())
+                    if(tanksThree.isTankAlive() && animation3.getStatus().compareTo(RUNNING) == 0)
                         tanksThree.getCannon().higherAngle();
                         
                     }break;
                     
                     
                 case K:{
-                    if(tanksThree.isTankAlive())
+                    if(tanksThree.isTankAlive() && animation3.getStatus().compareTo(RUNNING) == 0)
                     tanksThree.getCannon().lowerAngle();
                 }break;
                     
@@ -852,19 +884,22 @@ public class TanksAnimation {
                 
                     //Controls for player 4
                 case Y: {
-                    if(tanksFour.isTankAlive())
+                    if(tanksFour.isTankAlive() && animation4.getStatus().compareTo(RUNNING) == 0)
                 progressBarInGameAnimationPlay(tanksFour, progressBarAnimationFour, barFour);
             }break;
                 case F: {
+                    if(tanksFour.isTankAlive() && animation4.getStatus().compareTo(RUNNING) == 0){
                     if(xspeed4 == 0){
                             xspeed4 -= 0.1;
                             tanksFour.flipTexture();
                         }
                        else if(xspeed4 > -.1)
                         xspeed4 -= 0.1;
+                    }
                     }break;
                     
                 case H: {
+                    if(tanksFour.isTankAlive() && animation4.getStatus().compareTo(RUNNING) == 0){
                     if(xspeed4 == 0){
                             xspeed4 += 0.1;
                             tanksFour.normalTexture();
@@ -872,15 +907,16 @@ public class TanksAnimation {
                         if(xspeed4 < .1)
                         xspeed4 += 0.1;
                         //System.out.println("HI");
+                    }
                     }break;
                     
                 case T: {
-                    if(tanksFour.isTankAlive())
+                    if(tanksFour.isTankAlive() && animation4.getStatus().compareTo(RUNNING) == 0)
                         tanksFour.getCannon().higherAngle();
                     }break;
                     
                 case G:{
-                    if(tanksFour.isTankAlive())
+                    if(tanksFour.isTankAlive() && animation4.getStatus().compareTo(RUNNING) == 0)
                     tanksFour.getCannon().lowerAngle();
                 }
                 
@@ -1098,6 +1134,18 @@ public class TanksAnimation {
 
     public Timeline[] getTanksAnimationArrayUsed() {
         return tanksAnimationArrayUsed;
+    }
+
+    public Tanks[] getTanksArrayUsed() {
+        return tanksArrayUsed;
+    }
+
+    public boolean isShotFired() {
+        return shotFired;
+    }
+
+    public void setShotFired(boolean shotFired) {
+        this.shotFired = shotFired;
     }
     
     
