@@ -37,16 +37,14 @@ public class GameLoop extends Thread{
     }
     
     public boolean waitUntilEndOfTurn(int indexOfCurrentPlayerTurn){
-        
         /*
-        if(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() - initialPosition >= 100){
-            return false;
-        }
+        double position = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
         
-        if(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() - initialPosition <= 100){
+        if(position - initialPosition >= 100 || position - initialPosition <= 100){
             return false;
         }
         */
+        
         if(!tanksArrayUsed[indexOfCurrentPlayerTurn].isTankAlive()){
            return false; 
         }
@@ -95,9 +93,14 @@ public class GameLoop extends Thread{
                }
             //double initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
             */
-            //double initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
-            
-            while(waitUntilEndOfTurn(indexOfCurrentPlayerTurn));
+            double initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
+            double maxPos = initialPosition + 100;
+            double minPos = initialPosition - 100;
+            while(waitUntilEndOfTurn(indexOfCurrentPlayerTurn)){
+                if(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() >= maxPos || tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() < minPos){
+                    break;
+                }
+            }
 
                
             indexOfCurrentPlayerTurn++;
