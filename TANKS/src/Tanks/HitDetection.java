@@ -69,15 +69,11 @@ public class HitDetection extends Thread{
            //System.out.println(weapon.getDamage());
            if(!weaponAnimation.isHitSomething()){
            tanksOne.damageDone(weapon.getDamage());
-           System.out.println(tanksOne.getLifePoint());
+           //System.out.println(tanksOne.getLifePoint());
            hud.updateHealth(tanksOne.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
-           if(!tanksOne.isTankAlive()){
-               animation.stop();
-               //pane.getChildren().remove(tanksOne);
-               //pane.getChildren().remove(tanksOne.getCannon());
-           }
+           
            
        }
         
@@ -85,16 +81,12 @@ public class HitDetection extends Thread{
            //System.out.println(weapon.getDamage());
            if(!weaponAnimation.isHitSomething()){
            tanksTwo.damageDone(weapon.getDamage());
-           System.out.println(tanksTwo.getLifePoint());
+          // System.out.println(tanksTwo.getLifePoint());
            hud.updateHealth(tank.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
            //weaponAnimation.removeWeaponFromPane();
-           if(!tanksTwo.isTankAlive()){
-               animation2.stop();
-              // pane.getChildren().remove(tanksTwo);
-               //pane.getChildren().remove(tanksTwo.getCannon());
-           }
+           
            
        }
         
@@ -102,16 +94,12 @@ public class HitDetection extends Thread{
            //System.out.println(weapon.getDamage());
            if(!weaponAnimation.isHitSomething()){
            tanksThree.damageDone(weapon.getDamage());
-           System.out.println(tanksThree.getLifePoint());
+          // System.out.println(tanksThree.getLifePoint());
            //hud.updateHealth(tank.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
           // weaponAnimation.removeWeaponFromPane();
-           if(!tanksThree.isTankAlive()){
-               animation3.stop();
-              // pane.getChildren().remove(tanksThree);
-               //pane.getChildren().remove(tanksThree.getCannon());
-           }
+           
            
        }
         
@@ -119,16 +107,12 @@ public class HitDetection extends Thread{
            //System.out.println(weapon.getDamage());
            if(!weaponAnimation.isHitSomething()){
            tanksFour.damageDone(weapon.getDamage());
-           System.out.println(tanksFour.getLifePoint());
+           //System.out.println(tanksFour.getLifePoint());
            //hud.updateHealth(tank.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
           // weaponAnimation.removeWeaponFromPane();
-           if(!tanksFour.isTankAlive()){
-               animation4.stop();
-              // pane.getChildren().remove(tanksFour);
-               //pane.getChildren().remove(tanksFour.getCannon());
-           }
+           
            
        }
         }

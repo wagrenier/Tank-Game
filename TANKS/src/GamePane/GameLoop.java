@@ -27,18 +27,18 @@ public class GameLoop extends Thread{
     
     private void playerTurn(int indexOfCurrentPlayer){
         for(int i = 0; i < tanksAnimationArrayUsed.length; i++){
-            if(i == indexOfCurrentPlayer){
+            if(i == indexOfCurrentPlayer && tanksArrayUsed[i].isTankAlive()){
                 tanksAnimationArrayUsed[i].play();
             }
-            else{
+            else if(tanksArrayUsed[i].isTankAlive()){
                 tanksAnimationArrayUsed[i].pause();
             }
         }
     }
     
-    public boolean waitUntilEndOfTurn(int indexOfCurrentPlayerTurn, double initialPosition){
+    public boolean waitUntilEndOfTurn(int indexOfCurrentPlayerTurn){
+        
         /*
-        System.out.println(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX());
         if(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() - initialPosition >= 100){
             return false;
         }
@@ -47,48 +47,71 @@ public class GameLoop extends Thread{
             return false;
         }
         */
+        if(!tanksArrayUsed[indexOfCurrentPlayerTurn].isTankAlive()){
+           return false; 
+        }
+        
         if(tanksAnimation.isShotFired()){
-            tanksAnimation.setShotFired(false);
             return false;
         }
+        
         return true;
+    }
+    
+    public boolean moreThanOneTankAlive(){
+        int numOfTanksAlive = 0;
+        
+        for(int i = 0; i < tanksArrayUsed.length; i++){
+            if(tanksArrayUsed[i].isTankAlive()){
+                numOfTanksAlive++;
+            }
+            //System.out.println(numOfTanksAlive);
+            if(numOfTanksAlive == 2){
+                //System.out.println(numOfTanksAlive);
+                return true;
+            }
+            
+        }
+        return false;
     }
     
     @Override
     public void run() {
         int indexOfCurrentPlayerTurn = 0;
         
-        do{
-            
-            playerTurn(indexOfCurrentPlayerTurn);
-            double initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
-            while(waitUntilEndOfTurn(indexOfCurrentPlayerTurn, initialPosition));
-                
-            
-            
-            
-            indexOfCurrentPlayerTurn++;
-            
-            if(indexOfCurrentPlayerTurn > tanksArrayUsed.length - 1)
-                indexOfCurrentPlayerTurn = 0;
-            
-            if(!tanksArrayUsed[indexOfCurrentPlayerTurn].isTankAlive()){
-                while(!tanksArrayUsed[indexOfCurrentPlayerTurn].isTankAlive()){
-                    indexOfCurrentPlayerTurn++;
-                    
-                    if(indexOfCurrentPlayerTurn > tanksArrayUsed.length - 1)
-                        indexOfCurrentPlayerTurn = 0;
-                }
-                
-            }
-            
+        while(moreThanOneTankAlive()){
             
             tanksAnimation.resetSpeed();
+            //System.out.println(tanksArrayUsed.length + " animation length: " + tanksAnimationArrayUsed.length);
             
             
-        }while(tanksAnimation.moreThanOneTankAlive());
+            
+            playerTurn(indexOfCurrentPlayerTurn);
+            
+            /*
+            System.out.println("before 2nd loop");
+            for(int i = 0; i < tanksArrayUsed.length; i++){
+                  System.out.println("Before: " + "Tank: " + i + " isAlive: " +  tanksArrayUsed[i].isTankAlive());
+               }
+            //double initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
+            */
+            //double initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
+            
+            while(waitUntilEndOfTurn(indexOfCurrentPlayerTurn));
+
+               
+            indexOfCurrentPlayerTurn++;
+            if(indexOfCurrentPlayerTurn >= tanksArrayUsed.length)
+                indexOfCurrentPlayerTurn = 0;
+            
+            
+            tanksAnimation.setShotFired(false);
+            
+        
+        }
         
         System.out.println("Game Over");
+        this.stop();
     }
-    
+ 
 }

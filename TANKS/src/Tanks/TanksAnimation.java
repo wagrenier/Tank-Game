@@ -264,9 +264,11 @@ public class TanksAnimation {
     private void animationForTankOne(){
         tanksOne.setCenterY(-23);
         tanksOne.setTranslateX(300);
+        tanksOne.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())));
         tanksOne.setTranslateY(mapGeneration.getY(300));
         tanksOne.getCannon().setTranslateY(tanksOne.getTranslateY() + yspeed - 35);
-        
+        tanksOne.getCannon().setTranslateX(tanksOne.getTranslateX());
+        tanksOne.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksOne.getTranslateX())) + Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
         
         
         animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
@@ -346,6 +348,7 @@ public class TanksAnimation {
         
         tanksTwo.setTranslateX(500);
         tanksTwo.setTranslateY(mapGeneration.getY(500));
+        tanksTwo.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksTwo.getTranslateX())));
        // tanksTwo.getCannon().setTranslateY(tanksTwo.getTranslateY());
         //tanksTwo.getCannon().setTranslateY(tanksTwo.getTranslateY());
         //tanksTwo.getCannon().setTranslateX((tanksTwo.getTranslateX())); 
@@ -354,6 +357,8 @@ public class TanksAnimation {
         tanksTwo.getCannon().setTranslateX(500);
         tanksTwo.getCannon().setTranslateY(mapGeneration.getY(500));
         tanksTwo.getCannon().setCenterY(-35);
+        
+        
         animation2 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             updateTanksTwoStatus();
             if(progressBarAnimationTwo.getStatus().compareTo(RUNNING) == 0){
@@ -436,6 +441,10 @@ public class TanksAnimation {
         tanksThree.setTranslateY(mapGeneration.getY(700));
         tanksThree.getCannon().setTranslateY(tanksThree.getTranslateY() + yspeed3 - 35);
         
+        
+        tanksThree.getCannon().setTranslateX(700);
+        tanksThree.getCannon().setTranslateY(mapGeneration.getY(700));
+        
         animation3 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             updateTanksThreeStatus();
             if(progressBarAnimationThree.getStatus().compareTo(RUNNING) == 0){
@@ -506,7 +515,7 @@ public class TanksAnimation {
         tanksFour.getCannon().setTranslateY(tanksFour.getTranslateY() + yspeed4 - 30);
         tanksFour.getCannon().setTranslateX(100);
         tanksFour.setRotate(50 * mapGeneration.derivativeFunction(tanksFour.getTranslateX()));
-        
+        tanksFour.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanksFour.getTranslateX())) - Math.toDegrees(tanksFour.getCannon().getCanonAngle()));
         animation4 = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             updateTanksFourStatus();
             
@@ -578,12 +587,13 @@ public class TanksAnimation {
     }
     
     public void weaponSetup(Tanks tank, double x){
+        shotFired = true;
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getDamage(), weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getTexturePath());        
         
        weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, x);
        
        hitDetection(tank, weapon);
-       shotFired = true;
+       
     }
     
     public void resetSpeed(){
@@ -690,18 +700,18 @@ public class TanksAnimation {
     public void updateTanksFourStatus(){
         
            if(!tanksOne.isTankAlive()){
-               animation.stop();
+               //animation.stop();
                pane.getChildren().remove(tanksOne);
                pane.getChildren().remove(tanksOne.getCannon());
            }
         if(!tanksTwo.isTankAlive()){
-               animation2.stop();
+               //animation2.stop();
                pane.getChildren().remove(tanksTwo);
                pane.getChildren().remove(tanksTwo.getCannon());
            }
         
         if(!tanksThree.isTankAlive()){
-               animation3.stop();
+               //animation3.stop();
                pane.getChildren().remove(tanksThree);
                pane.getChildren().remove(tanksThree.getCannon());
            }
@@ -709,7 +719,7 @@ public class TanksAnimation {
         
         
            if(!tanksFour.isTankAlive()){
-               animation4.stop();
+               //animation4.stop();
                pane.getChildren().remove(tanksFour);
                pane.getChildren().remove(tanksFour.getCannon());
            }
@@ -724,8 +734,10 @@ public class TanksAnimation {
             }
             System.out.println(numOfTanksAlive);
             if(numOfTanksAlive == 2){
+                
                 return true;
             }
+            
         }
         return false;
     }

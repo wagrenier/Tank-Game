@@ -101,8 +101,6 @@ public class GamePane extends Pane{
 
    }
     
-    
-    
     public HUD getHUD(){
         return tanksAnimation.getHud();
     }
