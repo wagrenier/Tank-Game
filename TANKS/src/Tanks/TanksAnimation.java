@@ -13,6 +13,7 @@ import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;
 import classes.Player;
+import java.io.Serializable;
 import java.util.ArrayList;
 import static javafx.animation.Animation.Status.RUNNING;
 import javafx.animation.KeyFrame;
@@ -27,7 +28,7 @@ import javafx.util.Duration;
  *
  * @author willi
  */
-public class TanksAnimation {
+public class TanksAnimation implements Serializable{
     
     //Width of the pane
     double width = 1200;

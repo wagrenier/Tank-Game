@@ -5,6 +5,7 @@
  */
 package Tanks;
 
+import java.io.Serializable;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -13,7 +14,7 @@ import javafx.scene.shape.Circle;
  *
  * @author william
  */
-public class Tanks extends Circle{
+public class Tanks extends Circle implements Serializable{
     
     private int lifePoint = 100;
     private boolean isTankAlive = false;

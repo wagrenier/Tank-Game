@@ -9,6 +9,7 @@ import HUD.HUD;
 import Tanks.TanksAnimation;
 import MapGeneration.MapGeneration;
 import classes.Player;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +27,7 @@ import javafx.scene.shape.Rectangle;
  *
  * @author MSI
  */
-public class GamePane extends Pane{
+public class GamePane extends Pane implements Serializable{
     
     private int numOfPlayers;
     private double width = 1200;
