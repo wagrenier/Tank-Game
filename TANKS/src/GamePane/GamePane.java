@@ -44,7 +44,7 @@ public class GamePane extends Pane implements Serializable{
         this.setMaxSize(width, height);
         this.numOfPlayers = numOfPlayers;
         paneSetup(this);   
-        
+        gameLoop();
     }
     
     //The game's main loop put in a thread because otherwise the program hangs in here

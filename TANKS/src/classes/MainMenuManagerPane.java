@@ -134,8 +134,6 @@ public class MainMenuManagerPane extends Pane{
             cursorSetting(paneList.get(paneCount));
             gamePane.setFocusTraversable(true);
             this.getChildren().add(borderPane);
-            
-            gamePane.gameLoop();
             this.autosize();
         });
         

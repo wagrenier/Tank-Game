@@ -15,6 +15,7 @@ import javafx.animation.Timeline;
  */
 public class GameLoop extends Thread{
     
+    private int indexOfCurrentPlayerTurn = 0;
     Tanks[] tanksArrayUsed;
     TanksAnimation tanksAnimation;
     Timeline[] tanksAnimationArrayUsed;
@@ -75,13 +76,13 @@ public class GameLoop extends Thread{
     
     @Override
     public void run() {
-        int indexOfCurrentPlayerTurn = 0;
+        
         
         while(moreThanOneTankAlive()){
             
             tanksAnimation.resetSpeed();
             //System.out.println(tanksArrayUsed.length + " animation length: " + tanksAnimationArrayUsed.length);
-            
+            tanksAnimation.setIndexOfCurrentPlayerTurn(indexOfCurrentPlayerTurn);
             
             
             playerTurn(indexOfCurrentPlayerTurn);
@@ -116,5 +117,10 @@ public class GameLoop extends Thread{
         System.out.println("Game Over");
         this.stop();
     }
- 
+
+    public int getIndexOfCurrentPlayerTurn() {
+        return indexOfCurrentPlayerTurn;
+    }
+    
+    
 }

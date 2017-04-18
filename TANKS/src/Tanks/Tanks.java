@@ -16,6 +16,9 @@ import javafx.scene.shape.Circle;
  */
 public class Tanks extends Circle implements Serializable{
     
+    private double xSpeed;
+    private double ySpeed;
+    private double y;
     private int lifePoint = 100;
     private boolean isTankAlive = false;
     private final String imagePath;
@@ -116,6 +119,32 @@ public class Tanks extends Circle implements Serializable{
     public void setIsTankAlive(boolean isTankAlive) {
         this.isTankAlive = isTankAlive;
     }
+
+    public double getxSpeed() {
+        return xSpeed;
+    }
+
+    public void setxSpeed(double xSpeed) {
+        this.xSpeed = xSpeed;
+    }
+
+    public double getySpeed() {
+        return ySpeed;
+    }
+
+    public void setySpeed(double ySpeed) {
+        this.ySpeed = ySpeed;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+    
+    
     
     
     
