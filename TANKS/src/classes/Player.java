@@ -17,12 +17,18 @@ public class Player {
         
     }
     public Player(String username, int team){
-        this.username = username;
+        if (username.length() > 10){
+            this.username = username.substring(0, 10);
+        }
         this.team = team;
     }
     
     public void setName(String name){
-        this.username = name;
+        if (name.length() > 10)
+            this.username = name.substring(0, 10);
+        else
+            this.username = name;
+        
     }
     
     public void setTeam(int team){
