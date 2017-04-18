@@ -17,7 +17,6 @@ import javafx.stage.Stage;
  */
 public class Main_1 extends Application {
     
-    
     @Override
     public void start(Stage primaryStage) {
         
@@ -39,9 +38,7 @@ public class Main_1 extends Application {
         primaryStage.setMaxWidth(1200);
         primaryStage.setMaxHeight(950);
         
-        primaryStage.sizeToScene();
-        
-        
+        primaryStage.sizeToScene(); 
     }
 
     /**
@@ -49,6 +46,5 @@ public class Main_1 extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-    
+    } 
 }
