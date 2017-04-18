@@ -26,14 +26,15 @@ public class MainTankMouvementTest extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        /*
         BorderPane gamePane = new BorderPane();
         Scene scene = new Scene(gamePane);
         
         
-        GamePane pane = new GamePane();
+        GamePane pane = new GamePane(4);
         
         
-       // HUD hud = new HUD(scene);
+       // HUD hud = new HUD(scene);96
         
         gamePane.setCenter(pane);
         gamePane.setTop(pane.getHUD());
@@ -53,7 +54,7 @@ public class MainTankMouvementTest extends Application {
         primaryStage.setMinWidth(1200);
         primaryStage.setMaxWidth(1200);
         primaryStage.setMaxHeight(950);
-        pane.requestFocus();
+        pane.requestFocus();*/
     }
     
 

@@ -5,11 +5,13 @@
  */
 package MapGeneration;
 
+import java.io.Serializable;
+
 /**
  *
  * @author 1530178
  */
-public class MapGeneration {
+public class MapGeneration implements Serializable{
     /**
      * 
      * f(x) = a * sin(K * x) + B

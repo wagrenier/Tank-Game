@@ -31,13 +31,13 @@ public class Weapon extends Circle{
     
    
     
-    public Weapon(String texturePath){
+    public Weapon(int damage, String texturePath){
         this.texturePath = texturePath;
         //textureView = new ImageView(this.texture);
         texture = new Image(this.texturePath);
         texturePattern = new ImagePattern(texture);
         this.setFill(texturePattern);
-        
+        this.damage = damage;
         this.setRadius(25);
     }
     

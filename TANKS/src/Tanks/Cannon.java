@@ -5,6 +5,7 @@
  */
 package Tanks;
 
+import java.io.Serializable;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -13,7 +14,7 @@ import javafx.scene.shape.Circle;
  *
  * @author willi
  */
-public class Cannon extends Circle{
+public class Cannon extends Circle implements Serializable{
     
     private double canonAngle = 0;
     private final String imagePath;
@@ -75,7 +76,6 @@ public class Cannon extends Circle{
        
         if(canonAngle > 0){
         canonAngle -= Math.PI / 25;
-        System.out.println(canonAngle);//this.setRotate(-Math.toDegrees(getCanonAngle()));
         }
     }
     

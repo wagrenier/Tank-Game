@@ -5,15 +5,10 @@
  */
 package classes;
 
-import java.util.ArrayList;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-
 import javafx.stage.Stage;
 
 /**
@@ -21,127 +16,29 @@ import javafx.stage.Stage;
  * @author Cedrik Dubois
  */
 public class Main_1 extends Application {
-    private Scene scene;
-    
-    MainMenu mainMenu = new MainMenu();
-    PlayerMenu playerMenu = new PlayerMenu();
-    CountryMenu countryMenu = new CountryMenu();
-    MapMenu mapMenu = new MapMenu();
-    
-    private static int numberOfPlayers;
-    private static int playerCount = 0;
-    
-    private static int paneCount = 0;
-    private ArrayList<Pane> paneList = new ArrayList<>();
-    
-    private ArrayList<Player> playerList = new ArrayList<>();
-    
-    private ImageView cursor = new ImageView(new Image("Texture/Cursor/Cursor.png"));
-    
-    
     
     @Override
-    public void start(Stage stage) {
+    public void start(Stage primaryStage) {
         
-        paneList.add(mainMenu);
-        paneList.add(playerMenu);
-        paneList.add(countryMenu);
-        paneList.add(mapMenu);
+        MainMenuManagerPane mainMenuManagerPane = new MainMenuManagerPane();
         
-        scene = new Scene(mainMenu);
-        stage.setScene(scene);
+        Scene scene = new Scene(mainMenuManagerPane, 1200, 950);
         
-        mainMenu.setScene(scene, cursor);
+        primaryStage.setScene(scene);
         
         
-        scene.setCursor(Cursor.NONE);
+        primaryStage.show();
         
         
+        primaryStage.getIcons().add(new Image("Texture/Tanks/USA/Body/Green_Tank_(100x100).png"));
+        primaryStage.setTitle("Tanks");
         
-        stage.show();
+        primaryStage.setMinHeight(750);
+        primaryStage.setMinWidth(1200);
+        primaryStage.setMaxWidth(1200);
+        primaryStage.setMaxHeight(950);
         
-        
-        mainMenu.getPlayBtn().setOnMouseClicked(e -> {
-            paneCount++;
-            scene.setRoot(paneList.get(paneCount));
-            playerMenu.setScene(scene, cursor, e);
-        });
-        
-        playerMenu.getBackBtn().setOnMouseClicked(e -> {
-            paneCount--;
-            scene.setRoot(paneList.get(paneCount));
-            mainMenu.setScene(scene, cursor, e);
-        });
-        
-        playerMenu.getNextBtn().setOnMouseClicked(e -> {
-            paneCount++;
-            scene.setRoot(paneList.get(paneCount));
-            countryMenu.setScene(scene, cursor, e);
-            numberOfPlayers = playerMenu.getNumberOfPlayers();
-            
-            for (int i = 0; i < numberOfPlayers; i++){
-                playerList.add(new Player());
-            }
-            
-            
-        });
-        
-        countryMenu.getNextBtn().setOnMouseClicked(e -> {
-            /*
-            *
-            *At last player, register last player and switch roots
-            *
-            */
-            if (playerCount == numberOfPlayers - 1){
-                registerPlayer(true);
-                paneCount++;
-                scene.setRoot(paneList.get(paneCount));
-                
-                mapMenu.setPlayerList(playerList);
-                mapMenu.setPlayers();
-                mapMenu.setScene(scene, cursor, e);
-                
-            }
-            
-            registerPlayer(false);
-            playerCount++;
-            countryMenu.refreshPane(playerCount + 1);
-        });
-        
-        countryMenu.getBackBtn().setOnMouseClicked(e -> {
-            paneCount--;
-            scene.setRoot(paneList.get(paneCount));
-            playerMenu.setScene(scene, cursor, e);
-            //Reset variables for countryMenu
-            playerCount = 0;
-            playerList.clear();
-            countryMenu.refreshPane(1);
-            countryMenu.resetPane();
-        });
-        
-        mapMenu.getBackBtn().setOnMouseClicked(e -> {
-            paneCount--;
-            paneCount--;
-            scene.setRoot(paneList.get(paneCount));
-            playerMenu.setScene(scene, cursor, e);
-            //Reset variables for mapMenu
-            mapMenu.resetPane();
-            
-            //Reset variables for countryMenu
-            playerCount = 0;
-            playerList.clear();
-            countryMenu.refreshPane(1);
-            countryMenu.resetPane();
-        });
-        
-    }
-
-    private void registerPlayer(boolean lastplayer){
-        
-        playerList.get(playerCount).setName(countryMenu.getPlayerName());
-        playerList.get(playerCount).setTeam(countryMenu.getCountry());
-        if (!lastplayer)
-            countryMenu.removeTeam(countryMenu.getTankCount());
+        primaryStage.sizeToScene(); 
     }
 
     /**
@@ -149,6 +46,5 @@ public class Main_1 extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-    
+    } 
 }

@@ -27,6 +27,7 @@ public class WeaponAnimation {
      * 
      */
     
+    private boolean hitSomething = false;
     private double initialXPosition;
     private double initialYPosition;
     private double initialVelocity = .5;
@@ -102,7 +103,9 @@ public class WeaponAnimation {
         weapon.setRotate(Math.toDegrees(angleLaunched));
         
         animationWeapon =  new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            
+            if(hitSomething){
+                stopAnimation();
+            }
             currentYPosition = mapGeneration.getY(weapon.getTranslateX());
             weapon.setTranslateY(weapon.getTranslateY() + yspeed);
             weapon.setTranslateX(weapon.getTranslateX() + xspeed); 
@@ -154,7 +157,7 @@ public class WeaponAnimation {
         animationWeapon.setOnFinished(e ->{
             
             pane.getChildren().removeAll(weapon);
-            
+            animationWeapon.stop();
            // pane.getChildren().removeAll(bar);
             
         });
@@ -176,7 +179,36 @@ public class WeaponAnimation {
     public void setInitialVelocity(double initialVelocity) {
         this.initialVelocity = initialVelocity;
     }
+
+    public Timeline getAnimationWeapon() {
+        return animationWeapon;
+    }
+
+    public Tanks getTank() {
+        return tank;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public boolean isHitSomething() {
+        return hitSomething;
+    }
+
+    public void setHitSomething(boolean hitSomething) {
+        this.hitSomething = hitSomething;
+    }
     
     
-      
+    
+    public void stopAnimation(){
+        animationWeapon.stop();
+        pane.getChildren().removeAll(weapon);
+    }
+    
+    public void removeWeaponFromPane(){
+        pane.getChildren().removeAll(weapon);
+    }
+    
 }
