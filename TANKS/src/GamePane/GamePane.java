@@ -47,7 +47,7 @@ public class GamePane extends Pane implements Serializable{
         
     }
     
-    //The game's main loop
+    //The game's main loop put in a thread because otherwise the program hangs in here
     public void gameLoop(){
         
         
@@ -55,6 +55,7 @@ public class GamePane extends Pane implements Serializable{
         
         gameLoop.start();
         
+       // gameLoop.setDaemon(true);
     }
     
     public void paneSetup(Pane pane){

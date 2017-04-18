@@ -104,7 +104,6 @@ public class TanksAnimation implements Serializable{
     
     //Pane of the game
     private GamePane pane;
-    private Pane pane1;
     
     //This variable generates the map of the game
     private MapGeneration mapGeneration;
