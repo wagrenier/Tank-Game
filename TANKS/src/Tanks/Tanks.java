@@ -29,8 +29,9 @@ public class Tanks extends Circle implements Serializable{
     private final Image textureFlipped;
     private boolean isImageFlipped = false;
     private final Cannon cannon;
+    private int team;
     
-    Tanks(String imagePath, String imageReversePath, String imagePathCannon){
+    Tanks(String imagePath, String imageReversePath, String imagePathCannon, int team){
         this.setRadius(50);
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
@@ -41,9 +42,10 @@ public class Tanks extends Circle implements Serializable{
         this.setCenterY(-18);
         this.setFill(texturePattern);
         cannon = new Cannon(imagePathCannon);
+        this.team = team;
     }  
     
-    Tanks(String imagePath, String imageReversePath, String imagePathCannon, String reverse){
+    Tanks(String imagePath, String imageReversePath, String imagePathCannon, String reverse, int team){
         this.setRadius(50);
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
@@ -54,6 +56,7 @@ public class Tanks extends Circle implements Serializable{
         this.setCenterY(-18);
         this.setFill(texturePattern);
         cannon = new Cannon(imagePathCannon, reverse);
+        this.team = team;
         //this.setStroke(Color.BLACK);
     } 
 
@@ -142,6 +145,10 @@ public class Tanks extends Circle implements Serializable{
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public int getTeam() {
+        return team;
     }
     
     

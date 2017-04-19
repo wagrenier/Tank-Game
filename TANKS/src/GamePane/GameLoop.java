@@ -8,6 +8,7 @@ package GamePane;
 import Tanks.Tanks;
 import Tanks.TanksAnimation;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 
 /**
  *
@@ -78,12 +79,12 @@ public class GameLoop extends Thread{
     public void run() {
         
         
-        while(moreThanOneTankAlive()){
+            while(moreThanOneTankAlive()){
             
             tanksAnimation.resetSpeed();
             //System.out.println(tanksArrayUsed.length + " animation length: " + tanksAnimationArrayUsed.length);
             tanksAnimation.setIndexOfCurrentPlayerTurn(indexOfCurrentPlayerTurn);
-            
+            tanksAnimation.updateTurn();
             
             playerTurn(indexOfCurrentPlayerTurn);
             
@@ -116,6 +117,9 @@ public class GameLoop extends Thread{
         
         System.out.println("Game Over");
         this.stop();
+            
+        
+        
     }
 
     public int getIndexOfCurrentPlayerTurn() {
