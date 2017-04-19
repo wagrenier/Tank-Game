@@ -5,6 +5,7 @@
  */
 package HUD;
 
+import Tanks.Tanks;
 import GamePane.GamePane;
 import Weapon.WeaponManager;
 import java.util.ArrayList;
@@ -91,6 +92,9 @@ public class HUD extends Pane{
     
     private Image[] tanks = new Image[4];
     private Image canadaTank = new Image("Texture/Menus/HUD/Canada Tank.png");
+    private Image usaTank = new Image("Texture/Menus/HUD/USA Tank.png");
+    private Image northKoreaTank = new Image("Texture/Menus/HUD/North Korea Tank.png");
+    private Image chinaTank = new Image("Texture/Menus/HUD/China Tank.png");
     
     
     public HUD(WeaponManager weaponManager, GamePane gamePane){
@@ -106,6 +110,8 @@ public class HUD extends Pane{
         weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
         weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
         weaponLogo = new ImageView(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
+        
+        setTanks();
         
         setBackground();
         setPlayer();
@@ -125,6 +131,12 @@ public class HUD extends Pane{
         setStoreBtn();
         setPauseBtn();
         
+    }
+    private void setTanks(){
+        tanks[0] = northKoreaTank;
+        tanks[1] = usaTank;
+        tanks[2] = canadaTank;
+        tanks[3] = chinaTank;
     }
     private void setItem(){
         
@@ -237,7 +249,6 @@ public class HUD extends Pane{
     }
     
     private void setPlayerTank(){
-        tanks[0] = canadaTank;
         
         playerTank = new ImageView(tanks[playerTurn]);
         this.getChildren().add(playerTank);
@@ -595,6 +606,14 @@ public class HUD extends Pane{
         return canadaTank;
     }
     
+    public void setCurrentPlayerName(String name){
+        player.setText(name);
+    }
     
+    public void setCurrentPlayerTank(Tanks tank, int team){
+        playerTank.setImage(tanks[team]);
+        
+        playerHealth.setProgress(tank.getLifePoint() / 100);
+    }
 }
 
