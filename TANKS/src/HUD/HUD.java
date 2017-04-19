@@ -613,7 +613,7 @@ public class HUD extends Pane{
     public void setCurrentPlayerTank(Tanks tank, int team){
         playerTank.setImage(tanks[team]);
         
-        playerHealth.setProgress(tank.getLifePoint() / 100.0);
+        playerHealth.setProgress((double) ((double) tank.getLifePoint()) / 100);
     }
 }
 

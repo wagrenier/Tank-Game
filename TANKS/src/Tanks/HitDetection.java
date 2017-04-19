@@ -70,7 +70,7 @@ public class HitDetection extends Thread{
            if(!weaponAnimation.isHitSomething()){
            tanksOne.damageDone(weapon.getDamage());
            //System.out.println(tanksOne.getLifePoint());
-           hud.updateHealth(tanksOne.getLifePoint());
+           //hud.updateHealth(tanksOne.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
            
@@ -82,7 +82,7 @@ public class HitDetection extends Thread{
            if(!weaponAnimation.isHitSomething()){
            tanksTwo.damageDone(weapon.getDamage());
           // System.out.println(tanksTwo.getLifePoint());
-           hud.updateHealth(tank.getLifePoint());
+           //hud.updateHealth(tank.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
            //weaponAnimation.removeWeaponFromPane();

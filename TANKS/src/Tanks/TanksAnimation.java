@@ -5,10 +5,8 @@
  */
 package Tanks;
 
-import GamePane.GameLoop;
 import GamePane.GamePane;
 import HUD.HUD;
-import HUD.PauseMenu;
 import MapGeneration.MapGeneration;
 import Weapon.Weapon;
 import Weapon.WeaponAnimation;
@@ -22,7 +20,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 /**
@@ -32,7 +29,7 @@ import javafx.util.Duration;
 public class TanksAnimation implements Serializable{
     
     //Width of the pane
-    double width = 1200;
+    private final double width = 1200;
     
     //HUD for the game
     private HUD hud;
@@ -67,7 +64,7 @@ public class TanksAnimation implements Serializable{
     final String pathForTextureFlippedTankFour = "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png";
     final String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
     
-    
+    //Gravity of the game is not the same for weapon because like that the tanks stick to the ground
     private double gravity = 0.05;
     
     private int numOfPlayer;
@@ -280,7 +277,7 @@ public class TanksAnimation implements Serializable{
         
         tanks.setxSpeed(0);
         Timeline animationFun = new Timeline(new KeyFrame(Duration.millis(1), e -> {
-            updateTankOneStatus();
+            updateTanksStatus();
             
             tanks.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())));
             
@@ -384,7 +381,7 @@ public class TanksAnimation implements Serializable{
         hitDetection.start();
     }
     
-    public void updateTankOneStatus(){
+    public void updateTanksStatus(){
         if(!tanksOne.isTankAlive()){
                animation.stop();
                pane.getChildren().remove(tanksOne);
@@ -402,93 +399,8 @@ public class TanksAnimation implements Serializable{
                pane.getChildren().remove(tanksThree.getCannon());
            }
        
-        
-        
            if(!tanksFour.isTankAlive()){
                animation4.stop();
-               pane.getChildren().remove(tanksFour);
-               pane.getChildren().remove(tanksFour.getCannon());
-           }
-    }
-    
-    public void updateTanksTwoStatus(){
-           if(!tanksOne.isTankAlive()){
-               animation.stop();
-               pane.getChildren().remove(tanksOne);
-               pane.getChildren().remove(tanksOne.getCannon());
-           }
-        if(!tanksTwo.isTankAlive()){
-               animation2.stop();
-               pane.getChildren().remove(tanksTwo);
-               pane.getChildren().remove(tanksTwo.getCannon());
-           }
-        
-        if(!tanksThree.isTankAlive()){
-               animation3.stop();
-               pane.getChildren().remove(tanksThree);
-               pane.getChildren().remove(tanksThree.getCannon());
-           }
-       
-        
-        
-           if(!tanksFour.isTankAlive()){
-               animation4.stop();
-               pane.getChildren().remove(tanksFour);
-               pane.getChildren().remove(tanksFour.getCannon());
-           }
-    }
-    
-    public void updateTanksThreeStatus(){
-        
-           if(!tanksOne.isTankAlive()){
-               animation.stop();
-               pane.getChildren().remove(tanksOne);
-               pane.getChildren().remove(tanksOne.getCannon());
-           }
-        if(!tanksTwo.isTankAlive()){
-               animation2.stop();
-               pane.getChildren().remove(tanksTwo);
-               pane.getChildren().remove(tanksTwo.getCannon());
-           }
-        
-        if(!tanksThree.isTankAlive()){
-               animation3.stop();
-               pane.getChildren().remove(tanksThree);
-               pane.getChildren().remove(tanksThree.getCannon());
-           }
-       
-        
-        
-           if(!tanksFour.isTankAlive()){
-               animation4.stop();
-               pane.getChildren().remove(tanksFour);
-               pane.getChildren().remove(tanksFour.getCannon());
-           }
-    }
-    
-    public void updateTanksFourStatus(){
-        
-           if(!tanksOne.isTankAlive()){
-               //animation.stop();
-               pane.getChildren().remove(tanksOne);
-               pane.getChildren().remove(tanksOne.getCannon());
-           }
-        if(!tanksTwo.isTankAlive()){
-               //animation2.stop();
-               pane.getChildren().remove(tanksTwo);
-               pane.getChildren().remove(tanksTwo.getCannon());
-           }
-        
-        if(!tanksThree.isTankAlive()){
-               //animation3.stop();
-               pane.getChildren().remove(tanksThree);
-               pane.getChildren().remove(tanksThree.getCannon());
-           }
-       
-        
-        
-           if(!tanksFour.isTankAlive()){
-               //animation4.stop();
                pane.getChildren().remove(tanksFour);
                pane.getChildren().remove(tanksFour.getCannon());
            }
@@ -587,16 +499,8 @@ public class TanksAnimation implements Serializable{
         return width;
     }
 
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
     public double getGravity() {
         return gravity;
-    }
-
-    public void setGravity(double gravity) {
-        this.gravity = gravity;
     }
 
     public int getNumOfPlayer() {
@@ -718,8 +622,5 @@ public class TanksAnimation implements Serializable{
     public void setIndexOfCurrentPlayerTurn(int indexOfCurrentPlayerTurn) {
         this.indexOfCurrentPlayerTurn = indexOfCurrentPlayerTurn;
     }
-
-    
-    
     
 }

@@ -82,19 +82,16 @@ public class GameLoop extends Thread{
             while(moreThanOneTankAlive()){
             
             tanksAnimation.resetSpeed();
-            //System.out.println(tanksArrayUsed.length + " animation length: " + tanksAnimationArrayUsed.length);
             tanksAnimation.setIndexOfCurrentPlayerTurn(indexOfCurrentPlayerTurn);
-            tanksAnimation.updateTurn();
+            
+            //For accessing the main javaFX thread without the program crashing
+            Platform.runLater(() -> {
+                tanksAnimation.updateTurn();
+                    }
+            );
             
             playerTurn(indexOfCurrentPlayerTurn);
             
-            /*
-            System.out.println("before 2nd loop");
-            for(int i = 0; i < tanksArrayUsed.length; i++){
-                  System.out.println("Before: " + "Tank: " + i + " isAlive: " +  tanksArrayUsed[i].isTankAlive());
-               }
-            //double initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
-            */
             double initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
             double maxPos = initialPosition + 100;
             double minPos = initialPosition - 100;
@@ -112,6 +109,9 @@ public class GameLoop extends Thread{
             
             tanksAnimation.setShotFired(false);
             
+            if(!moreThanOneTankAlive()){
+                break;
+            }
         
         }
         
