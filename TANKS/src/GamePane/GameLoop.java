@@ -38,7 +38,7 @@ public class GameLoop extends Thread{
         }
     }
     
-    public boolean waitUntilEndOfTurn(int indexOfCurrentPlayerTurn){
+    private boolean waitUntilEndOfTurn(int indexOfCurrentPlayerTurn){
         /*
         double position = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
         
@@ -58,7 +58,7 @@ public class GameLoop extends Thread{
         return true;
     }
     
-    public boolean moreThanOneTankAlive(){
+    private boolean moreThanOneTankAlive(){
         int numOfTanksAlive = 0;
         
         for(int i = 0; i < tanksArrayUsed.length; i++){
@@ -75,6 +75,43 @@ public class GameLoop extends Thread{
         return false;
     }
     
+    
+    private void fireWeapon(){
+        //TODO Implement this
+    }
+    
+    private void bestWeapon(){
+        //TODO Implement this
+    }
+    
+    private void moveToClosestTank(){
+        //TODO Implement this
+    }
+    
+    private double angleToShoot(){
+        //TODO Implement this
+        
+        return 1;
+    }
+    
+    private double distanceToTanks(){
+        //TODO Implement this
+        
+        return 1;
+    }
+    
+    private void aiTurn(){
+        /**
+         * 
+         * 1.0: The AI detects if someone is nearby by calculating the approx distance to the tanks
+         * 1.2: If someone is nearby, the AI moves closer to that tank
+         * 2.0: The AI calculates the angle required to hit the tank
+         * 2.1: The AI looks for the best weapon to use
+         * 2.2: The AI fires the weapon and the turn ends
+         * 
+         */
+    }
+    
     @Override
     public void run() {
         
@@ -87,6 +124,10 @@ public class GameLoop extends Thread{
             //For accessing the main javaFX thread without the program crashing
             Platform.runLater(() -> {
                 tanksAnimation.updateTurn();
+                
+                if(tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
+                        aiTurn();
+                    }
                     }
             );
             

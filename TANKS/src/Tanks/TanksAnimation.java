@@ -152,6 +152,9 @@ public class TanksAnimation implements Serializable{
                     tanksAnimationArrayUsed[i] = animation3;
                     progressBarUsed[i] = barThree;
                     progressBarAnimationUsed[i] = progressBarAnimationThree;
+                    if(playerArray[i].isIsAI()){
+                        tanksArrayUsed[i].setIsAI(true);
+                    }
                 }
                 break;
                 
@@ -160,6 +163,9 @@ public class TanksAnimation implements Serializable{
                     tanksAnimationArrayUsed[i] = animation4;
                     progressBarUsed[i] = barFour;
                     progressBarAnimationUsed[i] = progressBarAnimationFour;
+                    if(playerArray[i].isIsAI()){
+                        tanksArrayUsed[i].setIsAI(true);
+                    }
                 }break;
                 
                 case 2: {
@@ -167,6 +173,9 @@ public class TanksAnimation implements Serializable{
                     tanksAnimationArrayUsed[i] = animation;
                     progressBarUsed[i] = barOne;
                     progressBarAnimationUsed[i] = progressBarAnimationOne;
+                    if(playerArray[i].isIsAI()){
+                        tanksArrayUsed[i].setIsAI(true);
+                    }
                 }break;
                 
                 case 3: {
@@ -174,6 +183,9 @@ public class TanksAnimation implements Serializable{
                     tanksAnimationArrayUsed[i] = animation2;
                     progressBarUsed[i] = barTwo;
                     progressBarAnimationUsed[i] = progressBarAnimationTwo;
+                    if(playerArray[i].isIsAI()){
+                        tanksArrayUsed[i].setIsAI(true);
+                    }
                 }break;
                 }
             }

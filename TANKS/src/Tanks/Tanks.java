@@ -21,6 +21,7 @@ public class Tanks extends Circle implements Serializable{
     private double y;
     private int lifePoint = 100;
     private boolean isTankAlive = false;
+    private boolean isAI = false;
     private final String imagePath;
     private final String imageReversePath;
     private final ImagePattern texturePattern;
@@ -150,9 +151,13 @@ public class Tanks extends Circle implements Serializable{
     public int getTeam() {
         return team;
     }
-    
-    
-    
-    
+
+    public boolean isIsAI() {
+        return isAI;
+    }
+
+    public void setIsAI(boolean isAI) {
+        this.isAI = isAI;
+    }
     
 }
