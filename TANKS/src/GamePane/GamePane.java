@@ -49,13 +49,8 @@ public class GamePane extends Pane implements Serializable{
     
     //The game's main loop put in a thread because otherwise the program hangs in here
     public void gameLoop(){
-        
-        
         gameLoop = new GameLoop(tanksAnimation, tanksAnimationArrayUsed, tanksAnimation.getTanksArrayUsed());
-        
         gameLoop.start();
-        
-       // gameLoop.setDaemon(true);
     }
     
     public void paneSetup(Pane pane){

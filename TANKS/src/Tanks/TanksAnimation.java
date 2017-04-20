@@ -425,7 +425,7 @@ public class TanksAnimation implements Serializable{
             if(tanksArrayUsed[i].isTankAlive()){
                 numOfTanksAlive++;
             }
-            System.out.println(numOfTanksAlive);
+            
             if(numOfTanksAlive == 2){
                 
                 return true;
@@ -433,6 +433,18 @@ public class TanksAnimation implements Serializable{
             
         }
         return false;
+    }
+    
+    public int numOfTanksAlive(){
+        int numOfTanksAlive = 0;
+        
+        for(int i = 0; i < tanksArrayUsed.length; i++){
+            if(tanksArrayUsed[i].isTankAlive()){
+                numOfTanksAlive++;
+            }
+            
+        }
+        return numOfTanksAlive;
     }
     
     public void keyPressed(KeyCode x, Tanks tank, Timeline animationTank, Timeline progressBarAnimation, ProgressBar bar){

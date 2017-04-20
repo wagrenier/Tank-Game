@@ -9,6 +9,7 @@ import Tanks.Tanks;
 import Tanks.TanksAnimation;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.scene.input.KeyCode;
 
 /**
  *
@@ -75,7 +76,6 @@ public class GameLoop extends Thread{
         return false;
     }
     
-    
     private void fireWeapon(){
         //TODO Implement this
     }
@@ -86,6 +86,35 @@ public class GameLoop extends Thread{
     
     private void moveToClosestTank(){
         //TODO Implement this
+        double[] tanksDistance = new double[tanksAnimation.numOfTanksAlive()];
+        int indexOfClosestTank = 0;
+        for(int i = 0; i < tanksArrayUsed.length; i++){
+            //To prevent the AI from chosing a dead tank
+            if(!tanksArrayUsed[i].isTankAlive()){
+                tanksDistance[i] = 100000;
+            }
+            else if(tanksArrayUsed[i] == tanksArrayUsed[indexOfCurrentPlayerTurn]){
+                //Setting a value higher than pane so that the program does not return the tank itself as the closest tank
+                tanksDistance[i] = 100000;
+            }
+            else{
+                tanksDistance[i] = distanceToTanks(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[i]);
+                if(tanksDistance[indexOfClosestTank] > tanksDistance[i]){
+                    indexOfClosestTank = i;
+                }
+                System.out.println(tanksDistance[i]);
+            }
+        }
+        if(tanksArrayUsed[indexOfClosestTank].getTranslateX() < tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX()){
+            //tanksArrayUsed[indexOfCurrentPlayerTurn].setxSpeed(-.1);
+            //tanksAnimation.keyPressed(KeyCode.RIGHT, tanksArrayUsed[indexOfCurrentPlayerTurn], animationTank, progressBarAnimation, bar);
+        }
+        else{
+            //tanksArrayUsed[indexOfCurrentPlayerTurn].setxSpeed(.1);
+           // tanksAnimation.keyPressed(KeyCode.LEFT, tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], tanksAnimation.getAnimation(), tanksAnimation.get);
+        }
+        
+        
     }
     
     private double angleToShoot(){
@@ -94,10 +123,10 @@ public class GameLoop extends Thread{
         return 1;
     }
     
-    private double distanceToTanks(){
+    //tank is the current player's tank and other tank is another tank in the pane
+    private double distanceToTanks(Tanks tank, Tanks otherTank){
         //TODO Implement this
-        
-        return 1;
+        return Math.sqrt(Math.pow((tank.getTranslateX() - otherTank.getTranslateX()), 2) + Math.pow((tank.getTranslateY() - otherTank.getTranslateY()), 2));
     }
     
     private void aiTurn(){
@@ -110,6 +139,12 @@ public class GameLoop extends Thread{
          * 2.2: The AI fires the weapon and the turn ends
          * 
          */
+        
+        moveToClosestTank();
+    }
+    
+    public int getIndexOfCurrentPlayerTurn() {
+        return indexOfCurrentPlayerTurn;
     }
     
     @Override
@@ -162,10 +197,5 @@ public class GameLoop extends Thread{
         
         
     }
-
-    public int getIndexOfCurrentPlayerTurn() {
-        return indexOfCurrentPlayerTurn;
-    }
-    
     
 }
