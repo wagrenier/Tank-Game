@@ -646,5 +646,14 @@ public class TanksAnimation implements Serializable{
     public void setIndexOfCurrentPlayerTurn(int indexOfCurrentPlayerTurn) {
         this.indexOfCurrentPlayerTurn = indexOfCurrentPlayerTurn;
     }
+
+    public ProgressBar[] getProgressBarUsed() {
+        return progressBarUsed;
+    }
+
+    public Timeline[] getProgressBarAnimationUsed() {
+        return progressBarAnimationUsed;
+    }
+    
     
 }

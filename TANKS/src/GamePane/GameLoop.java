@@ -102,16 +102,16 @@ public class GameLoop extends Thread{
                 if(tanksDistance[indexOfClosestTank] > tanksDistance[i]){
                     indexOfClosestTank = i;
                 }
-                System.out.println(tanksDistance[i]);
+                //System.out.println(tanksDistance[i]);
             }
         }
         if(tanksArrayUsed[indexOfClosestTank].getTranslateX() < tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX()){
             //tanksArrayUsed[indexOfCurrentPlayerTurn].setxSpeed(-.1);
-            //tanksAnimation.keyPressed(KeyCode.RIGHT, tanksArrayUsed[indexOfCurrentPlayerTurn], animationTank, progressBarAnimation, bar);
+            tanksAnimation.keyPressed(KeyCode.LEFT, tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
         }
         else{
             //tanksArrayUsed[indexOfCurrentPlayerTurn].setxSpeed(.1);
-           // tanksAnimation.keyPressed(KeyCode.LEFT, tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], tanksAnimation.getAnimation(), tanksAnimation.get);
+            tanksAnimation.keyPressed(KeyCode.RIGHT, tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
         }
         
         
