@@ -17,6 +17,9 @@ import javafx.scene.input.KeyCode;
 /**
  *
  * @author willi
+ * 
+ * 
+ * Current known issues: the animation is not stopped when paused if time correctly
  */
 public class GameLoop extends Thread{
     
@@ -176,13 +179,18 @@ public class GameLoop extends Thread{
         
         
             while(moreThanOneTankAlive()){
-            /*
-                if(!(tanksAnimation.getWeaponAnimation() == null)){
-                while(tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
-                    System.out.println("HEY");
-                }
-                }
-                */
+            
+                
+            
+            if(tanksAnimation.getHud().getPauseMenu().isGamePaused()){
+                
+        }
+            
+            
+            else{
+                
+                
+                
             if(!(tanksAnimation.getWeaponAnimation() == null)){
                 try {
                     //int v = 0;
@@ -249,6 +257,7 @@ public class GameLoop extends Thread{
                 } catch (InterruptedException ex) {
                     Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
             }
         }
         

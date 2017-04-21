@@ -62,7 +62,7 @@ public class WeaponAnimation {
         this.mapGeneration = mapGeneration;
         this.initialVelocity = initialVelocity;
         setupAnimation(); 
-        launchAnimation();
+        //launchAnimation();
     }
     
     public WeaponAnimation(Weapon weapon, MapGeneration mapGeneration, Pane pane){
