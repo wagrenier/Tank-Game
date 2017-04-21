@@ -14,6 +14,7 @@ import Weapon.WeaponManager;
 import classes.Player;
 import java.io.Serializable;
 import java.util.ArrayList;
+import javafx.animation.Animation;
 import static javafx.animation.Animation.Status.RUNNING;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -458,14 +459,14 @@ public class TanksAnimation implements Serializable{
             
             //Controls for player 1
             case SPACE: {
-                if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0)
+                if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0)
                 progressBarInGameAnimationPlay(tank, progressBarAnimation, bar);
             }break;
                     
                     
                 case LEFT: {
                     
-                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0){
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
                     if(tank.getxSpeed() == 0){
                             tank.setxSpeed(tank.getxSpeed() - 0.1);
                             //tanksOne.setRotate(90);
@@ -483,7 +484,7 @@ public class TanksAnimation implements Serializable{
                     }break;
                     
                 case RIGHT: {
-                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0){
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
                     if(tank.getxSpeed() == 0){
                             tank.setxSpeed(tank.getxSpeed() + 0.1);
                             tank.normalTexture();
@@ -499,13 +500,13 @@ public class TanksAnimation implements Serializable{
                     }break;
                     
                 case UP: {
-                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0)
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0)
                         tank.getCannon().higherAngle();
                         //tanksOne.updateSomething();
                     }break;
                     
                 case DOWN: {
-                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0)
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0)
                     tank.getCannon().lowerAngle();
                     //tanksOne.updateSomething();break;
                 }break;        

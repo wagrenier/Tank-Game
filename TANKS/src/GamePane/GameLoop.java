@@ -7,6 +7,9 @@ package GamePane;
 
 import Tanks.Tanks;
 import Tanks.TanksAnimation;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
@@ -78,10 +81,19 @@ public class GameLoop extends Thread{
     
     private void fireWeapon(){
         //TODO Implement this
+        bestWeapon();
+        //angleToShoot()
+        Platform.runLater( () ->{
+            tanksArrayUsed[indexOfCurrentPlayerTurn].getCannon().setAICannonAngle(angleToShoot());
+            tanksAnimation.weaponSetup(tanksArrayUsed[indexOfCurrentPlayerTurn], Math.random());
+        });
+        
+        //tanksAnimation.keyPressed(KeyCode.SPACE, tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
     }
     
     private void bestWeapon(){
         //TODO Implement this
+        //This will be implemented once the weapon store is fully implemented
     }
     
     private void moveToClosestTank(){
@@ -105,13 +117,22 @@ public class GameLoop extends Thread{
                 //System.out.println(tanksDistance[i]);
             }
         }
-        if(tanksArrayUsed[indexOfClosestTank].getTranslateX() < tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX()){
+        if(tanksDistance[indexOfClosestTank] < 500){
+            fireWeapon();
+        }
+        else if(tanksArrayUsed[indexOfClosestTank].getTranslateX() < tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX()){
             //tanksArrayUsed[indexOfCurrentPlayerTurn].setxSpeed(-.1);
+            Platform.runLater( () ->{
             tanksAnimation.keyPressed(KeyCode.LEFT, tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
+        });
+            
         }
         else{
             //tanksArrayUsed[indexOfCurrentPlayerTurn].setxSpeed(.1);
+            Platform.runLater( () ->{
             tanksAnimation.keyPressed(KeyCode.RIGHT, tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
+        });
+            
         }
         
         
@@ -141,6 +162,9 @@ public class GameLoop extends Thread{
          */
         
         moveToClosestTank();
+        /*
+        if(!(tanksAnimation.getWeaponAnimation() == null))
+                while(tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0);   */   
     }
     
     public int getIndexOfCurrentPlayerTurn() {
@@ -152,6 +176,26 @@ public class GameLoop extends Thread{
         
         
             while(moreThanOneTankAlive()){
+            /*
+                if(!(tanksAnimation.getWeaponAnimation() == null)){
+                while(tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
+                    System.out.println("HEY");
+                }
+                }
+                */
+            if(!(tanksAnimation.getWeaponAnimation() == null)){
+                try {
+                    //int v = 0;
+                    while(tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
+                        //System.out.println("HEY" + v + " Tank: " + tanksArrayUsed[indexOfCurrentPlayerTurn].getImagePath());
+                        //v++;
+                    }
+                    
+                    this.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             
             tanksAnimation.resetSpeed();
             tanksAnimation.setIndexOfCurrentPlayerTurn(indexOfCurrentPlayerTurn);
@@ -160,12 +204,16 @@ public class GameLoop extends Thread{
             Platform.runLater(() -> {
                 tanksAnimation.updateTurn();
                 
+                /*
                 if(tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
                         aiTurn();
-                    }
+                    }*/
                     }
             );
             
+            if(tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
+                        aiTurn();
+            }
             playerTurn(indexOfCurrentPlayerTurn);
             
             double initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
@@ -188,7 +236,20 @@ public class GameLoop extends Thread{
             if(!moreThanOneTankAlive()){
                 break;
             }
-        
+            
+            if(!(tanksAnimation.getWeaponAnimation() == null)){
+                try {
+                    //int v = 0;
+                    while(tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
+                        //System.out.println("HEY" + v + " Tank: " + tanksArrayUsed[indexOfCurrentPlayerTurn].getImagePath());
+                        //v++;
+                    }
+                    
+                    this.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
         
         System.out.println("Game Over");

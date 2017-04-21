@@ -89,6 +89,10 @@ public class Cannon extends Circle implements Serializable{
         
     }
     
+    public void setAICannonAngle(double angle){
+        canonAngle = angle;
+    }
+    
     public double getCanonAngle() {
         return canonAngle;
     }

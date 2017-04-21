@@ -120,6 +120,7 @@ public class WeaponAnimation {
                 
                 //pane.getChildren().remove(animationWeapon);
                 pane.getChildren().remove(weapon);
+                animationWeapon.stop();
                 //add animation explosion
                 
             }
@@ -132,6 +133,7 @@ public class WeaponAnimation {
             else{
                 yspeed = 0;
                 xspeed = 0;
+                animationWeapon.stop();
             }
             if(weapon.getTranslateY() > currentYPosition){
                 weapon.setTranslateY(currentYPosition);
@@ -150,7 +152,7 @@ public class WeaponAnimation {
         
         
         pane.getChildren().add(weapon);
-        animationWeapon.setCycleCount(2000);
+        animationWeapon.setCycleCount(5000);
         animationWeapon.play();
         
         
@@ -199,8 +201,6 @@ public class WeaponAnimation {
     public void setHitSomething(boolean hitSomething) {
         this.hitSomething = hitSomething;
     }
-    
-    
     
     public void stopAnimation(){
         animationWeapon.stop();
