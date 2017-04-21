@@ -5,6 +5,9 @@
  */
 package classes;
 
+import Weapon.Item;
+import Weapon.Weapon;
+
 /**
  *
  * @author Cedrik Dubois
@@ -12,6 +15,9 @@ package classes;
 public class Player {
     private String username;
     private int team;
+    
+    private int[] weaponInventory = new int[9];
+    private int[] itemInventory = new int[8];
     
     /**
      * Index of the teams
@@ -24,7 +30,8 @@ public class Player {
      */
     
     public Player(){
-        
+        setWeaponInventory();
+        setItemInventory();
     }
     
     public Player(String username, int team){
@@ -32,6 +39,24 @@ public class Player {
             this.username = username.substring(0, 10);
         }
         this.team = team;
+        
+        setWeaponInventory();
+        setItemInventory();
+    }
+    private void setWeaponInventory(){
+        weaponInventory[0] = 0;
+        weaponInventory[1] = 0;
+        weaponInventory[2] = 1;
+        weaponInventory[3] = 0;
+        weaponInventory[4] = 0;
+        weaponInventory[5] = 1;
+        weaponInventory[6] = 0;
+        weaponInventory[7] = 0;
+        weaponInventory[8] = 1;
+    }
+    
+    private void setItemInventory(){
+        
     }
     
     public void setName(String name){
