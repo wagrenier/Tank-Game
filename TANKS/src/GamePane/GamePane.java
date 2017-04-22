@@ -33,7 +33,7 @@ public class GamePane extends Pane implements Serializable{
     private double width = 1200;
     private double height = 800;
     private TanksAnimation tanksAnimation;
-    MapGeneration mapGeneration = new MapGeneration(450, 100, 500);
+    MapGeneration mapGeneration = new MapGeneration(450, 300, 500);
     private ArrayList<Player> playerArrayList = new ArrayList<>();
     private Timeline[] tanksAnimationArrayUsed;
     GameLoop gameLoop;

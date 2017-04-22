@@ -49,7 +49,6 @@ public class Cannon extends Circle implements Serializable{
         //setTranslateY(200);
     }  
     
-    
     Cannon(String imagePath){
         this.setRadius(50);
         this.imagePath = imagePath;

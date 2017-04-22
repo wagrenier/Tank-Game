@@ -7,12 +7,9 @@ package GamePane;
 
 import Tanks.Tanks;
 import Tanks.TanksAnimation;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -68,13 +65,12 @@ public class GameLoop extends AnimationTimer{
         return false;
     }
     
-    private void fireWeapon(){
+    private void fireWeapon(Tanks tank){
         //TODO Implement this
         bestWeapon();
-        //angleToShoot()
-        System.out.println("AI Fire Weapon");
+        System.out.println("AI Fire Weapon " + tank.getImagePath());
         
-        tanksArrayUsed[indexOfCurrentPlayerTurn].getCannon().setAICannonAngle(angleToShoot());
+        tanksArrayUsed[indexOfCurrentPlayerTurn].getCannon().setAICannonAngle(angleToShoot(tank));
         tanksAnimation.weaponSetup(tanksArrayUsed[indexOfCurrentPlayerTurn], Math.random());
         
         
@@ -105,23 +101,25 @@ public class GameLoop extends AnimationTimer{
                 tanksDistance[i] = distanceToTanks(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[i]);
                 if(tanksDistance[indexOfClosestTank] > tanksDistance[i]){
                     indexOfClosestTank = i;
-                    System.out.println(tanksDistance[indexOfClosestTank]);
+                    //System.out.println(tanksDistance[indexOfClosestTank]);
                 }
             }
-            System.out.println(tanksDistance[i]);
+            //System.out.println(tanksDistance[i]);
         }
         
-         System.out.println("AI Leaves Nearest Tank");
+         //System.out.println("AI Leaves Nearest Tank");
          
          //Must be able to orient themselves
         if(tanksDistance[indexOfClosestTank] < 250){
             if(tanksArrayUsed[indexOfClosestTank].getTranslateX() < tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX()){
                 tanksArrayUsed[indexOfCurrentPlayerTurn].flipTexture();
+                tanksArrayUsed[indexOfCurrentPlayerTurn].getCannon().flipTexture();
         }
             else{
                 tanksArrayUsed[indexOfCurrentPlayerTurn].normalTexture();
+                tanksArrayUsed[indexOfCurrentPlayerTurn].getCannon().normalTexture();
         }
-            fireWeapon();
+            fireWeapon(tanksArrayUsed[indexOfClosestTank]);
         }
         else if(tanksArrayUsed[indexOfClosestTank].getTranslateX() < tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX()){
             tanksAnimation.keyPressed(KeyCode.LEFT, 
@@ -141,10 +139,24 @@ public class GameLoop extends AnimationTimer{
         }
     }
     
-    private double angleToShoot(){
-        //TODO Implement this
+    private double angleToShoot(Tanks tank){
+        double angleMap = tanksAnimation.getMapGeneration().derivativeFunction(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX());
+        double x = -(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() - tank.getTranslateX());
+        double y = (tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateY() - tank.getTranslateY());
+        double v = 0.5; 
+        double g = 0.0005; 
+        double sqrt = (v*v*v*v) - (g*(g*(x*x) + 2*y*(v*v)));
+        sqrt = Math.sqrt(sqrt);
         
-        return 1;
+        if(tanksArrayUsed[indexOfCurrentPlayerTurn].getCannon().isIsImageFlipped()){
+            return Math.PI / 2 + Math.atan(((v*v) + sqrt)/(g*x)) + angleMap;
+        }
+        
+        else{
+            return Math.atan(((v*v) + sqrt)/(g*x)) + angleMap;
+        }
+        
+        
     }
     
     //tank is the current player's tank and other tank is another tank in the pane
@@ -168,7 +180,7 @@ public class GameLoop extends AnimationTimer{
          * Currently the AI is boring to watch.
          * It moves once and then just fires until the end of the game
          */
-        System.out.println("AI Analyzing Turn");
+        //System.out.println("AI Analyzing Turn");
         //Removing the user's ability to input
         tanksAnimation.getPane().setFocusTraversable(false);
         moveToClosestTank();   
@@ -210,7 +222,7 @@ public class GameLoop extends AnimationTimer{
                 playerTurn(indexOfCurrentPlayerTurn);
                 if(tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
                         aiTurn();
-                        System.out.println("AI Turn");
+                        //System.out.println("AI Turn");
                     }
                 
                 
