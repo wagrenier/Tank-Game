@@ -7,7 +7,6 @@ package GamePane;
 
 import Tanks.Tanks;
 import Tanks.TanksAnimation;
-import java.util.Timer;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
