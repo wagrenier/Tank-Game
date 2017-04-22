@@ -11,9 +11,8 @@ import MapGeneration.MapGeneration;
 import classes.Player;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.Timeline;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -29,6 +28,7 @@ import javafx.scene.shape.Rectangle;
  */
 public class GamePane extends Pane implements Serializable{
     
+    //Group root = new Group();
     private int numOfPlayers;
     private double width = 1200;
     private double height = 800;

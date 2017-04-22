@@ -10,6 +10,7 @@ import Tanks.TanksAnimation;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
@@ -19,11 +20,16 @@ import javafx.scene.input.KeyCode;
  * @author willi
  * 
  * 
- * Current known issues: the animation is not stopped when paused if time correctly
+ * Current known issues: the animation is not stopped when paused if time correctly (Fixed, Updated to AnimationTimer)
  */
-public class GameLoop extends Thread{
+public class GameLoop extends AnimationTimer{
     
+    private boolean newTurn = true;
+    private boolean endTurn = false;
     private int indexOfCurrentPlayerTurn = 0;
+    double maxPos;
+    double minPos;
+    double initialPosition;
     Tanks[] tanksArrayUsed;
     TanksAnimation tanksAnimation;
     Timeline[] tanksAnimationArrayUsed;
@@ -43,26 +49,6 @@ public class GameLoop extends Thread{
                 tanksAnimationArrayUsed[i].pause();
             }
         }
-    }
-    
-    private boolean waitUntilEndOfTurn(int indexOfCurrentPlayerTurn){
-        /*
-        double position = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
-        
-        if(position - initialPosition >= 100 || position - initialPosition <= 100){
-            return false;
-        }
-        */
-        
-        if(!tanksArrayUsed[indexOfCurrentPlayerTurn].isTankAlive()){
-           return false; 
-        }
-        
-        if(tanksAnimation.isShotFired()){
-            return false;
-        }
-        
-        return true;
     }
     
     private boolean moreThanOneTankAlive(){
@@ -86,10 +72,11 @@ public class GameLoop extends Thread{
         //TODO Implement this
         bestWeapon();
         //angleToShoot()
-        Platform.runLater( () ->{
-            tanksArrayUsed[indexOfCurrentPlayerTurn].getCannon().setAICannonAngle(angleToShoot());
-            tanksAnimation.weaponSetup(tanksArrayUsed[indexOfCurrentPlayerTurn], Math.random());
-        });
+        System.out.println("AI Fire Weapon");
+        
+        tanksArrayUsed[indexOfCurrentPlayerTurn].getCannon().setAICannonAngle(angleToShoot());
+        tanksAnimation.weaponSetup(tanksArrayUsed[indexOfCurrentPlayerTurn], Math.random());
+        
         
         //tanksAnimation.keyPressed(KeyCode.SPACE, tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
     }
@@ -101,9 +88,11 @@ public class GameLoop extends Thread{
     
     private void moveToClosestTank(){
         //TODO Implement this
-        double[] tanksDistance = new double[tanksAnimation.numOfTanksAlive()];
+        double[] tanksDistance = new double[tanksArrayUsed.length];
         int indexOfClosestTank = 0;
+        
         for(int i = 0; i < tanksArrayUsed.length; i++){
+            
             //To prevent the AI from chosing a dead tank
             if(!tanksArrayUsed[i].isTankAlive()){
                 tanksDistance[i] = 100000;
@@ -116,29 +105,34 @@ public class GameLoop extends Thread{
                 tanksDistance[i] = distanceToTanks(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[i]);
                 if(tanksDistance[indexOfClosestTank] > tanksDistance[i]){
                     indexOfClosestTank = i;
+                    System.out.println(tanksDistance[indexOfClosestTank]);
                 }
-                //System.out.println(tanksDistance[i]);
             }
+            System.out.println(tanksDistance[i]);
         }
-        if(tanksDistance[indexOfClosestTank] < 500){
+        
+         System.out.println("AI Leaves Nearest Tank");
+         
+         //Must be able to orient themselves
+        if(tanksDistance[indexOfClosestTank] < 250){
             fireWeapon();
         }
         else if(tanksArrayUsed[indexOfClosestTank].getTranslateX() < tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX()){
-            //tanksArrayUsed[indexOfCurrentPlayerTurn].setxSpeed(-.1);
-            Platform.runLater( () ->{
-            tanksAnimation.keyPressed(KeyCode.LEFT, tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
-        });
-            
+            tanksAnimation.keyPressed(KeyCode.LEFT, 
+                    tanksArrayUsed[indexOfCurrentPlayerTurn], 
+                    tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], 
+                    tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], 
+                    tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
+            System.out.println("AI Move Left");
         }
         else{
-            //tanksArrayUsed[indexOfCurrentPlayerTurn].setxSpeed(.1);
-            Platform.runLater( () ->{
-            tanksAnimation.keyPressed(KeyCode.RIGHT, tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
-        });
-            
+            tanksAnimation.keyPressed(KeyCode.RIGHT, 
+                    tanksArrayUsed[indexOfCurrentPlayerTurn], 
+                    tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], 
+                    tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], 
+                    tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]); 
+            System.out.println("AI Moves Right");
         }
-        
-        
     }
     
     private double angleToShoot(){
@@ -164,10 +158,14 @@ public class GameLoop extends Thread{
          * 
          */
         
-        moveToClosestTank();
-        /*
-        if(!(tanksAnimation.getWeaponAnimation() == null))
-                while(tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0);   */   
+        /**
+         * Currently the AI is boring to watch.
+         * It moves once and then just fires until the end of the game
+         */
+        System.out.println("AI Analyzing Turn");
+        //Removing the user's ability to input
+        tanksAnimation.getPane().setFocusTraversable(false);
+        moveToClosestTank();   
     }
     
     public int getIndexOfCurrentPlayerTurn() {
@@ -175,94 +173,69 @@ public class GameLoop extends Thread{
     }
     
     @Override
-    public void run() {
-        
-        
-            while(moreThanOneTankAlive()){
+    public void handle(long now) {  
             
-                
-            
-            if(tanksAnimation.getHud().getPauseMenu().isGamePaused()){
-                
+            if(tanksAnimation.getHud().getPauseMenu().isGamePaused() || tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
+                System.out.println("Stuck in Pause");
         }
             
             
             else{
                 
                 
-                
+               /* 
             if(!(tanksAnimation.getWeaponAnimation() == null)){
-                try {
-                    //int v = 0;
-                    while(tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
-                        //System.out.println("HEY" + v + " Tank: " + tanksArrayUsed[indexOfCurrentPlayerTurn].getImagePath());
-                        //v++;
-                    }
-                    
-                    this.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+               
+            }*/
             
-            tanksAnimation.resetSpeed();
-            tanksAnimation.setIndexOfCurrentPlayerTurn(indexOfCurrentPlayerTurn);
-            
-            //For accessing the main javaFX thread without the program crashing
-            Platform.runLater(() -> {
+            if(newTurn){
+                System.out.println("New Turn");
+                tanksAnimation.resetSpeed();
+                tanksAnimation.setIndexOfCurrentPlayerTurn(indexOfCurrentPlayerTurn);
                 tanksAnimation.updateTurn();
-                
-                /*
+                initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
+                playerTurn(indexOfCurrentPlayerTurn);
                 if(tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
                         aiTurn();
-                    }*/
+                        System.out.println("AI Turn");
                     }
-            );
-            
-            if(tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
-                        aiTurn();
+                
+                
+                newTurn = false;
             }
-            playerTurn(indexOfCurrentPlayerTurn);
             
-            double initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
-            double maxPos = initialPosition + 100;
-            double minPos = initialPosition - 100;
-            while(waitUntilEndOfTurn(indexOfCurrentPlayerTurn)){
-                if(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() >= maxPos || tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() < minPos){
-                    break;
+            
+            
+            maxPos = initialPosition + 100;
+            minPos = initialPosition - 100;
+            
+                if(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() >= maxPos || tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() < minPos || tanksAnimation.isShotFired()){
+                    endTurn = true;
                 }
-            }
 
-               
-            indexOfCurrentPlayerTurn++;
-            if(indexOfCurrentPlayerTurn >= tanksArrayUsed.length)
-                indexOfCurrentPlayerTurn = 0;
+               if(endTurn){
+                   indexOfCurrentPlayerTurn++;
+                   if(indexOfCurrentPlayerTurn >= tanksArrayUsed.length){
+                        indexOfCurrentPlayerTurn = 0;
+                   }
+                    tanksAnimation.setShotFired(false);
+                    endTurn = false;
+                    newTurn = true;
+                    tanksAnimation.getPane().setFocusTraversable(true);
+               }
             
-            
-            tanksAnimation.setShotFired(false);
             
             if(!moreThanOneTankAlive()){
-                break;
+                //End Game
+                System.out.println("Game Over");
+                this.stop();
+                //System.exit(1);
             }
             
-            if(!(tanksAnimation.getWeaponAnimation() == null)){
-                try {
-                    //int v = 0;
-                    while(tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
-                        //System.out.println("HEY" + v + " Tank: " + tanksArrayUsed[indexOfCurrentPlayerTurn].getImagePath());
-                        //v++;
-                    }
-                    
-                    this.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            
             }
-            }
-        }
+            
         
-        System.out.println("Game Over");
-        this.stop();
             
         
         
