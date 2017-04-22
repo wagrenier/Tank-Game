@@ -191,12 +191,6 @@ public class TanksAnimation implements Serializable{
                 }
             }
         
-        
-        
-        
-        
-        
-        
         weaponManager = new WeaponManager();
         hud = new HUD(weaponManager, this.pane);
         
@@ -206,7 +200,7 @@ public class TanksAnimation implements Serializable{
         
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getDamage(), weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getTexturePath());        
         
-       weaponAnimation = new WeaponAnimation(weapon, tanksOne, mapGeneration, pane, 1);
+       weaponAnimation = new WeaponAnimation(weapon, tanksOne, mapGeneration, pane, 1, 1); //Values are not important as this object wil;l never be used (Initialized to prevent nuillPointerException)
         
         pane.setOnKeyPressed(x -> {
                 keyPressed(x.getCode(), tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], progressBarAnimationUsed[indexOfCurrentPlayerTurn], progressBarUsed[indexOfCurrentPlayerTurn]);
@@ -373,7 +367,7 @@ public class TanksAnimation implements Serializable{
         shotFired = true;
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getDamage(), weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getTexturePath());        
         
-        weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, x);
+        weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, x, mapGeneration.getGravity());
         weaponAnimation.launchAnimation();
         hitDetection(tank, weapon);
        

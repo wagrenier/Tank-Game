@@ -28,6 +28,7 @@ public class GameLoop extends AnimationTimer{
     private int launchWeaponDelay = 0;
     private int launchWeaponDelayCounter = 0;
     private int indexOfCurrentPlayerTurn = 0;
+    double gravity;
     double maxPos;
     double minPos;
     double initialPosition;
@@ -39,6 +40,7 @@ public class GameLoop extends AnimationTimer{
         this.tanksAnimation = tanksAnimation;
         this.tanksAnimationArrayUsed = tanksAnimationArrayUsed;
         this.tanksArrayUsed = tanksAraryused;
+        this.gravity = tanksAnimation.getMapGeneration().getGravity();
     }
     
     private void playerTurn(int indexOfCurrentPlayer){
@@ -158,7 +160,7 @@ public class GameLoop extends AnimationTimer{
         double x = -(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() - tank.getTranslateX());
         double y = (tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateY() - tank.getTranslateY());
         double v = 0.5; 
-        double g = 0.0005; 
+        double g = gravity; 
         double sqrt = (v*v*v*v) - (g*(g*(x*x) + 2*y*(v*v)));
         sqrt = Math.sqrt(sqrt);
         

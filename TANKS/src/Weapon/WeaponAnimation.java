@@ -55,12 +55,13 @@ public class WeaponAnimation {
         launchAnimation();
     }
     
-    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, double initialVelocity){
+    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, double initialVelocity, double gravity){
         this.pane = pane;
         this.tank = tank;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
         this.initialVelocity = initialVelocity;
+        this.gravity = gravity;
         setupAnimation(); 
         //launchAnimation();
     }
