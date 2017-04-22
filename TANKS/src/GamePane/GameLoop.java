@@ -115,6 +115,12 @@ public class GameLoop extends AnimationTimer{
          
          //Must be able to orient themselves
         if(tanksDistance[indexOfClosestTank] < 250){
+            if(tanksArrayUsed[indexOfClosestTank].getTranslateX() < tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX()){
+                tanksArrayUsed[indexOfCurrentPlayerTurn].flipTexture();
+        }
+            else{
+                tanksArrayUsed[indexOfCurrentPlayerTurn].normalTexture();
+        }
             fireWeapon();
         }
         else if(tanksArrayUsed[indexOfClosestTank].getTranslateX() < tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX()){
@@ -176,8 +182,15 @@ public class GameLoop extends AnimationTimer{
     public void handle(long now) {  
             
             if(tanksAnimation.getHud().getPauseMenu().isGamePaused() || tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
-                System.out.println("Stuck in Pause");
+                //System.out.println("Stuck in Pause");
         }
+            
+            else if(!tanksArrayUsed[indexOfCurrentPlayerTurn].isTankAlive()){
+                indexOfCurrentPlayerTurn++;
+                   if(indexOfCurrentPlayerTurn >= tanksArrayUsed.length){
+                        indexOfCurrentPlayerTurn = 0;
+                   }
+            }
             
             
             else{
@@ -228,6 +241,7 @@ public class GameLoop extends AnimationTimer{
             if(!moreThanOneTankAlive()){
                 //End Game
                 System.out.println("Game Over");
+                playerTurn(indexOfCurrentPlayerTurn);
                 this.stop();
                 //System.exit(1);
             }
