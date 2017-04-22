@@ -373,7 +373,7 @@ public class TanksAnimation implements Serializable{
         shotFired = true;
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getDamage(), weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getTexturePath());        
         
-        weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, 0.5);
+        weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, x);
         weaponAnimation.launchAnimation();
         hitDetection(tank, weapon);
        

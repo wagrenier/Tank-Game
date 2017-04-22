@@ -7,6 +7,7 @@ package GamePane;
 
 import Tanks.Tanks;
 import Tanks.TanksAnimation;
+import java.util.Timer;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
@@ -23,6 +24,9 @@ public class GameLoop extends AnimationTimer{
     
     private boolean newTurn = true;
     private boolean endTurn = false;
+    private boolean launchInitiated = false;
+    private int launchWeaponDelay = 0;
+    private int launchWeaponDelayCounter = 0;
     private int indexOfCurrentPlayerTurn = 0;
     double maxPos;
     double minPos;
@@ -71,10 +75,19 @@ public class GameLoop extends AnimationTimer{
         System.out.println("AI Fire Weapon " + tank.getImagePath());
         
         tanksArrayUsed[indexOfCurrentPlayerTurn].getCannon().setAICannonAngle(angleToShoot(tank));
-        tanksAnimation.weaponSetup(tanksArrayUsed[indexOfCurrentPlayerTurn], Math.random());
+        //tanksAnimation.weaponSetup(tanksArrayUsed[indexOfCurrentPlayerTurn], Math.random());
         
+        tanksAnimation.keyPressed(KeyCode.SPACE, 
+                tanksArrayUsed[indexOfCurrentPlayerTurn], 
+                tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], 
+                tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], 
+                tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
         
-        //tanksAnimation.keyPressed(KeyCode.SPACE, tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
+        //Times 60 because the thread is called 60 times per second
+        launchWeaponDelay = (int) ((1 + Math.random() * 4) * (Math.random() * 61));
+        System.out.println(launchWeaponDelay / 60);
+        launchInitiated = true;
+        
     }
     
     private void bestWeapon(){
@@ -140,6 +153,7 @@ public class GameLoop extends AnimationTimer{
     }
     
     private double angleToShoot(Tanks tank){
+        //The initial velocity (v) is set to 0.5 at all time and does not use the real value to allow the human to win sometimes.
         double angleMap = tanksAnimation.getMapGeneration().derivativeFunction(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX());
         double x = -(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() - tank.getTranslateX());
         double y = (tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateY() - tank.getTranslateY());
@@ -203,16 +217,7 @@ public class GameLoop extends AnimationTimer{
                         indexOfCurrentPlayerTurn = 0;
                    }
             }
-            
-            
             else{
-                
-                
-               /* 
-            if(!(tanksAnimation.getWeaponAnimation() == null)){
-               
-            }*/
-            
             if(newTurn){
                 System.out.println("New Turn");
                 tanksAnimation.resetSpeed();
@@ -223,14 +228,28 @@ public class GameLoop extends AnimationTimer{
                 if(tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
                         aiTurn();
                         //System.out.println("AI Turn");
+                        
                     }
                 
-                
+                else{
+                    tanksAnimation.getPane().setFocusTraversable(true);
+                }
                 newTurn = false;
             }
             
-            
-            
+            if(launchInitiated){
+                launchWeaponDelayCounter++;
+                
+                if(launchWeaponDelayCounter == launchWeaponDelay){
+                    tanksAnimation.keyPressed(KeyCode.SPACE, 
+                        tanksArrayUsed[indexOfCurrentPlayerTurn], 
+                        tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], 
+                        tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], 
+                        tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
+                    launchWeaponDelayCounter = 0;
+                    launchInitiated = false;
+                }
+            }
             maxPos = initialPosition + 100;
             minPos = initialPosition - 100;
             
@@ -246,7 +265,7 @@ public class GameLoop extends AnimationTimer{
                     tanksAnimation.setShotFired(false);
                     endTurn = false;
                     newTurn = true;
-                    tanksAnimation.getPane().setFocusTraversable(true);
+                    
                }
             
             
@@ -257,14 +276,7 @@ public class GameLoop extends AnimationTimer{
                 this.stop();
                 //System.exit(1);
             }
-            
-            
             }
-            
-        
-            
-        
-        
     }
     
 }
