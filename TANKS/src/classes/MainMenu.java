@@ -5,6 +5,7 @@
  */
 package classes;
 
+import LoadFunction.LoadFunction;
 import java.util.ArrayList;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -24,12 +25,9 @@ import javafx.scene.input.MouseEvent;
  */
 public class MainMenu extends Pane{
     
-   
-    
-    
     private static final int HEIGHT = 800;
     private static final int WIDTH = 1200;
-    
+    LoadFunction load;
     private ImageView playBtn;
     private ImageView loadBtn;
     
@@ -46,7 +44,6 @@ public class MainMenu extends Pane{
         this.setMinHeight(HEIGHT);
         this.setMaxWidth(WIDTH);
         this.setMinWidth(WIDTH);
-        
         setBackground();
         
         setPlayBtn();
@@ -126,9 +123,7 @@ public class MainMenu extends Pane{
             
         });
         
-        loadBtn.setOnMouseClicked(e -> {
-            System.out.println("Load button pressed");
-        });
+        
         
         loadBtn.setOnMousePressed(e -> {
             loadBtn.setImage(loadBtnClicked);
@@ -189,4 +184,9 @@ public class MainMenu extends Pane{
         this.setBackground(new Background(myBI));
     }
 
+    public ImageView getLoadBtn() {
+        return loadBtn;
+    }
+    
+    
 }

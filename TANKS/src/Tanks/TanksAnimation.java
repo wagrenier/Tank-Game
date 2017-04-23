@@ -33,7 +33,7 @@ public class TanksAnimation implements Serializable{
     private final double width = 1200;
     
     //HUD for the game
-    private HUD hud;
+    private transient HUD hud;
     
     //The index of current player turn
     private int indexOfCurrentPlayerTurn = 0;
@@ -75,22 +75,22 @@ public class TanksAnimation implements Serializable{
     private final Tanks tanksFour;
     
     //Variable for the tanks' animation
-    private Timeline animation;
-    private Timeline animation2;
-    private Timeline animation3;
-    private Timeline animation4;
+    private  transient Timeline animation;
+    private  transient Timeline animation2;
+    private transient  Timeline animation3;
+    private  transient Timeline animation4;
     
     //Variables for the tanks' progress bar animation, which serves as the setter for the initial velocity
-    private Timeline progressBarAnimationOne;
-    private Timeline progressBarAnimationTwo;
-    private Timeline progressBarAnimationThree;
-    private Timeline progressBarAnimationFour;
+    private  transient Timeline progressBarAnimationOne;
+    private transient  Timeline progressBarAnimationTwo;
+    private  transient Timeline progressBarAnimationThree;
+    private transient  Timeline progressBarAnimationFour;
     
     //Progress Bar of the tanks
-    ProgressBar barOne = new ProgressBar(0);
-    ProgressBar barTwo = new ProgressBar(0);
-    ProgressBar barThree = new ProgressBar(0);
-    ProgressBar barFour = new ProgressBar(0);
+     transient ProgressBar barOne = new ProgressBar(0);
+     transient ProgressBar barTwo = new ProgressBar(0);
+     transient ProgressBar barThree = new ProgressBar(0);
+     transient ProgressBar barFour = new ProgressBar(0);
     
     //Pane of the game
     private GamePane pane;
@@ -99,15 +99,15 @@ public class TanksAnimation implements Serializable{
     private MapGeneration mapGeneration;
     
     //Contains all the available weapons in the game
-    WeaponManager weaponManager;
+    transient WeaponManager weaponManager;
     
-    WeaponAnimation weaponAnimation;
-    private Player[] playerArray;
-    private Tanks[] tanksArray = new Tanks[4];
-    private Tanks[] tanksArrayUsed;
-    private Timeline[] tanksAnimationArrayUsed;
-    private Timeline[] progressBarAnimationUsed = new Timeline[4];
-    private ProgressBar[] progressBarUsed = new ProgressBar[4];
+    transient WeaponAnimation weaponAnimation;
+    private transient Player[] playerArray;
+    private transient Tanks[] tanksArray = new Tanks[4];
+    private transient Tanks[] tanksArrayUsed;
+    private transient Timeline[] tanksAnimationArrayUsed;
+    private transient Timeline[] progressBarAnimationUsed = new Timeline[4];
+    private transient ProgressBar[] progressBarUsed = new ProgressBar[4];
     
     public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList) {
         this.mapGeneration = mapGeneration;
@@ -518,6 +518,10 @@ public class TanksAnimation implements Serializable{
         hud.setCurrentPlayerTank(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[indexOfCurrentPlayerTurn].getTeam());
     }
     
+    public void putEverythingInPane(){
+        
+    }
+    
     public double getWidth() {
         return width;
     }
@@ -652,6 +656,10 @@ public class TanksAnimation implements Serializable{
 
     public Timeline[] getProgressBarAnimationUsed() {
         return progressBarAnimationUsed;
+    }
+
+    public void setHud(HUD hud) {
+        this.hud = hud;
     }
     
     

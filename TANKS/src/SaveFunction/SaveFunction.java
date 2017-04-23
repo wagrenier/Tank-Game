@@ -7,8 +7,14 @@ package SaveFunction;
 
 import GamePane.GamePane;
 import MapGeneration.MapGeneration;
+import Tanks.Tanks;
 import Tanks.TanksAnimation;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -17,10 +23,18 @@ import java.io.ObjectOutputStream;
  */
 public class SaveFunction {
     //Default Save file: src/Saves/save.txt
-    ObjectOutputStream objectOutputStream;
     
-    public SaveFunction(){
-        
+    public SaveFunction(GamePane gamePane){
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("Save/save.dat", false));
+            
+            objectOutputStream.writeObject(gamePane);
+            objectOutputStream.writeObject(gamePane.getTanksAnimation());
+            objectOutputStream.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SaveFunction.class.getName()).log(Level.SEVERE, null, ex);
+            File file = new File("Save/save.dat");
+        }
     }
     
     public SaveFunction(MapGeneration mapGeneration, GamePane gamePane, TanksAnimation tanksAniamtion){

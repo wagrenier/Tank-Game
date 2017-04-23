@@ -6,6 +6,7 @@
 package classes;
 
 import GamePane.GamePane;
+import LoadFunction.LoadFunction;
 import java.util.ArrayList;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 public class MainMenuManagerPane extends Pane{
     
     GamePane gamePane;
+    LoadFunction load;
     BorderPane borderPane = new BorderPane();
     private MainMenu mainMenu = new MainMenu();
     private PlayerMenu playerMenu = new PlayerMenu();
@@ -30,15 +32,12 @@ public class MainMenuManagerPane extends Pane{
     
     private static int numberOfPlayers;
     private static int playerCount = 0;
-    
-    
     private static int paneCount = 0;
     private ArrayList<Pane> paneList = new ArrayList<>();
-    
     private ArrayList<Player> playerList = new ArrayList<>();
-    
     private ImageView cursor = new ImageView(new Image("Texture/Cursor/Cursor.png"));
-
+    
+    
     public MainMenuManagerPane() {
         paneList.add(mainMenu);
         paneList.add(playerMenu);
@@ -51,6 +50,24 @@ public class MainMenuManagerPane extends Pane{
         
         this.getChildren().add(mainMenu);
         cursorSetting(this);
+        
+        mainMenu.getLoadBtn().setOnMouseClicked(e -> {
+            this.getChildren().clear();
+            load = new LoadFunction(this);
+            borderPane.setCenter(load.getGamePane());
+            borderPane.setTop(load.getGamePane().getHUD());
+            
+            
+            
+            this.setMinSize(1200, 950);
+            this.setMaxSize(1200, 950);
+            
+            
+            
+            load.getGamePane().setFocusTraversable(true);
+            this.getChildren().add(borderPane);
+            this.autosize();
+        });
         
         mainMenu.getPlayBtn().setOnMouseClicked(e -> {
             paneCount++;
