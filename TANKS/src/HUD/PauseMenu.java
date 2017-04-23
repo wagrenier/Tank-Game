@@ -7,6 +7,7 @@ package HUD;
 
 import GamePane.GamePane;
 import SaveFunction.SaveFunction;
+import Tanks.Tanks;
 import java.io.Serializable;
 import static javafx.animation.Animation.Status.RUNNING;
 import javafx.scene.Cursor;
@@ -127,6 +128,11 @@ public class PauseMenu implements Serializable{
         saveBtn.setOnMousePressed(e -> {
             saveBtn.setImage(saveBtnClicked);
             SaveFunction save = new SaveFunction(gamePane);
+            Tanks[] array1 = gamePane.getTanksAnimation().getTanksArrayUsed();
+            
+            for(int i = 0; i < array1.length; i++){
+            System.out.println("x: " + array1[i].getTranslateX() + " y: " + array1[i].getTranslateY());
+        }
         });
         
         saveBtn.setOnMouseReleased(e -> {

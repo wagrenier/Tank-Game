@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,23 +25,18 @@ public class LoadFunction {
     
     //Default Save file: src/Saves/save.txt
     GamePane gamePane;
-    TanksAnimation tanksAnimation;
-    //ObjectInputStream inputTanksAnimation;
-    public LoadFunction(MainMenuManagerPane managerPane) {
+    double[][] tanksArray2;
+    boolean[] direction;
+    
+    public LoadFunction() {
         
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("Save/save.dat"));
-            //inputTanksAnimation = new ObjectInputStream(new FileInputStream("Save/saveTanksAnimation.dat"));
+            ObjectInputStream objectInputStream2 = new ObjectInputStream(new FileInputStream("Save/saveLocation.dat"));
+            
             gamePane = (GamePane) (objectInputStream.readObject());
-            tanksAnimation = (TanksAnimation) (objectInputStream.readObject());
-            gamePane.setTanksAnimation(tanksAnimation);
-            //gamePane.paneSetup(gamePane);
-            //managerPane.getChildren().clear();
-            //gamePane.frontGroundSetup(gamePane);
-            //managerPane.getChildren().add(gamePane.getPane());
-            objectInputStream.close();
-        } catch (NotSerializableException ex1){
-            System.out.println("Load Failed");
+            tanksArray2 = (double[][]) (objectInputStream2.readObject());
+            direction = (boolean[]) (objectInputStream2.readObject());
         } catch (IOException ex) {
             Logger.getLogger(LoadFunction.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex2) {
@@ -49,11 +45,16 @@ public class LoadFunction {
         
     }
 
-    public GamePane getGamePane() {
-        return gamePane;
+    public double[][] getTanksArray() {
+        return tanksArray2;
+    }
+
+    public boolean[] getDirection() {
+        return direction;
     }
     
     
-    
-    
+    public GamePane getGamePane() {
+        return gamePane;
+    }
 }

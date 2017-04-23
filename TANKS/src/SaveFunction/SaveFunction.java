@@ -26,18 +26,20 @@ public class SaveFunction {
     
     public SaveFunction(GamePane gamePane){
         try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("Save/save.dat", false));
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("Save/save.dat", false));  
+            ObjectOutputStream objectOutputStream2 = new ObjectOutputStream(new FileOutputStream("Save/saveLocation.dat", false)); 
             
             objectOutputStream.writeObject(gamePane);
-            objectOutputStream.writeObject(gamePane.getTanksAnimation());
-            objectOutputStream.close();
+            objectOutputStream2.writeObject(gamePane.getTanksAnimation().obtainEachTanksTranslation());
+            objectOutputStream2.writeObject(gamePane.getTanksAnimation().obtainEachTanksDirection());
+            
+            /*
+            for(int i = 0; i < gamePane.getTanksAnimation().getTanksArrayUsed().length; i++){
+            System.out.println("x: " + gamePane.getTanksAnimation().getTanksArrayUsed()[i].getTranslateX() + " y: " + gamePane.getTanksAnimation().getTanksArrayUsed()[i].getTranslateY());
+        }*/
         } catch (IOException ex) {
             Logger.getLogger(SaveFunction.class.getName()).log(Level.SEVERE, null, ex);
-            File file = new File("Save/save.dat");
+            //File file = new File("Save/save.dat");
         }
-    }
-    
-    public SaveFunction(MapGeneration mapGeneration, GamePane gamePane, TanksAnimation tanksAniamtion){
-        
     }
 }

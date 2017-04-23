@@ -8,6 +8,7 @@ package Weapon;
 import MapGeneration.MapGeneration;
 import Tanks.MainTankMouvementTest;
 import Tanks.Tanks;
+import java.io.Serializable;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -19,7 +20,7 @@ import javafx.util.Duration;
  *
  * @author willi
  */
-public class WeaponAnimation {
+public class WeaponAnimation  implements Serializable{
     
     /**
      * An WeaponAnimation Object is created when the weapon is used in the game 
@@ -40,11 +41,11 @@ public class WeaponAnimation {
     private double xspeed;
     
     
-    MapGeneration mapGeneration;
-    Weapon weapon;
-    Timeline animationWeapon;
-    Tanks tank;
-    Pane pane;  
+     transient MapGeneration mapGeneration;
+     transient Weapon weapon;
+     transient Timeline animationWeapon;
+     transient Tanks tank;
+     transient Pane pane;  
     
     public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane){
         this.pane = pane;

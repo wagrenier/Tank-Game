@@ -6,6 +6,7 @@
 package HUD;
 
 import GamePane.GamePane;
+import java.io.Serializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -13,13 +14,13 @@ import javafx.scene.image.ImageView;
  *
  * @author Cedrik Dubois
  */
-public class Store {
+public class Store implements Serializable{
     
     private boolean storeOpened = false;
     
-    private GamePane gamePane;
+    private transient GamePane gamePane;
     
-    private ImageView storeBackground = new ImageView(new Image("Texture/Menus/Store/Store.png"));
+    private transient ImageView storeBackground = new ImageView(new Image("Texture/Menus/Store/Store.png"));
     
     public Store(GamePane gamePane){
         this.gamePane = gamePane;

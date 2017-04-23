@@ -75,15 +75,15 @@ public class TanksAnimation implements Serializable{
     private final Tanks tanksFour;
     
     //Variable for the tanks' animation
-    private  transient Timeline animation;
-    private  transient Timeline animation2;
+    private transient Timeline animation;
+    private transient Timeline animation2;
     private transient  Timeline animation3;
-    private  transient Timeline animation4;
+    private transient Timeline animation4;
     
     //Variables for the tanks' progress bar animation, which serves as the setter for the initial velocity
-    private  transient Timeline progressBarAnimationOne;
+    private transient Timeline progressBarAnimationOne;
     private transient  Timeline progressBarAnimationTwo;
-    private  transient Timeline progressBarAnimationThree;
+    private transient Timeline progressBarAnimationThree;
     private transient  Timeline progressBarAnimationFour;
     
     //Progress Bar of the tanks
@@ -99,12 +99,14 @@ public class TanksAnimation implements Serializable{
     private MapGeneration mapGeneration;
     
     //Contains all the available weapons in the game
-    transient WeaponManager weaponManager;
+    private WeaponManager weaponManager;
     
-    transient WeaponAnimation weaponAnimation;
-    private transient Player[] playerArray;
-    private transient Tanks[] tanksArray = new Tanks[4];
-    private transient Tanks[] tanksArrayUsed;
+    ArrayList<Player> playerArrayList = new ArrayList<>();
+    
+    WeaponAnimation weaponAnimation;
+    private Player[] playerArray;
+    private Tanks[] tanksArray = new Tanks[4];
+    private Tanks[] tanksArrayUsed;
     private transient Timeline[] tanksAnimationArrayUsed;
     private transient Timeline[] progressBarAnimationUsed = new Timeline[4];
     private transient ProgressBar[] progressBarUsed = new ProgressBar[4];
@@ -139,10 +141,6 @@ public class TanksAnimation implements Serializable{
         animation2 = animationForTanks(tanksTwo, 35, 18, 500, progressBarAnimationTwo);
         animation3 = animationForTanks(tanksThree, 35, 21, 700, progressBarAnimationThree);
         animation4 = animationForTanks(tanksFour, 35, 18, 100, progressBarAnimationFour);
-        //animationForTankOne();
-        //animationForTanksTwo();
-        //animationForTankThree();
-        //animationForTankFour();
         
         for(int i = 0; i < playerArray.length; i++){
             playerArray[i] = playerArrayList.get(i);
@@ -518,8 +516,45 @@ public class TanksAnimation implements Serializable{
         hud.setCurrentPlayerTank(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[indexOfCurrentPlayerTurn].getTeam());
     }
     
-    public void putEverythingInPane(){
-        
+    public void resetTankOrientationSave(boolean[] tankOrientation){
+        for(int i = 0; i < tankOrientation.length; i++){
+            if(tankOrientation[i])
+                tanksArrayUsed[i].flipTexture();
+        }
+    }
+    
+    public boolean[] obtainEachTanksDirection(){
+        boolean[] tankOrientation = new boolean[tanksArrayUsed.length];
+        for(int i = 0; i < tankOrientation.length; i++){
+            tankOrientation[i] = tanksArrayUsed[i].isIsImageFlipped();
+        }
+        return tankOrientation;
+    }
+    
+    public void resetTankPositionSave(double[][] tanksArraySave){
+        for(int i = 0; i < tanksArraySave.length; i++){
+            for(int k = 0; k < 2; k++){
+                if(k % 2 == 0)
+                    tanksArrayUsed[i].setTranslateX(tanksArraySave[i][k]);
+                
+                else
+                    tanksArrayUsed[i].setTranslateY(tanksArraySave[i][k]);
+            }
+        }
+    }
+    
+    public double[][] obtainEachTanksTranslation(){
+        double[][] tankLocation = new double[tanksArrayUsed.length][2];
+        for(int i = 0; i < tankLocation.length; i++){
+            for(int k = 0; k < 2; k++){
+                if(k % 2 == 0)
+                    tankLocation[i][k] = tanksArrayUsed[i].getTranslateX();
+                
+                else
+                    tankLocation[i][k] = tanksArrayUsed[i].getTranslateY();
+            }
+        }
+        return tankLocation;
     }
     
     public double getWidth() {

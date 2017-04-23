@@ -30,19 +30,21 @@ public class GamePane extends Pane implements Serializable{
     private int numOfPlayers;
     private double width = 1200;
     private double height = 800;
-    private TanksAnimation tanksAnimation;
+    private transient TanksAnimation tanksAnimation;
     MapGeneration mapGeneration = new MapGeneration(450, 200, 500, 0.0005);
-    private transient ArrayList<Player> playerArrayList = new ArrayList<>();
+    private ArrayList<Player> playerArrayList = new ArrayList<>();
     private transient Timeline[] tanksAnimationArrayUsed;
     private transient GameLoop gameLoop;
     
-    public GamePane(){
-        super();
+    
+    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, MapGeneration mapGeneration){
+        this.mapGeneration = mapGeneration;
+        this.playerArrayList = playerArrayList;
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
         this.numOfPlayers = numOfPlayers;
         paneSetup(this);   
-        //gameLoop();
+        gameLoop();
     }
     
     public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList){
@@ -124,5 +126,14 @@ public class GamePane extends Pane implements Serializable{
     public void addPlayer(Player player){
         playerArrayList.add(player);
     }
+
+    public ArrayList<Player> getPlayerArrayList() {
+        return playerArrayList;
+    }
+
+    public MapGeneration getMapGeneration() {
+        return mapGeneration;
+    }
+    
     
 }

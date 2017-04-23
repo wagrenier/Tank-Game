@@ -5,15 +5,17 @@
  */
 package classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Cedrik Dubois
  */
-public class Player {
+public class Player implements Serializable{
     
     private String username;
     private int team;
-    private boolean isAI = true;
+    private boolean isAI = false;
     
     /**
      * Index of the teams

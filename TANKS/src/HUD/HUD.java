@@ -29,7 +29,7 @@ import javafx.scene.text.Text;
  *
  * @author Cedrik Dubois
  */
-public class HUD extends Pane implements Serializable{
+public class HUD extends Pane{
 
 
     //private ImageView pointer = new ImageView(new Image("Texture/Teleport.png"));
@@ -38,11 +38,11 @@ public class HUD extends Pane implements Serializable{
     
 
     
-    private  transient  GamePane gamePane;
+    private GamePane gamePane;
     
-    private  transient PauseMenu pauseMenu;
+    private PauseMenu pauseMenu;
     
-    private transient  Store storeMenu;
+    private Store storeMenu;
     
     //Scene gameScene;
     
@@ -51,51 +51,51 @@ public class HUD extends Pane implements Serializable{
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 150;
     
-    private  transient Text player = new Text();
-    private  transient ArrayList<String> playerNames = new ArrayList<>();
+    private transient Text player = new Text();
+    private ArrayList<String> playerNames = new ArrayList<>();
     private static int playerIndex = 0;
     
-     transient WeaponManager weaponManager;
+    WeaponManager weaponManager;
     private int weaponIndex = 0;
     
     //private Text weapon = new Text("Missile");
     //private Text weaponCost = new Text("($0.00)");
     //private ImageView weaponLogo = new ImageView(new Image("Texture/Items/Normal/Missile.png"));
-    private  transient Text weapon = new Text();
-    private  transient Text weaponCost = new Text();
-    private  transient ImageView weaponLogo;
+    private transient Text weapon = new Text();
+    private transient Text weaponCost = new Text();
+    private transient ImageView weaponLogo;
     
-    private  transient ImageView weaponBtn;
-    private  transient Image weaponBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
-    private  transient Image weaponBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
+    private transient ImageView weaponBtn;
+    private transient Image weaponBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
+    private transient Image weaponBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
     
-    private  transient ImageView itemBtn;
-    private  transient Image itemBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
-    private  transient Image itemBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
+    private transient ImageView itemBtn;
+    private transient Image itemBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
+    private transient Image itemBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
     
-    private  transient ImageView storeBtn;
-    private transient  Image storeBtnImage = new Image("Texture/Menus/HUD/Store Button.png");
-    private  transient Image storeBtnClicked = new Image("Texture/Menus/HUD/Store Button Clicked.png");
+    private transient ImageView storeBtn;
+    private transient Image storeBtnImage = new Image("Texture/Menus/HUD/Store Button.png");
+    private transient Image storeBtnClicked = new Image("Texture/Menus/HUD/Store Button Clicked.png");
     
-    private  transient ImageView pauseBtn;
-    private transient  Image pauseBtnImage = new Image("Texture/Menus/HUD/Pause Button.png");
-    private  transient Image pauseBtnClicked = new Image("Texture/Menus/HUD/Pause Button Clicked.png");
+    private transient ImageView pauseBtn;
+    private transient Image pauseBtnImage = new Image("Texture/Menus/HUD/Pause Button.png");
+    private transient Image pauseBtnClicked = new Image("Texture/Menus/HUD/Pause Button Clicked.png");
     
-    private  transient String gravity = "9.8";//Default value for the moment
-    private transient  Text gravityLbl = new Text("Gravity: " + gravity);
+    private transient String gravity = "9.8";//Default value for the moment
+    private transient Text gravityLbl = new Text("Gravity: " + gravity);
     
     private int windResistance = 30;//Default value for the moment
-    private transient  Text wind = new Text("Wind Res.: " + windResistance);
+    private transient Text wind = new Text("Wind Res.: " + windResistance);
     
-    private  transient ColoredProgressBar playerHealth = new ColoredProgressBar("green-bar", 1);
+    private  ColoredProgressBar playerHealth = new ColoredProgressBar("green-bar", 1);
     
-    private  transient ImageView playerTank;
+    private transient ImageView playerTank;
     
-    private transient  Image[] tanks = new Image[4];
-    private  transient Image canadaTank = new Image("Texture/Menus/HUD/Canada Tank.png");
-    private  transient Image usaTank = new Image("Texture/Menus/HUD/USA Tank.png");
-    private transient  Image northKoreaTank = new Image("Texture/Menus/HUD/North Korea Tank.png");
-    private  transient Image chinaTank = new Image("Texture/Menus/HUD/China Tank.png");
+    private  Image[] tanks = new Image[4];
+    private transient Image canadaTank = new Image("Texture/Menus/HUD/Canada Tank.png");
+    private transient Image usaTank = new Image("Texture/Menus/HUD/USA Tank.png");
+    private transient Image northKoreaTank = new Image("Texture/Menus/HUD/North Korea Tank.png");
+    private transient Image chinaTank = new Image("Texture/Menus/HUD/China Tank.png");
     
     
     public HUD(WeaponManager weaponManager, GamePane gamePane){

@@ -7,6 +7,7 @@ package classes;
 
 import GamePane.GamePane;
 import LoadFunction.LoadFunction;
+import Tanks.Tanks;
 import java.util.ArrayList;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -52,19 +53,25 @@ public class MainMenuManagerPane extends Pane{
         cursorSetting(this);
         
         mainMenu.getLoadBtn().setOnMouseClicked(e -> {
+            
             this.getChildren().clear();
-            load = new LoadFunction(this);
-            borderPane.setCenter(load.getGamePane());
-            borderPane.setTop(load.getGamePane().getHUD());
+            load = new LoadFunction();
+            double[][] array = load.getTanksArray();
+            boolean[] array2 = load.getDirection();
+            gamePane = new GamePane(load.getGamePane().getPlayerArrayList().size(), load.getGamePane().getPlayerArrayList(), load.getGamePane().getMapGeneration());
+            //gamePane.setTanksAnimation(load.getTanksAnimation());
+            borderPane.setCenter(gamePane);
+            borderPane.setTop(gamePane.getHUD());
             
-            
+            gamePane.getTanksAnimation().resetTankPositionSave(array);
+            gamePane.getTanksAnimation().resetTankOrientationSave(array2);
             
             this.setMinSize(1200, 950);
             this.setMaxSize(1200, 950);
             
             
             
-            load.getGamePane().setFocusTraversable(true);
+            gamePane.setFocusTraversable(true);
             this.getChildren().add(borderPane);
             this.autosize();
         });
