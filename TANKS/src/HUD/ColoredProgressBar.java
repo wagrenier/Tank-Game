@@ -5,13 +5,14 @@
  */
 package HUD;
 
+import java.io.Serializable;
 import javafx.scene.control.ProgressBar;
 
 /**
  *
  * @author Cedrik Dubois
  */
-public class ColoredProgressBar extends ProgressBar{
+public class ColoredProgressBar extends ProgressBar  implements Serializable{
     
     ColoredProgressBar(String styleClass, double progress) {
         super(progress);

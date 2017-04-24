@@ -7,12 +7,13 @@ package Weapon;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.io.Serializable;
 
 /**
  *
  * @author Cedrik Dubois
  */
-public class Item {
+public class Item  implements Serializable{
     
     private String name;
     private int costOfItem;
