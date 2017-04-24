@@ -6,6 +6,9 @@
 package HUD;
 
 import GamePane.GamePane;
+import SaveFunction.SaveFunction;
+import Tanks.Tanks;
+import java.io.Serializable;
 import static javafx.animation.Animation.Status.RUNNING;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -22,10 +25,10 @@ import javafx.stage.Stage;
  *
  * @author Cedrik Dubois
  */
-public class PauseMenu {
+public class PauseMenu implements Serializable{
     
     
-    private GamePane gamePane ;
+    private  transient GamePane gamePane ;
     
     private boolean isGamePaused = false;
     
@@ -35,23 +38,23 @@ public class PauseMenu {
     private boolean isProgressBarStopped4 = false;
     private boolean isWeaponAnimationStopped = false;
     
-    private ImageView pauseMenu = new ImageView(new Image("Texture/Menus/PauseMenu/Pause Menu.png"));
+    private  transient ImageView pauseMenu = new ImageView(new Image("Texture/Menus/PauseMenu/Pause Menu.png"));
     
-    private ImageView resumeBtn;
-    private ImageView exitBtn;
-    private ImageView saveBtn;
+    private transient  ImageView resumeBtn;
+    private  transient ImageView exitBtn;
+    private  transient ImageView saveBtn;
     
-    private Image resumeBtnImage = new Image("Texture/Menus/PauseMenu/Resume Button.png");
-    private Image resumeBtnHover = new Image("Texture/Menus/PauseMenu/Resume Button Hover.png");
-    private Image resumeBtnClicked = new Image("Texture/Menus/PauseMenu/Resume Button Clicked.png");
+    private  transient Image resumeBtnImage = new Image("Texture/Menus/PauseMenu/Resume Button.png");
+    private  transient Image resumeBtnHover = new Image("Texture/Menus/PauseMenu/Resume Button Hover.png");
+    private transient Image resumeBtnClicked = new Image("Texture/Menus/PauseMenu/Resume Button Clicked.png");
     
-    private Image saveBtnImage = new Image("Texture/Menus/PauseMenu/Save Button.png");
-    private Image saveBtnHover = new Image("Texture/Menus/PauseMenu/Save Button Hover.png");
-    private Image saveBtnClicked = new Image("Texture/Menus/PauseMenu/Save Button Clicked.png");
+    private  transient Image saveBtnImage = new Image("Texture/Menus/PauseMenu/Save Button.png");
+    private  transient Image saveBtnHover = new Image("Texture/Menus/PauseMenu/Save Button Hover.png");
+    private transient Image saveBtnClicked = new Image("Texture/Menus/PauseMenu/Save Button Clicked.png");
     
-    private Image exitBtnImage = new Image("Texture/Menus/PauseMenu/Exit Button.png");
-    private Image exitBtnHover = new Image("Texture/Menus/PauseMenu/Exit Button Hover.png");
-    private Image exitBtnClicked = new Image("Texture/Menus/PauseMenu/Exit Button Clicked.png");
+    private transient  Image exitBtnImage = new Image("Texture/Menus/PauseMenu/Exit Button.png");
+    private transient  Image exitBtnHover = new Image("Texture/Menus/PauseMenu/Exit Button Hover.png");
+    private  transient Image exitBtnClicked = new Image("Texture/Menus/PauseMenu/Exit Button Clicked.png");
     
     
     public PauseMenu(GamePane gamePane){
@@ -124,6 +127,12 @@ public class PauseMenu {
         
         saveBtn.setOnMousePressed(e -> {
             saveBtn.setImage(saveBtnClicked);
+            SaveFunction save = new SaveFunction(gamePane);
+            Tanks[] array1 = gamePane.getTanksAnimation().getTanksArrayUsed();
+            
+            for(int i = 0; i < array1.length; i++){
+            System.out.println("x: " + array1[i].getTranslateX() + " y: " + array1[i].getTranslateY());
+        }
         });
         
         saveBtn.setOnMouseReleased(e -> {

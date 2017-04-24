@@ -8,13 +8,18 @@ package classes;
 import Weapon.Item;
 import Weapon.Weapon;
 
+import java.io.Serializable;
+
+
 /**
  *
  * @author Cedrik Dubois
  */
-public class Player {
+public class Player implements Serializable{
+    
     private String username;
     private int team;
+    private boolean isAI = true;
     
     private int[] weaponInventory = new int[9];
     private int[] itemInventory = new int[8];
@@ -77,6 +82,14 @@ public class Player {
     
     public int getTeam(){
         return this.team;
+    }
+
+    public boolean isIsAI() {
+        return isAI;
+    }
+
+    public void setIsAI(boolean isAI) {
+        this.isAI = isAI;
     }
     
     public String toString(){

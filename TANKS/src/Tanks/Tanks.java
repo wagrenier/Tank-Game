@@ -16,18 +16,23 @@ import javafx.scene.shape.Circle;
  */
 public class Tanks extends Circle implements Serializable{
     
+    private double xSpeed;
+    private double ySpeed;
+    private double y;
     private int lifePoint = 100;
     private boolean isTankAlive = false;
+    private boolean isAI = false;
     private final String imagePath;
     private final String imageReversePath;
-    private final ImagePattern texturePattern;
-    private final ImagePattern texturePatternFlipped;
-    private final Image texture;
-    private final Image textureFlipped;
+    private final transient ImagePattern texturePattern;
+    private final transient ImagePattern texturePatternFlipped;
+    private final transient Image texture;
+    private final transient Image textureFlipped;
     private boolean isImageFlipped = false;
     private final Cannon cannon;
+    private int team;
     
-    Tanks(String imagePath, String imageReversePath, String imagePathCannon){
+    Tanks(String imagePath, String imageReversePath, String imagePathCannon, int team){
         this.setRadius(50);
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
@@ -38,9 +43,10 @@ public class Tanks extends Circle implements Serializable{
         this.setCenterY(-18);
         this.setFill(texturePattern);
         cannon = new Cannon(imagePathCannon);
+        this.team = team;
     }  
     
-    Tanks(String imagePath, String imageReversePath, String imagePathCannon, String reverse){
+    Tanks(String imagePath, String imageReversePath, String imagePathCannon, String reverse, int team){
         this.setRadius(50);
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
@@ -51,6 +57,7 @@ public class Tanks extends Circle implements Serializable{
         this.setCenterY(-18);
         this.setFill(texturePattern);
         cannon = new Cannon(imagePathCannon, reverse);
+        this.team = team;
         //this.setStroke(Color.BLACK);
     } 
 
@@ -116,7 +123,46 @@ public class Tanks extends Circle implements Serializable{
     public void setIsTankAlive(boolean isTankAlive) {
         this.isTankAlive = isTankAlive;
     }
-    
+
+    public double getxSpeed() {
+        return xSpeed;
+    }
+
+    public void setxSpeed(double xSpeed) {
+        this.xSpeed = xSpeed;
+    }
+
+    public double getySpeed() {
+        return ySpeed;
+    }
+
+    public void setySpeed(double ySpeed) {
+        this.ySpeed = ySpeed;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public int getTeam() {
+        return team;
+    }
+
+    public boolean isIsAI() {
+        return isAI;
+    }
+
+    public void setIsAI(boolean isAI) {
+        this.isAI = isAI;
+    }
+
+    public void setLifePoint(int lifePoint) {
+        this.lifePoint = lifePoint;
+    }
     
     
 }

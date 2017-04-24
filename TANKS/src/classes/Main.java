@@ -27,7 +27,7 @@ public class Main extends Application {
 
 
         
-        
+        /*
         
         MainMenu mainMenuPane = new MainMenu();
 
@@ -68,7 +68,7 @@ public class Main extends Application {
             
             
         });
-        */
+        
        
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -81,7 +81,7 @@ public class Main extends Application {
         
         primaryStage.setMaxWidth(1200);
         primaryStage.setMaxHeight(800);
-        mainMenuPane.requestFocus();
+        mainMenuPane.requestFocus();*/
     }
     
 

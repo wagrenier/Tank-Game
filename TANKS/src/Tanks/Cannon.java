@@ -17,12 +17,13 @@ import javafx.scene.shape.Circle;
 public class Cannon extends Circle implements Serializable{
     
     private double canonAngle = 0;
-    private final String imagePath;
-    private final ImagePattern texturePattern;
-    private String imageReversePath ;
-    private ImagePattern texturePatternFlipped;
-    private final Image texture;
-    private Image textureFlipped;
+    private final transient String imagePath;
+    private transient String imageReversePath;
+    private final transient ImagePattern texturePattern;
+    
+    private final transient ImagePattern texturePatternFlipped;
+    private final transient Image texture;
+    private final transient Image textureFlipped;
     private boolean isImageFlipped = false;
     
     Cannon(String imagePath, String imageReversePath){
@@ -49,13 +50,16 @@ public class Cannon extends Circle implements Serializable{
         //setTranslateY(200);
     }  
     
-    
     Cannon(String imagePath){
         this.setRadius(50);
         this.imagePath = imagePath;
         texture = new Image(this.imagePath);
         texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
         this.setFill(texturePattern);
+        
+        this.imageReversePath = imagePath;
+        textureFlipped = new Image(this.imagePath);
+        texturePatternFlipped = new ImagePattern(texture, 0, 0, 1, 1, true);
     }  
     
     public void flipTexture(){
@@ -87,6 +91,10 @@ public class Cannon extends Circle implements Serializable{
         //this.setRotate(Math.toDegrees(getCanonAngle()));
         }
         
+    }
+    
+    public void setAICannonAngle(double angle){
+        canonAngle = angle;
     }
     
     public double getCanonAngle() {

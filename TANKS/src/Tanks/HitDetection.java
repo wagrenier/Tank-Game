@@ -12,6 +12,7 @@ import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;
 import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
 import javafx.scene.control.ProgressBar;
 
@@ -20,7 +21,7 @@ import javafx.scene.control.ProgressBar;
  *
  * @author willi
  */
-public class HitDetection extends Thread{
+public class HitDetection extends AnimationTimer{
     
     
     private HUD hud;
@@ -61,16 +62,16 @@ public class HitDetection extends Thread{
         this.weapon = weapon;
     }
     
-    public void run(){
+    public void handle(long now){
         
-        while(weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
+        //while(weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
         //System.out.println("Hey");
         if(weapon.getBoundsInParent().intersects(tanksOne.getBoundsInParent()) && tank != tanksOne && tanksOne.isTankAlive()){
            //System.out.println(weapon.getDamage());
            if(!weaponAnimation.isHitSomething()){
            tanksOne.damageDone(weapon.getDamage());
            //System.out.println(tanksOne.getLifePoint());
-           hud.updateHealth(tanksOne.getLifePoint());
+           //hud.updateHealth(tanksOne.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
            
@@ -82,7 +83,7 @@ public class HitDetection extends Thread{
            if(!weaponAnimation.isHitSomething()){
            tanksTwo.damageDone(weapon.getDamage());
           // System.out.println(tanksTwo.getLifePoint());
-           hud.updateHealth(tank.getLifePoint());
+           //hud.updateHealth(tank.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
            //weaponAnimation.removeWeaponFromPane();
@@ -115,8 +116,12 @@ public class HitDetection extends Thread{
            
            
        }
+        //}
+        
+        if(weaponAnimation.isHitSomething()){
+            this.stop();
         }
         
-        this.stop();
+        //this.stop();
     }
 }

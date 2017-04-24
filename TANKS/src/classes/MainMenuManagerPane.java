@@ -6,8 +6,13 @@
 package classes;
 
 import GamePane.GamePane;
+import LoadFunction.LoadFunction;
+import Tanks.Tanks;
 import java.util.ArrayList;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -19,6 +24,7 @@ import javafx.stage.Stage;
 public class MainMenuManagerPane extends Pane{
     
     GamePane gamePane;
+    LoadFunction load;
     BorderPane borderPane = new BorderPane();
     private MainMenu mainMenu = new MainMenu();
     private PlayerMenu playerMenu = new PlayerMenu();
@@ -27,13 +33,12 @@ public class MainMenuManagerPane extends Pane{
     
     private static int numberOfPlayers;
     private static int playerCount = 0;
-    
-    
     private static int paneCount = 0;
     private ArrayList<Pane> paneList = new ArrayList<>();
-    
     private ArrayList<Player> playerList = new ArrayList<>();
-
+    private ImageView cursor = new ImageView(new Image("Texture/Cursor/Cursor.png"));
+    
+    
     public MainMenuManagerPane() {
         paneList.add(mainMenu);
         paneList.add(playerMenu);
@@ -41,11 +46,43 @@ public class MainMenuManagerPane extends Pane{
         paneList.add(mapMenu);
         
         
+        
+        
+        
         this.getChildren().add(mainMenu);
+        cursorSetting(this);
+        
+        mainMenu.getLoadBtn().setOnMouseClicked(e -> {
+            
+            this.getChildren().clear();
+            load = new LoadFunction();
+            double[][] array = load.getTanksArray();
+            boolean[] array2 = load.getDirection();
+            int[] tanksHP = load.getTanksHP();
+            int[] currentTurn = load.getIndexOfCurrentPlayerTurn();
+            gamePane = new GamePane(load.getGamePane().getPlayerArrayList().size(), load.getGamePane().getPlayerArrayList(), load.getGamePane().getMapGeneration(), currentTurn[0]);
+            //gamePane.setTanksAnimation(load.getTanksAnimation());
+            borderPane.setCenter(gamePane);
+            borderPane.setTop(gamePane.getHUD());
+            
+            gamePane.getTanksAnimation().resetTankPositionSave(array);
+            gamePane.getTanksAnimation().resetTankOrientationSave(array2);
+            gamePane.getTanksAnimation().resetTankHPSave(tanksHP);
+            //gamePane.getTanksAnimation().setIndexOfCurrentPlayerTurn(currentTurn[0]);
+            this.setMinSize(1200, 950);
+            this.setMaxSize(1200, 950);
+            
+            
+            
+            gamePane.setFocusTraversable(true);
+            this.getChildren().add(borderPane);
+            this.autosize();
+        });
         
         mainMenu.getPlayBtn().setOnMouseClicked(e -> {
             paneCount++;
             this.getChildren().add(paneList.get(paneCount));
+            cursorSetting(paneList.get(paneCount));
             //scene.setRoot(paneList.get(paneCount));
         });
         
@@ -53,6 +90,7 @@ public class MainMenuManagerPane extends Pane{
             paneCount--;
             this.getChildren().clear();
             this.getChildren().add(paneList.get(paneCount));
+            cursorSetting(paneList.get(paneCount));
            // scene.setRoot(paneList.get(paneCount));
         });
         
@@ -61,6 +99,7 @@ public class MainMenuManagerPane extends Pane{
             this.getChildren().clear();
             this.getChildren().add(paneList.get(paneCount));
             //scene.setRoot(paneList.get(paneCount));
+            cursorSetting(paneList.get(paneCount));
             numberOfPlayers = playerMenu.getNumberOfPlayers();
             
             for (int i = 0; i < numberOfPlayers; i++){
@@ -81,7 +120,7 @@ public class MainMenuManagerPane extends Pane{
                 paneCount++;
                 this.getChildren().clear();
                 this.getChildren().add(paneList.get(paneCount));
-                
+                cursorSetting(paneList.get(paneCount));
                 //scene.setRoot(paneList.get(paneCount));
                 mapMenu.setPlayerList(playerList);
                 mapMenu.setPlayers();
@@ -99,7 +138,7 @@ public class MainMenuManagerPane extends Pane{
             this.getChildren().clear();
             this.getChildren().add(paneList.get(paneCount));
             //scene.setRoot(paneList.get(paneCount));
-            
+            cursorSetting(paneList.get(paneCount));
             //Reset variables for countryMenu
             playerCount = 0;
             playerList.clear();
@@ -119,11 +158,9 @@ public class MainMenuManagerPane extends Pane{
             
             borderPane.setCenter(gamePane);
             borderPane.setTop(gamePane.getHUD());
-            
+            cursorSetting(paneList.get(paneCount));
             gamePane.setFocusTraversable(true);
             this.getChildren().add(borderPane);
-            
-            gamePane.gameLoop();
             this.autosize();
         });
         
@@ -136,12 +173,32 @@ public class MainMenuManagerPane extends Pane{
             
             //Reset variables for mapMenu
             mapMenu.resetPane();
-            
+            cursorSetting(paneList.get(paneCount));
             //Reset variables for countryMenu
             playerCount = 0;
             playerList.clear();
             countryMenu.refreshPane(1);
             countryMenu.resetPane();
+        });
+    }
+    
+    private void cursorSetting(Pane pane){
+        pane.setCursor(Cursor.NONE);
+        
+        
+        pane.setOnMouseEntered(e -> {
+            pane.getChildren().add(cursor);
+            cursor.setTranslateX(e.getSceneX());
+            cursor.setTranslateY(e.getSceneY());
+        });
+        
+        pane.setOnMouseExited(e -> {
+            pane.getChildren().remove(cursor);
+        });
+        
+        pane.setOnMouseMoved(e -> {
+            cursor.setTranslateX(e.getSceneX());
+            cursor.setTranslateY(e.getSceneY());
         });
     }
     

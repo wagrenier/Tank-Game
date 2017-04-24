@@ -8,6 +8,7 @@ package Weapon;
 import MapGeneration.MapGeneration;
 import Tanks.MainTankMouvementTest;
 import Tanks.Tanks;
+import java.io.Serializable;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -19,7 +20,7 @@ import javafx.util.Duration;
  *
  * @author willi
  */
-public class WeaponAnimation {
+public class WeaponAnimation  implements Serializable{
     
     /**
      * An WeaponAnimation Object is created when the weapon is used in the game 
@@ -40,11 +41,11 @@ public class WeaponAnimation {
     private double xspeed;
     
     
-    MapGeneration mapGeneration;
-    Weapon weapon;
-    Timeline animationWeapon;
-    Tanks tank;
-    Pane pane;  
+     transient MapGeneration mapGeneration;
+     transient Weapon weapon;
+     transient Timeline animationWeapon;
+     transient Tanks tank;
+     transient Pane pane;  
     
     public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane){
         this.pane = pane;
@@ -55,14 +56,15 @@ public class WeaponAnimation {
         launchAnimation();
     }
     
-    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, double initialVelocity){
+    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, double initialVelocity, double gravity){
         this.pane = pane;
         this.tank = tank;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
         this.initialVelocity = initialVelocity;
+        this.gravity = gravity;
         setupAnimation(); 
-        launchAnimation();
+        //launchAnimation();
     }
     
     public WeaponAnimation(Weapon weapon, MapGeneration mapGeneration, Pane pane){
@@ -120,6 +122,7 @@ public class WeaponAnimation {
                 
                 //pane.getChildren().remove(animationWeapon);
                 pane.getChildren().remove(weapon);
+                animationWeapon.stop();
                 //add animation explosion
                 
             }
@@ -132,6 +135,7 @@ public class WeaponAnimation {
             else{
                 yspeed = 0;
                 xspeed = 0;
+                animationWeapon.stop();
             }
             if(weapon.getTranslateY() > currentYPosition){
                 weapon.setTranslateY(currentYPosition);
@@ -150,7 +154,7 @@ public class WeaponAnimation {
         
         
         pane.getChildren().add(weapon);
-        animationWeapon.setCycleCount(2000);
+        animationWeapon.setCycleCount(5000);
         animationWeapon.play();
         
         
@@ -199,8 +203,6 @@ public class WeaponAnimation {
     public void setHitSomething(boolean hitSomething) {
         this.hitSomething = hitSomething;
     }
-    
-    
     
     public void stopAnimation(){
         animationWeapon.stop();
