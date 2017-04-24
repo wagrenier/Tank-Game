@@ -35,11 +35,12 @@ public class GameLoop extends AnimationTimer{
     TanksAnimation tanksAnimation;
     Timeline[] tanksAnimationArrayUsed;
     
-    public GameLoop(TanksAnimation tanksAnimation, Timeline[] tanksAnimationArrayUsed, Tanks[] tanksAraryused){
+    public GameLoop(TanksAnimation tanksAnimation, Timeline[] tanksAnimationArrayUsed, Tanks[] tanksAraryused, int indexPlayer){
         this.tanksAnimation = tanksAnimation;
         this.tanksAnimationArrayUsed = tanksAnimationArrayUsed;
         this.tanksArrayUsed = tanksAraryused;
         this.gravity = tanksAnimation.getMapGeneration().getGravity();
+        this.indexOfCurrentPlayerTurn = indexPlayer;
     }
     
     private void playerTurn(int indexOfCurrentPlayer){
@@ -203,6 +204,12 @@ public class GameLoop extends AnimationTimer{
     
     public int getIndexOfCurrentPlayerTurn() {
         return indexOfCurrentPlayerTurn;
+    }
+    
+    public int[] getIndexOfCurrentPlayerTurnArray(){
+        int[] turn = new int[1];
+        turn[0] = indexOfCurrentPlayerTurn;
+        return turn;
     }
     
     @Override

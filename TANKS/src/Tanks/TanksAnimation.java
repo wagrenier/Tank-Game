@@ -111,8 +111,9 @@ public class TanksAnimation implements Serializable{
     private transient Timeline[] progressBarAnimationUsed = new Timeline[4];
     private transient ProgressBar[] progressBarUsed = new ProgressBar[4];
     
-    public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList) {
+    public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList, int currentPlayer) {
         this.mapGeneration = mapGeneration;
+        this.indexOfCurrentPlayerTurn = currentPlayer;
         this.pane = pane;
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png", 2);
         tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo, 3);
@@ -516,6 +517,20 @@ public class TanksAnimation implements Serializable{
         hud.setCurrentPlayerTank(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[indexOfCurrentPlayerTurn].getTeam());
     }
     
+    public int[] obtainTanksHP(){
+        int[] tankHP = new int[tanksArrayUsed.length];
+        for(int i = 0; i < tankHP.length; i++){
+           tankHP[i] = tanksArrayUsed[i].getLifePoint();
+        }
+        return tankHP;
+    }
+    
+    public void resetTankHPSave(int[] tankHP){
+        for(int i = 0; i < tankHP.length; i++){
+            tanksArrayUsed[i].setLifePoint(tankHP[i]);
+        }
+    }
+    
     public void resetTankOrientationSave(boolean[] tankOrientation){
         for(int i = 0; i < tankOrientation.length; i++){
             if(tankOrientation[i])
@@ -697,5 +712,10 @@ public class TanksAnimation implements Serializable{
         this.hud = hud;
     }
     
+   public int[] getIndexOfCurrentPlayerTurnArray(){
+        int[] turn = new int[1];
+        turn[0] = indexOfCurrentPlayerTurn;
+        return turn;
+    }
     
 }

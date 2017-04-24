@@ -58,14 +58,17 @@ public class MainMenuManagerPane extends Pane{
             load = new LoadFunction();
             double[][] array = load.getTanksArray();
             boolean[] array2 = load.getDirection();
-            gamePane = new GamePane(load.getGamePane().getPlayerArrayList().size(), load.getGamePane().getPlayerArrayList(), load.getGamePane().getMapGeneration());
+            int[] tanksHP = load.getTanksHP();
+            int[] currentTurn = load.getIndexOfCurrentPlayerTurn();
+            gamePane = new GamePane(load.getGamePane().getPlayerArrayList().size(), load.getGamePane().getPlayerArrayList(), load.getGamePane().getMapGeneration(), currentTurn[0]);
             //gamePane.setTanksAnimation(load.getTanksAnimation());
             borderPane.setCenter(gamePane);
             borderPane.setTop(gamePane.getHUD());
             
             gamePane.getTanksAnimation().resetTankPositionSave(array);
             gamePane.getTanksAnimation().resetTankOrientationSave(array2);
-            
+            gamePane.getTanksAnimation().resetTankHPSave(tanksHP);
+            //gamePane.getTanksAnimation().setIndexOfCurrentPlayerTurn(currentTurn[0]);
             this.setMinSize(1200, 950);
             this.setMaxSize(1200, 950);
             

@@ -32,14 +32,13 @@ public class SaveFunction {
             objectOutputStream.writeObject(gamePane);
             objectOutputStream2.writeObject(gamePane.getTanksAnimation().obtainEachTanksTranslation());
             objectOutputStream2.writeObject(gamePane.getTanksAnimation().obtainEachTanksDirection());
-            
-            /*
-            for(int i = 0; i < gamePane.getTanksAnimation().getTanksArrayUsed().length; i++){
-            System.out.println("x: " + gamePane.getTanksAnimation().getTanksArrayUsed()[i].getTranslateX() + " y: " + gamePane.getTanksAnimation().getTanksArrayUsed()[i].getTranslateY());
-        }*/
+            objectOutputStream2.writeObject(gamePane.getTanksAnimation().obtainTanksHP());
+            objectOutputStream2.writeObject(gamePane.getGameLoop().getIndexOfCurrentPlayerTurnArray());
+            System.out.println(gamePane.getGameLoop().getIndexOfCurrentPlayerTurnArray()[0]);
         } catch (IOException ex) {
             Logger.getLogger(SaveFunction.class.getName()).log(Level.SEVERE, null, ex);
-            //File file = new File("Save/save.dat");
+            File file = new File("Save/save.dat"); //There in case user Deletes the save file
+            File file2 = new File("Save/saveLocation.dat");
         }
     }
 }

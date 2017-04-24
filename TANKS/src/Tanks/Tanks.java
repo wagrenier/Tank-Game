@@ -159,5 +159,10 @@ public class Tanks extends Circle implements Serializable{
     public void setIsAI(boolean isAI) {
         this.isAI = isAI;
     }
+
+    public void setLifePoint(int lifePoint) {
+        this.lifePoint = lifePoint;
+    }
+    
     
 }

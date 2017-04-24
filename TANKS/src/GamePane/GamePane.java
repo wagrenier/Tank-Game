@@ -37,14 +37,14 @@ public class GamePane extends Pane implements Serializable{
     private transient GameLoop gameLoop;
     
     
-    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, MapGeneration mapGeneration){
+    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, MapGeneration mapGeneration, int currentPlayer){
         this.mapGeneration = mapGeneration;
         this.playerArrayList = playerArrayList;
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
         this.numOfPlayers = numOfPlayers;
-        paneSetup(this);   
-        gameLoop();
+        paneSetup(this, currentPlayer);   
+        gameLoop(currentPlayer);
     }
     
     public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList){
@@ -52,24 +52,24 @@ public class GamePane extends Pane implements Serializable{
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
         this.numOfPlayers = numOfPlayers;
-        paneSetup(this);   
-        gameLoop();
+        paneSetup(this, 0);   
+        gameLoop(0);
     }
     
     //The game's main loop put in a thread because otherwise the program hangs in here
-    public void gameLoop(){
-        gameLoop = new GameLoop(tanksAnimation, tanksAnimationArrayUsed, tanksAnimation.getTanksArrayUsed());
+    public void gameLoop(int currentPlayer){
+        gameLoop = new GameLoop(tanksAnimation, tanksAnimationArrayUsed, tanksAnimation.getTanksArrayUsed(), currentPlayer);
         gameLoop.start();
     }
     
-    public void paneSetup(Pane pane){
+    public void paneSetup(Pane pane, int currentPlayer){
         frontGroundSetup(pane);
         backGroundSetup(pane);
-        tanksSetup(pane);
+        tanksSetup(pane, currentPlayer);
     }
     
-    public void tanksSetup(Pane pane){
-        tanksAnimation = new TanksAnimation(mapGeneration, this, numOfPlayers, playerArrayList);  
+    public void tanksSetup(Pane pane, int currentPlayer){
+        tanksAnimation = new TanksAnimation(mapGeneration, this, numOfPlayers, playerArrayList, currentPlayer);  
         tanksAnimationArrayUsed = tanksAnimation.getTanksAnimationArrayUsed();
     }
     
@@ -134,6 +134,11 @@ public class GamePane extends Pane implements Serializable{
     public MapGeneration getMapGeneration() {
         return mapGeneration;
     }
+
+    public GameLoop getGameLoop() {
+        return gameLoop;
+    }
+    
     
     
 }

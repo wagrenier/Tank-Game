@@ -25,8 +25,10 @@ public class LoadFunction {
     
     //Default Save file: src/Saves/save.txt
     GamePane gamePane;
-    double[][] tanksArray2;
+    double[][] tanksArray;
     boolean[] direction;
+    int[] tanksHP;
+    int[] indexOfCurrentPlayerTurn;
     
     public LoadFunction() {
         
@@ -35,8 +37,11 @@ public class LoadFunction {
             ObjectInputStream objectInputStream2 = new ObjectInputStream(new FileInputStream("Save/saveLocation.dat"));
             
             gamePane = (GamePane) (objectInputStream.readObject());
-            tanksArray2 = (double[][]) (objectInputStream2.readObject());
+            tanksArray = (double[][]) (objectInputStream2.readObject());
             direction = (boolean[]) (objectInputStream2.readObject());
+            tanksHP = (int[]) (objectInputStream2.readObject());
+            indexOfCurrentPlayerTurn = (int[]) (objectInputStream2.readObject());
+            
         } catch (IOException ex) {
             Logger.getLogger(LoadFunction.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex2) {
@@ -45,14 +50,21 @@ public class LoadFunction {
         
     }
 
+    public int[] getIndexOfCurrentPlayerTurn() {
+        return indexOfCurrentPlayerTurn;
+    }
+    
+    public int[] getTanksHP() {
+        return tanksHP;
+    }
+    
     public double[][] getTanksArray() {
-        return tanksArray2;
+        return tanksArray;
     }
 
     public boolean[] getDirection() {
         return direction;
     }
-    
     
     public GamePane getGamePane() {
         return gamePane;
