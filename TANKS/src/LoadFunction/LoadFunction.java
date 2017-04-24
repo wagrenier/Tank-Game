@@ -5,7 +5,17 @@
  */
 package LoadFunction;
 
+import GamePane.GamePane;
+import Tanks.Tanks;
+import Tanks.TanksAnimation;
+import classes.MainMenuManagerPane;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,5 +24,49 @@ import java.io.ObjectInputStream;
 public class LoadFunction {
     
     //Default Save file: src/Saves/save.txt
-    ObjectInputStream objectInputStream;
+    GamePane gamePane;
+    double[][] tanksArray;
+    boolean[] direction;
+    int[] tanksHP;
+    int[] indexOfCurrentPlayerTurn;
+    
+    public LoadFunction() {
+        
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("Save/save.dat"));
+            ObjectInputStream objectInputStream2 = new ObjectInputStream(new FileInputStream("Save/saveLocation.dat"));
+            
+            gamePane = (GamePane) (objectInputStream.readObject());
+            tanksArray = (double[][]) (objectInputStream2.readObject());
+            direction = (boolean[]) (objectInputStream2.readObject());
+            tanksHP = (int[]) (objectInputStream2.readObject());
+            indexOfCurrentPlayerTurn = (int[]) (objectInputStream2.readObject());
+            
+        } catch (IOException ex) {
+            Logger.getLogger(LoadFunction.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex2) {
+            Logger.getLogger(LoadFunction.class.getName()).log(Level.SEVERE, null, ex2);
+        } 
+        
+    }
+
+    public int[] getIndexOfCurrentPlayerTurn() {
+        return indexOfCurrentPlayerTurn;
+    }
+    
+    public int[] getTanksHP() {
+        return tanksHP;
+    }
+    
+    public double[][] getTanksArray() {
+        return tanksArray;
+    }
+
+    public boolean[] getDirection() {
+        return direction;
+    }
+    
+    public GamePane getGamePane() {
+        return gamePane;
+    }
 }

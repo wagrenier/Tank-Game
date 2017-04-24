@@ -7,8 +7,14 @@ package SaveFunction;
 
 import GamePane.GamePane;
 import MapGeneration.MapGeneration;
+import Tanks.Tanks;
 import Tanks.TanksAnimation;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -17,13 +23,21 @@ import java.io.ObjectOutputStream;
  */
 public class SaveFunction {
     //Default Save file: src/Saves/save.txt
-    ObjectOutputStream objectOutputStream;
-    
-    public SaveFunction(){
-        
-    }
-    
-    public SaveFunction(MapGeneration mapGeneration, GamePane gamePane, TanksAnimation tanksAniamtion){
-        
+    //Must implement who is dead
+    public SaveFunction(GamePane gamePane){
+        try {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("Save/save.dat", false));  
+            ObjectOutputStream objectOutputStream2 = new ObjectOutputStream(new FileOutputStream("Save/saveLocation.dat", false)); 
+            
+            objectOutputStream.writeObject(gamePane);
+            objectOutputStream2.writeObject(gamePane.getTanksAnimation().obtainEachTanksTranslation());
+            objectOutputStream2.writeObject(gamePane.getTanksAnimation().obtainEachTanksDirection());
+            objectOutputStream2.writeObject(gamePane.getTanksAnimation().obtainTanksHP());
+            objectOutputStream2.writeObject(gamePane.getGameLoop().getIndexOfCurrentPlayerTurnArray());
+        } catch (IOException ex) {
+            Logger.getLogger(SaveFunction.class.getName()).log(Level.SEVERE, null, ex);
+            File file = new File("Save/save.dat"); //There in case user Deletes the save files
+            File file2 = new File("Save/saveLocation.dat");
+        }
     }
 }

@@ -5,13 +5,17 @@
  */
 package classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Cedrik Dubois
  */
-public class Player {
+public class Player implements Serializable{
+    
     private String username;
     private int team;
+    private boolean isAI = true;
     
     /**
      * Index of the teams
@@ -52,6 +56,14 @@ public class Player {
     
     public int getTeam(){
         return this.team;
+    }
+
+    public boolean isIsAI() {
+        return isAI;
+    }
+
+    public void setIsAI(boolean isAI) {
+        this.isAI = isAI;
     }
     
     public String toString(){

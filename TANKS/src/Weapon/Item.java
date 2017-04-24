@@ -5,11 +5,13 @@
  */
 package Weapon;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Cedrik Dubois
  */
-public class Item {
+public class Item  implements Serializable{
     
     public Item(){
         

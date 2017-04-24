@@ -8,6 +8,7 @@ package HUD;
 import Tanks.Tanks;
 import GamePane.GamePane;
 import Weapon.WeaponManager;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -50,7 +51,7 @@ public class HUD extends Pane{
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 150;
     
-    private Text player = new Text();
+    private transient Text player = new Text();
     private ArrayList<String> playerNames = new ArrayList<>();
     private static int playerIndex = 0;
     
@@ -60,41 +61,41 @@ public class HUD extends Pane{
     //private Text weapon = new Text("Missile");
     //private Text weaponCost = new Text("($0.00)");
     //private ImageView weaponLogo = new ImageView(new Image("Texture/Items/Normal/Missile.png"));
-    private Text weapon = new Text();
-    private Text weaponCost = new Text();
-    private ImageView weaponLogo;
+    private transient Text weapon = new Text();
+    private transient Text weaponCost = new Text();
+    private transient ImageView weaponLogo;
     
-    private ImageView weaponBtn;
-    private Image weaponBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
-    private Image weaponBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
+    private transient ImageView weaponBtn;
+    private transient Image weaponBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
+    private transient Image weaponBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
     
-    private ImageView itemBtn;
-    private Image itemBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
-    private Image itemBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
+    private transient ImageView itemBtn;
+    private transient Image itemBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
+    private transient Image itemBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
     
-    private ImageView storeBtn;
-    private Image storeBtnImage = new Image("Texture/Menus/HUD/Store Button.png");
-    private Image storeBtnClicked = new Image("Texture/Menus/HUD/Store Button Clicked.png");
+    private transient ImageView storeBtn;
+    private transient Image storeBtnImage = new Image("Texture/Menus/HUD/Store Button.png");
+    private transient Image storeBtnClicked = new Image("Texture/Menus/HUD/Store Button Clicked.png");
     
-    private ImageView pauseBtn;
-    private Image pauseBtnImage = new Image("Texture/Menus/HUD/Pause Button.png");
-    private Image pauseBtnClicked = new Image("Texture/Menus/HUD/Pause Button Clicked.png");
+    private transient ImageView pauseBtn;
+    private transient Image pauseBtnImage = new Image("Texture/Menus/HUD/Pause Button.png");
+    private transient Image pauseBtnClicked = new Image("Texture/Menus/HUD/Pause Button Clicked.png");
     
-    private String gravity = "9.8";//Default value for the moment
-    private Text gravityLbl = new Text("Gravity: " + gravity);
+    private transient String gravity = "9.8";//Default value for the moment
+    private transient Text gravityLbl = new Text("Gravity: " + gravity);
     
     private int windResistance = 30;//Default value for the moment
-    private Text wind = new Text("Wind Res.: " + windResistance);
+    private transient Text wind = new Text("Wind Res.: " + windResistance);
     
-    private ColoredProgressBar playerHealth = new ColoredProgressBar("green-bar", 1);
+    private  ColoredProgressBar playerHealth = new ColoredProgressBar("green-bar", 1);
     
-    private ImageView playerTank;
+    private transient ImageView playerTank;
     
-    private Image[] tanks = new Image[4];
-    private Image canadaTank = new Image("Texture/Menus/HUD/Canada Tank.png");
-    private Image usaTank = new Image("Texture/Menus/HUD/USA Tank.png");
-    private Image northKoreaTank = new Image("Texture/Menus/HUD/North Korea Tank.png");
-    private Image chinaTank = new Image("Texture/Menus/HUD/China Tank.png");
+    private  Image[] tanks = new Image[4];
+    private transient Image canadaTank = new Image("Texture/Menus/HUD/Canada Tank.png");
+    private transient Image usaTank = new Image("Texture/Menus/HUD/USA Tank.png");
+    private transient Image northKoreaTank = new Image("Texture/Menus/HUD/North Korea Tank.png");
+    private transient Image chinaTank = new Image("Texture/Menus/HUD/China Tank.png");
     
     
     public HUD(WeaponManager weaponManager, GamePane gamePane){
@@ -282,6 +283,7 @@ public class HUD extends Pane{
          });
          */
          
+         /*
          playerHealth.setOnMouseClicked(e -> {
              
              if (playerHealth.getProgress() > 0.05){
@@ -298,7 +300,7 @@ public class HUD extends Pane{
                  playerHealth.setProgress(0);
              
              System.out.println(playerHealth.getProgress());
-         });
+         });*/
     }
     
     public void updateHealth(int lifePoints){
@@ -613,7 +615,7 @@ public class HUD extends Pane{
     public void setCurrentPlayerTank(Tanks tank, int team){
         playerTank.setImage(tanks[team]);
         
-        playerHealth.setProgress(tank.getLifePoint() / 100);
+        playerHealth.setProgress((double) ((double) tank.getLifePoint()) / 100);
     }
 }
 

@@ -6,6 +6,7 @@
 package Weapon;
 
 import MapGeneration.MapGeneration;
+import java.io.Serializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
@@ -17,17 +18,17 @@ import javafx.scene.shape.Circle;
  *
  * @author willi
  */
-public class Weapon extends Circle{
+public class Weapon extends Circle  implements Serializable{
     
     private int costOfWeapon;
     private int damage;
     private String texturePath;
     private String soundEffectPath;
     private String weaponName;
-    private Image texture;
-    private ImagePattern texturePattern;
-    private Media soundEffect;
-    private MediaPlayer soundEffectPlayer;
+    private  transient Image texture;
+    private  transient ImagePattern texturePattern;
+    private  transient Media soundEffect;
+    private transient MediaPlayer soundEffectPlayer;
     
    
     
