@@ -57,6 +57,7 @@ public class HUD extends Pane{
     
     WeaponManager weaponManager;
     private int weaponIndex = 0;
+    private int itemIndex = 0;
     
     //private Text weapon = new Text("Missile");
     //private Text weaponCost = new Text("($0.00)");
@@ -65,9 +66,15 @@ public class HUD extends Pane{
     private transient Text weaponCost = new Text();
     private transient ImageView weaponLogo;
     
-    private transient ImageView weaponBtn;
-    private transient Image weaponBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
-    private transient Image weaponBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
+
+    private Text item = new Text();
+    private Text itemCost = new Text();
+    private ImageView itemLogo;
+    
+    private ImageView weaponBtn;
+    private Image weaponBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
+    private Image weaponBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
+
     
     private transient ImageView itemBtn;
     private transient Image itemBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
@@ -112,6 +119,10 @@ public class HUD extends Pane{
         weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
         weaponLogo = new ImageView(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
         
+        item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
+        itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
+        itemLogo = new ImageView(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
+        
         setTanks();
         
         setBackground();
@@ -138,9 +149,6 @@ public class HUD extends Pane{
         tanks[1] = usaTank;
         tanks[2] = canadaTank;
         tanks[3] = chinaTank;
-    }
-    private void setItem(){
-        
     }
     private void setItemBtn(){
         itemBtn = new ImageView(itemBtnImage);
@@ -171,6 +179,18 @@ public class HUD extends Pane{
         
         itemBtn.setOnMouseReleased(e -> {
             itemBtn.setImage(itemBtnImage);
+            
+            if(itemIndex < weaponManager.getItemArrayList().size() - 1)
+                itemIndex++;
+            
+            else
+                itemIndex = 0;
+
+            
+            item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
+            itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
+            itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
+            
             
         });
     }
@@ -372,7 +392,12 @@ public class HUD extends Pane{
         });
         
         weaponBtn.setOnMousePressed(e -> {
-            weaponBtn.setImage(weaponBtnClicked);
+            weaponBtn.setImage(weaponBtnClicked); 
+        });
+        
+        weaponBtn.setOnMouseReleased(e -> {
+            weaponBtn.setImage(weaponBtnImage);
+            
             if(weaponIndex < 8)
                 weaponIndex++;
             
@@ -386,10 +411,44 @@ public class HUD extends Pane{
             
         });
         
-        weaponBtn.setOnMouseReleased(e -> {
-            weaponBtn.setImage(weaponBtnImage);
+    }
+    
+    private void setItem(){
+        this.getChildren().addAll(item, itemLogo, itemCost);
+        
+        item.setTranslateX(28.5);
+        item.setTranslateY(122.0);
+        
+        itemLogo.setTranslateX(239.0);
+        itemLogo.setTranslateY(74.0);
+        
+        itemCost.setTranslateX(323.0);
+        itemCost.setTranslateY(119.0);
+        
+        /*
+        item.setOnMouseDragged(e -> {
+            item.setTranslateX(e.getSceneX());
+            item.setTranslateY(e.getSceneY());
+            System.out.println(item.getTranslateX() + ", " + item.getTranslateY());
         });
         
+        itemLogo.setOnMouseDragged(e -> {
+            itemLogo.setTranslateX(e.getSceneX());
+            itemLogo.setTranslateY(e.getSceneY());
+            System.out.println(itemLogo.getTranslateX() + ", " + itemLogo.getTranslateY());
+        });
+        
+        itemCost.setOnMouseDragged(e -> {
+            itemCost.setTranslateX(e.getSceneX());
+            itemCost.setTranslateY(e.getSceneY());
+            System.out.println(itemCost.getTranslateX() + ", " + itemCost.getTranslateY());
+        });
+        */
+        
+        item.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
+        itemCost.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        itemLogo.setFitHeight(75);
+        itemLogo.setFitWidth(75);
     }
     
     private void setWeapon(){
