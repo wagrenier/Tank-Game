@@ -115,6 +115,9 @@ public class TanksAnimation implements Serializable{
         this.mapGeneration = mapGeneration;
         this.indexOfCurrentPlayerTurn = currentPlayer;
         this.pane = pane;
+        this.numOfPlayer = numOfPlayer; 
+        this.playerArray = new Player[this.numOfPlayer];
+        
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png", 2);
         tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo, 3);
         tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree, pathForTextureCannonThree, 0);
@@ -131,8 +134,7 @@ public class TanksAnimation implements Serializable{
         tanksArray[2] = tanksThree;
         tanksArray[3] = tanksFour;
         
-        this.numOfPlayer = numOfPlayer; 
-        this.playerArray = new Player[this.numOfPlayer];
+        
         tanksArrayUsed = new Tanks[numOfPlayer];
         tanksAnimationArrayUsed = new Timeline[numOfPlayer];
         progressBarAnimationUsed = new Timeline[numOfPlayer];
