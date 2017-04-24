@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class SaveFunction {
     //Default Save file: src/Saves/save.txt
-    
+    //Must implement who is dead
     public SaveFunction(GamePane gamePane){
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("Save/save.dat", false));  
@@ -34,10 +34,9 @@ public class SaveFunction {
             objectOutputStream2.writeObject(gamePane.getTanksAnimation().obtainEachTanksDirection());
             objectOutputStream2.writeObject(gamePane.getTanksAnimation().obtainTanksHP());
             objectOutputStream2.writeObject(gamePane.getGameLoop().getIndexOfCurrentPlayerTurnArray());
-            System.out.println(gamePane.getGameLoop().getIndexOfCurrentPlayerTurnArray()[0]);
         } catch (IOException ex) {
             Logger.getLogger(SaveFunction.class.getName()).log(Level.SEVERE, null, ex);
-            File file = new File("Save/save.dat"); //There in case user Deletes the save file
+            File file = new File("Save/save.dat"); //There in case user Deletes the save files
             File file2 = new File("Save/saveLocation.dat");
         }
     }

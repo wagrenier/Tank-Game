@@ -15,7 +15,7 @@ public class Player implements Serializable{
     
     private String username;
     private int team;
-    private boolean isAI = false;
+    private boolean isAI = true;
     
     /**
      * Index of the teams
