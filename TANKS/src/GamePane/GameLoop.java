@@ -248,7 +248,7 @@ public class GameLoop extends AnimationTimer{
             if(launchInitiated){
                 launchWeaponDelayCounter++;
                 
-                if(launchWeaponDelayCounter == launchWeaponDelay){
+                if(launchWeaponDelayCounter >= launchWeaponDelay){
                     tanksAnimation.keyPressed(KeyCode.SPACE, 
                         tanksArrayUsed[indexOfCurrentPlayerTurn], 
                         tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], 

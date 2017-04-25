@@ -138,7 +138,4 @@ public class GamePane extends Pane implements Serializable{
     public GameLoop getGameLoop() {
         return gameLoop;
     }
-    
-    
-    
 }

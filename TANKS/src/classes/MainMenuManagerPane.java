@@ -7,15 +7,11 @@ package classes;
 
 import GamePane.GamePane;
 import LoadFunction.LoadFunction;
-import Tanks.Tanks;
 import java.util.ArrayList;
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
+import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 /**
  *
@@ -36,7 +32,7 @@ public class MainMenuManagerPane extends Pane{
     private static int paneCount = 0;
     private ArrayList<Pane> paneList = new ArrayList<>();
     private ArrayList<Player> playerList = new ArrayList<>();
-    private ImageView cursor = new ImageView(new Image("Texture/Cursor/Cursor.png"));
+    //private ImageView cursor = new ImageView(new Image("Texture/Cursor/Cursor.png"));
     
     
     public MainMenuManagerPane() {
@@ -58,6 +54,7 @@ public class MainMenuManagerPane extends Pane{
             load = new LoadFunction();
             double[][] array = load.getTanksArray();
             boolean[] array2 = load.getDirection();
+            boolean[] dead = load.getDead();
             int[] tanksHP = load.getTanksHP();
             int[] currentTurn = load.getIndexOfCurrentPlayerTurn();
             gamePane = new GamePane(load.getGamePane().getPlayerArrayList().size(), load.getGamePane().getPlayerArrayList(), load.getGamePane().getMapGeneration(), currentTurn[0]);
@@ -68,6 +65,7 @@ public class MainMenuManagerPane extends Pane{
             gamePane.getTanksAnimation().resetTankPositionSave(array);
             gamePane.getTanksAnimation().resetTankOrientationSave(array2);
             gamePane.getTanksAnimation().resetTankHPSave(tanksHP);
+            gamePane.getTanksAnimation().resetWhoIsDead(dead);
             //gamePane.getTanksAnimation().setIndexOfCurrentPlayerTurn(currentTurn[0]);
             this.setMinSize(1200, 950);
             this.setMaxSize(1200, 950);
@@ -183,23 +181,7 @@ public class MainMenuManagerPane extends Pane{
     }
     
     private void cursorSetting(Pane pane){
-        pane.setCursor(Cursor.NONE);
-        
-        
-        pane.setOnMouseEntered(e -> {
-            pane.getChildren().add(cursor);
-            cursor.setTranslateX(e.getSceneX());
-            cursor.setTranslateY(e.getSceneY());
-        });
-        
-        pane.setOnMouseExited(e -> {
-            pane.getChildren().remove(cursor);
-        });
-        
-        pane.setOnMouseMoved(e -> {
-            cursor.setTranslateX(e.getSceneX());
-            cursor.setTranslateY(e.getSceneY());
-        });
+        pane.setCursor(new ImageCursor(new Image("Texture/Cursor/Cursor.png")));
     }
     
     private void registerPlayer(boolean lastplayer){

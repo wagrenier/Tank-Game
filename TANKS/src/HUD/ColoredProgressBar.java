@@ -12,7 +12,7 @@ import javafx.scene.control.ProgressBar;
  *
  * @author Cedrik Dubois
  */
-public class ColoredProgressBar extends ProgressBar  implements Serializable{
+public class ColoredProgressBar extends ProgressBar{
     
     ColoredProgressBar(String styleClass, double progress) {
         super(progress);

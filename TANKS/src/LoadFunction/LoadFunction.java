@@ -27,6 +27,7 @@ public class LoadFunction {
     GamePane gamePane;
     double[][] tanksArray;
     boolean[] direction;
+    boolean[] dead;
     int[] tanksHP;
     int[] indexOfCurrentPlayerTurn;
     
@@ -34,20 +35,24 @@ public class LoadFunction {
         
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("Save/save.dat"));
-            ObjectInputStream objectInputStream2 = new ObjectInputStream(new FileInputStream("Save/saveLocation.dat"));
+            //ObjectInputStream objectInputStream2 = new ObjectInputStream(new FileInputStream("Save/saveLocation.dat"));
             
             gamePane = (GamePane) (objectInputStream.readObject());
-            tanksArray = (double[][]) (objectInputStream2.readObject());
-            direction = (boolean[]) (objectInputStream2.readObject());
-            tanksHP = (int[]) (objectInputStream2.readObject());
-            indexOfCurrentPlayerTurn = (int[]) (objectInputStream2.readObject());
-            
+            tanksArray = (double[][]) (objectInputStream.readObject());
+            direction = (boolean[]) (objectInputStream.readObject());
+            tanksHP = (int[]) (objectInputStream.readObject());
+            indexOfCurrentPlayerTurn = (int[]) (objectInputStream.readObject());
+            dead = (boolean[])(objectInputStream.readObject());
         } catch (IOException ex) {
             Logger.getLogger(LoadFunction.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex2) {
             Logger.getLogger(LoadFunction.class.getName()).log(Level.SEVERE, null, ex2);
         } 
         
+    }
+
+    public boolean[] getDead() {
+        return dead;
     }
 
     public int[] getIndexOfCurrentPlayerTurn() {
