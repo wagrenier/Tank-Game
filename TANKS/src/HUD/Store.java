@@ -84,6 +84,16 @@ public class Store{
     
     public void closeStore(){
         this.gamePane.getChildren().remove(storeBackground);
+        this.gamePane.getChildren().remove(atomicBtn);
+        this.gamePane.getChildren().remove(laserBtn);
+        this.gamePane.getChildren().remove(missileBtn);
+        this.gamePane.getChildren().remove(shrapnelBtn);
+        this.gamePane.getChildren().remove(lmgBtn);
+        this.gamePane.getChildren().remove(hmgBtn);
+        this.gamePane.getChildren().remove(mineBtn);
+        this.gamePane.getChildren().remove(c4rcBtn);
+        this.gamePane.getChildren().remove(armorBtn);
+        this.gamePane.getChildren().remove(engineBtn);
         storeOpened = false;
     }
     
