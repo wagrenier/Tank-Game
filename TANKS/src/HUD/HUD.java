@@ -45,12 +45,9 @@ public class HUD extends Pane{
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 150;
     
-<<<<<<< HEAD
-    private transient Text player = new Text();
-=======
+
     private Text player = new Text();
     private ArrayList<String> playerNames = new ArrayList<>();
->>>>>>> refs/remotes/origin/master
     private static int playerIndex = 0;
     
     WeaponManager weaponManager;

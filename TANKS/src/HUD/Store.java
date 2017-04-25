@@ -22,15 +22,12 @@ public class Store{
     
     private GamePane gamePane;
     
-<<<<<<< HEAD
-    private transient Player player;//Player accessing the store
+    private Player player;//Player accessing the store
     
     private Image buyImg = new Image("Texture/Menus/Store/Buy Button.png");
     
     private transient ImageView storeBackground = new ImageView(new Image("Texture/Menus/Store/Store.png"));
-=======
-    private ImageView storeBackground = new ImageView(new Image("Texture/Menus/Store/Store.png"));
->>>>>>> refs/remotes/origin/master
+
     
     //All different buttons for every item
     
@@ -107,6 +104,10 @@ public class Store{
             System.out.println(atomicBtn.getTranslateX() + ", " + atomicBtn.getTranslateY());
         });
         */
+        
+        atomicBtn.setOnMouseReleased(e -> {
+            buyItem(true, 3);
+        });
     }
     private void addLaser(){
         this.gamePane.getChildren().add(laserBtn);
@@ -237,16 +238,25 @@ public class Store{
         /*
         type = true means it is a weapon, must pick from weaponArray
         type = false means it is an item, must pick from itemArray
-        index = index of item in relative array
+        index = index of item in relative array in weaponManager
         */
+        
+        
         
     }
     
-    private void showCost(boolean type, int index){
+    private void showCostAndAmount(boolean type, int index){
         /*
         type = true means it is a weapon, must pick from weaponArray
         type = false means it is an item, must pick from itemArray
         index = index of item in relative array
+        
+        displays the cost of buying the weapon/item as well as how many
+        the player has in his/her inventory when the mouse is hovering over
+        the button
+        
         */
     }
+    
+    
 }
