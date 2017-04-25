@@ -206,6 +206,11 @@ public class MainMenuManagerPane extends Pane{
         
         playerList.get(playerCount).setName(countryMenu.getPlayerName());
         playerList.get(playerCount).setTeam(countryMenu.getCountry());
+        if (countryMenu.isAI())
+            playerList.get(playerCount).setIsAI(true);
+        else
+            playerList.get(playerCount).setIsAI(false);
+        
         if (!lastplayer)
             countryMenu.removeTeam(countryMenu.getTankCount());
     }

@@ -5,6 +5,7 @@
  */
 package HUD;
 
+import classes.Player;
 import Tanks.Tanks;
 import GamePane.GamePane;
 import Weapon.WeaponManager;
@@ -52,7 +53,6 @@ public class HUD extends Pane{
     private static final int HEIGHT = 150;
     
     private transient Text player = new Text();
-    private ArrayList<String> playerNames = new ArrayList<>();
     private static int playerIndex = 0;
     
     WeaponManager weaponManager;
@@ -65,6 +65,8 @@ public class HUD extends Pane{
     private transient Text weapon = new Text();
     private transient Text weaponCost = new Text();
     private transient ImageView weaponLogo;
+    
+    private ArrayList<Player> playerList;
     
 
     private Text item = new Text();
@@ -123,6 +125,8 @@ public class HUD extends Pane{
         itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
         itemLogo = new ImageView(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
         
+        playerList = gamePane.getPlayerArrayList();
+        
         setTanks();
         
         setBackground();
@@ -144,6 +148,7 @@ public class HUD extends Pane{
         setPauseBtn();
         
     }
+    
     private void setTanks(){
         tanks[0] = northKoreaTank;
         tanks[1] = usaTank;
@@ -180,12 +185,14 @@ public class HUD extends Pane{
         itemBtn.setOnMouseReleased(e -> {
             itemBtn.setImage(itemBtnImage);
             
-            if(itemIndex < weaponManager.getItemArrayList().size() - 1)
-                itemIndex++;
+            do
+            {
+                if(itemIndex < playerList.get(playerIndex).getItemInventory().length - 1)
+                    itemIndex++;
             
-            else
-                itemIndex = 0;
-
+                else
+                    itemIndex = 0;
+            }while (playerList.get(playerIndex).getItemInventory()[itemIndex] == 0);
             
             item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
             itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
@@ -193,7 +200,55 @@ public class HUD extends Pane{
             
             
         });
+    }    
+    private void setWeaponBtn(){
+        weaponBtn = new ImageView(weaponBtnImage);
+        this.getChildren().add(weaponBtn);
+        
+        weaponBtn.setTranslateX(406.0);
+        weaponBtn.setTranslateY(8.5);
+        
+        
+        /*
+        weaponBtn.setOnMouseDragged(e -> {
+            weaponBtn.setTranslateX(e.getSceneX());
+            weaponBtn.setTranslateY(e.getSceneY());
+            System.out.println(weaponBtn.getTranslateX() + ", " + weaponBtn.getTranslateY());
+        });
+        */
+        
+        weaponBtn.setOnMouseEntered(e -> {
+            this.setCursor(Cursor.HAND);
+        });
+        
+        weaponBtn.setOnMouseExited(e -> {
+            this.setCursor(Cursor.DEFAULT);
+        });
+        
+        weaponBtn.setOnMousePressed(e -> {
+            weaponBtn.setImage(weaponBtnClicked); 
+        });
+        
+        weaponBtn.setOnMouseReleased(e -> {
+            weaponBtn.setImage(weaponBtnImage);
+            
+            do
+            {
+                if(weaponIndex < playerList.get(playerIndex).getWeaponInventory().length - 1)
+                    weaponIndex++;
+            
+                else
+                    weaponIndex = 0;
+            }while (playerList.get(playerIndex).getWeaponInventory()[weaponIndex] == 0);
+            
+            weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
+            weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
+            weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
+            
+        });
+        
     }
+
     private void setPauseBtn(){
         pauseBtn = new ImageView(pauseBtnImage);
         this.getChildren().add(pauseBtn);
@@ -367,51 +422,6 @@ public class HUD extends Pane{
         gravityLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
     }
     
-    private void setWeaponBtn(){
-        weaponBtn = new ImageView(weaponBtnImage);
-        this.getChildren().add(weaponBtn);
-        
-        weaponBtn.setTranslateX(406.0);
-        weaponBtn.setTranslateY(8.5);
-        
-        
-        /*
-        weaponBtn.setOnMouseDragged(e -> {
-            weaponBtn.setTranslateX(e.getSceneX());
-            weaponBtn.setTranslateY(e.getSceneY());
-            System.out.println(weaponBtn.getTranslateX() + ", " + weaponBtn.getTranslateY());
-        });
-        */
-        
-        weaponBtn.setOnMouseEntered(e -> {
-            this.setCursor(Cursor.HAND);
-        });
-        
-        weaponBtn.setOnMouseExited(e -> {
-            this.setCursor(Cursor.DEFAULT);
-        });
-        
-        weaponBtn.setOnMousePressed(e -> {
-            weaponBtn.setImage(weaponBtnClicked); 
-        });
-        
-        weaponBtn.setOnMouseReleased(e -> {
-            weaponBtn.setImage(weaponBtnImage);
-            
-            if(weaponIndex < 8)
-                weaponIndex++;
-            
-            else
-                weaponIndex = 0;
-
-            
-            weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
-            weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
-            weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
-            
-        });
-        
-    }
     
     private void setItem(){
         this.getChildren().addAll(item, itemLogo, itemCost);
@@ -509,22 +519,8 @@ public class HUD extends Pane{
         */
         
         
-        playerNames.add("Player 1");
-        playerNames.add("Player 2");
-        playerNames.add("Player 3");
-        playerNames.add("Player 4");
-        
         player.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
-        player.setText(playerNames.get(playerIndex));
-    }
-    
-    public void nextPlayer(){
-        if (playerIndex == 3)
-            playerIndex = 0;
-        else
-            playerIndex++;
         
-        player.setText(playerNames.get(playerIndex));
     }
     
     public Text getWeapon() {
@@ -581,10 +577,6 @@ public class HUD extends Pane{
 
     public Text getPlayer() {
         return player;
-    }
-
-    public ArrayList<String> getPlayerNames() {
-        return playerNames;
     }
 
     public static int getPlayerIndex() {
@@ -672,9 +664,12 @@ public class HUD extends Pane{
     }
     
     public void setCurrentPlayerTank(Tanks tank, int team){
+        playerIndex = team;
         playerTank.setImage(tanks[team]);
         
         playerHealth.setProgress((double) ((double) tank.getLifePoint()) / 100);
     }
+    
+    
 }
 

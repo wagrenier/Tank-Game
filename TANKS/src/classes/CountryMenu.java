@@ -8,6 +8,7 @@ package classes;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,6 +42,8 @@ public class CountryMenu extends Pane{
     private ImageView rightBtn;
     private ImageView tank;
     private ImageView flag;
+    
+    private CheckBox ai = new CheckBox();
     
     private ArrayList<Image> tankList = new ArrayList<>();
     private ArrayList<Image> flagList = new ArrayList<>();
@@ -86,6 +89,7 @@ public class CountryMenu extends Pane{
         setFlag();
         setUsername();
         setBackBtn();
+        setAI();
     }
     public void setScene(Scene scene, ImageView cursor, MouseEvent m){
         this.getChildren().remove(cursor);
@@ -108,6 +112,8 @@ public class CountryMenu extends Pane{
             cursor.setTranslateX(e.getSceneX());
             cursor.setTranslateY(e.getSceneY());
         });
+        
+        scene.getStylesheets().add("classes/checkbox.css");
     }
     public void resetPane(){
         setTankList();
@@ -330,6 +336,28 @@ public class CountryMenu extends Pane{
         flagList.add(new Image("Texture/Menus/CountryMenu/USA Flag.png"));
         flagList.add(new Image("Texture/Menus/CountryMenu/Canada Flag.png"));
         flagList.add(new Image("Texture/Menus/CountryMenu/China Flag.png"));
+    }
+    private void setAI(){
+        this.getChildren().add(ai);
+        
+        ai.setTranslateX(638.0);
+        ai.setTranslateY(559.0);
+        
+        
+        ai.setOnMouseDragged(e -> {
+            ai.setTranslateX(e.getSceneX());
+            ai.setTranslateY(e.getSceneY());
+            System.out.println(ai.getTranslateX() + ", " + ai.getTranslateY());
+        });
+        
+        
+        
+    }
+    public boolean isAI(){
+        if (ai.isSelected())
+            return true;
+        else
+            return false;
     }
     public void refreshPane(int var){
         player = var;
