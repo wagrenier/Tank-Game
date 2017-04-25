@@ -6,9 +6,6 @@
 package SaveFunction;
 
 import GamePane.GamePane;
-import MapGeneration.MapGeneration;
-import Tanks.Tanks;
-import Tanks.TanksAnimation;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -27,13 +27,13 @@ import javafx.util.Duration;
  *
  * @author willi
  */
-public class TanksAnimation implements Serializable{
+public class TanksAnimation{
     
     //Width of the pane
     private final double width = 1200;
     
     //HUD for the game
-    private transient HUD hud;
+    private HUD hud;
     
     //The index of current player turn
     private int indexOfCurrentPlayerTurn = 0;
@@ -75,22 +75,22 @@ public class TanksAnimation implements Serializable{
     private final Tanks tanksFour;
     
     //Variable for the tanks' animation
-    private transient Timeline animation;
-    private transient Timeline animation2;
-    private transient  Timeline animation3;
-    private transient Timeline animation4;
+    private Timeline animation;
+    private Timeline animation2;
+    private Timeline animation3;
+    private Timeline animation4;
     
     //Variables for the tanks' progress bar animation, which serves as the setter for the initial velocity
-    private transient Timeline progressBarAnimationOne;
-    private transient  Timeline progressBarAnimationTwo;
-    private transient Timeline progressBarAnimationThree;
-    private transient  Timeline progressBarAnimationFour;
+    private Timeline progressBarAnimationOne;
+    private Timeline progressBarAnimationTwo;
+    private Timeline progressBarAnimationThree;
+    private Timeline progressBarAnimationFour;
     
     //Progress Bar of the tanks
-     transient ProgressBar barOne = new ProgressBar(0);
-     transient ProgressBar barTwo = new ProgressBar(0);
-     transient ProgressBar barThree = new ProgressBar(0);
-     transient ProgressBar barFour = new ProgressBar(0);
+     ProgressBar barOne = new ProgressBar(0);
+     ProgressBar barTwo = new ProgressBar(0);
+     ProgressBar barThree = new ProgressBar(0);
+     ProgressBar barFour = new ProgressBar(0);
     
     //Pane of the game
     private GamePane pane;
@@ -107,9 +107,9 @@ public class TanksAnimation implements Serializable{
     private Player[] playerArray;
     private Tanks[] tanksArray = new Tanks[4];
     private Tanks[] tanksArrayUsed;
-    private transient Timeline[] tanksAnimationArrayUsed;
-    private transient Timeline[] progressBarAnimationUsed = new Timeline[4];
-    private transient ProgressBar[] progressBarUsed = new ProgressBar[4];
+    private Timeline[] tanksAnimationArrayUsed;
+    private Timeline[] progressBarAnimationUsed = new Timeline[4];
+    private ProgressBar[] progressBarUsed = new ProgressBar[4];
     
     public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList, int currentPlayer) {
         this.mapGeneration = mapGeneration;
