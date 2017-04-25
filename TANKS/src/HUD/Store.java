@@ -103,6 +103,10 @@ public class Store implements Serializable{
             System.out.println(atomicBtn.getTranslateX() + ", " + atomicBtn.getTranslateY());
         });
         */
+        
+        atomicBtn.setOnMouseReleased(e -> {
+            buyItem(true, 3);
+        });
     }
     private void addLaser(){
         this.gamePane.getChildren().add(laserBtn);
@@ -233,16 +237,25 @@ public class Store implements Serializable{
         /*
         type = true means it is a weapon, must pick from weaponArray
         type = false means it is an item, must pick from itemArray
-        index = index of item in relative array
+        index = index of item in relative array in weaponManager
         */
+        
+        
         
     }
     
-    private void showCost(boolean type, int index){
+    private void showCostAndAmount(boolean type, int index){
         /*
         type = true means it is a weapon, must pick from weaponArray
         type = false means it is an item, must pick from itemArray
         index = index of item in relative array
+        
+        displays the cost of buying the weapon/item as well as how many
+        the player has in his/her inventory when the mouse is hovering over
+        the button
+        
         */
     }
+    
+    
 }
