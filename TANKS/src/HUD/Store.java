@@ -16,17 +16,21 @@ import javafx.scene.image.ImageView;
  *
  * @author Cedrik Dubois
  */
-public class Store implements Serializable{
+public class Store{
     
     private boolean storeOpened = false;
     
-    private transient GamePane gamePane;
+    private GamePane gamePane;
     
+<<<<<<< HEAD
     private transient Player player;//Player accessing the store
     
     private Image buyImg = new Image("Texture/Menus/Store/Buy Button.png");
     
     private transient ImageView storeBackground = new ImageView(new Image("Texture/Menus/Store/Store.png"));
+=======
+    private ImageView storeBackground = new ImageView(new Image("Texture/Menus/Store/Store.png"));
+>>>>>>> refs/remotes/origin/master
     
     //All different buttons for every item
     

@@ -14,7 +14,7 @@ import javafx.scene.shape.Circle;
  *
  * @author william
  */
-public class Tanks extends Circle implements Serializable{
+public class Tanks extends Circle{
     
     private double xSpeed;
     private double ySpeed;
@@ -24,10 +24,10 @@ public class Tanks extends Circle implements Serializable{
     private boolean isAI = false;
     private final String imagePath;
     private final String imageReversePath;
-    private final transient ImagePattern texturePattern;
-    private final transient ImagePattern texturePatternFlipped;
-    private final transient Image texture;
-    private final transient Image textureFlipped;
+    private final ImagePattern texturePattern;
+    private final ImagePattern texturePatternFlipped;
+    private final Image texture;
+    private final Image textureFlipped;
     private boolean isImageFlipped = false;
     private final Cannon cannon;
     private int team;
