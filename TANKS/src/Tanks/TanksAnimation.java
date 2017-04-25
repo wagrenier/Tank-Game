@@ -574,6 +574,27 @@ public class TanksAnimation implements Serializable{
         return tankLocation;
     }
     
+    public int[] getIndexOfCurrentPlayerTurnArray(){
+        int[] turn = new int[1];
+        turn[0] = indexOfCurrentPlayerTurn;
+        return turn;
+    }
+    
+    public boolean[] obtainWhoIsDead(){
+        boolean[] dead = new boolean[tanksArrayUsed.length];
+        
+        for(int i = 0;i < tanksArrayUsed.length; i++){
+            dead[i] = tanksArrayUsed[i].isTankAlive();
+        }
+        return dead;
+    }
+    
+    public void resetWhoIsDead(boolean[] dead){
+        for(int i = 0;i < tanksArrayUsed.length; i++){
+            tanksArrayUsed[i].setIsTankAlive(dead[i]);
+        }
+    }
+    //Beginning of setters and getters
     public double getWidth() {
         return width;
     }
@@ -713,11 +734,6 @@ public class TanksAnimation implements Serializable{
     public void setHud(HUD hud) {
         this.hud = hud;
     }
-    
-   public int[] getIndexOfCurrentPlayerTurnArray(){
-        int[] turn = new int[1];
-        turn[0] = indexOfCurrentPlayerTurn;
-        return turn;
-    }
+    //End of setters and getters
     
 }

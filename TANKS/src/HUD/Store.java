@@ -14,13 +14,13 @@ import javafx.scene.image.ImageView;
  *
  * @author Cedrik Dubois
  */
-public class Store implements Serializable{
+public class Store{
     
     private boolean storeOpened = false;
     
-    private transient GamePane gamePane;
+    private GamePane gamePane;
     
-    private transient ImageView storeBackground = new ImageView(new Image("Texture/Menus/Store/Store.png"));
+    private ImageView storeBackground = new ImageView(new Image("Texture/Menus/Store/Store.png"));
     
     public Store(GamePane gamePane){
         this.gamePane = gamePane;
