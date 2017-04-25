@@ -5,6 +5,7 @@
  */
 package HUD;
 
+import classes.Player;
 import Tanks.Tanks;
 import GamePane.GamePane;
 import Weapon.WeaponManager;
@@ -44,6 +45,7 @@ public class HUD extends Pane{
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 150;
     
+
     private Text player = new Text();
     private ArrayList<String> playerNames = new ArrayList<>();
     private static int playerIndex = 0;
@@ -58,6 +60,8 @@ public class HUD extends Pane{
     private Text weapon = new Text();
     private Text weaponCost = new Text();
     private ImageView weaponLogo;
+    
+    private ArrayList<Player> playerList;
     
 
     private Text item = new Text();
@@ -99,14 +103,16 @@ public class HUD extends Pane{
     
     
     public HUD(WeaponManager weaponManager, GamePane gamePane){
-        this.gamePane = gamePane;
-        this.pauseMenu = new PauseMenu(this.gamePane);
-        this.storeMenu = new Store(this.gamePane);
         
         //gameScene = scene;
         this.weaponManager = weaponManager;
         this.setMinSize(WIDTH, HEIGHT);
         this.setMaxSize(WIDTH, HEIGHT);
+        
+        this.gamePane = gamePane;
+        this.pauseMenu = new PauseMenu(this.gamePane);
+        this.storeMenu = new Store(this.gamePane, this.weaponManager);
+        
         
         weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
         weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
@@ -115,6 +121,8 @@ public class HUD extends Pane{
         item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
         itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
         itemLogo = new ImageView(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
+        
+        playerList = gamePane.getPlayerArrayList();
         
         setTanks();
         
@@ -137,6 +145,7 @@ public class HUD extends Pane{
         setPauseBtn();
         
     }
+    
     private void setTanks(){
         tanks[0] = northKoreaTank;
         tanks[1] = usaTank;
@@ -173,12 +182,14 @@ public class HUD extends Pane{
         itemBtn.setOnMouseReleased(e -> {
             itemBtn.setImage(itemBtnImage);
             
-            if(itemIndex < weaponManager.getItemArrayList().size() - 1)
-                itemIndex++;
+            do
+            {
+                if(itemIndex < playerList.get(playerIndex).getItemInventory().length - 1)
+                    itemIndex++;
             
-            else
-                itemIndex = 0;
-
+                else
+                    itemIndex = 0;
+            }while (playerList.get(playerIndex).getItemInventory()[itemIndex] == 0);
             
             item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
             itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
@@ -186,6 +197,53 @@ public class HUD extends Pane{
             
             
         });
+    }    
+    private void setWeaponBtn(){
+        weaponBtn = new ImageView(weaponBtnImage);
+        this.getChildren().add(weaponBtn);
+        
+        weaponBtn.setTranslateX(406.0);
+        weaponBtn.setTranslateY(8.5);
+        
+        
+        /*
+        weaponBtn.setOnMouseDragged(e -> {
+            weaponBtn.setTranslateX(e.getSceneX());
+            weaponBtn.setTranslateY(e.getSceneY());
+            System.out.println(weaponBtn.getTranslateX() + ", " + weaponBtn.getTranslateY());
+        });
+        */
+        
+        weaponBtn.setOnMouseEntered(e -> {
+            this.setCursor(Cursor.HAND);
+        });
+        
+        weaponBtn.setOnMouseExited(e -> {
+            this.setCursor(Cursor.DEFAULT);
+        });
+        
+        weaponBtn.setOnMousePressed(e -> {
+            weaponBtn.setImage(weaponBtnClicked); 
+        });
+        
+        weaponBtn.setOnMouseReleased(e -> {
+            weaponBtn.setImage(weaponBtnImage);
+            
+            do
+            {
+                if(weaponIndex < playerList.get(playerIndex).getWeaponInventory().length - 1)
+                    weaponIndex++;
+            
+                else
+                    weaponIndex = 0;
+            }while (playerList.get(playerIndex).getWeaponInventory()[weaponIndex] == 0);
+            
+            weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
+            weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
+            weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
+            
+        });
+        
     }
     private void setPauseBtn(){
         pauseBtn = new ImageView(pauseBtnImage);
@@ -224,7 +282,6 @@ public class HUD extends Pane{
         });
         
     }
-    
     private void setStoreBtn(){
         storeBtn = new ImageView(storeBtnImage);
         this.getChildren().add(storeBtn);
@@ -254,14 +311,18 @@ public class HUD extends Pane{
         
         storeBtn.setOnMouseReleased(e -> {
             storeBtn.setImage(storeBtnImage);
-            if (storeMenu.isStoreOpened() == false)
-                storeMenu.openStore();
-            else
+            if (storeMenu.isStoreOpened() == false){
+                storeMenu.openStore(playerList.get(playerIndex));
+                pauseMenu.pauseGame(1);
+                System.out.println(playerList.get(playerIndex).getUsername());
+            }
+            else{
                 storeMenu.closeStore();
+                pauseMenu.resumeGame(1);
+            }
         });
         
     }
-    
     private void setPlayerTank(){
         
         playerTank = new ImageView(tanks[playerTurn]);
@@ -279,7 +340,6 @@ public class HUD extends Pane{
         */
         
     }
-    
     private void setHealth(){
          this.getChildren().add(playerHealth);
          
@@ -315,7 +375,6 @@ public class HUD extends Pane{
              System.out.println(playerHealth.getProgress());
          });*/
     }
-    
     public void updateHealth(int lifePoints){
         if (lifePoints < 0)
             playerHealth.setProgress(0);
@@ -325,7 +384,6 @@ public class HUD extends Pane{
         if ((lifePoints) <= 30)
             playerHealth.setColor("red-bar");
     }
-    
     private void setWind(){
         this.getChildren().add(wind);
         
@@ -340,7 +398,6 @@ public class HUD extends Pane{
         
         wind.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
     }
-    
     private void setGravity(){
         this.getChildren().add(gravityLbl);
         
@@ -359,53 +416,6 @@ public class HUD extends Pane{
         
         gravityLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
     }
-    
-    private void setWeaponBtn(){
-        weaponBtn = new ImageView(weaponBtnImage);
-        this.getChildren().add(weaponBtn);
-        
-        weaponBtn.setTranslateX(406.0);
-        weaponBtn.setTranslateY(8.5);
-        
-        
-        /*
-        weaponBtn.setOnMouseDragged(e -> {
-            weaponBtn.setTranslateX(e.getSceneX());
-            weaponBtn.setTranslateY(e.getSceneY());
-            System.out.println(weaponBtn.getTranslateX() + ", " + weaponBtn.getTranslateY());
-        });
-        */
-        
-        weaponBtn.setOnMouseEntered(e -> {
-            this.setCursor(Cursor.HAND);
-        });
-        
-        weaponBtn.setOnMouseExited(e -> {
-            this.setCursor(Cursor.DEFAULT);
-        });
-        
-        weaponBtn.setOnMousePressed(e -> {
-            weaponBtn.setImage(weaponBtnClicked); 
-        });
-        
-        weaponBtn.setOnMouseReleased(e -> {
-            weaponBtn.setImage(weaponBtnImage);
-            
-            if(weaponIndex < 8)
-                weaponIndex++;
-            
-            else
-                weaponIndex = 0;
-
-            
-            weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
-            weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
-            weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
-            
-        });
-        
-    }
-    
     private void setItem(){
         this.getChildren().addAll(item, itemLogo, itemCost);
         
@@ -443,7 +453,6 @@ public class HUD extends Pane{
         itemLogo.setFitHeight(75);
         itemLogo.setFitWidth(75);
     }
-    
     private void setWeapon(){
         //The list of weapons will be passed on by some method
         this.getChildren().addAll(weapon, weaponLogo, weaponCost);
@@ -484,7 +493,6 @@ public class HUD extends Pane{
         weaponLogo.setFitHeight(100);
         weaponLogo.setFitWidth(100);
     }
-    
     private void setPlayer(){
         //Using player 1 - 4 for now, but these names will be passed by the Player objects
         //coming from the menu classes
@@ -502,48 +510,27 @@ public class HUD extends Pane{
         */
         
         
-        playerNames.add("Player 1");
-        playerNames.add("Player 2");
-        playerNames.add("Player 3");
-        playerNames.add("Player 4");
-        
         player.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
-        player.setText(playerNames.get(playerIndex));
-    }
-    
-    public void nextPlayer(){
-        if (playerIndex == 3)
-            playerIndex = 0;
-        else
-            playerIndex++;
         
-        player.setText(playerNames.get(playerIndex));
     }
-    
     public Text getWeapon() {
         return weapon;
     }
-    
     public void setWeapon(Text weapon) {
         this.weapon = weapon;
     }
-    
     public Text getWeaponCost() {
         return weaponCost;
     }
-    
     public void setWeaponCost(Text weaponCost) {
         this.weaponCost = weaponCost;
     }
-    
     public ImageView getWeaponLogo() {
         return weaponLogo;
     }
-    
     public void setWeaponLogo(ImageView weaponLogo) {
         this.weaponLogo = weaponLogo;
     }
-    
     private void setBackground(){
         BackgroundImage myBI= new BackgroundImage(new Image("Texture/Menus/HUD/Background.png", WIDTH, HEIGHT, false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -551,123 +538,94 @@ public class HUD extends Pane{
        
         this.setBackground(new Background(myBI));
     }
-
     public GamePane getGamePane() {
         return gamePane;
     }
-
     public PauseMenu getPauseMenu() {
         return pauseMenu;
     }
-
     public int getPlayerTurn() {
         return playerTurn;
     }
-
     public static int getWIDTH() {
         return WIDTH;
     }
-
     public static int getHEIGHT() {
         return HEIGHT;
     }
-
     public Text getPlayer() {
         return player;
     }
-
-    public ArrayList<String> getPlayerNames() {
-        return playerNames;
-    }
-
     public static int getPlayerIndex() {
         return playerIndex;
     }
-
     public WeaponManager getWeaponManager() {
         return weaponManager;
     }
-
     public int getWeaponIndex() {
         return weaponIndex;
     }
-
     public ImageView getWeaponBtn() {
         return weaponBtn;
     }
-
     public Image getWeaponBtnImage() {
         return weaponBtnImage;
     }
-
     public Image getWeaponBtnClicked() {
         return weaponBtnClicked;
     }
-
     public ImageView getStoreBtn() {
         return storeBtn;
     }
-
     public Image getStoreBtnImage() {
         return storeBtnImage;
     }
-
     public Image getStoreBtnClicked() {
         return storeBtnClicked;
     }
-
     public ImageView getPauseBtn() {
         return pauseBtn;
     }
-
     public Image getPauseBtnImage() {
         return pauseBtnImage;
     }
-
     public Image getPauseBtnClicked() {
         return pauseBtnClicked;
     }
-
     public String getGravity() {
         return gravity;
     }
-
     public Text getGravityLbl() {
         return gravityLbl;
     }
-
     public int getWindResistance() {
         return windResistance;
     }
-
     public Text getWind() {
         return wind;
     }
-
     public ColoredProgressBar getPlayerHealth() {
         return playerHealth;
     }
-
     public ImageView getPlayerTank() {
         return playerTank;
     }
-
     public Image[] getTanks() {
         return tanks;
     }
-
     public Image getCanadaTank() {
         return canadaTank;
     }
-    
     public void setCurrentPlayerName(String name){
         player.setText(name);
     }
-    
     public void setCurrentPlayerTank(Tanks tank, int team){
+        playerIndex = team;
         playerTank.setImage(tanks[team]);
         
         playerHealth.setProgress((double) ((double) tank.getLifePoint()) / 100);
     }
+    
+    
 }
 

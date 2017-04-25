@@ -173,6 +173,41 @@ public class PauseMenu{
             resumeGame();
         });
     }
+    public void resumeGame(int storeResume){
+        
+        isGamePaused = false;
+        
+        
+        gamePane.getTanksAnimation().getAnimation().play();
+        gamePane.getTanksAnimation().getAnimation2().play();
+        gamePane.getTanksAnimation().getAnimation3().play();
+        gamePane.getTanksAnimation().getAnimation4().play();
+        
+        if(isWeaponAnimationStopped){
+            isWeaponAnimationStopped = false;
+            gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().play();
+        }
+        
+        if(isProgressBarStopped1){
+            isProgressBarStopped1 = false;
+            gamePane.getTanksAnimation().getProgressBarAnimationOne().play();
+        }
+        
+        if(isProgressBarStopped2){
+            isProgressBarStopped2 = false;
+            gamePane.getTanksAnimation().getProgressBarAnimationTwo().play();
+        }
+        
+        if(isProgressBarStopped3){
+            isProgressBarStopped3 = false;
+            gamePane.getTanksAnimation().getProgressBarAnimationThree().play();
+        }
+        
+        if(isProgressBarStopped4){
+            isProgressBarStopped4 = false;
+            gamePane.getTanksAnimation().getProgressBarAnimationFour().play();
+        }
+    }
     public void resumeGame(){
         
         isGamePaused = false;
@@ -210,7 +245,42 @@ public class PauseMenu{
         
         gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn);
     }
-    
+    public void pauseGame(int storePause){
+        isGamePaused = true;
+        gamePane.getTanksAnimation().getAnimation().pause();
+        gamePane.getTanksAnimation().getAnimation2().pause();
+        gamePane.getTanksAnimation().getAnimation3().pause();
+        gamePane.getTanksAnimation().getAnimation4().pause();
+        
+        if(gamePane.getTanksAnimation().getWeaponAnimation() == null){
+            
+        }
+        
+        else if(gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(RUNNING) == 0){
+            isWeaponAnimationStopped = true;
+            gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().pause();
+        }
+        
+        if(gamePane.getTanksAnimation().getProgressBarAnimationOne().getStatus().compareTo(RUNNING) == 0){
+            isProgressBarStopped1 = true;
+            gamePane.getTanksAnimation().getProgressBarAnimationOne().pause();
+        }
+        
+        if(gamePane.getTanksAnimation().getProgressBarAnimationTwo().getStatus().compareTo(RUNNING) == 0){
+            isProgressBarStopped2 = true;
+            gamePane.getTanksAnimation().getProgressBarAnimationTwo().pause();
+        }
+        
+        if(gamePane.getTanksAnimation().getProgressBarAnimationThree().getStatus().compareTo(RUNNING) == 0){
+            isProgressBarStopped3 = true;
+            gamePane.getTanksAnimation().getProgressBarAnimationThree().pause();
+        }
+        
+        if(gamePane.getTanksAnimation().getProgressBarAnimationFour().getStatus().compareTo(RUNNING) == 0){
+            isProgressBarStopped4 = true;
+            gamePane.getTanksAnimation().getProgressBarAnimationFour().pause();
+        }
+    }
     public void pauseGame(){
         isGamePaused = true;
         gamePane.getTanksAnimation().getAnimation().pause();
