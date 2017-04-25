@@ -162,6 +162,7 @@ public class MainMenuManagerPane extends Pane{
             gamePane.setFocusTraversable(true);
             this.getChildren().add(borderPane);
             this.autosize();
+            System.out.println(this.getMinWidth() + ", " + this.getMinHeight());
         });
         
         mapMenu.getBackBtn().setOnMouseClicked(e -> {

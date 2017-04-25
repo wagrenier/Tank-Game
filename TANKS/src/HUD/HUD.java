@@ -108,14 +108,16 @@ public class HUD extends Pane{
     
     
     public HUD(WeaponManager weaponManager, GamePane gamePane){
-        this.gamePane = gamePane;
-        this.pauseMenu = new PauseMenu(this.gamePane);
-        this.storeMenu = new Store(this.gamePane);
         
         //gameScene = scene;
         this.weaponManager = weaponManager;
         this.setMinSize(WIDTH, HEIGHT);
         this.setMaxSize(WIDTH, HEIGHT);
+        
+        this.gamePane = gamePane;
+        this.pauseMenu = new PauseMenu(this.gamePane);
+        this.storeMenu = new Store(this.gamePane, this.weaponManager);
+        
         
         weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
         weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
@@ -315,7 +317,7 @@ public class HUD extends Pane{
         storeBtn.setOnMouseReleased(e -> {
             storeBtn.setImage(storeBtnImage);
             if (storeMenu.isStoreOpened() == false){
-                storeMenu.openStore();
+                storeMenu.openStore(playerList.get(playerIndex));
                 pauseMenu.pauseGame(1);
                 System.out.println(playerList.get(playerIndex).getUsername());
             }
