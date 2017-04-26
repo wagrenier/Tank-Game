@@ -74,12 +74,12 @@ public class GameLoop extends AnimationTimer{
     private void fireWeapon(Tanks tank){
         //TODO Implement this
         bestWeapon();
-        System.out.println("AI Fire Weapon " + tank.getImagePath());
+        //System.out.println("AI Fire Weapon " + tank.getImagePath());
         
         tanksArrayUsed[indexOfCurrentPlayerTurn].getCannon().setAICannonAngle(angleToShoot(tank));
         //tanksAnimation.weaponSetup(tanksArrayUsed[indexOfCurrentPlayerTurn], Math.random());
         
-        tanksAnimation.keyPressed(KeyCode.SPACE, 
+        tanksAnimation.keyPressedAI(KeyCode.SPACE, 
                 tanksArrayUsed[indexOfCurrentPlayerTurn], 
                 tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], 
                 tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], 
@@ -87,7 +87,7 @@ public class GameLoop extends AnimationTimer{
         
         //Times 60 because the thread is called 60 times per second
         launchWeaponDelay = (int) ((1 + Math.random() * 4) * (Math.random() * 61));
-        System.out.println(launchWeaponDelay / 60);
+        //System.out.println(launchWeaponDelay / 60);
         launchInitiated = true;
         
     }
@@ -137,20 +137,20 @@ public class GameLoop extends AnimationTimer{
             fireWeapon(tanksArrayUsed[indexOfClosestTank]);
         }
         else if(tanksArrayUsed[indexOfClosestTank].getTranslateX() < tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX()){
-            tanksAnimation.keyPressed(KeyCode.LEFT, 
+            tanksAnimation.keyPressedAI(KeyCode.LEFT, 
                     tanksArrayUsed[indexOfCurrentPlayerTurn], 
                     tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], 
                     tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], 
                     tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
-            System.out.println("AI Move Left");
+            //System.out.println("AI Move Left");
         }
         else{
-            tanksAnimation.keyPressed(KeyCode.RIGHT, 
+            tanksAnimation.keyPressedAI(KeyCode.RIGHT, 
                     tanksArrayUsed[indexOfCurrentPlayerTurn], 
                     tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], 
                     tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], 
                     tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]); 
-            System.out.println("AI Moves Right");
+            //System.out.println("AI Moves Right");
         }
     }
     
@@ -198,7 +198,7 @@ public class GameLoop extends AnimationTimer{
          */
         //System.out.println("AI Analyzing Turn");
         //Removing the user's ability to input
-        tanksAnimation.getPane().setFocusTraversable(false);
+        //tanksAnimation.getPane().setFocusTraversable(false);
         moveToClosestTank();   
     }
     
@@ -214,7 +214,6 @@ public class GameLoop extends AnimationTimer{
     
     @Override
     public void handle(long now) {  
-            
             if(tanksAnimation.getHud().getPauseMenu().isGamePaused() || tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
                 //System.out.println("Stuck in Pause");
         }
@@ -227,20 +226,22 @@ public class GameLoop extends AnimationTimer{
             }
             else{
             if(newTurn){
+                 tanksAnimation.setTurnPlayed(false);
                 System.out.println("New Turn");
                 tanksAnimation.resetSpeed();
                 tanksAnimation.setIndexOfCurrentPlayerTurn(indexOfCurrentPlayerTurn);
                 tanksAnimation.updateTurn();
                 initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
                 playerTurn(indexOfCurrentPlayerTurn);
+                //tanksAnimation.getPane().setFocusTraversable(false);
                 if(tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
                         aiTurn();
                         //System.out.println("AI Turn");
                         
                     }
                 
-                else{
-                    tanksAnimation.getPane().setFocusTraversable(true);
+                else if(!tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
+                    //tanksAnimation.getPane().setFocusTraversable(true);
                 }
                 newTurn = false;
             }
@@ -249,7 +250,7 @@ public class GameLoop extends AnimationTimer{
                 launchWeaponDelayCounter++;
                 
                 if(launchWeaponDelayCounter >= launchWeaponDelay){
-                    tanksAnimation.keyPressed(KeyCode.SPACE, 
+                    tanksAnimation.keyPressedAI(KeyCode.SPACE, 
                         tanksArrayUsed[indexOfCurrentPlayerTurn], 
                         tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], 
                         tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], 
@@ -270,6 +271,7 @@ public class GameLoop extends AnimationTimer{
                    if(indexOfCurrentPlayerTurn >= tanksArrayUsed.length){
                         indexOfCurrentPlayerTurn = 0;
                    }
+                    tanksAnimation.setTurnPlayed(false);
                     tanksAnimation.setShotFired(false);
                     endTurn = false;
                     newTurn = true;
