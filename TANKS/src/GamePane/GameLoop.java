@@ -229,6 +229,8 @@ public class GameLoop extends AnimationTimer{
             if(newTurn){
                 tanksAnimation.setTurnPlayed(false);
                 System.out.println("New Turn");
+                tanksAnimation.getHud().resetWeaponIndex();
+                tanksAnimation.getHud().resetItemIndex();
                 tanksAnimation.resetSpeed();
                 tanksAnimation.setIndexOfCurrentPlayerTurn(indexOfCurrentPlayerTurn);
                 tanksAnimation.updateTurn();
