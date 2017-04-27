@@ -211,7 +211,6 @@ public class TanksAnimation{
            keyReleased = true;
        });
         pane.setOnKeyPressed(e -> {
-            //this.pane.requestFocus();
             
             if(keyReleased){
                 System.out.println("Key Entered");
@@ -224,7 +223,7 @@ public class TanksAnimation{
             }
             }); 
             
-            
+         
     }
     
     private Timeline progressBarInitialSetup(ProgressBar bar){
@@ -484,7 +483,7 @@ public class TanksAnimation{
                     
                 case LEFT: {
                     
-                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed){
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed && keyReleased){
                     if(tank.getxSpeed() == 0){
                             tank.setxSpeed(tank.getxSpeed() - 0.05);
                             //tanksOne.setRotate(90);
@@ -499,11 +498,16 @@ public class TanksAnimation{
                         //xspeed -= 0.1;
                     }
                     }
-                    turnPlayed = true;
+                    if(progressBarAnimation.getStatus().compareTo(RUNNING) == 0){
+                        
+                    }
+                    else{
+                        turnPlayed = true;
+                    }
                     }break;
                     
                 case RIGHT: {
-                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed){
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed && keyReleased){
                     if(tank.getxSpeed() == 0){
                             tank.setxSpeed(tank.getxSpeed() + 0.05);
                             tank.normalTexture();
@@ -516,7 +520,12 @@ public class TanksAnimation{
                         tank.setxSpeed(tank.getxSpeed() + 0.05);
                         //xspeed += 0.1;
                     }
-                    turnPlayed = true;
+                    if(progressBarAnimation.getStatus().compareTo(RUNNING) == 0){
+                        
+                    }
+                    else{
+                        turnPlayed = true;
+                    }
                     }break;
                     
                 case UP: {
