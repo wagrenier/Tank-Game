@@ -48,7 +48,6 @@ public class HUD extends Pane{
     
 
     private Text player = new Text();
-    private ArrayList<String> playerNames = new ArrayList<>();
     private static int playerIndex = 0;
     
     WeaponManager weaponManager;
@@ -662,6 +661,12 @@ public class HUD extends Pane{
         item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
         itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
         itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
+    }
+    public void updateWeaponStatus(){
+        playerList.get(playerIndex).removeWeapon(weaponIndex);
+    }
+    public void updateItemStatus(){
+        playerList.get(playerIndex).removeItem(itemIndex);
     }
     
 }
