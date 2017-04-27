@@ -112,18 +112,41 @@ public class Player implements Serializable{
         return this.username + " : " + this.team;
     }
     
+    public void removeWeapon(int index){
+        if (index == 0){
+            
+        }
+        else {
+            if (index < 1){
+                
+            }
+            else {
+                weaponInventory[index] = weaponInventory[index] - 1;
+            }
+        }
+    }
+    
     public void addWeapon(int index){
-        System.out.println(weaponInventory[index]);
         weaponInventory[index] = weaponInventory[index] + 1;
-        System.out.println(weaponInventory[index]);
+    }
+    
+    public void removeItem(int index){
+        itemInventory[index] = itemInventory[index] - 1;
     }
     
     public void addItem(int index){
         itemInventory[index] = itemInventory[index] + 1;
     }
     
-    public void removeMoney(int amount){
-        this.money = this.money - amount;
+    public boolean removeMoney(int amount){
+        
+        if (amount <= this.money){
+            this.money = this.money - amount;
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     public void addMoney(int amount){

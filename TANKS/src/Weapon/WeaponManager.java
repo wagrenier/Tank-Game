@@ -65,8 +65,8 @@ public class WeaponManager  implements Serializable{
        itemArrayList.add(new ShieldItem("Shield (L)", 200, "Texture/Items/Special/Large Shield.png", 75, "Protects Tank"));//5
        
        //Upgrades
-       itemArrayList.add(new UpgradeItem("Armor", 200, "Texture/Items/Special/Armor Upgrade.png", 5, "Adds Max Health"));
-       itemArrayList.add(new UpgradeItem("Engine", 200, "Texture/Items/Special/Engine Upgrade.png", 10, "Increase Movement"));
+       itemArrayList.add(new UpgradeItem("Armor", 200, "Texture/Items/Special/Armor Upgrade.png", 5, "Adds Max Health"));//6
+       itemArrayList.add(new UpgradeItem("Engine", 200, "Texture/Items/Special/Engine Upgrade.png", 10, "Raise Movement"));//7
        
     }
     

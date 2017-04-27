@@ -115,9 +115,8 @@ public class HUD extends Pane{
         this.setMaxSize(WIDTH, HEIGHT);
         
         this.gamePane = gamePane;
-        this.pauseMenu = new PauseMenu(this.gamePane);
         this.storeMenu = new Store(this.gamePane, this.weaponManager);
-        
+        this.pauseMenu = new PauseMenu(this.gamePane, this.storeMenu);
         
         weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
         weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
@@ -276,14 +275,25 @@ public class HUD extends Pane{
         pauseBtn.setOnMousePressed(e -> {
             pauseBtn.setImage(pauseBtnClicked);
             
-            if (pauseMenu.isGamePaused() == false)
-                pauseMenu.pauseGame();
-            else
-                pauseMenu.resumeGame();
         });
         
         pauseBtn.setOnMouseReleased(e -> {
             pauseBtn.setImage(pauseBtnImage);
+            
+            
+            
+            if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen() == false)
+                pauseMenu.openMenuWithoutPause();
+            else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen())
+                pauseMenu.closeMenuWithoutResume();
+            else if (pauseMenu.isGamePaused() == false && storeMenu.isStoreOpened() == false && pauseMenu.isMenuOpen() == false)
+                pauseMenu.pauseGame();
+            else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() == false && pauseMenu.isMenuOpen() == true)
+                pauseMenu.resumeGame();
+            
+            System.out.println("Game Pause: " + pauseMenu.isGamePaused());
+            System.out.println("Store Open: " + storeMenu.isStoreOpened());
+            System.out.println("Pause Menu Open: " + pauseMenu.isMenuOpen());
         });
         
     }
@@ -316,15 +326,24 @@ public class HUD extends Pane{
         
         storeBtn.setOnMouseReleased(e -> {
             storeBtn.setImage(storeBtnImage);
-            if (storeMenu.isStoreOpened() == false){
+            
+            if (storeMenu.isStoreOpened() && pauseMenu.isGamePaused() && pauseMenu.isMenuOpen()){
+                
+            }
+            else if (storeMenu.isStoreOpened() == false && pauseMenu.isGamePaused() == false){
                 storeMenu.openStore(playerList.get(playerIndex));
                 pauseMenu.pauseGame(1);
                 System.out.println(playerList.get(playerIndex).getUsername());
             }
-            else{
+            else if (storeMenu.isStoreOpened() == true){
                 storeMenu.closeStore();
                 pauseMenu.resumeGame(1);
             }
+            
+            
+            System.out.println("Game Pause: " + pauseMenu.isGamePaused());
+            System.out.println("Store Open: " + storeMenu.isStoreOpened());
+            System.out.println("Pause Menu Open: " + pauseMenu.isMenuOpen());
         });
         
     }

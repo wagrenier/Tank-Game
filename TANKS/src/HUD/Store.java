@@ -70,13 +70,11 @@ public class Store{
     //Information Panel
     private ImageView infoPanel = new ImageView(new Image("Texture/Menus/Store/Info Panel.png"));
     
-    private Text weaponCost = new Text();
-    private Text weaponDamage = new Text();
-    private Text weaponShot = new Text();
+    private Text itemCost = new Text("Cost of Item");
+    private Text itemValue = new Text("Value of Item");
+    private Text itemDesc = new Text("Description");
     
-    private Text itemCost = new Text();
-    private Text itemValue = new Text();
-    private Text itemUse = new Text();
+    
     
     public Store(GamePane gamePane, WeaponManager weaponManager){
         this.gamePane = gamePane;
@@ -88,6 +86,8 @@ public class Store{
     }
     private void setInfoPanel(){
         
+        this.gamePane.getChildren().addAll(infoPanel, itemCost, itemValue, itemDesc);
+        
         
         /*
         weaponShot.setOnMouseDragged(e -> {
@@ -96,55 +96,41 @@ public class Store{
             System.out.println(weaponShot.getTranslateX() + ", " + weaponShot.getTranslateY());
         });
         */
-        weaponCost.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
-        weaponDamage.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
-        weaponShot.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
-        
         itemCost.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         itemValue.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
-        itemUse.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+        itemDesc.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+        
         
         
         infoPanel.setTranslateX(487.0);
         infoPanel.setTranslateY(306.5);
         
-        weaponCost.setTranslateX(500.0);
-        weaponCost.setTranslateY(355.0);
-        
         itemCost.setTranslateX(500.0);
         itemCost.setTranslateY(355.0);
-        
-        weaponDamage.setTranslateX(500.0);
-        weaponDamage.setTranslateY(415.0);
         
         itemValue.setTranslateX(500.0);
         itemValue.setTranslateY(415.0);
         
-        weaponShot.setTranslateX(500);
-        weaponShot.setTranslateY(475.0);
+        itemDesc.setTranslateX(500);
+        itemDesc.setTranslateY(475.0);
         
-        itemUse.setTranslateX(500.0);
-        itemUse.setTranslateY(475.0);
     }
     private void addItemInfo(int index){
         itemCost.setText("Cost: " + weaponManager.getItemFromWeaponManager(index).getCostOfItem() + "$");
         itemValue.setText("Value: " + weaponManager.getItemFromWeaponManager(index).getValue());
-        itemUse.setText(weaponManager.getItemFromWeaponManager(index).getUse());
+        itemDesc.setText(weaponManager.getItemFromWeaponManager(index).getUse());
         
-        this.gamePane.getChildren().addAll(infoPanel, itemCost, itemValue, itemUse);
     }
-    private void removeItemInfo(){
-        this.gamePane.getChildren().removeAll(infoPanel, itemCost, itemValue, itemUse);
+    private void resetItemInfo(){
+        itemCost.setText("Cost of Item");
+        itemValue.setText("Value of Item");
+        itemDesc.setText("Descrption");
     }
     private void addWeaponInfo(int index){
-        weaponCost.setText("Cost: " + weaponManager.getWeaponFromWeaponManager(index).getCostOfWeapon() + "$");
-        weaponDamage.setText("Damage: " + weaponManager.getWeaponFromWeaponManager(index).getDamage());
-        weaponShot.setText("Fire: " + weaponManager.getWeaponFromWeaponManager(index).getShotType());
+        itemCost.setText("Cost: " + weaponManager.getWeaponFromWeaponManager(index).getCostOfWeapon() + "$");
+        itemValue.setText("Damage: " + weaponManager.getWeaponFromWeaponManager(index).getDamage());
+        itemDesc.setText("Fire: " + weaponManager.getWeaponFromWeaponManager(index).getShotType());
         
-        this.gamePane.getChildren().addAll(infoPanel, weaponCost, weaponDamage, weaponShot);
-    }
-    private void removeWeaponInfo(){
-        this.gamePane.getChildren().removeAll(infoPanel, weaponCost, weaponDamage, weaponShot);
     }
     private void setPlayerInfo(Player player){
         playerName.setText(player.getUsername());
@@ -232,6 +218,7 @@ public class Store{
         this.gamePane.getChildren().remove(shieldSmallBtn);
         this.gamePane.getChildren().remove(shieldMediumBtn);
         this.gamePane.getChildren().remove(shieldLargeBtn);
+        this.gamePane.getChildren().removeAll(infoPanel, itemCost, itemValue, itemDesc);
         
         storeOpened = false;
     }
@@ -256,7 +243,7 @@ public class Store{
         
         atomicBtn.setOnMouseReleased(e -> {
             buyItem(true, 3);
-            System.out.println("Bought atomic bomb");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -266,7 +253,7 @@ public class Store{
         });
         atomicBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeWeaponInfo();
+            resetItemInfo();
         });
     }
     private void addLaser(){
@@ -285,7 +272,7 @@ public class Store{
         
         laserBtn.setOnMouseReleased(e -> {
             buyItem(true, 4);
-            System.out.println("Bought laser");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -295,8 +282,7 @@ public class Store{
         });
         laserBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            this.gamePane.getChildren().remove(infoPanel);
-            removeWeaponInfo();
+            resetItemInfo();
         });
     }
     private void addMissile(){
@@ -315,7 +301,7 @@ public class Store{
         
         missileBtn.setOnMouseReleased(e -> {
             buyItem(true, 1);
-            System.out.println("Bought missile");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -325,7 +311,7 @@ public class Store{
         });
         missileBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeWeaponInfo();
+            resetItemInfo();
         });
     }
     private void addShrapnel(){
@@ -344,7 +330,7 @@ public class Store{
         
         shrapnelBtn.setOnMouseReleased(e -> {
             buyItem(true, 2);
-            System.out.println("Bought shrapnel");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -354,7 +340,7 @@ public class Store{
         });
         shrapnelBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeWeaponInfo();
+            resetItemInfo();
         });
     }
     private void addLMG(){
@@ -373,7 +359,7 @@ public class Store{
         
         lmgBtn.setOnMouseReleased(e -> {
             buyItem(true, 6);
-            System.out.println("Bought LMG");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -383,7 +369,7 @@ public class Store{
         });
         lmgBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeWeaponInfo();
+            resetItemInfo();
         });
     }
     private void addHMG(){
@@ -402,7 +388,7 @@ public class Store{
         
         hmgBtn.setOnMouseReleased(e -> {
             buyItem(true, 5);
-            System.out.println("Bought HMG");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -412,7 +398,7 @@ public class Store{
         });
         hmgBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeWeaponInfo();
+            resetItemInfo();
         });
     }
     private void addMine(){
@@ -431,7 +417,7 @@ public class Store{
         
         mineBtn.setOnMouseReleased(e -> {
             buyItem(true, 7);
-            System.out.println("Bought mine");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -441,7 +427,7 @@ public class Store{
         });
         mineBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeWeaponInfo();
+            resetItemInfo();
         });
     }
     private void addC4RC(){
@@ -460,7 +446,7 @@ public class Store{
         
         c4rcBtn.setOnMouseReleased(e -> {
             buyItem(true, 8);
-            System.out.println("Bought C4RC");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -470,7 +456,7 @@ public class Store{
         });
         c4rcBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeWeaponInfo();
+            resetItemInfo();
         });
     }
     
@@ -490,11 +476,13 @@ public class Store{
         
         armorBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
-           this.gamePane.getChildren().add(infoPanel);
+           addItemInfo(6);
+           
         });
         armorBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            this.gamePane.getChildren().remove(infoPanel);
+            resetItemInfo();
+            
         });
     }
     private void addEngine(){
@@ -513,11 +501,12 @@ public class Store{
         
         engineBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
-           this.gamePane.getChildren().add(infoPanel);
+           addItemInfo(7);
+           
         });
         engineBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            this.gamePane.getChildren().remove(infoPanel);
+            resetItemInfo();
         });
     }
     
@@ -537,7 +526,7 @@ public class Store{
         
         repairSmallBtn.setOnMouseReleased(e -> {
             buyItem(false, 0);
-            System.out.println("Bought Small Repair");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -547,7 +536,7 @@ public class Store{
         });
         repairSmallBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeItemInfo();
+            resetItemInfo();
         });
     }
     private void addMediumRepair(){
@@ -558,7 +547,7 @@ public class Store{
         
         repairMediumBtn.setOnMouseReleased(e -> {
             buyItem(false, 1);
-            System.out.println("Bought Medium Repair");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -568,7 +557,7 @@ public class Store{
         });
         repairMediumBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeItemInfo();
+            resetItemInfo();
         });
     }
     private void addLargeRepair(){
@@ -579,7 +568,7 @@ public class Store{
         
         repairLargeBtn.setOnMouseReleased(e -> {
             buyItem(false, 2);
-            System.out.println("Bought Large Repair");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -589,7 +578,7 @@ public class Store{
         });
         repairLargeBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeItemInfo();
+            resetItemInfo();
         });
     }
     private void addSmallShield(){
@@ -608,7 +597,7 @@ public class Store{
         
         shieldSmallBtn.setOnMouseReleased(e -> {
             buyItem(false, 3);
-            System.out.println("Bought Small Shield");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -618,7 +607,7 @@ public class Store{
         });
         shieldSmallBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeItemInfo();
+            resetItemInfo();
         });
     }
     private void addMediumShield(){
@@ -637,7 +626,7 @@ public class Store{
         
         shieldMediumBtn.setOnMouseReleased(e -> {
             buyItem(false, 4);
-            System.out.println("Bought Medium Shield");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -647,7 +636,7 @@ public class Store{
         });
         shieldMediumBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeItemInfo();
+            resetItemInfo();
         });
         
     }
@@ -667,7 +656,7 @@ public class Store{
         
         shieldLargeBtn.setOnMouseReleased(e -> {
             buyItem(false, 5);
-            System.out.println("Bought Large Shield");
+            
             playerMoney.setText(player.getMoney() + "$");
         });
         
@@ -677,7 +666,7 @@ public class Store{
         });
         shieldLargeBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
-            removeItemInfo();
+            resetItemInfo();
         });
     }
     
@@ -691,12 +680,23 @@ public class Store{
         
         
         if (type){
-            this.player.addWeapon(index);
-            this.player.removeMoney(weaponManager.getWeaponFromWeaponManager(index).getCostOfWeapon());
+            
+            if (this.player.removeMoney(weaponManager.getWeaponFromWeaponManager(index).getCostOfWeapon()) == false){
+                System.out.println("Insuficient Funds");
+            }
+            else
+                this.player.addWeapon(index);
+                System.out.println("Bought Item");
         }
         else {
-            this.player.addItem(index);
-            this.player.removeMoney(weaponManager.getItemFromWeaponManager(index).getCostOfItem());
+            
+            if (this.player.removeMoney(weaponManager.getItemFromWeaponManager(index).getCostOfItem()) == false){
+                System.out.println("Insuficient Funds");
+            }
+            else{
+                this.player.addItem(index);
+                System.out.println("Bough Item");
+            }
         }
         
     }
