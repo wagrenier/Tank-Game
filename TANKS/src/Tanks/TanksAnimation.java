@@ -385,7 +385,8 @@ public class TanksAnimation{
     public void weaponSetup(Tanks tank, double x){
         shotFired = true;
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getDamage(), weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getTexturePath());        
-        
+        this.hud.updateItemStatus();
+        this.hud.updateWeaponStatus();
         weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, x, mapGeneration.getGravity());
         weaponAnimation.launchAnimation();
         hitDetection(tank, weapon);
