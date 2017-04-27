@@ -212,6 +212,7 @@ public class GameLoop extends AnimationTimer{
         return turn;
     }
     
+    
     @Override
     public void handle(long now) {  
             if(tanksAnimation.getHud().getPauseMenu().isGamePaused() || tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
@@ -226,7 +227,7 @@ public class GameLoop extends AnimationTimer{
             }
             else{
             if(newTurn){
-                 tanksAnimation.setTurnPlayed(false);
+                tanksAnimation.setTurnPlayed(false);
                 System.out.println("New Turn");
                 tanksAnimation.resetSpeed();
                 tanksAnimation.setIndexOfCurrentPlayerTurn(indexOfCurrentPlayerTurn);
@@ -244,6 +245,8 @@ public class GameLoop extends AnimationTimer{
                     //tanksAnimation.getPane().setFocusTraversable(true);
                 }
                 newTurn = false;
+                maxPos = initialPosition + tanksArrayUsed[indexOfCurrentPlayerTurn].getMaxPixelMove();
+                minPos = initialPosition - tanksArrayUsed[indexOfCurrentPlayerTurn].getMaxPixelMove();
             }
             
             if(launchInitiated){
@@ -259,8 +262,7 @@ public class GameLoop extends AnimationTimer{
                     launchInitiated = false;
                 }
             }
-            maxPos = initialPosition + 100;
-            minPos = initialPosition - 100;
+            
             
                 if(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() >= maxPos || tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() < minPos || tanksAnimation.isShotFired()){
                     endTurn = true;

@@ -21,6 +21,17 @@ import java.util.logging.Logger;
 public class SaveFunction {
     //Default Save file: Saves/save.txt
     //Must implement who is dead -> Done
+    
+    /**
+     * Things To Save:
+     * 
+     * Tanks:
+     * MaxPixelMove
+     * 
+     * GameLoop:
+     * InitialPosition
+     * 
+     */
     public SaveFunction(GamePane gamePane){
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("Save/save.dat", false));  
@@ -30,7 +41,7 @@ public class SaveFunction {
             objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainEachTanksDirection());
             objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainTanksHP());
             objectOutputStream.writeObject(gamePane.getGameLoop().getIndexOfCurrentPlayerTurnArray());
-            objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainWhoIsDead());
+            objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainMaxPixelMoveSave());
         } catch (IOException ex) {
             Logger.getLogger(SaveFunction.class.getName()).log(Level.SEVERE, null, ex);
             File file = new File("Save/save.dat"); //There in case user Deletes the save files

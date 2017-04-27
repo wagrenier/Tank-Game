@@ -51,21 +51,7 @@ public class MainMenuManagerPane extends Pane{
         mainMenu.getLoadBtn().setOnMouseClicked(e -> {
             
             this.getChildren().clear();
-            load = new LoadFunction();
-            double[][] array = load.getTanksArray();
-            boolean[] array2 = load.getDirection();
-            boolean[] dead = load.getDead();
-            int[] tanksHP = load.getTanksHP();
-            int[] currentTurn = load.getIndexOfCurrentPlayerTurn();
-            gamePane = new GamePane(load.getGamePane().getPlayerArrayList().size(), load.getGamePane().getPlayerArrayList(), load.getGamePane().getMapGeneration(), currentTurn[0]);
-            //gamePane.setTanksAnimation(load.getTanksAnimation());
-            borderPane.setCenter(gamePane);
-            borderPane.setTop(gamePane.getHUD());
-            
-            gamePane.getTanksAnimation().resetTankPositionSave(array);
-            gamePane.getTanksAnimation().resetTankOrientationSave(array2);
-            gamePane.getTanksAnimation().resetTankHPSave(tanksHP);
-            gamePane.getTanksAnimation().resetWhoIsDead(dead);
+            resetLoad();
             //gamePane.getTanksAnimation().setIndexOfCurrentPlayerTurn(currentTurn[0]);
             this.setMinSize(1200, 950);
             this.setMaxSize(1200, 950);
@@ -179,6 +165,27 @@ public class MainMenuManagerPane extends Pane{
             countryMenu.refreshPane(1);
             countryMenu.resetPane();
         });
+    }
+    
+    private void resetLoad(){
+        load = new LoadFunction();
+            double[][] array = load.getTanksArray();
+            boolean[] array2 = load.getDirection();
+            boolean[] dead = load.getDead();
+            int[] tanksHP = load.getTanksHP();
+            int[] currentTurn = load.getIndexOfCurrentPlayerTurn();
+            double[] maxPix = load.getMaxPixMove();
+            gamePane = new GamePane(load.getGamePane().getPlayerArrayList().size(), load.getGamePane().getPlayerArrayList(), load.getGamePane().getMapGeneration(), currentTurn[0]);
+            //gamePane.setTanksAnimation(load.getTanksAnimation());
+            borderPane.setCenter(gamePane);
+            borderPane.setTop(gamePane.getHUD());
+            
+            gamePane.getTanksAnimation().resetMaxPixelMove(maxPix);
+            
+            gamePane.getTanksAnimation().resetTankPositionSave(array);
+            gamePane.getTanksAnimation().resetTankOrientationSave(array2);
+            gamePane.getTanksAnimation().resetTankHPSave(tanksHP);
+            gamePane.getTanksAnimation().resetWhoIsDead(dead);
     }
     
     private void cursorSetting(Pane pane){
