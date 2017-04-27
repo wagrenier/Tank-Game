@@ -49,19 +49,34 @@ public class Player implements Serializable{
         setItemInventory();
     }
     private void setWeaponInventory(){
-        weaponInventory[0] = 0;
+        weaponInventory[0] = 1;
         weaponInventory[1] = 0;
-        weaponInventory[2] = 1;
+        weaponInventory[2] = 0;
         weaponInventory[3] = 0;
         weaponInventory[4] = 0;
-        weaponInventory[5] = 1;
+        weaponInventory[5] = 0;
         weaponInventory[6] = 0;
         weaponInventory[7] = 0;
-        weaponInventory[8] = 1;
+        weaponInventory[8] = 0;
     }
     
     private void setItemInventory(){
-        
+        itemInventory[0] = 1;
+        itemInventory[1] = 0;
+        itemInventory[2] = 0;
+        itemInventory[3] = 1;
+        itemInventory[4] = 0;
+        itemInventory[5] = 0;
+        itemInventory[6] = 0;
+        itemInventory[7] = 0;
+    }
+    
+    public int[] getItemInventory(){
+        return this.itemInventory;
+    }
+    
+    public int[] getWeaponInventory(){
+        return this.weaponInventory;
     }
     
     public void setName(String name){

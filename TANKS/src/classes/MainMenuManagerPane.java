@@ -160,6 +160,7 @@ public class MainMenuManagerPane extends Pane{
             gamePane.setFocusTraversable(true);
             this.getChildren().add(borderPane);
             this.autosize();
+            System.out.println(this.getMinWidth() + ", " + this.getMinHeight());
         });
         
         mapMenu.getBackBtn().setOnMouseClicked(e -> {
@@ -188,6 +189,11 @@ public class MainMenuManagerPane extends Pane{
         
         playerList.get(playerCount).setName(countryMenu.getPlayerName());
         playerList.get(playerCount).setTeam(countryMenu.getCountry());
+        if (countryMenu.isAI())
+            playerList.get(playerCount).setIsAI(true);
+        else
+            playerList.get(playerCount).setIsAI(false);
+        
         if (!lastplayer)
             countryMenu.removeTeam(countryMenu.getTankCount());
     }

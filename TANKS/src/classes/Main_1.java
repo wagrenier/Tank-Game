@@ -29,15 +29,17 @@ public class Main_1 extends Application {
         
         primaryStage.show();
         
+        Image icon = new Image("Texture/Icons/icon.png");
         
-        primaryStage.getIcons().add(new Image("Texture/Tanks/USA/Body/Green_Tank_(100x100).png"));
+        primaryStage.getIcons().add(icon);
         primaryStage.setTitle("Tanks");
-        
         primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1200);
         //primaryStage.setMaxWidth(1200);
         //primaryStage.setMaxHeight(1110);
+
         primaryStage.setResizable(false);
+
         primaryStage.sizeToScene(); 
     }
 

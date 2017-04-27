@@ -38,8 +38,9 @@ public class TanksAnimation{
     //The index of current player turn
     private int indexOfCurrentPlayerTurn = 0;
     
-    
+    private boolean keyReleased = true;
     private boolean shotFired = false;
+    private boolean turnPlayed = false;
     
     //Variables for tank 1
     final String  pathForTextureTankOne = "Texture/Tanks/Canada/Body/Red_Tank_(100x100).png";
@@ -118,10 +119,13 @@ public class TanksAnimation{
         this.numOfPlayer = numOfPlayer; 
         this.playerArray = new Player[this.numOfPlayer];
         
+        
+        
+        
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png", 2);
-        tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo, 3);
-        tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree, pathForTextureCannonThree, 0);
-        tanksFour = new Tanks(pathForTextureTankFour, pathForTextureFlippedTankFour, pathForTextureCannonFour, 1);
+        tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo, "Texture/Tanks/China/Cannon/Yellow_Cannon_Flipped_(100x100).png", 3);
+        tanksThree = new Tanks(pathForTextureTankThree, pathForTextureFlippedTankThree, pathForTextureCannonThree, "Texture/Tanks/NorthKorea/Cannon/Blue_Cannon_Flipped_(100x100).png", 0);
+        tanksFour = new Tanks(pathForTextureTankFour, pathForTextureFlippedTankFour, pathForTextureCannonFour, "Texture/Tanks/USA/Cannon/Green_Cannon_Flipped_(100x100).png", 1);
         
         
         progressBarAnimationOne = progressBarInitialSetup(barOne);
@@ -203,9 +207,23 @@ public class TanksAnimation{
         
        weaponAnimation = new WeaponAnimation(weapon, tanksOne, mapGeneration, pane, 1, 1); //Values are not important as this object wil;l never be used (Initialized to prevent nuillPointerException)
         
-        pane.setOnKeyPressed(x -> {
-                keyPressed(x.getCode(), tanksArrayUsed[indexOfCurrentPlayerTurn], tanksAnimationArrayUsed[indexOfCurrentPlayerTurn], progressBarAnimationUsed[indexOfCurrentPlayerTurn], progressBarUsed[indexOfCurrentPlayerTurn]);
-            });
+       pane.setOnKeyReleased(e -> { 
+           keyReleased = true;
+       });
+        pane.setOnKeyPressed(e -> {
+            
+            if(keyReleased){
+                System.out.println("Key Entered");
+                keyPressed(e.getCode(), 
+                    tanksArrayUsed[indexOfCurrentPlayerTurn], 
+                    tanksAnimationArrayUsed[indexOfCurrentPlayerTurn],
+                    progressBarAnimationUsed[indexOfCurrentPlayerTurn], 
+                    progressBarUsed[indexOfCurrentPlayerTurn]);
+                keyReleased = false;
+            }
+            }); 
+            
+         
     }
     
     private Timeline progressBarInitialSetup(ProgressBar bar){
@@ -332,8 +350,9 @@ public class TanksAnimation{
             
             
             
-            if(tanks.getTranslateX()<= 0 || tanks.getTranslateX() >= 1200){
-                if(tanks.getTranslateX()<= 0){
+            if(tanks.getTranslateX() <= 10 || tanks.getTranslateX() >= 1190){
+                tanks.setxSpeed(tanks.getxSpeed() * -1);
+                if(tanks.getTranslateX() <= 10){
                     tanks.normalTexture();
                     tanks.getCannon().normalTexture();
                 }
@@ -342,7 +361,6 @@ public class TanksAnimation{
                     tanks.flipTexture();
                     tanks.getCannon().flipTexture();
                 }
-                tanks.setxSpeed(tanks.getxSpeed() * -1);
             }
             
             
@@ -448,6 +466,84 @@ public class TanksAnimation{
     }
     
     public void keyPressed(KeyCode x, Tanks tank, Timeline animationTank, Timeline progressBarAnimation, ProgressBar bar){
+        if(hud.getPauseMenu().isGamePaused() || turnPlayed){
+            
+        }
+         
+        else{
+        switch (x){
+            
+            
+            //Controls for player 1
+            case SPACE: {
+                if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI())
+                progressBarInGameAnimationPlay(tank, progressBarAnimation, bar);
+            }break;
+                    
+                    
+                case LEFT: {
+                    
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed && keyReleased){
+                    if(tank.getxSpeed() == 0){
+                            tank.setxSpeed(tank.getxSpeed() - 0.05);
+                            //tanksOne.setRotate(90);
+                            
+                            tank.flipTexture();
+                            tank.getCannon().flipTexture();
+                            //tanksOne.getCannon().setRotate(180 - Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
+                        }
+                    
+                    else if(tank.getxSpeed() > -.05){
+                        tank.setxSpeed(tank.getxSpeed() - 0.05);
+                        //xspeed -= 0.1;
+                    }
+                    }
+                    if(progressBarAnimation.getStatus().compareTo(RUNNING) == 0){
+                        
+                    }
+                    else{
+                        turnPlayed = true;
+                    }
+                    }break;
+                    
+                case RIGHT: {
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed && keyReleased){
+                    if(tank.getxSpeed() == 0){
+                            tank.setxSpeed(tank.getxSpeed() + 0.05);
+                            tank.normalTexture();
+                            tank.getCannon().normalTexture();
+                            //tanksOne.getCannon().setRotate(180 + Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
+                            //cannon.setRotate(180 - Math.toDegrees(cannon.getCanonAngle()));
+                        }
+                    
+                    else if(tank.getxSpeed() < .05)
+                        tank.setxSpeed(tank.getxSpeed() + 0.05);
+                        //xspeed += 0.1;
+                    }
+                    if(progressBarAnimation.getStatus().compareTo(RUNNING) == 0){
+                        
+                    }
+                    else{
+                        turnPlayed = true;
+                    }
+                    }break;
+                    
+                case UP: {
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI())
+                        tank.getCannon().higherAngle();
+                        //tanksOne.updateSomething();
+                    }break;
+                    
+                case DOWN: {
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI())
+                    tank.getCannon().lowerAngle();
+                    //tanksOne.updateSomething();break;
+                }break;        
+        }
+        }
+    }
+    
+    public void keyPressedAI(KeyCode x, Tanks tank, Timeline animationTank, Timeline progressBarAnimation, ProgressBar bar){
         if(hud.getPauseMenu().isGamePaused()){
             
         }
@@ -731,6 +827,10 @@ public class TanksAnimation{
         return progressBarAnimationUsed;
     }
 
+    public void setTurnPlayed(boolean turnPlayed) {
+        this.turnPlayed = turnPlayed;
+    }
+    
     public void setHud(HUD hud) {
         this.hud = hud;
     }
