@@ -30,7 +30,10 @@ public class PauseMenu{
     
     private GamePane gamePane ;
     
+    private Store storeMenu;
+    
     private boolean isGamePaused = false;
+    private boolean isMenuOpened = false;
     
     private boolean isProgressBarStopped1 = false;
     private boolean isProgressBarStopped2 = false;
@@ -57,9 +60,9 @@ public class PauseMenu{
     private  Image exitBtnClicked = new Image("Texture/Menus/PauseMenu/Exit Button Clicked.png");
     
     
-    public PauseMenu(GamePane gamePane){
+    public PauseMenu(GamePane gamePane, Store storeMenu){
         this.gamePane = gamePane;
-        
+        this.storeMenu = storeMenu;
         
         
         setResumeBtn();
@@ -169,9 +172,23 @@ public class PauseMenu{
         });
         
         resumeBtn.setOnMouseReleased(e -> {
-            resumeBtn.setImage(resumeBtnHover);
             resumeBtn.setImage(saveBtnImage);
-            resumeGame();
+            
+            
+            
+            
+            if (this.isGamePaused() && storeMenu.isStoreOpened() && this.isMenuOpen() == false)
+                this.openMenuWithoutPause();
+            else if (this.isGamePaused() && storeMenu.isStoreOpened() && this.isMenuOpen())
+                this.closeMenuWithoutResume();
+            else if (this.isGamePaused() == false && storeMenu.isStoreOpened() == false && this.isMenuOpen() == false)
+                this.pauseGame();
+            else if (this.isGamePaused() && storeMenu.isStoreOpened() == false && this.isMenuOpen() == true)
+                this.resumeGame();
+            
+            System.out.println("Game Pause: " + this.isGamePaused());
+            System.out.println("Store Open: " + storeMenu.isStoreOpened());
+            System.out.println("Pause Menu Open: " + this.isMenuOpen());
         });
     }
     public void resumeGame(int storeResume){
@@ -212,7 +229,7 @@ public class PauseMenu{
     public void resumeGame(){
         
         isGamePaused = false;
-        
+        isMenuOpened = false;
         
         gamePane.getTanksAnimation().getAnimation().play();
         gamePane.getTanksAnimation().getAnimation2().play();
@@ -283,7 +300,12 @@ public class PauseMenu{
         }
     }
     public void pauseGame(){
+       System.out.println("Game Paused");
+        
         isGamePaused = true;
+        isMenuOpened = true;
+        
+        
         gamePane.getTanksAnimation().getAnimation().pause();
         gamePane.getTanksAnimation().getAnimation2().pause();
         gamePane.getTanksAnimation().getAnimation3().pause();
@@ -324,6 +346,20 @@ public class PauseMenu{
     
     public boolean isGamePaused(){
         return this.isGamePaused;
+    }
+    public boolean isMenuOpen(){
+        return this.isMenuOpened;
+    }
+    
+    public void openMenuWithoutPause(){
+        gamePane.getChildren().addAll(pauseMenu, resumeBtn, saveBtn, exitBtn);
+        
+        isMenuOpened = true;
+    }
+    public void closeMenuWithoutResume(){
+        gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn);
+        
+        isMenuOpened = false;
     }
     
     

@@ -11,6 +11,7 @@ import GamePane.GamePane;
 import Weapon.WeaponManager;
 import java.util.ArrayList;
 import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -101,8 +102,12 @@ public class HUD extends Pane{
     private Image northKoreaTank = new Image("Texture/Menus/HUD/North Korea Tank.png");
     private Image chinaTank = new Image("Texture/Menus/HUD/China Tank.png");
     
+    private ImageCursor cursorImg = new ImageCursor(new Image("Texture/Cursor/Cursor.png"));
+    
     
     public HUD(WeaponManager weaponManager, GamePane gamePane){
+        
+        this.setCursor(cursorImg);
         
         //gameScene = scene;
         this.weaponManager = weaponManager;
@@ -110,9 +115,8 @@ public class HUD extends Pane{
         this.setMaxSize(WIDTH, HEIGHT);
         
         this.gamePane = gamePane;
-        this.pauseMenu = new PauseMenu(this.gamePane);
         this.storeMenu = new Store(this.gamePane, this.weaponManager);
-        
+        this.pauseMenu = new PauseMenu(this.gamePane, this.storeMenu);
         
         weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
         weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
@@ -172,7 +176,7 @@ public class HUD extends Pane{
         });
         
         itemBtn.setOnMouseExited(e -> {
-            this.setCursor(Cursor.DEFAULT);
+            this.setCursor(cursorImg);
         });
         
         itemBtn.setOnMousePressed(e -> {
@@ -219,7 +223,7 @@ public class HUD extends Pane{
         });
         
         weaponBtn.setOnMouseExited(e -> {
-            this.setCursor(Cursor.DEFAULT);
+            this.setCursor(cursorImg);
         });
         
         weaponBtn.setOnMousePressed(e -> {
@@ -265,20 +269,31 @@ public class HUD extends Pane{
         });
         
         pauseBtn.setOnMouseExited(e -> {
-            this.setCursor(Cursor.DEFAULT);
+            this.setCursor(cursorImg);
         });
         
         pauseBtn.setOnMousePressed(e -> {
             pauseBtn.setImage(pauseBtnClicked);
             
-            if (pauseMenu.isGamePaused() == false)
-                pauseMenu.pauseGame();
-            else
-                pauseMenu.resumeGame();
         });
         
         pauseBtn.setOnMouseReleased(e -> {
             pauseBtn.setImage(pauseBtnImage);
+            
+            
+            
+            if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen() == false)
+                pauseMenu.openMenuWithoutPause();
+            else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen())
+                pauseMenu.closeMenuWithoutResume();
+            else if (pauseMenu.isGamePaused() == false && storeMenu.isStoreOpened() == false && pauseMenu.isMenuOpen() == false)
+                pauseMenu.pauseGame();
+            else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() == false && pauseMenu.isMenuOpen() == true)
+                pauseMenu.resumeGame();
+            
+            System.out.println("Game Pause: " + pauseMenu.isGamePaused());
+            System.out.println("Store Open: " + storeMenu.isStoreOpened());
+            System.out.println("Pause Menu Open: " + pauseMenu.isMenuOpen());
         });
         
     }
@@ -302,7 +317,7 @@ public class HUD extends Pane{
         });
         
         storeBtn.setOnMouseExited(e -> {
-            this.setCursor(Cursor.DEFAULT);
+            this.setCursor(cursorImg);
         });
         
         storeBtn.setOnMousePressed(e -> {
@@ -311,15 +326,24 @@ public class HUD extends Pane{
         
         storeBtn.setOnMouseReleased(e -> {
             storeBtn.setImage(storeBtnImage);
-            if (storeMenu.isStoreOpened() == false){
+            
+            if (storeMenu.isStoreOpened() && pauseMenu.isGamePaused() && pauseMenu.isMenuOpen()){
+                
+            }
+            else if (storeMenu.isStoreOpened() == false && pauseMenu.isGamePaused() == false){
                 storeMenu.openStore(playerList.get(playerIndex));
                 pauseMenu.pauseGame(1);
                 System.out.println(playerList.get(playerIndex).getUsername());
             }
-            else{
+            else if (storeMenu.isStoreOpened() == true){
                 storeMenu.closeStore();
                 pauseMenu.resumeGame(1);
             }
+            
+            
+            System.out.println("Game Pause: " + pauseMenu.isGamePaused());
+            System.out.println("Store Open: " + storeMenu.isStoreOpened());
+            System.out.println("Pause Menu Open: " + pauseMenu.isMenuOpen());
         });
         
     }
@@ -625,7 +649,20 @@ public class HUD extends Pane{
         
         playerHealth.setProgress((double) ((double) tank.getLifePoint()) / 100);
     }
-    
+    public void resetWeaponIndex(){
+        weaponIndex = 0;
+        
+        weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
+        weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
+        weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
+    }
+    public void resetItemIndex(){
+        itemIndex = 0;
+        
+        item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
+        itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
+        itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
+    }
     
 }
 

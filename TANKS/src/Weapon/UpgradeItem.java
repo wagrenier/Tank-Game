@@ -19,25 +19,22 @@ public class UpgradeItem extends Item{
         -Everytime engine item is purchases, upgrade moving pixels by 25
     */
     
-    private int upgradeUnit;
+    
     
     public UpgradeItem(){
         
     }
     
-    public UpgradeItem(String name, int costOfItem, String texturePath, int upgradeUnit){
+    public UpgradeItem(String name, int costOfItem, String texturePath, int upgradeUnit, String use){
         this.setName(name);
         this.setCostOfItem(costOfItem);
         this.setItemImage(texturePath);
-        this.upgradeUnit = upgradeUnit;
+        this.setUse(use);
+        this.setValue(upgradeUnit);
     }
     
     public void setUpgradeUnit(int upgradeUnit){
-        this.upgradeUnit = upgradeUnit;
-    }
-    
-    public int getUpgradeUnit(){
-        return this.upgradeUnit;
+        this.setValue(upgradeUnit);
     }
     
 }

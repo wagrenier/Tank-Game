@@ -25,6 +25,7 @@ public class Weapon extends Circle  implements Serializable{
     private String texturePath;
     private String soundEffectPath;
     private String weaponName;
+    private String shotType;
     private  transient Image texture;
     private  transient ImagePattern texturePattern;
     private  transient Media soundEffect;
@@ -42,12 +43,13 @@ public class Weapon extends Circle  implements Serializable{
         this.setRadius(25);
     }
     
-    public Weapon(int damage, int costOfWeapon, String weaponName, String texturePath) {
+    public Weapon(int damage, int costOfWeapon, String weaponName, String texturePath, String shotType) {
         this.setRadius(25);
         this.costOfWeapon = costOfWeapon;
         this.texturePath = texturePath;
         this.soundEffectPath = soundEffectPath;
         this.damage = damage;
+        this.shotType = shotType;
         
         this.weaponName = weaponName;
         
@@ -71,6 +73,10 @@ public class Weapon extends Circle  implements Serializable{
         soundEffect = new Media(this.soundEffectPath);
         soundEffectPlayer = new MediaPlayer(this.soundEffect);
         
+    }
+    
+    public String getShotType(){
+        return shotType;
     }
 
     public int getCostOfWeapon() {
