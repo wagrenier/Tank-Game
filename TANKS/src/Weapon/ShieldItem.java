@@ -18,25 +18,22 @@ public class ShieldItem extends Item{
         -Large shield: protects 75%
     */
     
-    private int shieldProtection;
+    
     
     public ShieldItem(){
         
     }
     
-    public ShieldItem(String name, int costOfItem, String texturePath, int shieldProtection){
+    public ShieldItem(String name, int costOfItem, String texturePath, int shieldProtection, String use){
         this.setName(name);
         this.setCostOfItem(costOfItem);
         this.setItemImage(texturePath);
-        this.shieldProtection = shieldProtection;
-    }
-    
-    public int getShieldProtection(){
-        return this.shieldProtection;
+        this.setUse(use);
+        this.setValue(shieldProtection);
     }
     
     public void setShieldProtection(int shieldProtection){
-        this.shieldProtection = shieldProtection;
+        this.setValue(shieldProtection);
     }
     
 }

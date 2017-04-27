@@ -11,6 +11,7 @@ import GamePane.GamePane;
 import Weapon.WeaponManager;
 import java.util.ArrayList;
 import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -101,8 +102,12 @@ public class HUD extends Pane{
     private Image northKoreaTank = new Image("Texture/Menus/HUD/North Korea Tank.png");
     private Image chinaTank = new Image("Texture/Menus/HUD/China Tank.png");
     
+    private ImageCursor cursorImg = new ImageCursor(new Image("Texture/Cursor/Cursor.png"));
+    
     
     public HUD(WeaponManager weaponManager, GamePane gamePane){
+        
+        this.setCursor(cursorImg);
         
         //gameScene = scene;
         this.weaponManager = weaponManager;
@@ -172,7 +177,7 @@ public class HUD extends Pane{
         });
         
         itemBtn.setOnMouseExited(e -> {
-            this.setCursor(Cursor.DEFAULT);
+            this.setCursor(cursorImg);
         });
         
         itemBtn.setOnMousePressed(e -> {
@@ -219,7 +224,7 @@ public class HUD extends Pane{
         });
         
         weaponBtn.setOnMouseExited(e -> {
-            this.setCursor(Cursor.DEFAULT);
+            this.setCursor(cursorImg);
         });
         
         weaponBtn.setOnMousePressed(e -> {
@@ -265,7 +270,7 @@ public class HUD extends Pane{
         });
         
         pauseBtn.setOnMouseExited(e -> {
-            this.setCursor(Cursor.DEFAULT);
+            this.setCursor(cursorImg);
         });
         
         pauseBtn.setOnMousePressed(e -> {
@@ -302,7 +307,7 @@ public class HUD extends Pane{
         });
         
         storeBtn.setOnMouseExited(e -> {
-            this.setCursor(Cursor.DEFAULT);
+            this.setCursor(cursorImg);
         });
         
         storeBtn.setOnMousePressed(e -> {
@@ -625,7 +630,20 @@ public class HUD extends Pane{
         
         playerHealth.setProgress((double) ((double) tank.getLifePoint()) / 100);
     }
-    
+    public void resetWeaponIndex(){
+        weaponIndex = 0;
+        
+        weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
+        weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
+        weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
+    }
+    public void resetItemIndex(){
+        itemIndex = 0;
+        
+        item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
+        itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
+        itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
+    }
     
 }
 

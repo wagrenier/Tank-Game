@@ -20,6 +20,7 @@ public class Player implements Serializable{
     private String username;
     private int team;
     private boolean isAI = true;
+    private int money = 50;
     
     private int[] weaponInventory = new int[9];
     private int[] itemInventory = new int[8];
@@ -109,5 +110,27 @@ public class Player implements Serializable{
     
     public String toString(){
         return this.username + " : " + this.team;
+    }
+    
+    public void addWeapon(int index){
+        System.out.println(weaponInventory[index]);
+        weaponInventory[index] = weaponInventory[index] + 1;
+        System.out.println(weaponInventory[index]);
+    }
+    
+    public void addItem(int index){
+        itemInventory[index] = itemInventory[index] + 1;
+    }
+    
+    public void removeMoney(int amount){
+        this.money = this.money - amount;
+    }
+    
+    public void addMoney(int amount){
+        this.money = this.money + amount;
+    }
+    
+    public int getMoney(){
+        return this.money;
     }
 }

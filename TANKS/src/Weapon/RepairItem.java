@@ -18,25 +18,23 @@ public class RepairItem extends Item{
         -Large repair tool: 75%
     */
     
-    private int repairPercentage;
+    
     
     public RepairItem(){
         
     }
     
-    public RepairItem(String name, int costOfItem, String texturePath, int repairPercentage){
+    public RepairItem(String name, int costOfItem, String texturePath, int repairPercentage, String use){
         this.setName(name);
         this.setCostOfItem(costOfItem);
         this.setItemImage(texturePath);
-        this.repairPercentage = repairPercentage;
-    }
-    
-    public int getRepairPercentage(){
-        return this.repairPercentage;
+        this.setUse(use);
+        this.setValue(repairPercentage);
+       
     }
     
     public void setRepairPercentage(int repairPercentage){
-        this.repairPercentage = repairPercentage;
+        this.setValue(repairPercentage);
     }
     
 }

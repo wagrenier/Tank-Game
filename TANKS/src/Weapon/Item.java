@@ -19,16 +19,27 @@ public class Item  implements Serializable{
     private int costOfItem;
     private String texturePath;
     private Image itemImage;
+    private String use;
+    private int value;
     
     public Item(){
         
     }
     
-    public Item(String name, int costOfItem, String texturePath){
+    public Item(String name, int costOfItem, String texturePath, String use){
         this.name = name;
         this.costOfItem = costOfItem;
         this.texturePath = texturePath;
         this.itemImage = new Image(this.texturePath);
+        this.use = use;
+        
+    }
+    public void setUse(String use){
+        this.use = use;
+    }
+    
+    public String getUse(){
+        return this.use;
     }
     
     public void setName(String name){
@@ -53,5 +64,13 @@ public class Item  implements Serializable{
     
     public void setItemImage(String texturePath){
         this.itemImage = new Image(texturePath);
+    }
+    
+    public void setValue(int value){
+        this.value = value;
+    }
+    
+    public int getValue(){
+        return this.value;
     }
 }
