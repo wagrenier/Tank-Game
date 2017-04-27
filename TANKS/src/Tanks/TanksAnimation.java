@@ -38,7 +38,7 @@ public class TanksAnimation{
     //The index of current player turn
     private int indexOfCurrentPlayerTurn = 0;
     
-    
+    private boolean keyReleased = true;
     private boolean shotFired = false;
     private boolean turnPlayed = false;
     
@@ -207,15 +207,24 @@ public class TanksAnimation{
         
        weaponAnimation = new WeaponAnimation(weapon, tanksOne, mapGeneration, pane, 1, 1); //Values are not important as this object wil;l never be used (Initialized to prevent nuillPointerException)
         
-        pane.setOnKeyReleased(e -> {
+       pane.setOnKeyReleased(e -> { 
+           keyReleased = true;
+       });
+        pane.setOnKeyPressed(e -> {
             //this.pane.requestFocus();
-            System.out.println("Key Entered");
-            keyPressed(e.getCode(), 
+            
+            if(keyReleased){
+                System.out.println("Key Entered");
+                keyPressed(e.getCode(), 
                     tanksArrayUsed[indexOfCurrentPlayerTurn], 
                     tanksAnimationArrayUsed[indexOfCurrentPlayerTurn],
                     progressBarAnimationUsed[indexOfCurrentPlayerTurn], 
                     progressBarUsed[indexOfCurrentPlayerTurn]);
-            });
+                keyReleased = false;
+            }
+            }); 
+            
+            
     }
     
     private Timeline progressBarInitialSetup(ProgressBar bar){
