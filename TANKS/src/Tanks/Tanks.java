@@ -19,6 +19,7 @@ public class Tanks extends Circle{
     private double xSpeed;
     private double ySpeed;
     private double y;
+    private double maxPixelMove = 100;
     private int lifePoint = 100;
     private boolean isTankAlive = false;
     private boolean isAI = false;
@@ -63,11 +64,13 @@ public class Tanks extends Circle{
 
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
+        cannon.flipTexture();
         isImageFlipped = true;
     }
     
     public void normalTexture(){
         this.setFill(texturePattern);
+        cannon.normalTexture();
         isImageFlipped = false; 
     }
 
@@ -163,6 +166,15 @@ public class Tanks extends Circle{
     public void setLifePoint(int lifePoint) {
         this.lifePoint = lifePoint;
     }
+    
+    public void setMaxPixelMove(double maxPixelMove){
+        this.maxPixelMove = maxPixelMove;
+    }
+
+    public double getMaxPixelMove() {
+        return maxPixelMove;
+    }
+    
     
     
 }

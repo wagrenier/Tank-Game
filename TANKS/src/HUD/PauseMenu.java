@@ -127,12 +127,13 @@ public class PauseMenu{
         
         saveBtn.setOnMousePressed(e -> {
             saveBtn.setImage(saveBtnClicked);
-            SaveFunction save = new SaveFunction(gamePane);
-            Tanks[] array1 = gamePane.getTanksAnimation().getTanksArrayUsed();
-            
-            for(int i = 0; i < array1.length; i++){
-            System.out.println("x: " + array1[i].getTranslateX() + " y: " + array1[i].getTranslateY());
-        }
+            if(gamePane.getTanksAnimation().isPossibleToSave()){
+                SaveFunction save = new SaveFunction(gamePane);
+                System.out.println("Successful Save");
+            }
+            else{
+                System.out.println("Did not Save");
+            }
         });
         
         saveBtn.setOnMouseReleased(e -> {

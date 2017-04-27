@@ -354,12 +354,12 @@ public class TanksAnimation{
                 tanks.setxSpeed(tanks.getxSpeed() * -1);
                 if(tanks.getTranslateX() <= 10){
                     tanks.normalTexture();
-                    tanks.getCannon().normalTexture();
+                    //tanks.getCannon().normalTexture();
                 }
                 
                 else{
                     tanks.flipTexture();
-                    tanks.getCannon().flipTexture();
+                    //tanks.getCannon().flipTexture();
                 }
             }
             
@@ -489,7 +489,7 @@ public class TanksAnimation{
                             //tanksOne.setRotate(90);
                             
                             tank.flipTexture();
-                            tank.getCannon().flipTexture();
+                            //tank.getCannon().flipTexture();
                             //tanksOne.getCannon().setRotate(180 - Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
                         }
                     
@@ -511,7 +511,7 @@ public class TanksAnimation{
                     if(tank.getxSpeed() == 0){
                             tank.setxSpeed(tank.getxSpeed() + 0.05);
                             tank.normalTexture();
-                            tank.getCannon().normalTexture();
+                            //tank.getCannon().normalTexture();
                             //tanksOne.getCannon().setRotate(180 + Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
                             //cannon.setRotate(180 - Math.toDegrees(cannon.getCanonAngle()));
                         }
@@ -567,7 +567,7 @@ public class TanksAnimation{
                             //tanksOne.setRotate(90);
                             
                             tank.flipTexture();
-                            tank.getCannon().flipTexture();
+                            //tank.getCannon().flipTexture();
                             //tanksOne.getCannon().setRotate(180 - Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
                         }
                     
@@ -583,7 +583,7 @@ public class TanksAnimation{
                     if(tank.getxSpeed() == 0){
                             tank.setxSpeed(tank.getxSpeed() + 0.1);
                             tank.normalTexture();
-                            tank.getCannon().normalTexture();
+                            //tank.getCannon().normalTexture();
                             //tanksOne.getCannon().setRotate(180 + Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
                             //cannon.setRotate(180 - Math.toDegrees(cannon.getCanonAngle()));
                         }
@@ -613,6 +613,31 @@ public class TanksAnimation{
     public void updateTurn(){
         hud.setCurrentPlayerName(playerArray[indexOfCurrentPlayerTurn].getUsername());
         hud.setCurrentPlayerTank(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[indexOfCurrentPlayerTurn].getTeam());
+    }
+    
+    //Methods Related to saving/loading the game
+    public boolean isPossibleToSave(){
+        if(tanksArrayUsed[indexOfCurrentPlayerTurn].getxSpeed() == 0 && progressBarAnimationUsed[indexOfCurrentPlayerTurn].getStatus().compareTo(Animation.Status.STOPPED) == 0 && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
+            System.out.println("Possible");
+            return true;
+        }
+        else{
+            System.out.println("Not Possible");
+            return false;
+        }
+    }
+    
+    public String reasonSaveFailed(){
+        if(!(tanksArrayUsed[indexOfCurrentPlayerTurn].getxSpeed() == 0)){
+            return "Game Cannot Be Saved When The Tanks Are Moving. Please Wait For The End Of The Turn.";
+        }
+        if(progressBarAnimationUsed[indexOfCurrentPlayerTurn].getStatus().compareTo(Animation.Status.RUNNING) == 0){
+            return "Game Cannot Be Saved Because A Weapon Is Being Fire. Please Fire The Weapon And Wait For It To Land.";
+        }
+        if(weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
+           return "Game Cannot Be Saved Because A Weapon Was Fired. Please Wait For The Weapon To Land."; 
+        }
+        return "Error Finding The Error!";
     }
     
     public int[] obtainTanksHP(){
@@ -688,6 +713,21 @@ public class TanksAnimation{
     public void resetWhoIsDead(boolean[] dead){
         for(int i = 0;i < tanksArrayUsed.length; i++){
             tanksArrayUsed[i].setIsTankAlive(dead[i]);
+        }
+    }
+    
+    //To reset the maximum number of pixels a tank can travel
+    public double[] obtainMaxPixelMoveSave(){
+        double[] maxPixMove = new double[tanksArrayUsed.length];
+        for(int i = 0; i < tanksArrayUsed.length; i++){
+            maxPixMove[i] = tanksArrayUsed[i].getMaxPixelMove();
+        }
+        return maxPixMove;
+    }
+    
+    public void resetMaxPixelMove(double[] maxPixMove){
+        for(int i = 0; i < tanksArrayUsed.length; i++){
+            tanksArrayUsed[i].setMaxPixelMove(maxPixMove[i]);
         }
     }
     //Beginning of setters and getters

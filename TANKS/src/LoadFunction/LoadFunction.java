@@ -30,6 +30,7 @@ public class LoadFunction {
     boolean[] dead;
     int[] tanksHP;
     int[] indexOfCurrentPlayerTurn;
+    double[] maxPixMove;
     
     public LoadFunction() {
         
@@ -43,12 +44,17 @@ public class LoadFunction {
             tanksHP = (int[]) (objectInputStream.readObject());
             indexOfCurrentPlayerTurn = (int[]) (objectInputStream.readObject());
             dead = (boolean[])(objectInputStream.readObject());
+            maxPixMove = (double[])(objectInputStream.readObject());
         } catch (IOException ex) {
             Logger.getLogger(LoadFunction.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex2) {
             Logger.getLogger(LoadFunction.class.getName()).log(Level.SEVERE, null, ex2);
         } 
         
+    }
+
+    public double[] getMaxPixMove() {
+        return maxPixMove;
     }
 
     public boolean[] getDead() {
