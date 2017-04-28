@@ -210,7 +210,7 @@ public class TanksAnimation{
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getDamage(), weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getTexturePath());        
         
        weaponAnimation = new WeaponAnimation(weapon, tanksOne, mapGeneration, pane, 1, 1); //Values are not important as this object wil;l never be used (Initialized to prevent nuillPointerException)
-        
+        rcAnimation = new RCAnimation(weapon, tanksOne, mapGeneration, pane);
        pane.setOnKeyReleased(e -> { 
            keyReleased = true;
        });
@@ -492,7 +492,7 @@ public class TanksAnimation{
     }
     
     public void keyPressed(KeyCode x, Tanks tank, Timeline animationTank, Timeline progressBarAnimation, ProgressBar bar){
-        if(hud.getPauseMenu().isGamePaused() || turnPlayed){
+        if(hud.getPauseMenu().isGamePaused() || turnPlayed || shotFired){
             
         }
          
@@ -518,69 +518,60 @@ public class TanksAnimation{
                     
                 case LEFT: {
                     
-                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed && keyReleased){
-                    if(tank.getxSpeed() == 0){
-                            tank.setxSpeed(tank.getxSpeed() - 0.05);
-                            //tanksOne.setRotate(90);
-                            
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed && keyReleased  && rcAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
+                    if(tank.getxSpeed() == 0  && !tank.isIsImageFlipped()){
+                            //tank.setxSpeed(tank.getxSpeed() - 0.05);
                             tank.flipTexture();
-                            //tank.getCannon().flipTexture();
-                            //tanksOne.getCannon().setRotate(180 - Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
                         }
                     
-                    else if(tank.getxSpeed() > -.05){
+                    else if(tank.getxSpeed() == 0 && tank.isIsImageFlipped()){
                         tank.setxSpeed(tank.getxSpeed() - 0.05);
-                        //xspeed -= 0.1;
+                        turnPlayed = true;
                     }
                     }
                     if(progressBarAnimation.getStatus().compareTo(RUNNING) == 0){
                         
                     }
                     else{
-                        turnPlayed = true;
+                        
                     }
                     }break;
                     
                 case RIGHT: {
-                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed && keyReleased){
-                    if(tank.getxSpeed() == 0){
-                            tank.setxSpeed(tank.getxSpeed() + 0.05);
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed && keyReleased  && rcAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
+                    if(tank.getxSpeed() == 0 && tank.isIsImageFlipped()){
+                            //tank.setxSpeed(tank.getxSpeed() + 0.05);
                             tank.normalTexture();
-                            //tank.getCannon().normalTexture();
-                            //tanksOne.getCannon().setRotate(180 + Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
-                            //cannon.setRotate(180 - Math.toDegrees(cannon.getCanonAngle()));
                         }
                     
-                    else if(tank.getxSpeed() < .05)
+                    else if(tank.getxSpeed() == 0 && !tank.isIsImageFlipped())
                         tank.setxSpeed(tank.getxSpeed() + 0.05);
-                        //xspeed += 0.1;
+                        turnPlayed = true;
                     }
                     if(progressBarAnimation.getStatus().compareTo(RUNNING) == 0){
                         
                     }
                     else{
-                        turnPlayed = true;
+                        
                     }
                     }break;
                     
                 case UP: {
-                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI())
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI()  && rcAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0)
                         tank.getCannon().higherAngle();
-                        //tanksOne.updateSomething();
                     }break;
                     
                 case DOWN: {
-                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI())
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI()  && rcAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0)
                     tank.getCannon().lowerAngle();
-                    //tanksOne.updateSomething();break;
                 }break;     
                 
                 //Ends the Turn but gives extra money
                 case E: {
-                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI()){
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI()  && rcAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
                         pane.getGameLoop().setForceEndedTurn(true);
                     }
-                }
+                }break;
         }
         }
     }
@@ -921,6 +912,10 @@ public class TanksAnimation{
     
     public void setHud(HUD hud) {
         this.hud = hud;
+    }
+    
+    public RCAnimation getRCAnimation(){
+        return rcAnimation;
     }
     //End of setters and getters
     

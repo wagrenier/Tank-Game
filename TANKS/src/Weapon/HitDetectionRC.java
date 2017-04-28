@@ -56,15 +56,9 @@ public class HitDetectionRC extends AnimationTimer{
     }
     
     public void handle(long now){
-        
-        //while(weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
-        //System.out.println("Hey");
         if(weapon.getBoundsInParent().intersects(tanksOne.getBoundsInParent()) && tank != tanksOne && tanksOne.isTankAlive()){
-           //System.out.println(weapon.getDamage());
            if(!weaponAnimation.isHitSomething()){
            tanksOne.damageDone(weapon.getDamage());
-           //System.out.println(tanksOne.getLifePoint());
-           //hud.updateHealth(tanksOne.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
            

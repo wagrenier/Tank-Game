@@ -81,9 +81,7 @@ public class RCAnimation {
             if(tank.isIsImageFlipped()){
                 
         }
-            }));
-        
-        
+            }));  
     }
     
     public void launchAnimation(){

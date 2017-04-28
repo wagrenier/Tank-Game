@@ -10,6 +10,7 @@ import Tanks.Tanks;
 import GamePane.GamePane;
 import Weapon.WeaponManager;
 import java.util.ArrayList;
+import javafx.animation.Animation;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
@@ -231,7 +232,10 @@ public class HUD extends Pane{
         
         weaponBtn.setOnMouseReleased(e -> {
             weaponBtn.setImage(weaponBtnImage);
-            
+            if(gamePane.getTanksAnimation().getProgressBarAnimationUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getStatus().compareTo(Animation.Status.RUNNING) == 0 || gamePane.getTanksAnimation().getRCAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0 || gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
+                
+            }
+            else{
             do
             {
                 if(weaponIndex < playerList.get(playerIndex).getWeaponInventory().length - 1)
@@ -244,7 +248,7 @@ public class HUD extends Pane{
             weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
             weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
             weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
-            
+            }
         });
         
     }

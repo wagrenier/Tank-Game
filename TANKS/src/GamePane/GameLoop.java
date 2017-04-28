@@ -219,7 +219,7 @@ public class GameLoop extends AnimationTimer{
     
     @Override
     public void handle(long now) {  
-            if(tanksAnimation.getHud().getPauseMenu().isGamePaused() || tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
+            if(tanksAnimation.getHud().getPauseMenu().isGamePaused() || tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0 || tanksAnimation.getRCAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
                 //System.out.println("Stuck in Pause");
         }
             
@@ -232,7 +232,7 @@ public class GameLoop extends AnimationTimer{
             else{
             if(newTurn){
                 tanksAnimation.setTurnPlayed(false);
-                System.out.println("New Turn");
+                //System.out.println("New Turn");
                 tanksAnimation.getHud().resetWeaponIndex();
                 tanksAnimation.getHud().resetItemIndex();
                 tanksAnimation.resetSpeed();
@@ -244,7 +244,6 @@ public class GameLoop extends AnimationTimer{
                 if(tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
                         aiTurn();
                         //System.out.println("AI Turn");
-                        
                     }
                 
                 else if(!tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
@@ -289,8 +288,7 @@ public class GameLoop extends AnimationTimer{
                     tanksAnimation.setTurnPlayed(false);
                     tanksAnimation.setShotFired(false);
                     endTurn = false;
-                    newTurn = true;
-                    
+                    newTurn = true;  
                }
             
             
