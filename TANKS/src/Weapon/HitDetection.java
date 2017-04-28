@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tanks;
+package Weapon;
 
 import GamePane.GamePane;
 import HUD.HUD;
 import MapGeneration.MapGeneration;
+import Tanks.Tanks;
 import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;

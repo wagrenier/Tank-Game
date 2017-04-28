@@ -669,5 +669,8 @@ public class HUD extends Pane{
         playerList.get(playerIndex).removeItem(itemIndex);
     }
     
+    public Player getCurrentPlayerTurn(int index){
+        return playerList.get(index);
+    }
 }
 

@@ -24,6 +24,7 @@ public class GameLoop extends AnimationTimer{
     private boolean newTurn = true;
     private boolean endTurn = false;
     private boolean launchInitiated = false;
+    private boolean forceEndedTurn = false;
     private int launchWeaponDelay = 0;
     private int launchWeaponDelayCounter = 0;
     private int indexOfCurrentPlayerTurn = 0;
@@ -211,7 +212,10 @@ public class GameLoop extends AnimationTimer{
         turn[0] = indexOfCurrentPlayerTurn;
         return turn;
     }
-    
+
+    public void setForceEndedTurn(boolean forceEndedTurn) {
+        this.forceEndedTurn = forceEndedTurn;
+    }
     
     @Override
     public void handle(long now) {  
@@ -270,7 +274,14 @@ public class GameLoop extends AnimationTimer{
                     endTurn = true;
                 }
 
-               if(endTurn){
+               if(endTurn || forceEndedTurn){
+                   if(forceEndedTurn){
+                       forceEndedTurn = false;
+                       tanksAnimation.getHud().getCurrentPlayerTurn(indexOfCurrentPlayerTurn).addMoney(50);
+                   }
+                   else{
+                       tanksAnimation.getHud().getCurrentPlayerTurn(indexOfCurrentPlayerTurn).addMoney(25);
+                   }
                    indexOfCurrentPlayerTurn++;
                    if(indexOfCurrentPlayerTurn >= tanksArrayUsed.length){
                         indexOfCurrentPlayerTurn = 0;

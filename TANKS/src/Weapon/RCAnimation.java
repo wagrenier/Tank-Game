@@ -6,13 +6,9 @@
 package Weapon;
 
 import MapGeneration.MapGeneration;
-import Tanks.MainTankMouvementTest;
 import Tanks.Tanks;
-import java.io.Serializable;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -20,23 +16,13 @@ import javafx.util.Duration;
  *
  * @author willi
  */
-public class WeaponAnimation{
-    
-    /**
-     * An WeaponAnimation Object is created when the weapon is used in the game 
-     *    to attack an other player.
-     * 
-     */
-    
+public class RCAnimation {
     private boolean hitSomething = false;
     private double initialXPosition;
     private double initialYPosition;
     private double initialVelocity = .5;
     private double gravity = .0005;
     private double currentYPosition;
-    private double canonAngle;
-    private double angleLaunched; // angle must be between 0 and 1 included
-    private double initialYVelocity;
     private double yspeed;
     private double xspeed;
     
@@ -47,62 +33,23 @@ public class WeaponAnimation{
      transient Tanks tank;
      transient Pane pane;  
     
-    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane){
+    public RCAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane){
         this.pane = pane;
         this.tank = tank;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
         setupAnimation(); 
-        launchAnimation();
-    }
-    
-    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, double initialVelocity, double gravity){
-        this.pane = pane;
-        this.tank = tank;
-        this.weapon = weapon;
-        this.mapGeneration = mapGeneration;
-        this.initialVelocity = initialVelocity;
-        this.gravity = gravity;
-        setupAnimation(); 
-        //launchAnimation();
-    }
-    
-    public WeaponAnimation(Weapon weapon, MapGeneration mapGeneration, Pane pane){
-        this.pane = pane;
-        this.weapon = weapon;
-        this.mapGeneration = mapGeneration;
     }
     
     private void setupAnimation(){
        
+
+        xspeed = initialVelocity;
         
+        weapon.setTranslateX(tank.getTranslateX());
+        weapon.setTranslateY(tank.getTranslateY() - 30);
         
-        
-        canonAngle = tank.getCannon().getCanonAngle();
-        
-        
-        
-        if(tank.isIsImageFlipped()){
-            canonAngle = Math.PI - canonAngle;
-        }
-        
-        
-        
-        angleLaunched = mapGeneration.derivativeFunction(tank.getTranslateX()) - canonAngle;
-        
-        this.initialXPosition = tank.getTranslateX() + (50 * Math.cos(angleLaunched));
-        this.initialYPosition = tank.getTranslateY() + (50 * Math.sin(angleLaunched) - 35);
-        
-        
-        initialYVelocity = initialVelocity * Math.sin(angleLaunched);
-        yspeed = initialVelocity * Math.sin(angleLaunched);
-        xspeed = initialVelocity * Math.cos(angleLaunched);
-        
-        weapon.setTranslateX(weapon.getTranslateX() + initialXPosition);
-        weapon.setTranslateY(weapon.getTranslateY() + initialYPosition - 1);
-        
-        
-        weapon.setRotate(Math.toDegrees(angleLaunched));
+        weapon.setCenterY(-7);
         
         animationWeapon =  new Timeline(new KeyFrame(Duration.millis(1), e -> {
             if(hitSomething){
@@ -111,18 +58,11 @@ public class WeaponAnimation{
             currentYPosition = mapGeneration.getY(weapon.getTranslateX());
             weapon.setTranslateY(weapon.getTranslateY() + yspeed);
             weapon.setTranslateX(weapon.getTranslateX() + xspeed); 
-            
+            weapon.setRotate(projectileRotation());
            //System.out.println("weapon Translate X: " + weapon.getTranslateX() + " Weapon Translate Y: " + weapon.getTranslateY() + " Tank Translate X: " + tank.getTranslateX() + " Tank Translate Y: " + tank.getTranslateY() +" currentYPos: " + currentYPosition + " xspeed: " + xspeed + " yspeed: " + yspeed + " rotation angle:" + angleLaunched);
             
             if(weapon.getTranslateX()<= 0 || weapon.getTranslateX() >= 1200){
-                yspeed = 0;
-                xspeed = 0;
-                //animationWeapon.getKeyFrames().clear();
-                //animationWeapon.stop();
-                
-                //pane.getChildren().remove(animationWeapon);
-                pane.getChildren().remove(weapon);
-                animationWeapon.stop();
+                xspeed *= -1;
                 //add animation explosion
                 
             }
@@ -134,17 +74,13 @@ public class WeaponAnimation{
             }
             else{
                 yspeed = 0;
-                xspeed = 0;
-                animationWeapon.stop();
             }
             if(weapon.getTranslateY() > currentYPosition){
                 weapon.setTranslateY(currentYPosition);
             } 
             if(tank.isIsImageFlipped()){
-            weapon.setRotate(projectileRotationReverse() + 90);
+                
         }
-            else
-            weapon.setRotate(projectileRotation());
             }));
         
         
@@ -168,12 +104,8 @@ public class WeaponAnimation{
             
     }
     
-    private double projectileRotationReverse(){
-        return Math.toDegrees(Math.acos((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));
-    }
-    
     private double projectileRotation(){
-        return Math.toDegrees(Math.asin((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));
+        return Math.toDegrees(mapGeneration.derivativeFunction(weapon.getTranslateX()));
     }
 
     public double getInitialVelocity() {
@@ -212,5 +144,4 @@ public class WeaponAnimation{
     public void removeWeaponFromPane(){
         pane.getChildren().removeAll(weapon);
     }
-    
 }

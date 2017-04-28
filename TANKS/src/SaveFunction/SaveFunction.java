@@ -9,6 +9,7 @@ import GamePane.GamePane;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +42,7 @@ public class SaveFunction {
             objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainEachTanksDirection());
             objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainTanksHP());
             objectOutputStream.writeObject(gamePane.getGameLoop().getIndexOfCurrentPlayerTurnArray());
+            objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainWhoIsDead());
             objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainMaxPixelMoveSave());
         } catch (IOException ex) {
             Logger.getLogger(SaveFunction.class.getName()).log(Level.SEVERE, null, ex);

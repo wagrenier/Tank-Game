@@ -5,9 +5,12 @@
  */
 package Tanks;
 
+import Weapon.HitDetection;
 import GamePane.GamePane;
 import HUD.HUD;
 import MapGeneration.MapGeneration;
+import Weapon.HitDetectionRC;
+import Weapon.RCAnimation;
 import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;
@@ -88,10 +91,10 @@ public class TanksAnimation{
     private Timeline progressBarAnimationFour;
     
     //Progress Bar of the tanks
-     ProgressBar barOne = new ProgressBar(0);
-     ProgressBar barTwo = new ProgressBar(0);
-     ProgressBar barThree = new ProgressBar(0);
-     ProgressBar barFour = new ProgressBar(0);
+    ProgressBar barOne = new ProgressBar(0);
+    ProgressBar barTwo = new ProgressBar(0);
+    ProgressBar barThree = new ProgressBar(0);
+    ProgressBar barFour = new ProgressBar(0);
     
     //Pane of the game
     private GamePane pane;
@@ -104,7 +107,8 @@ public class TanksAnimation{
     
     ArrayList<Player> playerArrayList = new ArrayList<>();
     
-    WeaponAnimation weaponAnimation;
+    private RCAnimation rcAnimation;
+    private WeaponAnimation weaponAnimation;
     private Player[] playerArray;
     private Tanks[] tanksArray = new Tanks[4];
     private Tanks[] tanksArrayUsed;
@@ -387,9 +391,25 @@ public class TanksAnimation{
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getDamage(), weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getTexturePath());        
         this.hud.updateItemStatus();
         this.hud.updateWeaponStatus();
-        weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, x, mapGeneration.getGravity());
-        weaponAnimation.launchAnimation();
-        hitDetection(tank, weapon);
+        
+        //Special Setup For Mines
+        if(this.hud.getWeaponIndex() == 7){
+            
+        }
+        //Special Setup For RC
+        else if(this.hud.getWeaponIndex() == 8){
+            rcAnimation = new RCAnimation(weapon, tank, mapGeneration, pane);
+            rcAnimation.launchAnimation();
+            hitDetectionRC(tank, weapon, rcAnimation);
+        }
+        
+        else{
+            weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, x, mapGeneration.getGravity());
+            weaponAnimation.launchAnimation();
+            hitDetection(tank, weapon);
+            }
+        
+        
        
     }
     
@@ -405,6 +425,11 @@ public class TanksAnimation{
         
         tanksFour.setxSpeed(0);
         tanksFour.setySpeed(0);
+    }
+    
+    private void hitDetectionRC(Tanks tank, Weapon weapon, RCAnimation rcAnimation){
+        HitDetectionRC hitDetection = new HitDetectionRC(rcAnimation, hud, tanksOne, tanksTwo, tanksThree, tanksFour, tank, animation, animation2, animation3, animation4, pane, weapon);
+        hitDetection.start();
     }
     
     private void hitDetection(Tanks tank, Weapon weapon){
@@ -478,7 +503,16 @@ public class TanksAnimation{
             //Controls for player 1
             case SPACE: {
                 if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI())
-                progressBarInGameAnimationPlay(tank, progressBarAnimation, bar);
+                    if(this.hud.getWeaponIndex() == 7){
+                        
+                    }
+                    else if(this.hud.getWeaponIndex() == 8){
+                        weaponSetup(tank, 1);
+                    }
+                    else{
+                        progressBarInGameAnimationPlay(tank, progressBarAnimation, bar);
+                    }
+                    
             }break;
                     
                     
@@ -539,7 +573,14 @@ public class TanksAnimation{
                     if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI())
                     tank.getCannon().lowerAngle();
                     //tanksOne.updateSomething();break;
-                }break;        
+                }break;     
+                
+                //Ends the Turn but gives extra money
+                case E: {
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI()){
+                        pane.getGameLoop().setForceEndedTurn(true);
+                    }
+                }
         }
         }
     }
@@ -605,7 +646,13 @@ public class TanksAnimation{
                     if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0)
                     tank.getCannon().lowerAngle();
                     //tanksOne.updateSomething();break;
-                }break;        
+                }break;       
+                
+                case E: {
+                    if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
+                        pane.getGameLoop().setForceEndedTurn(true);
+                    }
+                }
         }
 
         }
