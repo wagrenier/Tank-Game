@@ -522,18 +522,13 @@ public class TanksAnimation{
                     if(tank.getxSpeed() == 0  && !tank.isIsImageFlipped()){
                             //tank.setxSpeed(tank.getxSpeed() - 0.05);
                             tank.flipTexture();
+                            break;
                         }
                     
                     else if(tank.getxSpeed() == 0 && tank.isIsImageFlipped()){
                         tank.setxSpeed(tank.getxSpeed() - 0.05);
                         turnPlayed = true;
                     }
-                    }
-                    if(progressBarAnimation.getStatus().compareTo(RUNNING) == 0){
-                        
-                    }
-                    else{
-                        
                     }
                     }break;
                     
@@ -542,17 +537,12 @@ public class TanksAnimation{
                     if(tank.getxSpeed() == 0 && tank.isIsImageFlipped()){
                             //tank.setxSpeed(tank.getxSpeed() + 0.05);
                             tank.normalTexture();
+                            break;
                         }
                     
-                    else if(tank.getxSpeed() == 0 && !tank.isIsImageFlipped())
+                    else if(tank.getxSpeed() == 0  && !tank.isIsImageFlipped())
                         tank.setxSpeed(tank.getxSpeed() + 0.05);
                         turnPlayed = true;
-                    }
-                    if(progressBarAnimation.getStatus().compareTo(RUNNING) == 0){
-                        
-                    }
-                    else{
-                        
                     }
                     }break;
                     
