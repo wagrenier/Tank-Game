@@ -74,6 +74,8 @@ public class Store{
     private Text itemValue = new Text("Value of Item");
     private Text itemDesc = new Text("Description");
     
+    private Text setErrorMsg = new Text("Insufficient funds");
+    
     
     
     public Store(GamePane gamePane, WeaponManager weaponManager){
@@ -242,9 +244,7 @@ public class Store{
         */
         
         atomicBtn.setOnMouseReleased(e -> {
-            buyItem(true, 3);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(true, 3);
         });
         
         atomicBtn.setOnMouseEntered(e -> {
@@ -271,9 +271,7 @@ public class Store{
         */
         
         laserBtn.setOnMouseReleased(e -> {
-            buyItem(true, 4);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(true, 4);
         });
         
         laserBtn.setOnMouseEntered(e -> {
@@ -300,9 +298,7 @@ public class Store{
         */
         
         missileBtn.setOnMouseReleased(e -> {
-            buyItem(true, 1);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(true, 1);
         });
         
         missileBtn.setOnMouseEntered(e -> {
@@ -329,9 +325,7 @@ public class Store{
         */
         
         shrapnelBtn.setOnMouseReleased(e -> {
-            buyItem(true, 2);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(true, 2);
         });
         
         shrapnelBtn.setOnMouseEntered(e -> {
@@ -358,9 +352,7 @@ public class Store{
         */
         
         lmgBtn.setOnMouseReleased(e -> {
-            buyItem(true, 6);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(true, 6);
         });
         
         lmgBtn.setOnMouseEntered(e -> {
@@ -387,9 +379,7 @@ public class Store{
         */
         
         hmgBtn.setOnMouseReleased(e -> {
-            buyItem(true, 5);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(true, 5);
         });
         
         hmgBtn.setOnMouseEntered(e -> {
@@ -416,9 +406,7 @@ public class Store{
         */
         
         mineBtn.setOnMouseReleased(e -> {
-            buyItem(true, 7);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(true, 7);
         });
         
         mineBtn.setOnMouseEntered(e -> {
@@ -445,9 +433,7 @@ public class Store{
         */
         
         c4rcBtn.setOnMouseReleased(e -> {
-            buyItem(true, 8);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(true, 8);
         });
         
         c4rcBtn.setOnMouseEntered(e -> {
@@ -525,9 +511,7 @@ public class Store{
         */
         
         repairSmallBtn.setOnMouseReleased(e -> {
-            buyItem(false, 0);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(false, 0);
         });
         
         repairSmallBtn.setOnMouseEntered(e -> {
@@ -546,9 +530,7 @@ public class Store{
         repairMediumBtn.setTranslateY(616);
         
         repairMediumBtn.setOnMouseReleased(e -> {
-            buyItem(false, 1);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(false, 1);
         });
         
         repairMediumBtn.setOnMouseEntered(e -> {
@@ -567,9 +549,7 @@ public class Store{
         repairLargeBtn.setTranslateY(689.5);
         
         repairLargeBtn.setOnMouseReleased(e -> {
-            buyItem(false, 2);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(false, 2);
         });
         
         repairLargeBtn.setOnMouseEntered(e -> {
@@ -596,9 +576,7 @@ public class Store{
         */
         
         shieldSmallBtn.setOnMouseReleased(e -> {
-            buyItem(false, 3);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(false, 3);
         });
         
         shieldSmallBtn.setOnMouseEntered(e -> {
@@ -625,9 +603,7 @@ public class Store{
         */
         
         shieldMediumBtn.setOnMouseReleased(e -> {
-            buyItem(false, 4);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(false, 4);
         });
         
         shieldMediumBtn.setOnMouseEntered(e -> {
@@ -655,9 +631,7 @@ public class Store{
         */
         
         shieldLargeBtn.setOnMouseReleased(e -> {
-            buyItem(false, 5);
-            
-            playerMoney.setText(player.getMoney() + "$");
+            buyButtonAction(false, 5);
         });
         
         shieldLargeBtn.setOnMouseEntered(e -> {
@@ -699,6 +673,11 @@ public class Store{
             }
         }
         
+    }
+    
+    private void buyButtonAction(boolean type, int index){
+        buyItem(type, index);
+        playerMoney.setText(player.getMoney() + "$");
     }
     
     private void showCostAndAmount(boolean type, int index){
