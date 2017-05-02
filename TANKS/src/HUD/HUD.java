@@ -56,17 +56,17 @@ public class HUD extends Pane{
     private int itemIndex = 0;
     
     //private Text weapon = new Text("Missile");
-    //private Text weaponCost = new Text("($0.00)");
+    //private Text weaponAmount = new Text("($0.00)");
     //private ImageView weaponLogo = new ImageView(new Image("Texture/Items/Normal/Missile.png"));
     private Text weapon = new Text();
-    private Text weaponCost = new Text();
+    private Text weaponAmount = new Text();
     private ImageView weaponLogo;
     
     private ArrayList<Player> playerList;
     
 
     private Text item = new Text();
-    private Text itemCost = new Text();
+    private Text itemAmount = new Text();
     private ImageView itemLogo;
     
     private ImageView weaponBtn;
@@ -118,20 +118,20 @@ public class HUD extends Pane{
         this.storeMenu = new Store(this.gamePane, this.weaponManager);
         this.pauseMenu = new PauseMenu(this.gamePane, this.storeMenu);
         
+        playerList = gamePane.getPlayerArrayList();
+        setPlayer();
+        
         weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
-        weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
+        weaponAmount.setText(playerList.get(playerIndex).getWeaponInventory()[weaponIndex] + "");
         weaponLogo = new ImageView(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
         
         item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
-        itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
+        itemAmount.setText(playerList.get(playerIndex).getItemInventory()[itemIndex] + "");
         itemLogo = new ImageView(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
-        
-        playerList = gamePane.getPlayerArrayList();
         
         setTanks();
         
         setBackground();
-        setPlayer();
         
         setWeapon();
         setWeaponBtn();
@@ -196,7 +196,7 @@ public class HUD extends Pane{
             }while (playerList.get(playerIndex).getItemInventory()[itemIndex] == 0);
             
             item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
-            itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
+            itemAmount.setText(playerList.get(playerIndex).getItemInventory()[itemIndex] + "");
             itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
             
             
@@ -246,7 +246,7 @@ public class HUD extends Pane{
             }while (playerList.get(playerIndex).getWeaponInventory()[weaponIndex] == 0);
             
             weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
-            weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
+            weaponAmount.setText(playerList.get(playerIndex).getWeaponInventory()[weaponIndex] + "");
             weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
             }
         });
@@ -444,7 +444,7 @@ public class HUD extends Pane{
         gravityLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
     }
     private void setItem(){
-        this.getChildren().addAll(item, itemLogo, itemCost);
+        this.getChildren().addAll(item, itemLogo, itemAmount);
         
         item.setTranslateX(28.5);
         item.setTranslateY(122.0);
@@ -452,8 +452,8 @@ public class HUD extends Pane{
         itemLogo.setTranslateX(239.0);
         itemLogo.setTranslateY(74.0);
         
-        itemCost.setTranslateX(323.0);
-        itemCost.setTranslateY(119.0);
+        itemAmount.setTranslateX(323.0);
+        itemAmount.setTranslateY(119.0);
         
         /*
         item.setOnMouseDragged(e -> {
@@ -468,21 +468,21 @@ public class HUD extends Pane{
             System.out.println(itemLogo.getTranslateX() + ", " + itemLogo.getTranslateY());
         });
         
-        itemCost.setOnMouseDragged(e -> {
-            itemCost.setTranslateX(e.getSceneX());
-            itemCost.setTranslateY(e.getSceneY());
-            System.out.println(itemCost.getTranslateX() + ", " + itemCost.getTranslateY());
+        itemAmount.setOnMouseDragged(e -> {
+            itemAmount.setTranslateX(e.getSceneX());
+            itemAmount.setTranslateY(e.getSceneY());
+            System.out.println(itemAmount.getTranslateX() + ", " + itemAmount.getTranslateY());
         });
         */
         
         item.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
-        itemCost.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        itemAmount.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         itemLogo.setFitHeight(75);
         itemLogo.setFitWidth(75);
     }
     private void setWeapon(){
         //The list of weapons will be passed on by some method
-        this.getChildren().addAll(weapon, weaponLogo, weaponCost);
+        this.getChildren().addAll(weapon, weaponLogo, weaponAmount);
         
         weapon.setTranslateX(26.0);
         weapon.setTranslateY(48.0);
@@ -490,8 +490,8 @@ public class HUD extends Pane{
         weaponLogo.setTranslateX(218.5);
         weaponLogo.setTranslateY(-13.5);
         
-        weaponCost.setTranslateX(323.0);
-        weaponCost.setTranslateY(42.5);
+        weaponAmount.setTranslateX(323.0);
+        weaponAmount.setTranslateY(42.5);
         
        /*
         weapon.setOnMouseDragged(e -> {
@@ -508,15 +508,15 @@ public class HUD extends Pane{
         });
         
        
-       weaponCost.setOnMouseDragged(e -> {
-           weaponCost.setTranslateX(e.getSceneX());
-           weaponCost.setTranslateY(e.getSceneY());
-           System.out.println(weaponCost.getTranslateX() + ", " + weaponCost.getTranslateY());
+       weaponAmount.setOnMouseDragged(e -> {
+           weaponAmount.setTranslateX(e.getSceneX());
+           weaponAmount.setTranslateY(e.getSceneY());
+           System.out.println(weaponAmount.getTranslateX() + ", " + weaponAmount.getTranslateY());
        });
        */ 
        
         weapon.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
-        weaponCost.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        weaponAmount.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         weaponLogo.setFitHeight(100);
         weaponLogo.setFitWidth(100);
     }
@@ -547,10 +547,10 @@ public class HUD extends Pane{
         this.weapon = weapon;
     }
     public Text getWeaponCost() {
-        return weaponCost;
+        return weaponAmount;
     }
     public void setWeaponCost(Text weaponCost) {
-        this.weaponCost = weaponCost;
+        this.weaponAmount = weaponCost;
     }
     public ImageView getWeaponLogo() {
         return weaponLogo;
@@ -656,14 +656,14 @@ public class HUD extends Pane{
         weaponIndex = 0;
         
         weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
-        weaponCost.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getCostOfWeapon() + "$");
+        weaponAmount.setText(playerList.get(playerIndex).getWeaponInventory()[weaponIndex] + "");
         weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
     }
     public void resetItemIndex(){
         itemIndex = 0;
         
         item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
-        itemCost.setText(weaponManager.getItemFromWeaponManager(itemIndex).getCostOfItem() + "$");
+        itemAmount.setText(playerList.get(playerIndex).getItemInventory()[itemIndex] + "");
         itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
     }
     public void updateWeaponStatus(){

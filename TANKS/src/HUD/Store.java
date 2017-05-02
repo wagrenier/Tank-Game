@@ -13,6 +13,7 @@ import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -74,7 +75,10 @@ public class Store{
     private Text itemValue = new Text("Value of Item");
     private Text itemDesc = new Text("Description");
     
-    private Text setErrorMsg = new Text("Insufficient funds");
+    //Error Panel
+    private ImageView errorPanel = new ImageView(new Image("Texture/Menus/Store/Error Panel.png"));
+    
+    private Text errorMsg = new Text("Insufficient funds");
     
     
     
@@ -85,6 +89,40 @@ public class Store{
         
         storeBackground.setFitWidth(this.gamePane.getMinWidth());
         storeBackground.setFitHeight(this.gamePane.getMinHeight());
+    }
+    private void throwStoreError(String error){
+        errorMsg.setText(error);
+        
+        this.gamePane.getChildren().addAll(errorPanel, errorMsg);
+    }
+    private void removeStoreError(){
+        this.gamePane.getChildren().removeAll(errorPanel, errorMsg);
+        errorMsg.setText("");
+    }
+    private void setErrorPanel(){
+        
+        /*
+        errorMsg.setOnMouseDragged(e -> {
+            errorMsg.setTranslateX(e.getSceneX());
+            errorMsg.setTranslateY(e.getSceneY());
+            System.out.println(errorMsg.getTranslateX() + ", " + errorMsg.getTranslateY());
+        });
+        
+        errorPanel.setOnMouseDragged(e -> {
+            errorPanel.setTranslateX(e.getSceneX());
+            errorPanel.setTranslateY(e.getSceneY());
+            System.out.println(errorPanel.getTranslateX() + ", " + errorPanel.getTranslateY());
+        });
+        */
+        
+        errorPanel.setTranslateX(716.5);
+        errorPanel.setTranslateY(28.0);
+        
+        errorMsg.setTranslateX(735.0);
+        errorMsg.setTranslateY(88.5);
+        
+        errorMsg.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
+        
     }
     private void setInfoPanel(){
         
@@ -175,6 +213,7 @@ public class Store{
         */
         
         setInfoPanel();
+        setErrorPanel();
         
         addAtomic();
         addLaser();
@@ -221,6 +260,8 @@ public class Store{
         this.gamePane.getChildren().remove(shieldMediumBtn);
         this.gamePane.getChildren().remove(shieldLargeBtn);
         this.gamePane.getChildren().removeAll(infoPanel, itemCost, itemValue, itemDesc);
+        this.gamePane.getChildren().remove(errorPanel);
+        removeStoreError();
         
         storeOpened = false;
     }
@@ -250,6 +291,7 @@ public class Store{
         atomicBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addWeaponInfo(3);
+           removeStoreError();
         });
         atomicBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -277,6 +319,7 @@ public class Store{
         laserBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addWeaponInfo(4);
+           removeStoreError();
         });
         laserBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -304,6 +347,7 @@ public class Store{
         missileBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addWeaponInfo(1);
+           removeStoreError();
         });
         missileBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -331,6 +375,7 @@ public class Store{
         shrapnelBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addWeaponInfo(2);
+           removeStoreError();
         });
         shrapnelBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -358,6 +403,7 @@ public class Store{
         lmgBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addWeaponInfo(6);
+           removeStoreError();
         });
         lmgBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -385,6 +431,7 @@ public class Store{
         hmgBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addWeaponInfo(5);
+           removeStoreError();
         });
         hmgBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -412,6 +459,7 @@ public class Store{
         mineBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addWeaponInfo(7);
+           removeStoreError();
         });
         mineBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -439,6 +487,7 @@ public class Store{
         c4rcBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addWeaponInfo(8);
+           removeStoreError();
         });
         c4rcBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -517,6 +566,7 @@ public class Store{
         repairSmallBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addItemInfo(0);
+           removeStoreError();
         });
         repairSmallBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -536,6 +586,7 @@ public class Store{
         repairMediumBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addItemInfo(1);
+           removeStoreError();
         });
         repairMediumBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -555,6 +606,7 @@ public class Store{
         repairLargeBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addItemInfo(2);
+           removeStoreError();
         });
         repairLargeBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -582,6 +634,7 @@ public class Store{
         shieldSmallBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addItemInfo(3);
+           removeStoreError();
         });
         shieldSmallBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -609,6 +662,7 @@ public class Store{
         shieldMediumBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addItemInfo(4);
+           removeStoreError();
         });
         shieldMediumBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -637,6 +691,7 @@ public class Store{
         shieldLargeBtn.setOnMouseEntered(e -> {
            this.gamePane.setCursor(Cursor.HAND);
            addItemInfo(5);
+           removeStoreError();
         });
         shieldLargeBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
@@ -656,7 +711,7 @@ public class Store{
         if (type){
             
             if (this.player.removeMoney(weaponManager.getWeaponFromWeaponManager(index).getCostOfWeapon()) == false){
-                System.out.println("Insuficient Funds");
+                throwStoreError("Insuficient Funds");
             }
             else
                 this.player.addWeapon(index);
@@ -665,7 +720,7 @@ public class Store{
         else {
             
             if (this.player.removeMoney(weaponManager.getItemFromWeaponManager(index).getCostOfItem()) == false){
-                System.out.println("Insuficient Funds");
+                throwStoreError("Insuficient Funds");
             }
             else{
                 this.player.addItem(index);
