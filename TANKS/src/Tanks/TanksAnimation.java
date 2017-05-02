@@ -36,6 +36,8 @@ public class TanksAnimation{
     //Width of the pane
     private final double width = 1200;
     
+    private int numOfMines = 0;
+    
     //HUD for the game
     private HUD hud;
     
@@ -117,7 +119,7 @@ public class TanksAnimation{
     private Timeline[] progressBarAnimationUsed = new Timeline[4];
     private ProgressBar[] progressBarUsed = new ProgressBar[4];
     private ArrayList<Weapon> mineLocationArrayList = new ArrayList<>();
-    private ArrayList<Weapon> mineHitDetectionArrayList = new ArrayList<>();
+    private ArrayList<HitDetectionMine> mineHitDetectionArrayList = new ArrayList<>();
     
     public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList, int currentPlayer) {
         this.mapGeneration = mapGeneration;
@@ -398,6 +400,13 @@ public class TanksAnimation{
         //Special Setup For Mines
         if(this.hud.getWeaponIndex() == 7){
             mineLocationArrayList.add(weapon);
+            weapon.setTranslateX(tank.getTranslateX());
+            weapon.setTranslateY(tank.getTranslateY());
+            weapon.setRotate(tank.getRotate());
+            weapon.setCenterY(-10);
+            pane.getChildren().add(mineLocationArrayList.get(numOfMines));
+            hitDetectionMine(tank, weapon);
+            numOfMines++;
         }
         //Special Setup For RC
         else if(this.hud.getWeaponIndex() == 8){
@@ -431,12 +440,14 @@ public class TanksAnimation{
     }
     
     public void hitDetectionMine(Tanks tank, Weapon weapon){
-        HitDetectionMine hitDectionMine = new HitDetectionMine(tanksOne, tanksTwo, tanksThree, tanksFour, tank, weapon);
+        HitDetectionMine hitDetectionMine = new HitDetectionMine(tanksOne, tanksTwo, tanksThree, tanksFour, tank, weapon, this);
+        mineHitDetectionArrayList.add(hitDetectionMine);
+        hitDetectionMine.start();
     }
     
     private void hitDetectionRC(Tanks tank, Weapon weapon, RCAnimation rcAnimation){
-        HitDetectionRC hitDetection = new HitDetectionRC(rcAnimation, hud, tanksOne, tanksTwo, tanksThree, tanksFour, tank, animation, animation2, animation3, animation4, pane, weapon);
-        hitDetection.start();
+        HitDetectionRC hitDetectionRC = new HitDetectionRC(rcAnimation, hud, tanksOne, tanksTwo, tanksThree, tanksFour, tank, animation, animation2, animation3, animation4, pane, weapon);
+        hitDetectionRC.start();
     }
     
     private void hitDetection(Tanks tank, Weapon weapon){
@@ -511,7 +522,7 @@ public class TanksAnimation{
             case SPACE: {
                 if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI())
                     if(this.hud.getWeaponIndex() == 7){
-                        
+                        weaponSetup(tank, 1);
                     }
                     else if(this.hud.getWeaponIndex() == 8){
                         weaponSetup(tank, 1);
@@ -649,6 +660,10 @@ public class TanksAnimation{
     public void updateTurn(){
         hud.setCurrentPlayerName(playerArray[indexOfCurrentPlayerTurn].getUsername());
         hud.setCurrentPlayerTank(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[indexOfCurrentPlayerTurn].getTeam());
+    }
+    
+    public void mineExploded(){
+        numOfMines--;
     }
     
     //Methods Related to saving/loading the game
@@ -914,6 +929,11 @@ public class TanksAnimation{
     public RCAnimation getRCAnimation(){
         return rcAnimation;
     }
+    
     //End of setters and getters
+
+    public ArrayList<Weapon> getMineLocationArrayList() {
+        return mineLocationArrayList;
+    }
     
 }

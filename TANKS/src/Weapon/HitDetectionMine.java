@@ -11,6 +11,7 @@
 package Weapon;
 
 import Tanks.Tanks;
+import Tanks.TanksAnimation;
 import javafx.animation.AnimationTimer;
 
 /**
@@ -24,18 +25,20 @@ public class HitDetectionMine extends AnimationTimer{
     private final Tanks tanksTwo;
     private final Tanks tanksThree;
     private final Tanks tanksFour;
+    private TanksAnimation tanksAnimation;
     
     private Tanks tank;
     
     Weapon weapon;
 
-    public HitDetectionMine(Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Weapon weapon) {
+    public HitDetectionMine(Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Weapon weapon, TanksAnimation tanksAnimation) {
         this.tanksOne = tanksOne;
         this.tanksTwo = tanksTwo;
         this.tanksThree = tanksThree;
         this.tanksFour = tanksFour;
         this.tank = tank;
         this.weapon = weapon;
+        this.tanksAnimation = tanksAnimation;
     }
 
     public boolean isHitSomething() {
@@ -46,22 +49,34 @@ public class HitDetectionMine extends AnimationTimer{
     public void handle(long now){
         if(weapon.getBoundsInParent().intersects(tanksOne.getBoundsInParent()) && tank != tanksOne && tanksOne.isTankAlive()){
            tanksOne.damageDone(weapon.getDamage());
+           tanksAnimation.getHud().updateHealth(tanksOne.getLifePoint());
            hitSomething = true;
        }
         
         else if(weapon.getBoundsInParent().intersects(tanksTwo.getBoundsInParent())&& tank != tanksTwo && tanksTwo.isTankAlive()){
            tanksTwo.damageDone(weapon.getDamage());
+           tanksAnimation.getHud().updateHealth(tanksTwo.getLifePoint());
            hitSomething = true;
        }
         
         else if(weapon.getBoundsInParent().intersects(tanksThree.getBoundsInParent())&& tank != tanksThree && tanksThree.isTankAlive()){
            tanksThree.damageDone(weapon.getDamage());
+           tanksAnimation.getHud().updateHealth(tanksThree.getLifePoint());
            hitSomething = true;
        }
         
         else if(weapon.getBoundsInParent().intersects(tanksFour.getBoundsInParent())&& tank != tanksFour && tanksFour.isTankAlive()){
            tanksFour.damageDone(weapon.getDamage());
+           tanksAnimation.getHud().updateHealth(tanksFour.getLifePoint());
            hitSomething = true;
        }
+        
+        if(hitSomething){
+            tanksAnimation.mineExploded();
+            tanksAnimation.getPane().getChildren().remove(weapon);
+            tanksAnimation.getMineLocationArrayList().remove(weapon);
+            
+            this.stop();
+        }
     }
 }
