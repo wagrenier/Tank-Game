@@ -420,9 +420,6 @@ public class TanksAnimation{
             weaponAnimation.launchAnimation();
             hitDetection(tank, weapon);
             }
-        
-        
-       
     }
     
     public void resetSpeed(){
