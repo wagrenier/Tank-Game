@@ -52,6 +52,10 @@ public class SaveFunction {
             objectOutputStream.writeObject(gamePane.getGameLoop().getIndexOfCurrentPlayerTurnArray());
             objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainWhoIsDead());
             objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainMaxPixelMoveSave());
+            if(gamePane.getTanksAnimation().getNumOfMines() > 0){
+                objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainMinesLocation());
+            }
+            
         } catch (IOException ex) {
             Logger.getLogger(SaveFunction.class.getName()).log(Level.SEVERE, null, ex);
             File file = new File("Save/save.dat"); //There in case user Deletes the save files
