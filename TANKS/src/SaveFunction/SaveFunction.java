@@ -22,6 +22,14 @@ import java.util.logging.Logger;
 public class SaveFunction {
     //Default Save file: Saves/save.txt
     //Must implement who is dead -> Done
+    /**
+     * Implement Mines Location:
+     * 
+     * 1.0 Save the translateX and translateY
+     * 2.0 Save the ownership
+     * 
+     * 
+     */
     
     /**
      * Things To Save:

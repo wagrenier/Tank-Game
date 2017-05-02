@@ -9,6 +9,7 @@ import Weapon.HitDetection;
 import GamePane.GamePane;
 import HUD.HUD;
 import MapGeneration.MapGeneration;
+import Weapon.HitDetectionMine;
 import Weapon.HitDetectionRC;
 import Weapon.RCAnimation;
 import Weapon.Weapon;
@@ -115,6 +116,8 @@ public class TanksAnimation{
     private Timeline[] tanksAnimationArrayUsed;
     private Timeline[] progressBarAnimationUsed = new Timeline[4];
     private ProgressBar[] progressBarUsed = new ProgressBar[4];
+    private ArrayList<Weapon> mineLocationArrayList = new ArrayList<>();
+    private ArrayList<Weapon> mineHitDetectionArrayList = new ArrayList<>();
     
     public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList, int currentPlayer) {
         this.mapGeneration = mapGeneration;
@@ -389,12 +392,12 @@ public class TanksAnimation{
     public void weaponSetup(Tanks tank, double x){
         shotFired = true;
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getDamage(), weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getTexturePath());        
-        this.hud.updateItemStatus();
+        //this.hud.updateItemStatus();
         this.hud.updateWeaponStatus();
         
         //Special Setup For Mines
         if(this.hud.getWeaponIndex() == 7){
-            
+            mineLocationArrayList.add(weapon);
         }
         //Special Setup For RC
         else if(this.hud.getWeaponIndex() == 8){
@@ -425,6 +428,10 @@ public class TanksAnimation{
         
         tanksFour.setxSpeed(0);
         tanksFour.setySpeed(0);
+    }
+    
+    public void hitDetectionMine(Tanks tank, Weapon weapon){
+        HitDetectionMine hitDectionMine = new HitDetectionMine(tanksOne, tanksTwo, tanksThree, tanksFour, tank, weapon);
     }
     
     private void hitDetectionRC(Tanks tank, Weapon weapon, RCAnimation rcAnimation){

@@ -41,11 +41,11 @@ public class WeaponAnimation{
     private double xspeed;
     
     
-     transient MapGeneration mapGeneration;
-     transient Weapon weapon;
-     transient Timeline animationWeapon;
-     transient Tanks tank;
-     transient Pane pane;  
+    MapGeneration mapGeneration;
+    Weapon weapon;
+    Timeline animationWeapon;
+    Tanks tank;
+    Pane pane;  
     
     public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane){
         this.pane = pane;
