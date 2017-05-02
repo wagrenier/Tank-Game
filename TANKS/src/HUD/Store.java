@@ -77,6 +77,7 @@ public class Store{
     
     //Error Panel
     private ImageView errorPanel = new ImageView(new Image("Texture/Menus/Store/Error Panel.png"));
+    private boolean errorPanelOpen = false;
     
     private Text errorMsg = new Text("Insufficient funds");
     
@@ -91,11 +92,14 @@ public class Store{
         storeBackground.setFitHeight(this.gamePane.getMinHeight());
     }
     private void throwStoreError(String error){
+        errorPanelOpen = true;
         errorMsg.setText(error);
         
         this.gamePane.getChildren().addAll(errorPanel, errorMsg);
     }
     private void removeStoreError(){
+        errorPanelOpen = false;
+        
         this.gamePane.getChildren().removeAll(errorPanel, errorMsg);
         errorMsg.setText("");
     }
@@ -711,7 +715,12 @@ public class Store{
         if (type){
             
             if (this.player.removeMoney(weaponManager.getWeaponFromWeaponManager(index).getCostOfWeapon()) == false){
-                throwStoreError("Insuficient Funds");
+                if (errorPanelOpen = false)
+                    throwStoreError("Insuficient Funds");
+                else{
+                    removeStoreError();
+                    throwStoreError("Insuficient Funds");
+                }
             }
             else
                 this.player.addWeapon(index);
@@ -720,7 +729,12 @@ public class Store{
         else {
             
             if (this.player.removeMoney(weaponManager.getItemFromWeaponManager(index).getCostOfItem()) == false){
-                throwStoreError("Insuficient Funds");
+                if (errorPanelOpen = false)
+                    throwStoreError("Insuficient Funds");
+                else{
+                    removeStoreError();
+                    throwStoreError("Insuficient Funds");
+                }
             }
             else{
                 this.player.addItem(index);

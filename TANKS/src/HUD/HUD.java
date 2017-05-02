@@ -86,6 +86,10 @@ public class HUD extends Pane{
     private Image pauseBtnImage = new Image("Texture/Menus/HUD/Pause Button.png");
     private Image pauseBtnClicked = new Image("Texture/Menus/HUD/Pause Button Clicked.png");
     
+    private ImageView useBtn;
+    private Image useBtnImage = new Image("Texture/Menus/HUD/Use Button.png");
+    private Image useBtnClicked = new Image("Texture/Menus/HUD/Use Button Clicked.png");
+    
     private String gravity = "9.8";//Default value for the moment
     private Text gravityLbl = new Text("Gravity: " + gravity);
     
@@ -147,6 +151,7 @@ public class HUD extends Pane{
         
         setStoreBtn();
         setPauseBtn();
+        setUseBtn();
         
     }
     
@@ -155,6 +160,41 @@ public class HUD extends Pane{
         tanks[1] = usaTank;
         tanks[2] = canadaTank;
         tanks[3] = chinaTank;
+    }
+    private void setUseBtn(){
+        useBtn = new ImageView(useBtnImage);
+        
+        this.getChildren().add(useBtn);
+        
+        /*
+        useBtn.setOnMouseDragged(e -> {
+            useBtn.setTranslateX(e.getSceneX());
+            useBtn.setTranslateY(e.getSceneY());
+            System.out.println(useBtn.getTranslateX() + ", " + useBtn.getTranslateY());
+        });
+        */
+        
+        useBtn.setTranslateX(344.5);
+        useBtn.setTranslateY(84.0);
+        
+        useBtn.setOnMouseEntered(e -> {
+            this.setCursor(Cursor.HAND);
+        });
+        
+        useBtn.setOnMouseExited(e -> {
+            this.setCursor(cursorImg);
+        });
+        
+        useBtn.setOnMousePressed(e -> {
+            useBtn.setImage(useBtnClicked);
+        });
+        
+        useBtn.setOnMouseReleased(e -> {
+            useBtn.setImage(useBtnImage);
+            
+            //Do something
+        });
+        
     }
     private void setItemBtn(){
         itemBtn = new ImageView(itemBtnImage);
