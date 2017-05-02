@@ -65,7 +65,7 @@ public class Player implements Serializable{
         itemInventory[0] = 1;
         itemInventory[1] = 0;
         itemInventory[2] = 0;
-        itemInventory[3] = 1;
+        itemInventory[3] = 0;
         itemInventory[4] = 0;
         itemInventory[5] = 0;
         itemInventory[6] = 0;
