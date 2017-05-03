@@ -13,12 +13,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -84,11 +89,29 @@ public class GamePane extends Pane implements Serializable{
     }
     
     public void frontGroundSetup(Pane pane){
+       Image image = new Image("Texture/Menus/MapMenu/Space Map.png");
+       PixelReader pixelReader = image.getPixelReader();
+       
+       
+       WritableImage writeImage = new WritableImage(1200, 800);
+       PixelWriter writer = writeImage.getPixelWriter();
        
        Rectangle rect;
        double yLocation = 0;
        
        for (int i = 0; i < width; i++){
+           for(int k = 0; k < height; k++){
+               if(k >= mapGeneration.getY(i)){
+                   writer.setColor(i, k, pixelReader.getColor(i, k));
+               }
+               else{
+                   writer.setColor(i, k, Color.TRANSPARENT);
+               }
+               
+               
+               
+           }
+           /**
             rect = new Rectangle();
             yLocation = mapGeneration.getY(i);
             
@@ -102,8 +125,10 @@ public class GamePane extends Pane implements Serializable{
             //rect.setFill(Color.TRANSPARENT);
             //rect.setStroke(Color.GREEN);
             pane.getChildren().add(rect);
-            
+            */
         }
+       
+       this.getChildren().add(new ImageView(writeImage));
 
    }
     
