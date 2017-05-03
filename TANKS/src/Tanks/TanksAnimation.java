@@ -152,11 +152,11 @@ public class TanksAnimation{
         tanksAnimationArrayUsed = new Timeline[numOfPlayer];
         progressBarAnimationUsed = new Timeline[numOfPlayer];
         progressBarUsed = new ProgressBar[numOfPlayer];
-        
-        animation = animationForTanks(tanksOne, 35, 23, 300, progressBarAnimationOne);
-        animation2 = animationForTanks(tanksTwo, 35, 18, 500, progressBarAnimationTwo);
-        animation3 = animationForTanks(tanksThree, 35, 21, 700, progressBarAnimationThree);
-        animation4 = animationForTanks(tanksFour, 35, 18, 100, progressBarAnimationFour);
+        int tanksOffSet = 67;
+        animation = animationForTanks(tanksOne, 35, tanksOffSet, 300, progressBarAnimationOne);
+        animation2 = animationForTanks(tanksTwo, 35, tanksOffSet, 500, progressBarAnimationTwo);
+        animation3 = animationForTanks(tanksThree, 35, tanksOffSet, 700, progressBarAnimationThree);
+        animation4 = animationForTanks(tanksFour, 35, tanksOffSet, 100, progressBarAnimationFour);
         
         for(int i = 0; i < playerArray.length; i++){
             playerArray[i] = playerArrayList.get(i);
@@ -306,7 +306,7 @@ public class TanksAnimation{
     }
     
     private Timeline animationForTanks(Tanks tanks, int cannonOffset, int tankOffset, int initialPosition, Timeline progressBarAnimation){
-        tanks.setCenterY(-tankOffset);
+        //tanks.setLayoutY(-tankOffset);
         tanks.setTranslateX(initialPosition);
         tanks.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())));
         tanks.setTranslateY(mapGeneration.getY(initialPosition));
@@ -315,7 +315,7 @@ public class TanksAnimation{
         tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())) + Math.toDegrees(tanks.getCannon().getCanonAngle()));
         
         tanks.setxSpeed(0);
-        Timeline animationFun = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+        Timeline tankAnimation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             updateTanksStatus();
             
             tanks.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())));
@@ -325,7 +325,7 @@ public class TanksAnimation{
             tanks.setySpeed(0);
         }
             
-        tanks.setY(mapGeneration.getY(tanks.getTranslateX()));
+        tanks.setYTanks(mapGeneration.getY(tanks.getTranslateX()));
             tanks.setTranslateY(tanks.getTranslateY() + tanks.getySpeed());
             tanks.setTranslateX((tanks.getTranslateX() + tanks.getxSpeed())); 
             
@@ -373,7 +373,7 @@ public class TanksAnimation{
             }
             
             
-            if (tanks.getTranslateY() < tanks.getY() ){
+            if (tanks.getTranslateY() < tanks.getYTanks() ){
                 tanks.setySpeed(tanks.getySpeed() + gravity);
                 //tanks.setySpeed(yspeed);
             }
@@ -381,14 +381,15 @@ public class TanksAnimation{
                 //yspeed = 0;
                 tanks.setySpeed(0);
             }
-            if(tanks.getTranslateY() > tanks.getY()){
-                tanks.setTranslateY(tanks.getY());
+            if(tanks.getTranslateY() > tanks.getYTanks()){
+                tanks.setTranslateY(tanks.getYTanks());
+                tanks.getCannon().setTranslateY(tanks.getTranslateY() - cannonOffset);
             } 
             
             
             }));
         
-        return animationFun;
+        return tankAnimation;
     }
     
     public void weaponSetup(Tanks tank, double x){
