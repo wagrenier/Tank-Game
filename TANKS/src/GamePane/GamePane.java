@@ -74,26 +74,26 @@ public class GamePane extends Pane implements Serializable{
         tanksSetup(pane, currentPlayer);
     }
     
-    public void mapSetupRestoredMapGeneration(Pane pane){
+    public void mapSetupNewMapGeneration(Pane pane){
         switch(mapIndex){
             case 0:{
                 //Desert Map
                 this.mapGeneration = new MapGeneration(500, 100, 500, 0.0005, 0);
-                frontGroundSetup(pane, "Pictures/Frontgrounds/Desert Frontgrounds.png");
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Desert Frontground.png");
                 backGroundSetup(pane, "Pictures/Backgrounds/Desert Background.png");
             }break;
             
             case 1:{
                 //Mountain Map
                 this.mapGeneration = new MapGeneration(600, 300, 500, 0.0005, 1);
-                frontGroundSetup(pane, "Pictures/Frontgrounds/Mountain Frontgrounds.png");
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Mountain Frontground.png");
                 backGroundSetup(pane, "Pictures/Backgrounds/Mountain Background.png");
             }break;
             
             case 2:{
                 //Space Map
                 this.mapGeneration = new MapGeneration(600, 300, 600, 0.0001, 2);
-                frontGroundSetup(pane, "Pictures/Frontgrounds/Space Frontgrounds");
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Space Frontground.png");
                 backGroundSetup(pane, "Pictures/Backgrounds/Mountain Background.png");
             }break;
                      
@@ -101,36 +101,36 @@ public class GamePane extends Pane implements Serializable{
 
                 //Snow Map
                 this.mapGeneration = new MapGeneration(600, 50, 500, 0.0005, 3);
-                frontGroundSetup(pane, "Pictures/Frontgrounds/Snow Frontgrounds.png");
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Snow Frontground.png");
                 backGroundSetup(pane, "Pictures/Backgrounds/Snow Background.png");
             }break;
         }
         
     }
     
-    public void mapSetupNewMapGeneration(Pane pane){
+    public void mapSetupRestoredMapGeneration(Pane pane){
         switch(mapIndex){
             case 0:{
                 //Desert Map
-                frontGroundSetup(pane, "Pictures/Frontgrounds/Desert Frontgrounds.png");
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Desert Frontground.png");
                 backGroundSetup(pane, "Pictures/Backgrounds/Desert Background.png");
             }break;
             
             case 1:{
                 //Mountain Map
-                frontGroundSetup(pane, "Pictures/Frontgrounds/Mountain Frontgrounds.png");
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Mountain Frontground.png");
                 backGroundSetup(pane, "Pictures/Backgrounds/Mountain Background.png");
             }break;
             
             case 2:{
                 //Space Map
-                frontGroundSetup(pane, "Pictures/Frontgrounds/Space Frontgrounds.png");
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Space Frontground.png");
                 backGroundSetup(pane, "Pictures/Backgrounds/Space Background.png");
             }break;
             
             case 3:{
                 //Snow Map
-                frontGroundSetup(pane, "Pictures/Frontgrounds/Snow Frontgrounds.png");
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Snow Frontground.png");
                 backGroundSetup(pane, "Pictures/Backgrounds/Snow Background.png");
             }break;
         }
