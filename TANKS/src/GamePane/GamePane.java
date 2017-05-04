@@ -37,6 +37,7 @@ public class GamePane extends Pane implements Serializable{
     private transient GameLoop gameLoop;
     
     
+    
     public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, MapGeneration mapGeneration, int currentPlayer){
         this.mapGeneration = mapGeneration;
         this.playerArrayList = playerArrayList;
@@ -81,6 +82,10 @@ public class GamePane extends Pane implements Serializable{
           BackgroundSize.DEFAULT);
        
         pane.setBackground(new Background(myBI));
+    }
+    
+    public void setGameBackground(Background background){
+        this.setBackground(background);
     }
     
     public void frontGroundSetup(Pane pane){

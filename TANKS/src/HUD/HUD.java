@@ -69,6 +69,8 @@ public class HUD extends Pane{
     private Text itemAmount = new Text();
     private ImageView itemLogo;
     
+    private Image emptyLogo = new Image("Texture/Menus/HUD/Not Available Logo.png");
+    
     private ImageView weaponBtn;
     private Image weaponBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
     private Image weaponBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
@@ -226,19 +228,25 @@ public class HUD extends Pane{
         itemBtn.setOnMouseReleased(e -> {
             itemBtn.setImage(itemBtnImage);
             
-            do
-            {
-                if(itemIndex < playerList.get(playerIndex).getItemInventory().length - 1)
-                    itemIndex++;
+            if (isItemInventoryEmpty() == false){
+                do
+                {
+                    if(itemIndex < playerList.get(playerIndex).getItemInventory().length - 1)
+                        itemIndex++;
             
-                else
-                    itemIndex = 0;
-            }while (playerList.get(playerIndex).getItemInventory()[itemIndex] == 0);
+                    else
+                        itemIndex = 0;
+                }while (playerList.get(playerIndex).getItemInventory()[itemIndex] == 0);
             
-            item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
-            itemAmount.setText(playerList.get(playerIndex).getItemInventory()[itemIndex] + "");
-            itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
-            
+                item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
+                itemAmount.setText(playerList.get(playerIndex).getItemInventory()[itemIndex] + "");
+                itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
+            }
+            else{
+                item.setText("Empty");
+                itemAmount.setText("");
+                itemLogo.setImage(emptyLogo);
+            }
             
         });
     }    
@@ -701,10 +709,18 @@ public class HUD extends Pane{
     }
     public void resetItemIndex(){
         itemIndex = 0;
-        
-        item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
-        itemAmount.setText(playerList.get(playerIndex).getItemInventory()[itemIndex] + "");
-        itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
+        System.out.println(isItemInventoryEmpty() + ", " + playerList.get(playerIndex).getUsername());
+        if (isItemInventoryEmpty() == false){
+            item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
+            itemAmount.setText(playerList.get(playerIndex).getItemInventory()[itemIndex] + "");
+            itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
+        }
+        else
+        {
+            item.setText("Empty");
+            itemAmount.setText("");
+            itemLogo.setImage(emptyLogo);
+        }
     }
     public void updateWeaponStatus(){
         playerList.get(playerIndex).removeWeapon(weaponIndex);
@@ -712,9 +728,16 @@ public class HUD extends Pane{
     public void updateItemStatus(){
         playerList.get(playerIndex).removeItem(itemIndex);
     }
-    
     public Player getCurrentPlayerTurn(int index){
         return playerList.get(index);
+    }
+    public boolean isItemInventoryEmpty(){
+        for (int i = 0; i < playerList.get(playerIndex).getItemInventory().length; i++){
+            if (playerList.get(playerIndex).getItemInventory()[i] > 0)
+                return false;
+        }
+        
+        return true;
     }
 }
 

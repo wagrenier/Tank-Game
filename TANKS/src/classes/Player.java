@@ -20,7 +20,7 @@ public class Player implements Serializable{
     private String username;
     private int team;
     private boolean isAI = true;
-    private int money = 50;
+    private int money = 500;
     
     private int[] weaponInventory = new int[9];
     private int[] itemInventory = new int[8];
@@ -62,7 +62,7 @@ public class Player implements Serializable{
     }
     
     private void setItemInventory(){
-        itemInventory[0] = 1;
+        itemInventory[0] = 0;
         itemInventory[1] = 0;
         itemInventory[2] = 0;
         itemInventory[3] = 0;

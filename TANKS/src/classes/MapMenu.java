@@ -341,5 +341,7 @@ public class MapMenu extends Pane{
         return playBtnHover;
     }
     
-    
+    public Background getChosenMap(){
+        return backgrounds[backgroundIndex];
+    }
 }

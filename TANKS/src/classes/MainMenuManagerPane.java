@@ -10,6 +10,7 @@ import LoadFunction.LoadFunction;
 import java.util.ArrayList;
 import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -33,6 +34,8 @@ public class MainMenuManagerPane extends Pane{
     private ArrayList<Pane> paneList = new ArrayList<>();
     private ArrayList<Player> playerList = new ArrayList<>();
     //private ImageView cursor = new ImageView(new Image("Texture/Cursor/Cursor.png"));
+    
+    private Background chosenMap;
     
     
     public MainMenuManagerPane() {
@@ -137,8 +140,12 @@ public class MainMenuManagerPane extends Pane{
             this.setMinSize(1200, 950);
             this.setMaxSize(1200, 950);
             
+            chosenMap = mapMenu.getChosenMap();
+            
             gamePane = new GamePane(numberOfPlayers, playerList);
             gamePane.setPlayerArrayList(playerList);
+            
+            gamePane.setGameBackground(chosenMap);
             
             borderPane.setCenter(gamePane);
             borderPane.setTop(gamePane.getHUD());
