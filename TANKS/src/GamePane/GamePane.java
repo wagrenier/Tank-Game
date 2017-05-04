@@ -89,10 +89,6 @@ public class GamePane extends Pane implements Serializable{
         pane.setBackground(new Background(myBI));
     }
     
-    public void setGameBackground(Background background){
-        this.setBackground(background);
-    }
-    
     public void frontGroundSetup(Pane pane){
        Image image = new Image("Texture/Menus/MapMenu/Space Map.png");
        PixelReader pixelReader = image.getPixelReader();

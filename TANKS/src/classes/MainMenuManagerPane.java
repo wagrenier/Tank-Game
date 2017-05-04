@@ -140,12 +140,12 @@ public class MainMenuManagerPane extends Pane{
             this.setMinSize(1200, 950);
             this.setMaxSize(1200, 950);
             
-            chosenMap = mapMenu.getChosenMap();
+            
             
             gamePane = new GamePane(numberOfPlayers, playerList);
             gamePane.setPlayerArrayList(playerList);
             
-            gamePane.setGameBackground(chosenMap);
+            
             
             borderPane.setCenter(gamePane);
             borderPane.setTop(gamePane.getHUD());
