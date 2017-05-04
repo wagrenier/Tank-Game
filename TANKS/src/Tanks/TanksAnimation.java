@@ -403,7 +403,7 @@ public class TanksAnimation{
             weapon.setTranslateX(tank.getTranslateX());
             weapon.setTranslateY(tank.getTranslateY());
             weapon.setRotate(tank.getRotate());
-            weapon.setCenterY(-10);
+            weapon.setCenterY(-5);
             pane.getChildren().add(mineLocationArrayList.get(numOfMines));
             hitDetectionMine(tank, weapon);
             numOfMines++;
@@ -420,9 +420,6 @@ public class TanksAnimation{
             weaponAnimation.launchAnimation();
             hitDetection(tank, weapon);
             }
-        
-        
-       
     }
     
     public void resetSpeed(){
@@ -667,6 +664,81 @@ public class TanksAnimation{
     }
     
     //Methods Related to saving/loading the game
+    public double[][] obtainMinesLocation(){
+        if(mineLocationArrayList.isEmpty()){
+            return null;//If no mines are in the game
+        }
+        
+        double[][] minesLocation = new double[mineLocationArrayList.size()][3];
+        for(int i = 0; i < mineLocationArrayList.size(); i++){
+            minesLocation[i][0] = mineHitDetectionArrayList.get(i).getTank().getTeam();
+            minesLocation[i][1] = mineLocationArrayList.get(i).getTranslateX();
+            minesLocation[i][2] = mineLocationArrayList.get(i).getTranslateY();
+        }
+        return minesLocation;
+    }
+    
+    public void resetMineLocation(double[][] mineLocation){
+        
+        for(int i = 0; i < mineLocation.length; i++){
+            
+            switch((int) mineLocation[i][0]){
+                case 0:{ 
+                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath());
+        
+                    mineLocationArrayList.add(weapon);
+                    weapon.setTranslateX(mineLocation[i][1]);
+                    weapon.setTranslateY(mineLocation[i][2]);
+                    weapon.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(mineLocation[i][1])));
+                    weapon.setCenterY(-5);
+                    pane.getChildren().add(mineLocationArrayList.get(numOfMines));
+                    hitDetectionMine(tanksThree, weapon);
+                    numOfMines++;
+                }
+                break;
+                
+                case 1: {
+                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath());
+        
+                    mineLocationArrayList.add(weapon);
+                    weapon.setTranslateX(mineLocation[i][1]);
+                    weapon.setTranslateY(mineLocation[i][2]);
+                    weapon.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(mineLocation[i][1])));
+                    weapon.setCenterY(-5);
+                    pane.getChildren().add(mineLocationArrayList.get(numOfMines));
+                    hitDetectionMine(tanksFour, weapon);
+                    numOfMines++;
+                }break;
+                
+                case 2: {
+                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath());
+        
+                    mineLocationArrayList.add(weapon);
+                    weapon.setTranslateX(mineLocation[i][1]);
+                    weapon.setTranslateY(mineLocation[i][2]);
+                    weapon.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(mineLocation[i][1])));
+                    weapon.setCenterY(-5);
+                    pane.getChildren().add(mineLocationArrayList.get(numOfMines));
+                    hitDetectionMine(tanksOne, weapon);
+                    numOfMines++;
+                }break;
+                
+                case 3: {
+                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath());
+        
+                    mineLocationArrayList.add(weapon);
+                    weapon.setTranslateX(mineLocation[i][1]);
+                    weapon.setTranslateY(mineLocation[i][2]);
+                    weapon.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(mineLocation[i][1])));
+                    weapon.setCenterY(-5);
+                    pane.getChildren().add(mineLocationArrayList.get(numOfMines));
+                    hitDetectionMine(tanksTwo, weapon);
+                    numOfMines++;
+                }break;
+                }
+            }
+    }
+    
     public boolean isPossibleToSave(){
         if(tanksArrayUsed[indexOfCurrentPlayerTurn].getxSpeed() == 0 && progressBarAnimationUsed[indexOfCurrentPlayerTurn].getStatus().compareTo(Animation.Status.STOPPED) == 0 && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
             System.out.println("Possible");
@@ -935,5 +1007,16 @@ public class TanksAnimation{
     public ArrayList<Weapon> getMineLocationArrayList() {
         return mineLocationArrayList;
     }
+
+    public ArrayList<HitDetectionMine> getMineHitDetectionArrayList() {
+        return mineHitDetectionArrayList;
+    }
+
+    public int getNumOfMines() {
+        return numOfMines;
+    }
+    
+    
+    
     
 }

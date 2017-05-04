@@ -193,6 +193,11 @@ public class MainMenuManagerPane extends Pane{
             gamePane.getTanksAnimation().resetTankOrientationSave(array2);
             gamePane.getTanksAnimation().resetTankHPSave(tanksHP);
             gamePane.getTanksAnimation().resetWhoIsDead(dead);
+            
+            if(load.isMinePlaced()){
+                double[][] mineLocation = load.getMineLocation();
+                gamePane.getTanksAnimation().resetMineLocation(mineLocation);
+            }
     }
     
     private void cursorSetting(Pane pane){

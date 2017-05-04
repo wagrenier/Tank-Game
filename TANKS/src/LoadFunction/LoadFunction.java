@@ -31,6 +31,8 @@ public class LoadFunction {
     int[] tanksHP;
     int[] indexOfCurrentPlayerTurn;
     double[] maxPixMove;
+    double[][] mineLocation;
+    boolean minePlaced = false;
     
     public LoadFunction() {
         
@@ -45,12 +47,24 @@ public class LoadFunction {
             indexOfCurrentPlayerTurn = (int[]) (objectInputStream.readObject());
             dead = (boolean[])(objectInputStream.readObject());
             maxPixMove = (double[])(objectInputStream.readObject());
-        } catch (IOException ex) {
+            mineLocation = (double[][]) (objectInputStream.readObject());
+            minePlaced = true;
+        } catch (java.io.EOFException ex3) {
+            minePlaced = false;
+        } catch (IOException ex){
             Logger.getLogger(LoadFunction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex2) {
+        }catch (ClassNotFoundException ex2) {
             Logger.getLogger(LoadFunction.class.getName()).log(Level.SEVERE, null, ex2);
         } 
         
+    }
+
+    public double[][] getMineLocation() {
+        return mineLocation;
+    }
+
+    public boolean isMinePlaced() {
+        return minePlaced;
     }
 
     public double[] getMaxPixMove() {

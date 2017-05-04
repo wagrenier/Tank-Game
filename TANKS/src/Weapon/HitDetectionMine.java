@@ -44,6 +44,10 @@ public class HitDetectionMine extends AnimationTimer{
     public boolean isHitSomething() {
         return hitSomething;
     }
+
+    public Tanks getTank() {
+        return tank;
+    }
     
     @Override
     public void handle(long now){
@@ -75,7 +79,7 @@ public class HitDetectionMine extends AnimationTimer{
             tanksAnimation.mineExploded();
             tanksAnimation.getPane().getChildren().remove(weapon);
             tanksAnimation.getMineLocationArrayList().remove(weapon);
-            
+            tanksAnimation.getMineHitDetectionArrayList().remove(this);
             this.stop();
         }
     }
