@@ -22,9 +22,11 @@ public class MapGeneration implements Serializable{
     double startingPoint;
     double lengthOfWave;
     double gravity;
+    private int mapIndex;
     
-    public MapGeneration(double startingPoint, double amplitudeOfWave, double lengthOfWave, double gravity){
+    public MapGeneration(double startingPoint, double amplitudeOfWave, double lengthOfWave, double gravity, int mapIndex){
         this.gravity = gravity;
+        this.mapIndex = mapIndex;
         //The lower the curve can go is 0 and the max is 700
         //Thus, the starting point + amplitude < 700 & starting point - amplitude > 0
         //this.startingPoint = (350 + Math.random() * startingPoint);
@@ -61,9 +63,13 @@ public class MapGeneration implements Serializable{
            this.amplitudeOfWave = (Math.random() * amplitudeOfWave); //300
            this.lengthOfWave = (300 + Math.random() * lengthOfWave); //500
          */
-        this.startingPoint = (600);
+        this.startingPoint = startingPoint;
         this.amplitudeOfWave = (Math.random() * amplitudeOfWave); //300
         this.lengthOfWave = (300 + Math.random() * lengthOfWave); //500
+    }
+
+    public int getMapIndex() {
+        return mapIndex;
     }
     
     public double derivativeFunction(double x){

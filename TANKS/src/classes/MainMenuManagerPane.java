@@ -37,7 +37,6 @@ public class MainMenuManagerPane extends Pane{
     
     private Background chosenMap;
     
-    
     public MainMenuManagerPane() {
         paneList.add(mainMenu);
         paneList.add(playerMenu);
@@ -142,7 +141,7 @@ public class MainMenuManagerPane extends Pane{
             
             
             
-            gamePane = new GamePane(numberOfPlayers, playerList);
+            gamePane = new GamePane(numberOfPlayers, playerList, mapMenu.getChosenMap());
             gamePane.setPlayerArrayList(playerList);
             
             

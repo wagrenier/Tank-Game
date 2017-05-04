@@ -41,6 +41,13 @@ public class MapMenu extends Pane{
     *
     */
     
+    /*
+        0 = Desert Map
+        1 = Mountain Map
+        2 = Space Map
+        3 = Snow Map
+        */
+    
     private Background[] backgrounds = new Background[4];
     private static int backgroundIndex = 0;
     

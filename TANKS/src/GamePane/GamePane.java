@@ -24,7 +24,6 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -33,30 +32,34 @@ import javafx.scene.shape.Rectangle;
 public class GamePane extends Pane implements Serializable{
     
     private int numOfPlayers;
-    private int mapIndex = 0;
+    private int mapIndex;
     private double width = 1200;
     private double height = 800;
     private transient TanksAnimation tanksAnimation;
-    MapGeneration mapGeneration = new MapGeneration(450, 200, 500, 0.0005);
+    MapGeneration mapGeneration;
     private ArrayList<Player> playerArrayList = new ArrayList<>();
     private Timeline[] tanksAnimationArrayUsed;
     private GameLoop gameLoop;
     
     public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, MapGeneration mapGeneration, int currentPlayer){
         this.mapGeneration = mapGeneration;
+        this.mapIndex = this.mapGeneration.getMapIndex();
         this.playerArrayList = playerArrayList;
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
         this.numOfPlayers = numOfPlayers;
+        mapSetupRestoredMapGeneration(this);
         paneSetup(this, currentPlayer);   
         gameLoop(currentPlayer);
     }
     
-    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList){
+    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, int mapIndex){
         this.playerArrayList = playerArrayList;
+        this.mapIndex = mapIndex;
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
         this.numOfPlayers = numOfPlayers;
+        mapSetupNewMapGeneration(this);
         paneSetup(this, 0);   
         gameLoop(0);
     }
@@ -68,31 +71,67 @@ public class GamePane extends Pane implements Serializable{
     }
     
     public void paneSetup(Pane pane, int currentPlayer){
-        mapSetup(pane);
         tanksSetup(pane, currentPlayer);
     }
     
-    public void mapSetup(Pane pane){
+    public void mapSetupRestoredMapGeneration(Pane pane){
         switch(mapIndex){
             case 0:{
-                frontGroundSetup(pane);
-                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
-            }
+                //Desert Map
+                this.mapGeneration = new MapGeneration(500, 100, 500, 0.0005, 0);
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Desert Frontgrounds.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Desert Background.png");
+            }break;
             
             case 1:{
-                frontGroundSetup(pane);
-                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
-            }
+                //Mountain Map
+                this.mapGeneration = new MapGeneration(600, 300, 500, 0.0005, 1);
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Mountain Frontgrounds.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Mountain Background.png");
+            }break;
             
             case 2:{
-                frontGroundSetup(pane);
-                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
-            }
+                //Space Map
+                this.mapGeneration = new MapGeneration(600, 300, 600, 0.0001, 2);
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Space Frontgrounds");
+                backGroundSetup(pane, "Pictures/Backgrounds/Space Background.png");
+            }break;
             
             case 3:{
-                frontGroundSetup(pane);
-                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
-            }
+                //Snow Map
+                this.mapGeneration = new MapGeneration(600, 50, 500, 0.0005, 3);
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Snow Frontgrounds.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Snow Background.png");
+            }break;
+        }
+        
+    }
+    
+    public void mapSetupNewMapGeneration(Pane pane){
+        switch(mapIndex){
+            case 0:{
+                //Desert Map
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Desert Frontgrounds.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Desert Background.png");
+            }break;
+            
+            case 1:{
+                //Mountain Map
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Mountain Frontgrounds.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Mountain Background.png");
+            }break;
+            
+            case 2:{
+                //Space Map
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Space Frontgrounds.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Space Background.png");
+            }break;
+            
+            case 3:{
+                //Snow Map
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Snow Frontgrounds.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Snow Background.png");
+            }break;
         }
         
     }
@@ -103,26 +142,19 @@ public class GamePane extends Pane implements Serializable{
     }
     
     public void backGroundSetup(Pane pane, String backGroundPath){
-        
+        //Setting the background of the pane
         BackgroundImage myBI= new BackgroundImage(new Image(backGroundPath, width, height, false, true),
-        
-        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-          BackgroundSize.DEFAULT);
-       
+        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+          
         pane.setBackground(new Background(myBI));
     }
     
-    public void frontGroundSetup(Pane pane){
-       Image image = new Image("Texture/Menus/MapMenu/Space Map.png");
+    public void frontGroundSetup(Pane pane, String frontGroundImagePath){
+       Image image = new Image(frontGroundImagePath);
        PixelReader pixelReader = image.getPixelReader();
-       
-       
        WritableImage writeImage = new WritableImage(1200, 800);
        PixelWriter writer = writeImage.getPixelWriter();
-       
-       Rectangle rect;
-       double yLocation = 0;
-       
+       //Writing to the image so that the texture for the hill is apllied only underneath it
        for (int i = 0; i < width; i++){
            for(int k = 0; k < height; k++){
                if(k >= mapGeneration.getY(i)){
