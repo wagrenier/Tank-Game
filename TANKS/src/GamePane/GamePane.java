@@ -75,24 +75,25 @@ public class GamePane extends Pane implements Serializable{
     public void mapSetup(Pane pane){
         switch(mapIndex){
             case 0:{
+                System.out.println("test");
                 frontGroundSetup(pane);
-                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
-            }
+                backGroundSetup(pane, "Pictures/Backgrounds/Mountain Background.png");
+            }break;
             
             case 1:{
                 frontGroundSetup(pane);
-                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
-            }
+                backGroundSetup(pane, "Pictures/Backgrounds/Space Background.png");
+            }break;
             
             case 2:{
                 frontGroundSetup(pane);
-                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
-            }
+                backGroundSetup(pane, "Pictures/Backgrounds/Space Background.png");
+            }break;
             
             case 3:{
                 frontGroundSetup(pane);
-                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
-            }
+                backGroundSetup(pane, "Pictures/Backgrounds/Space Background.png");
+            }break;
         }
         
     }
