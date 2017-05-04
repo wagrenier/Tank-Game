@@ -94,7 +94,7 @@ public class GamePane extends Pane implements Serializable{
                 //Space Map
                 this.mapGeneration = new MapGeneration(600, 300, 600, 0.0001, 2);
                 frontGroundSetup(pane, "Pictures/Frontgrounds/Space Frontground.png");
-                backGroundSetup(pane, "Pictures/Backgrounds/Mountain Background.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Space Background.png");
             }break;
                      
             case 3:{

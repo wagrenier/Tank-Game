@@ -271,9 +271,9 @@ public class TanksAnimation{
     }
     
     private void progressBarInGameAnimationStop(Tanks tank, Timeline progressBarAnimation, ProgressBar bar){
-        weaponSetup(tank, bar.getProgress());
         progressBarAnimation.stop();
         pane.getChildren().remove(bar);
+        weaponSetup(tank, bar.getProgress());
     }
     
     private void setupTanksPlayer(){
@@ -385,6 +385,9 @@ public class TanksAnimation{
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getDamage(), weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getTexturePath());        
         //this.hud.updateItemStatus();
         this.hud.updateWeaponStatus();
+        if(pane.getMapGeneration().getMapIndex() != 2){
+            x *= hud.getWindResistance();
+        }
         
         //Special Setup For Mines
         if(this.hud.getWeaponIndex() == 7){

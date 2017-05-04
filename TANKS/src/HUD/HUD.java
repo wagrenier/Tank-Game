@@ -9,6 +9,7 @@ import classes.Player;
 import Tanks.Tanks;
 import GamePane.GamePane;
 import Weapon.WeaponManager;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javafx.animation.Animation;
 import javafx.scene.Cursor;
@@ -92,11 +93,11 @@ public class HUD extends Pane{
     private Image useBtnImage = new Image("Texture/Menus/HUD/Use Button.png");
     private Image useBtnClicked = new Image("Texture/Menus/HUD/Use Button Clicked.png");
     
-    private String gravity = "9.8";//Default value for the moment
-    private Text gravityLbl = new Text("Gravity: " + gravity);
+    private String gravity;//Default value for the moment
+    private Text gravityLbl;
     
-    private int windResistance = 30;//Default value for the moment
-    private Text wind = new Text("Wind Res.: " + windResistance);
+    private double windResistance = 0.01;//Default value for the moment
+    private Text wind = new Text("Wind Res.: " + windResistance + "%");
     
     private ColoredProgressBar playerHealth = new ColoredProgressBar("green-bar", 1);
     
@@ -123,6 +124,11 @@ public class HUD extends Pane{
         this.gamePane = gamePane;
         this.storeMenu = new Store(this.gamePane, this.weaponManager);
         this.pauseMenu = new PauseMenu(this.gamePane, this.storeMenu);
+        
+        //The gravity in the hud is multiplied by 100 to prevent the game from displaying 5e-6
+        //Instead, it will just display 0.05
+        gravity = "" + gamePane.getMapGeneration().getGravity() * 100;
+        gravityLbl = new Text("Gravity: " + gravity);
         
         playerList = gamePane.getPlayerArrayList();
         setPlayer();
@@ -154,6 +160,31 @@ public class HUD extends Pane{
         setStoreBtn();
         setPauseBtn();
         setUseBtn();
+        
+    }
+    
+    public void generateNewWindRes(){
+        /**
+         * private double windResistance = 30;//Default value for the moment
+           private Text wind = new Text("Wind Res.: " + windResistance);
+         */
+        
+        windResistance = Math.random();
+        if(gamePane.getMapGeneration().getMapIndex() == 2){
+            //Because there is no wind or resistance in space ;)
+            windResistance = 0;
+            DecimalFormat df = new DecimalFormat();
+            df.setMaximumFractionDigits(2);
+            //Multiplied by 100 to show in %
+            wind.setText("Wind Res.: " + df.format(windResistance) + "%");
+        }
+        else{
+            DecimalFormat df = new DecimalFormat();
+            df.setMaximumFractionDigits(2);
+            //Multiplied by 100 to show in %
+            wind.setText("Wind Res.: " + df.format((1 - windResistance) * 100) + "%");
+        }
+        
         
     }
     
@@ -673,7 +704,7 @@ public class HUD extends Pane{
     public Text getGravityLbl() {
         return gravityLbl;
     }
-    public int getWindResistance() {
+    public double getWindResistance() {
         return windResistance;
     }
     public Text getWind() {
