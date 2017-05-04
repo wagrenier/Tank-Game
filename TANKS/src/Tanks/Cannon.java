@@ -5,29 +5,25 @@
  */
 package Tanks;
 
-import java.io.Serializable;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 
 /**
  *
  * @author willi
  */
-public class Cannon extends Circle implements Serializable{
+public class Cannon extends ImageView{
     
     private double canonAngle = 0;
-    private final transient String imagePath;
-    private transient String imageReversePath;
-    private final transient ImagePattern texturePattern;
-    
-    private final transient ImagePattern texturePatternFlipped;
-    private final transient Image texture;
-    private final transient Image textureFlipped;
+    private String imagePath;
+    private String imageReversePath;
+    private Image texture;
+    private Image textureFlipped;
     private boolean isImageFlipped = false;
     
     Cannon(String imagePath, String imageReversePath){
-        this.setRadius(50);
+        //this.setRadius(50);
         
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
@@ -35,15 +31,15 @@ public class Cannon extends Circle implements Serializable{
         texture = new Image(this.imagePath);
         textureFlipped = new Image(this.imageReversePath);
         
-        texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
-        texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
+        //texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
+        //texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
         
         //ImageView imageView = new ImageView(texture);
         
+        this.setImage(texture);
         
         
-        
-        this.setFill(texturePattern);
+        //this.setFill(texturePattern);
         //this.setRotate(20);
         //setStroke(Color.RED);
         //setTranslateX(50);
@@ -51,24 +47,21 @@ public class Cannon extends Circle implements Serializable{
     }  
     
     Cannon(String imagePath){
-        this.setRadius(50);
         this.imagePath = imagePath;
         texture = new Image(this.imagePath);
-        texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
-        this.setFill(texturePattern);
-        
         this.imageReversePath = imagePath;
         textureFlipped = new Image(this.imagePath);
-        texturePatternFlipped = new ImagePattern(texture, 0, 0, 1, 1, true);
     }  
     
     public void flipTexture(){
-        this.setFill(texturePatternFlipped);
+        //this.setFill(texturePatternFlipped);
+        this.setImage(textureFlipped);
         isImageFlipped = true;
     }
     
     public void normalTexture(){
-        this.setFill(texturePattern);
+        //this.setFill(texturePattern);
+        this.setImage(texture);
         isImageFlipped = false;
     }
 
