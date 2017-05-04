@@ -1002,7 +1002,4 @@ public class TanksAnimation{
         return numOfMines;
     }
     
-    
-    
-    
 }

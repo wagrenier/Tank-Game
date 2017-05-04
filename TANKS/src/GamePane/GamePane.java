@@ -33,15 +33,14 @@ import javafx.scene.shape.Rectangle;
 public class GamePane extends Pane implements Serializable{
     
     private int numOfPlayers;
+    private int mapIndex = 0;
     private double width = 1200;
     private double height = 800;
     private transient TanksAnimation tanksAnimation;
     MapGeneration mapGeneration = new MapGeneration(450, 200, 500, 0.0005);
     private ArrayList<Player> playerArrayList = new ArrayList<>();
-    private transient Timeline[] tanksAnimationArrayUsed;
-    private transient GameLoop gameLoop;
-    
-    
+    private Timeline[] tanksAnimationArrayUsed;
+    private GameLoop gameLoop;
     
     public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, MapGeneration mapGeneration, int currentPlayer){
         this.mapGeneration = mapGeneration;
@@ -69,9 +68,33 @@ public class GamePane extends Pane implements Serializable{
     }
     
     public void paneSetup(Pane pane, int currentPlayer){
-        frontGroundSetup(pane);
-        backGroundSetup(pane);
+        mapSetup(pane);
         tanksSetup(pane, currentPlayer);
+    }
+    
+    public void mapSetup(Pane pane){
+        switch(mapIndex){
+            case 0:{
+                frontGroundSetup(pane);
+                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
+            }
+            
+            case 1:{
+                frontGroundSetup(pane);
+                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
+            }
+            
+            case 2:{
+                frontGroundSetup(pane);
+                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
+            }
+            
+            case 3:{
+                frontGroundSetup(pane);
+                backGroundSetup(pane, "Pictures/Backgrounds/Background.png");
+            }
+        }
+        
     }
     
     public void tanksSetup(Pane pane, int currentPlayer){
@@ -79,9 +102,9 @@ public class GamePane extends Pane implements Serializable{
         tanksAnimationArrayUsed = tanksAnimation.getTanksAnimationArrayUsed();
     }
     
-    public void backGroundSetup(Pane pane){
+    public void backGroundSetup(Pane pane, String backGroundPath){
         
-        BackgroundImage myBI= new BackgroundImage(new Image("Pictures/Backgrounds/Background.png", width, height, false, true),
+        BackgroundImage myBI= new BackgroundImage(new Image(backGroundPath, width, height, false, true),
         
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
           BackgroundSize.DEFAULT);
@@ -107,30 +130,10 @@ public class GamePane extends Pane implements Serializable{
                }
                else{
                    writer.setColor(i, k, Color.TRANSPARENT);
-               }
-               
-               
-               
+               } 
            }
-           /**
-            rect = new Rectangle();
-            yLocation = mapGeneration.getY(i);
-            
-            //rect.setStyle();
-            rect.setTranslateX(i);
-            rect.setHeight(height - yLocation);
-            rect.setTranslateY(yLocation);
-            
-            rect.setWidth(.25);
-            
-            //rect.setFill(Color.TRANSPARENT);
-            //rect.setStroke(Color.GREEN);
-            pane.getChildren().add(rect);
-            */
         }
-       
        this.getChildren().add(new ImageView(writeImage));
-
    }
     
     public HUD getHUD(){
