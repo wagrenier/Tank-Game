@@ -5,11 +5,9 @@
  */
 package Tanks;
 
-import java.io.Serializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 
 /**
  *
@@ -20,9 +18,6 @@ public class Cannon extends ImageView{
     private double canonAngle = 0;
     private String imagePath;
     private String imageReversePath;
-    private ImagePattern texturePattern;
-    
-    private ImagePattern texturePatternFlipped;
     private Image texture;
     private Image textureFlipped;
     private boolean isImageFlipped = false;
@@ -52,15 +47,10 @@ public class Cannon extends ImageView{
     }  
     
     Cannon(String imagePath){
-        //this.setRadius(50);
         this.imagePath = imagePath;
         texture = new Image(this.imagePath);
-        texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
-        //this.setFill(texturePattern);
-        
         this.imageReversePath = imagePath;
         textureFlipped = new Image(this.imagePath);
-        texturePatternFlipped = new ImagePattern(texture, 0, 0, 1, 1, true);
     }  
     
     public void flipTexture(){

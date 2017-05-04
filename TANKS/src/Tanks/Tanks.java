@@ -26,8 +26,6 @@ public class Tanks extends ImageView{
     private boolean isAI = false;
     private final String imagePath;
     private final String imageReversePath;
-    private final ImagePattern texturePattern;
-    private final ImagePattern texturePatternFlipped;
     private final Image texture;
     private final Image textureFlipped;
     private boolean isImageFlipped = false;
@@ -35,34 +33,23 @@ public class Tanks extends ImageView{
     private int team;
     
     Tanks(String imagePath, String imageReversePath, String imagePathCannon, int team){
-        //this.setRadius(50);
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
         texture = new Image(this.imagePath);
         textureFlipped = new Image(this.imageReversePath);
-        texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
-        texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
-        //this.setCenterY(-18);
-        //this.setFill(texturePattern);
         this.setImage(texture);
         cannon = new Cannon(imagePathCannon);
         this.team = team;
     }  
     
     Tanks(String imagePath, String imageReversePath, String imagePathCannon, String reverse, int team){
-        ///this.setRadius(50);
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
         texture = new Image(this.imagePath);
         textureFlipped = new Image(this.imageReversePath);
-        texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
-        texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
-        //this.setCenterY(-18);
-        //this.setFill(texturePattern);
         this.setImage(texture);
         cannon = new Cannon(imagePathCannon, reverse);
         this.team = team;
-        //this.setStroke(Color.BLACK);
     } 
 
     public void flipTexture(){
@@ -106,14 +93,6 @@ public class Tanks extends ImageView{
 
     public String getImageReversePath() {
         return imageReversePath;
-    }
-
-    public ImagePattern getTexturePattern() {
-        return texturePattern;
-    }
-
-    public ImagePattern getTexturePatternFlipped() {
-        return texturePatternFlipped;
     }
 
     public Image getTexture() {

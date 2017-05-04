@@ -42,7 +42,6 @@ public class Main_1 extends Application {
 
         primaryStage.sizeToScene(); 
     }
-
     
     /**
      * @param args the command line arguments
