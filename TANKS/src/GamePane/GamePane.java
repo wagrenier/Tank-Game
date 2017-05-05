@@ -36,10 +36,10 @@ public class GamePane extends Pane implements Serializable{
     private double width = 1200;
     private double height = 800;
     private transient TanksAnimation tanksAnimation;
-    MapGeneration mapGeneration;
+    private MapGeneration mapGeneration;
     private ArrayList<Player> playerArrayList = new ArrayList<>();
-    private Timeline[] tanksAnimationArrayUsed;
-    private GameLoop gameLoop;
+    private transient Timeline[] tanksAnimationArrayUsed;
+    private transient GameLoop gameLoop;
     
     public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, MapGeneration mapGeneration, int currentPlayer){
         this.mapGeneration = mapGeneration;
@@ -70,11 +70,11 @@ public class GamePane extends Pane implements Serializable{
         gameLoop.start();
     }
     
-    public void paneSetup(Pane pane, int currentPlayer){
+    public void paneSetup(GamePane pane, int currentPlayer){
         tanksSetup(pane, currentPlayer);
     }
     
-    public void mapSetupNewMapGeneration(Pane pane){
+    public void mapSetupNewMapGeneration(GamePane pane){
         switch(mapIndex){
             case 0:{
                 //Desert Map
@@ -108,7 +108,7 @@ public class GamePane extends Pane implements Serializable{
         
     }
     
-    public void mapSetupRestoredMapGeneration(Pane pane){
+    public void mapSetupRestoredMapGeneration(GamePane pane){
         switch(mapIndex){
             case 0:{
                 //Desert Map
@@ -137,12 +137,12 @@ public class GamePane extends Pane implements Serializable{
         
     }
     
-    public void tanksSetup(Pane pane, int currentPlayer){
+    public void tanksSetup(GamePane pane, int currentPlayer){
         tanksAnimation = new TanksAnimation(mapGeneration, this, numOfPlayers, playerArrayList, currentPlayer);  
         tanksAnimationArrayUsed = tanksAnimation.getTanksAnimationArrayUsed();
     }
     
-    public void backGroundSetup(Pane pane, String backGroundPath){
+    public void backGroundSetup(GamePane pane, String backGroundPath){
         //Setting the background of the pane
         BackgroundImage myBI= new BackgroundImage(new Image(backGroundPath, width, height, false, true),
         BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -150,7 +150,7 @@ public class GamePane extends Pane implements Serializable{
         pane.setBackground(new Background(myBI));
     }
     
-    public void frontGroundSetup(Pane pane, String frontGroundImagePath){
+    public void frontGroundSetup(GamePane pane, String frontGroundImagePath){
        Image image = new Image(frontGroundImagePath);
        PixelReader pixelReader = image.getPixelReader();
        WritableImage writeImage = new WritableImage(1200, 800);

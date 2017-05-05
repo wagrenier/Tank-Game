@@ -648,7 +648,7 @@ public class TanksAnimation{
     
     public void updateTurn(){
         hud.setCurrentPlayerName(playerArray[indexOfCurrentPlayerTurn].getUsername());
-        hud.setCurrentPlayerTank(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[indexOfCurrentPlayerTurn].getTeam());
+        hud.setCurrentPlayerTank(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[indexOfCurrentPlayerTurn].getTeam(), indexOfCurrentPlayerTurn);
     }
     
     public void mineExploded(){
