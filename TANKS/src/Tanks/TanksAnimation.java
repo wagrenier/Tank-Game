@@ -271,9 +271,9 @@ public class TanksAnimation{
     }
     
     private void progressBarInGameAnimationStop(Tanks tank, Timeline progressBarAnimation, ProgressBar bar){
-        weaponSetup(tank, bar.getProgress());
         progressBarAnimation.stop();
         pane.getChildren().remove(bar);
+        weaponSetup(tank, bar.getProgress());
     }
     
     private void setupTanksPlayer(){
@@ -385,6 +385,9 @@ public class TanksAnimation{
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getDamage(), weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getTexturePath());        
         //this.hud.updateItemStatus();
         this.hud.updateWeaponStatus();
+        if(pane.getMapGeneration().getMapIndex() != 2){
+            x *= hud.getWindResistance();
+        }
         
         //Special Setup For Mines
         if(this.hud.getWeaponIndex() == 7){
@@ -426,7 +429,7 @@ public class TanksAnimation{
     }
     
     public void hitDetectionMine(Tanks tank, Weapon weapon){
-        HitDetectionMine hitDetectionMine = new HitDetectionMine(tanksOne, tanksTwo, tanksThree, tanksFour, tank, weapon, this);
+        HitDetectionMine hitDetectionMine = new HitDetectionMine(tanksOne, tanksTwo, tanksThree, tanksFour, tank, weapon, this, pane);
         mineHitDetectionArrayList.add(hitDetectionMine);
         hitDetectionMine.start();
     }
@@ -645,7 +648,7 @@ public class TanksAnimation{
     
     public void updateTurn(){
         hud.setCurrentPlayerName(playerArray[indexOfCurrentPlayerTurn].getUsername());
-        hud.setCurrentPlayerTank(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[indexOfCurrentPlayerTurn].getTeam());
+        hud.setCurrentPlayerTank(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[indexOfCurrentPlayerTurn].getTeam(), indexOfCurrentPlayerTurn);
     }
     
     public void mineExploded(){
@@ -1001,8 +1004,5 @@ public class TanksAnimation{
     public int getNumOfMines() {
         return numOfMines;
     }
-    
-    
-    
     
 }

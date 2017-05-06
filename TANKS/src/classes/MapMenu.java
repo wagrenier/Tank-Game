@@ -31,7 +31,7 @@ public class MapMenu extends Pane{
     private Scene scene;
     
     private static final int WIDTH = 1200;
-    private static final int HEIGHT = 800;
+    private static final int HEIGHT = 950;
     
     /*
     *
@@ -40,6 +40,13 @@ public class MapMenu extends Pane{
     *cycle through the maps.
     *
     */
+    
+    /*
+        0 = Desert Map
+        1 = Mountain Map
+        2 = Space Map
+        3 = Snow Map
+        */
     
     private Background[] backgrounds = new Background[4];
     private static int backgroundIndex = 0;
@@ -341,5 +348,15 @@ public class MapMenu extends Pane{
         return playBtnHover;
     }
     
-    
+    public int getChosenMap(){
+        
+        /*
+        0 = Desert Map
+        1 = Mountain Map
+        2 = Space Map
+        3 = Snow Map
+        */
+        
+        return backgroundIndex;
+    }
 }

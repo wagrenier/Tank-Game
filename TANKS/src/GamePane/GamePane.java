@@ -24,7 +24,6 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -33,30 +32,34 @@ import javafx.scene.shape.Rectangle;
 public class GamePane extends Pane implements Serializable{
     
     private int numOfPlayers;
+    private int mapIndex;
     private double width = 1200;
     private double height = 800;
     private transient TanksAnimation tanksAnimation;
-    MapGeneration mapGeneration = new MapGeneration(450, 200, 500, 0.0005);
+    private MapGeneration mapGeneration;
     private ArrayList<Player> playerArrayList = new ArrayList<>();
     private transient Timeline[] tanksAnimationArrayUsed;
     private transient GameLoop gameLoop;
     
-    
     public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, MapGeneration mapGeneration, int currentPlayer){
         this.mapGeneration = mapGeneration;
+        this.mapIndex = this.mapGeneration.getMapIndex();
         this.playerArrayList = playerArrayList;
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
         this.numOfPlayers = numOfPlayers;
+        mapSetupRestoredMapGeneration(this);
         paneSetup(this, currentPlayer);   
         gameLoop(currentPlayer);
     }
     
-    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList){
+    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, int mapIndex){
         this.playerArrayList = playerArrayList;
+        this.mapIndex = mapIndex;
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
         this.numOfPlayers = numOfPlayers;
+        mapSetupNewMapGeneration(this);
         paneSetup(this, 0);   
         gameLoop(0);
     }
@@ -67,38 +70,92 @@ public class GamePane extends Pane implements Serializable{
         gameLoop.start();
     }
     
-    public void paneSetup(Pane pane, int currentPlayer){
-        frontGroundSetup(pane);
-        backGroundSetup(pane);
+    public void paneSetup(GamePane pane, int currentPlayer){
         tanksSetup(pane, currentPlayer);
     }
     
-    public void tanksSetup(Pane pane, int currentPlayer){
+    public void mapSetupNewMapGeneration(GamePane pane){
+        switch(mapIndex){
+            case 0:{
+                //Desert Map
+                this.mapGeneration = new MapGeneration(500, 100, 500, 0.0005, 0);
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Desert Frontground.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Desert Background.png");
+            }break;
+            
+            case 1:{
+                //Mountain Map
+                this.mapGeneration = new MapGeneration(600, 300, 500, 0.0005, 1);
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Mountain Frontground.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Mountain Background.png");
+            }break;
+            
+            case 2:{
+                //Space Map
+                this.mapGeneration = new MapGeneration(600, 300, 600, 0.0001, 2);
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Space Frontground.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Space Background.png");
+            }break;
+                     
+            case 3:{
+
+                //Snow Map
+                this.mapGeneration = new MapGeneration(600, 50, 500, 0.0005, 3);
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Snow Frontground.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Snow Background.png");
+            }break;
+        }
+        
+    }
+    
+    public void mapSetupRestoredMapGeneration(GamePane pane){
+        switch(mapIndex){
+            case 0:{
+                //Desert Map
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Desert Frontground.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Desert Background.png");
+            }break;
+            
+            case 1:{
+                //Mountain Map
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Mountain Frontground.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Mountain Background.png");
+            }break;
+            
+            case 2:{
+                //Space Map
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Space Frontground.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Space Background.png");
+            }break;
+            
+            case 3:{
+                //Snow Map
+                frontGroundSetup(pane, "Pictures/Frontgrounds/Snow Frontground.png");
+                backGroundSetup(pane, "Pictures/Backgrounds/Snow Background.png");
+            }break;
+        }
+        
+    }
+    
+    public void tanksSetup(GamePane pane, int currentPlayer){
         tanksAnimation = new TanksAnimation(mapGeneration, this, numOfPlayers, playerArrayList, currentPlayer);  
         tanksAnimationArrayUsed = tanksAnimation.getTanksAnimationArrayUsed();
     }
     
-    public void backGroundSetup(Pane pane){
-        
-        BackgroundImage myBI= new BackgroundImage(new Image("Pictures/Backgrounds/Background.png", width, height, false, true),
-        
-        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-          BackgroundSize.DEFAULT);
-       
+    public void backGroundSetup(GamePane pane, String backGroundPath){
+        //Setting the background of the pane
+        BackgroundImage myBI= new BackgroundImage(new Image(backGroundPath, width, height, false, true),
+        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+          
         pane.setBackground(new Background(myBI));
     }
     
-    public void frontGroundSetup(Pane pane){
-       Image image = new Image("Texture/Menus/MapMenu/Space Map.png");
+    public void frontGroundSetup(GamePane pane, String frontGroundImagePath){
+       Image image = new Image(frontGroundImagePath);
        PixelReader pixelReader = image.getPixelReader();
-       
-       
        WritableImage writeImage = new WritableImage(1200, 800);
        PixelWriter writer = writeImage.getPixelWriter();
-       
-       Rectangle rect;
-       double yLocation = 0;
-       
+       //Writing to the image so that the texture for the hill is apllied only underneath it
        for (int i = 0; i < width; i++){
            for(int k = 0; k < height; k++){
                if(k >= mapGeneration.getY(i)){
@@ -106,30 +163,10 @@ public class GamePane extends Pane implements Serializable{
                }
                else{
                    writer.setColor(i, k, Color.TRANSPARENT);
-               }
-               
-               
-               
+               } 
            }
-           /**
-            rect = new Rectangle();
-            yLocation = mapGeneration.getY(i);
-            
-            //rect.setStyle();
-            rect.setTranslateX(i);
-            rect.setHeight(height - yLocation);
-            rect.setTranslateY(yLocation);
-            
-            rect.setWidth(.25);
-            
-            //rect.setFill(Color.TRANSPARENT);
-            //rect.setStroke(Color.GREEN);
-            pane.getChildren().add(rect);
-            */
         }
-       
        this.getChildren().add(new ImageView(writeImage));
-
    }
     
     public HUD getHUD(){

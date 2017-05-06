@@ -26,18 +26,19 @@ public class RCAnimation {
     private double yspeed;
     private double xspeed;
     
-    
-    MapGeneration mapGeneration;
-    Weapon weapon;
-    Timeline animationWeapon;
-    Tanks tank;
-    Pane pane;  
+    private ExplosionAnimation explosionAnimation;
+    private MapGeneration mapGeneration;
+    private Weapon weapon;
+    private Timeline animationWeapon;
+    private Tanks tank;
+    private Pane pane;  
     
     public RCAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane){
         this.pane = pane;
         this.tank = tank;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
+        explosionAnimation = new ExplosionAnimation(weapon, pane);
         setupAnimation(); 
     }
     
@@ -53,6 +54,8 @@ public class RCAnimation {
         
         animationWeapon =  new Timeline(new KeyFrame(Duration.millis(1), e -> {
             if(hitSomething){
+                explosionAnimation.resetAnimationPosition();
+                explosionAnimation.playAnimation();
                 stopAnimation();
             }
             currentYPosition = mapGeneration.getY(weapon.getTranslateX());

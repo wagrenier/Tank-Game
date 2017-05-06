@@ -35,9 +35,8 @@ public class HitDetectionRC extends AnimationTimer{
     private GamePane pane;
     
     private Tanks tank;
-    
-    RCAnimation weaponAnimation;
-    Weapon weapon;
+    private RCAnimation weaponAnimation;
+    private Weapon weapon;
 
     public HitDetectionRC(RCAnimation weaponAnimation, HUD hud, Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Timeline animation, Timeline animation2, Timeline animation3, Timeline animation4, GamePane pane, Weapon weapon) {
         this.hud = hud;
@@ -61,55 +60,33 @@ public class HitDetectionRC extends AnimationTimer{
            tanksOne.damageDone(weapon.getDamage());
            }
            weaponAnimation.setHitSomething(true);
-           
-           
        }
         
         else if(weapon.getBoundsInParent().intersects(tanksTwo.getBoundsInParent())&& tank != tanksTwo && tanksTwo.isTankAlive()){
-           //System.out.println(weapon.getDamage());
            if(!weaponAnimation.isHitSomething()){
            tanksTwo.damageDone(weapon.getDamage());
-          // System.out.println(tanksTwo.getLifePoint());
-           //hud.updateHealth(tank.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
-           //weaponAnimation.removeWeaponFromPane();
-           
-           
        }
         
         else if(weapon.getBoundsInParent().intersects(tanksThree.getBoundsInParent())&& tank != tanksThree && tanksThree.isTankAlive()){
-           //System.out.println(weapon.getDamage());
            if(!weaponAnimation.isHitSomething()){
            tanksThree.damageDone(weapon.getDamage());
-          // System.out.println(tanksThree.getLifePoint());
-           //hud.updateHealth(tank.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
-          // weaponAnimation.removeWeaponFromPane();
-           
-           
        }
         
         else if(weapon.getBoundsInParent().intersects(tanksFour.getBoundsInParent())&& tank != tanksFour && tanksFour.isTankAlive()){
-           //System.out.println(weapon.getDamage());
            if(!weaponAnimation.isHitSomething()){
            tanksFour.damageDone(weapon.getDamage());
-           //System.out.println(tanksFour.getLifePoint());
-           //hud.updateHealth(tank.getLifePoint());
            }
            weaponAnimation.setHitSomething(true);
-          // weaponAnimation.removeWeaponFromPane();
-           
-           
        }
         //}
         
         if(weaponAnimation.isHitSomething()){
             this.stop();
         }
-        
-        //this.stop();
     }
     
 }

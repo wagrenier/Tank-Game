@@ -30,7 +30,7 @@ public class PlayerMenu extends Pane{
     private Scene scene;
     
     private static final int WIDTH = 1200;
-    private static final int HEIGHT = 800;
+    private static final int HEIGHT = 950;
     
     private Text playerOutput;
     private int numberOfPlayers = 2; //Default value is 2 since you cannot play this game alone

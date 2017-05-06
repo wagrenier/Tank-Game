@@ -25,7 +25,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class MainMenu extends Pane{
     
-    private static final int HEIGHT = 800;
+    private static final int HEIGHT = 950;
     private static final int WIDTH = 1200;
     LoadFunction load;
     private ImageView playBtn;

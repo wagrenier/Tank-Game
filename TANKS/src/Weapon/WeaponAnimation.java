@@ -6,13 +6,9 @@
 package Weapon;
 
 import MapGeneration.MapGeneration;
-import Tanks.MainTankMouvementTest;
 import Tanks.Tanks;
-import java.io.Serializable;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -40,18 +36,19 @@ public class WeaponAnimation{
     private double yspeed;
     private double xspeed;
     
-    
-    MapGeneration mapGeneration;
-    Weapon weapon;
-    Timeline animationWeapon;
-    Tanks tank;
-    Pane pane;  
+    private ExplosionAnimation explosionAnimation;
+    private MapGeneration mapGeneration;
+    private Weapon weapon;
+    private Timeline animationWeapon;
+    private Tanks tank;
+    private Pane pane;  
     
     public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane){
         this.pane = pane;
         this.tank = tank;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
+        explosionAnimation = new ExplosionAnimation(weapon, pane);
         setupAnimation(); 
         launchAnimation();
     }
@@ -63,6 +60,7 @@ public class WeaponAnimation{
         this.mapGeneration = mapGeneration;
         this.initialVelocity = initialVelocity;
         this.gravity = gravity;
+        explosionAnimation = new ExplosionAnimation(weapon, pane);
         setupAnimation(); 
         //launchAnimation();
     }
@@ -71,6 +69,7 @@ public class WeaponAnimation{
         this.pane = pane;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
+        explosionAnimation = new ExplosionAnimation(weapon, pane);
     }
     
     private void setupAnimation(){
@@ -106,22 +105,21 @@ public class WeaponAnimation{
         
         animationWeapon =  new Timeline(new KeyFrame(Duration.millis(1), e -> {
             if(hitSomething){
+                explosionAnimation.resetAnimationPosition();
+                explosionAnimation.playAnimation();
                 stopAnimation();
             }
             currentYPosition = mapGeneration.getY(weapon.getTranslateX());
             weapon.setTranslateY(weapon.getTranslateY() + yspeed);
             weapon.setTranslateX(weapon.getTranslateX() + xspeed); 
             
-           //System.out.println("weapon Translate X: " + weapon.getTranslateX() + " Weapon Translate Y: " + weapon.getTranslateY() + " Tank Translate X: " + tank.getTranslateX() + " Tank Translate Y: " + tank.getTranslateY() +" currentYPos: " + currentYPosition + " xspeed: " + xspeed + " yspeed: " + yspeed + " rotation angle:" + angleLaunched);
             
             if(weapon.getTranslateX()<= 0 || weapon.getTranslateX() >= 1200){
                 yspeed = 0;
                 xspeed = 0;
-                //animationWeapon.getKeyFrames().clear();
-                //animationWeapon.stop();
-                
-                //pane.getChildren().remove(animationWeapon);
                 pane.getChildren().remove(weapon);
+                explosionAnimation.resetAnimationPosition();
+                explosionAnimation.playAnimation();
                 animationWeapon.stop();
                 //add animation explosion
                 
@@ -135,6 +133,8 @@ public class WeaponAnimation{
             else{
                 yspeed = 0;
                 xspeed = 0;
+                explosionAnimation.resetAnimationPosition();
+                explosionAnimation.playAnimation();
                 animationWeapon.stop();
             }
             if(weapon.getTranslateY() > currentYPosition){
@@ -159,11 +159,8 @@ public class WeaponAnimation{
         
         
         animationWeapon.setOnFinished(e ->{
-            
             pane.getChildren().removeAll(weapon);
             animationWeapon.stop();
-           // pane.getChildren().removeAll(bar);
-            
         });
             
     }

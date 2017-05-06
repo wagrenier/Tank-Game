@@ -31,7 +31,7 @@ public class CountryMenu extends Pane{
     private Scene scene;
     
     private static final int WIDTH = 1200;
-    private static final int HEIGHT = 800;
+    private static final int HEIGHT = 950;
     
     private static int player = 1;
     private static int tankCount = 0;
