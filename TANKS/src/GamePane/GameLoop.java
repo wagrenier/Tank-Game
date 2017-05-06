@@ -30,7 +30,7 @@ public class GameLoop extends AnimationTimer{
     private boolean launchInitiated = false;
     private boolean forceEndedTurn = false;
     private int launchWeaponDelay = 0;
-    private static int numOfTurns = 0;
+    private static int numOfTurns = 1;
     private int launchWeaponDelayCounter = 0;
     private int indexOfCurrentPlayerTurn = 0;
     private double gravity;
@@ -338,6 +338,7 @@ public class GameLoop extends AnimationTimer{
                 //End Game
                 System.out.println("Game Over");
                 playerTurn(indexOfCurrentPlayerTurn);
+                playerArray[indexOfCurrentPlayerTurn].setFinalScore((int) (playerArray[indexOfCurrentPlayerTurn].getMoney() / numOfTurns));
                 this.stop();
                 //System.exit(1);
             }
