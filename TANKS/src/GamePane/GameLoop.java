@@ -43,7 +43,7 @@ public class GameLoop extends AnimationTimer{
     private Player[] playerArray;
     private ArrayList<Weapon> weaponArrayList;
     private ArrayList<Item> itemArrayList;
-    
+    //Must add ability to save current number of turns
     public GameLoop(TanksAnimation tanksAnimation, Timeline[] tanksAnimationArrayUsed, Tanks[] tanksAraryused, int indexPlayer){
         this.tanksAnimation = tanksAnimation;
         this.tanksAnimationArrayUsed = tanksAnimationArrayUsed;
