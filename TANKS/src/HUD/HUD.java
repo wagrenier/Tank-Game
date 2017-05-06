@@ -222,17 +222,52 @@ public class HUD extends Pane {
 
     }
     
+    public void useItemAI(int itemIndexAI){
+        if(isItemInventoryEmpty()){
+            
+        }
+        else{
+            
+            if(itemIndexAI == 6){
+                gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setArmour(weaponManager.getItemArrayList().get(itemIndexAI).getValue());
+                updateItemStatusAI(itemIndexAI);
+                nextItemActionVerification();
+            }
+            
+            
+            else if(itemIndexAI == 0 || itemIndexAI == 1 || itemIndexAI == 2){
+                if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].restoreLifePoints(weaponManager.getItemArrayList().get(itemIndexAI).getValue())){
+                    updateHealth(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getLifePoint());
+                    updateItemStatusAI(itemIndexAI);
+                    nextItemActionVerification();
+                }
+            }
+            
+            
+        }
+    }
+    
     public void useItem(){
         if(isItemInventoryEmpty()){
             
         }
         else{
             
-            if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].restoreLifePoints(weaponManager.getItemArrayList().get(itemIndex).getValue())){
-                updateHealth(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getLifePoint());
+            if(itemIndex == 6){
+                gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setArmour(weaponManager.getItemArrayList().get(itemIndex).getValue());
                 updateItemStatus();
                 nextItemActionVerification();
             }
+            
+            
+            else if(itemIndex == 0 || itemIndex == 1 || itemIndex == 2){
+                if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].restoreLifePoints(weaponManager.getItemArrayList().get(itemIndex).getValue())){
+                    updateHealth(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getLifePoint());
+                    updateItemStatus();
+                    nextItemActionVerification();
+                }
+            }
+            
             
         }
     }
@@ -819,6 +854,10 @@ public class HUD extends Pane {
 
     public void updateItemStatus() {
         playerList.get(playerIndex).removeItem(itemIndex);
+    }
+    
+    public void updateItemStatusAI(int itemIndexAI){
+        playerList.get(playerIndex).removeItem(itemIndexAI);
     }
 
     public Player getCurrentPlayerTurn(int index) {

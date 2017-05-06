@@ -108,7 +108,18 @@ public class GameLoop extends AnimationTimer{
         //TODO Implement this
         //This will be implemented once the weapon store is fully implemented
         ArrayList<Weapon> possibleWeapon = new ArrayList<>();
-        ArrayList<Item> possibleItem = new ArrayList<>();
+        
+        
+        //If AI has less than 50HP, then it buys a restore pack
+        if(tanksArrayUsed[indexOfCurrentPlayerTurn].getLifePoint() < 50){
+            for(int i = 2; i > -1; i--){
+                if(playerArray[indexOfCurrentPlayerTurn].getMoney() >= itemArrayList.get(i).getCostOfItem()){
+                    tanksAnimation.getHud().getStoreMenu().buyItemAI(false, i, playerArray[indexOfCurrentPlayerTurn]);
+                    tanksAnimation.getHud().useItemAI(i);
+                    break;
+                }
+            }
+        }
         
         //Fill the possible temporary array list to check what are the possible weapons/items to buy 
         for(int i = 0; i < weaponArrayList.size(); i++){
@@ -116,22 +127,10 @@ public class GameLoop extends AnimationTimer{
                 possibleWeapon.add(weaponArrayList.get(i));
             }
         }
-        //Have to make two loops because the arrays are not the same size and could make an out of bound exception
-        /*
-        for(int i = 0; i < itemArrayList.size(); i++){
-            if(playerArray[indexOfCurrentPlayerTurn].getMoney() >= itemArrayList.get(i).getCostOfItem()){
-                possibleItem.add(itemArrayList.get(i));
-            }
-        }*/
-        //If AI has less than 50HP, then it buys a restore pack
-        if(tanksArrayUsed[indexOfCurrentPlayerTurn].getLifePoint() < 101){
-            for(int i = itemArrayList.size() - 1; i > -1; i--){
-                if(playerArray[indexOfCurrentPlayerTurn].getMoney() >= itemArrayList.get(i).getCostOfItem()){
-                    tanksAnimation.getHud().getStoreMenu().buyItemAI(false, i, playerArray[indexOfCurrentPlayerTurn]);
-                    
-                }
-            }
-        }
+        
+        int randomWeapon = (int) (Math.random() * possibleWeapon.size());
+        tanksAnimation.getHud().getStoreMenu().buyItemAI(true, possibleWeapon.get(randomWeapon).getIndexOfWeapon(), playerArray[indexOfCurrentPlayerTurn]);
+        tanksAnimation.getHud().nextWeaponAction();
     }
     
     private void moveToClosestTank(){
@@ -206,7 +205,7 @@ public class GameLoop extends AnimationTimer{
         }
         
         else{
-            return Math.atan(((v*v) + sqrt)/(g*x)) + angleMap;
+            return Math.PI / 2 - Math.atan(((v*v) + sqrt)/(g*x)) + angleMap;
         }
         
         

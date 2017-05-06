@@ -212,7 +212,7 @@ public class TanksAnimation{
         
         setupTanksPlayer();
         
-        Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getDamage(), weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getTexturePath());        
+        Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getDamage(), weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getTexturePath(), 0);        
         
        weaponAnimation = new WeaponAnimation(weapon, tanksOne, mapGeneration, pane, 1, 1); //Values are not important as this object wil;l never be used (Initialized to prevent nuillPointerException)
         rcAnimation = new RCAnimation(weapon, tanksOne, mapGeneration, pane);
@@ -380,7 +380,7 @@ public class TanksAnimation{
     
     public void weaponSetup(Tanks tank, double x){
         shotFired = true;
-        Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getDamage(), weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getTexturePath());        
+        Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getDamage(), weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getTexturePath(), 0);        
         //this.hud.updateItemStatus();
         this.hud.updateWeaponStatus();
         if(pane.getMapGeneration().getMapIndex() != 2){
@@ -691,7 +691,7 @@ public class TanksAnimation{
             
             switch((int) mineLocation[i][0]){
                 case 0:{ 
-                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath());
+                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath(), 0);
         
                     mineLocationArrayList.add(weapon);
                     weapon.setTranslateX(mineLocation[i][1]);
@@ -704,7 +704,7 @@ public class TanksAnimation{
                 break;
                 
                 case 1: {
-                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath());
+                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath(), 0);
         
                     mineLocationArrayList.add(weapon);
                     weapon.setTranslateX(mineLocation[i][1]);
@@ -717,7 +717,7 @@ public class TanksAnimation{
                 }break;
                 
                 case 2: {
-                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath());
+                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath(), 0);
         
                     mineLocationArrayList.add(weapon);
                     weapon.setTranslateX(mineLocation[i][1]);
@@ -729,7 +729,7 @@ public class TanksAnimation{
                 }break;
                 
                 case 3: {
-                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath());
+                    Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(7).getDamage(), weaponManager.getWeaponFromWeaponManager(7).getTexturePath(), 0);
         
                     mineLocationArrayList.add(weapon);
                     weapon.setTranslateX(mineLocation[i][1]);

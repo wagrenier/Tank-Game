@@ -29,19 +29,20 @@ public class Weapon extends ImageView{
     private Image texture;
     private Media soundEffect;
     private MediaPlayer soundEffectPlayer;
-    
+    private int indexOfWeapon;
    
     
-    public Weapon(int damage, String texturePath){
+    public Weapon(int damage, String texturePath, int indexOfWeapon){
         this.texturePath = texturePath;
         texture = new Image(this.texturePath);
         this.setImage(texture);
         this.damage = damage;
+        this.indexOfWeapon = indexOfWeapon;
         //this.setLayoutX(50);
         //this.setLayoutY(50);
     }
     
-    public Weapon(int damage, int costOfWeapon, String weaponName, String texturePath, String shotType) {
+    public Weapon(int damage, int costOfWeapon, String weaponName, String texturePath, String shotType, int indexOfWeapon) {
         this.costOfWeapon = costOfWeapon;
         this.texturePath = texturePath;
         this.soundEffectPath = soundEffectPath;
@@ -50,11 +51,12 @@ public class Weapon extends ImageView{
         this.weaponName = weaponName;
         texture = new Image(this.texturePath);
         this.setImage(texture);
+        this.indexOfWeapon = indexOfWeapon;
         //this.setLayoutX(50);
         //this.setLayoutY(50);
     }
 
-    public Weapon(int costOfWeapon, String weaponName, String texturePath, String soundEffectPath) {
+    public Weapon(int costOfWeapon, String weaponName, String texturePath, String soundEffectPath, int indexOfWeapon) {
         this.costOfWeapon = costOfWeapon;
         this.texturePath = texturePath;
         this.soundEffectPath = soundEffectPath;
@@ -63,6 +65,7 @@ public class Weapon extends ImageView{
         this.setImage(texture);
         soundEffect = new Media(this.soundEffectPath);
         soundEffectPlayer = new MediaPlayer(this.soundEffect);   
+        this.indexOfWeapon = indexOfWeapon;
         //this.setLayoutX(50);
         //this.setLayoutY(50);
     }
@@ -117,6 +120,10 @@ public class Weapon extends ImageView{
 
     public String getWeaponName() {
         return weaponName;
+    }
+
+    public int getIndexOfWeapon() {
+        return indexOfWeapon;
     }
     
     
