@@ -18,7 +18,7 @@ import javafx.scene.shape.Circle;
  *
  * @author willi
  */
-public class Weapon extends Circle  implements Serializable{
+public class Weapon extends ImageView{
     
     private int costOfWeapon;
     private int damage;
@@ -26,53 +26,45 @@ public class Weapon extends Circle  implements Serializable{
     private String soundEffectPath;
     private String weaponName;
     private String shotType;
-    private  transient Image texture;
-    private  transient ImagePattern texturePattern;
-    private  transient Media soundEffect;
-    private transient MediaPlayer soundEffectPlayer;
+    private Image texture;
+    private Media soundEffect;
+    private MediaPlayer soundEffectPlayer;
     
    
     
     public Weapon(int damage, String texturePath){
         this.texturePath = texturePath;
-        //textureView = new ImageView(this.texture);
         texture = new Image(this.texturePath);
-        texturePattern = new ImagePattern(texture);
-        this.setFill(texturePattern);
+        this.setImage(texture);
         this.damage = damage;
-        this.setRadius(25);
+        //this.setLayoutX(50);
+        //this.setLayoutY(50);
     }
     
     public Weapon(int damage, int costOfWeapon, String weaponName, String texturePath, String shotType) {
-        this.setRadius(25);
         this.costOfWeapon = costOfWeapon;
         this.texturePath = texturePath;
         this.soundEffectPath = soundEffectPath;
         this.damage = damage;
         this.shotType = shotType;
-        
         this.weaponName = weaponName;
-        
         texture = new Image(this.texturePath);
-        texturePattern = new ImagePattern(this.texture);
-        
-        
+        this.setImage(texture);
+        //this.setLayoutX(50);
+        //this.setLayoutY(50);
     }
 
     public Weapon(int costOfWeapon, String weaponName, String texturePath, String soundEffectPath) {
-        this.setRadius(25);
         this.costOfWeapon = costOfWeapon;
         this.texturePath = texturePath;
         this.soundEffectPath = soundEffectPath;
-        
-        
-        this.weaponName = weaponName;
-        
+        this.weaponName = weaponName;        
         texture = new Image(this.texturePath);
-        texturePattern = new ImagePattern(this.texture);
+        this.setImage(texture);
         soundEffect = new Media(this.soundEffectPath);
-        soundEffectPlayer = new MediaPlayer(this.soundEffect);
-        
+        soundEffectPlayer = new MediaPlayer(this.soundEffect);   
+        //this.setLayoutX(50);
+        //this.setLayoutY(50);
     }
     
     public String getShotType(){
@@ -93,14 +85,6 @@ public class Weapon extends Circle  implements Serializable{
 
     public void setTexture(Image texture) {
         this.texture = texture;
-    }
-
-    public ImagePattern getTextureView() {
-        return texturePattern;
-    }
-
-    public void setTextureView(ImagePattern texturePattern) {
-        this.texturePattern = texturePattern;
     }
 
     public Media getSoundEffect() {
@@ -133,10 +117,6 @@ public class Weapon extends Circle  implements Serializable{
 
     public String getWeaponName() {
         return weaponName;
-    }
-
-    public ImagePattern getTexturePattern() {
-        return texturePattern;
     }
     
     

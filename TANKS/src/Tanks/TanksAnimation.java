@@ -389,13 +389,21 @@ public class TanksAnimation{
             x *= hud.getWindResistance();
         }
         
+        int tankOffsetX = 50;
+        int tankOffsetY = 50;
+        int cannonOffset = 25;
+        weapon.setLayoutX(-tankOffsetX);
+        weapon.setLayoutY(-tankOffsetY + cannonOffset);
+        
         //Special Setup For Mines
         if(this.hud.getWeaponIndex() == 7){
             mineLocationArrayList.add(weapon);
+            weapon.setLayoutX(-50);
+            weapon.setLayoutY(-30);
             weapon.setTranslateX(tank.getTranslateX());
             weapon.setTranslateY(tank.getTranslateY());
             weapon.setRotate(tank.getRotate());
-            weapon.setCenterY(-5);
+            //weapon.setCenterY(-5);
             pane.getChildren().add(mineLocationArrayList.get(numOfMines));
             hitDetectionMine(tank, weapon);
             numOfMines++;
@@ -403,6 +411,8 @@ public class TanksAnimation{
         //Special Setup For RC
         else if(this.hud.getWeaponIndex() == 8){
             rcAnimation = new RCAnimation(weapon, tank, mapGeneration, pane);
+            weapon.setLayoutX(-50);
+            weapon.setLayoutY(-35);
             rcAnimation.launchAnimation();
             hitDetectionRC(tank, weapon, rcAnimation);
         }
@@ -694,7 +704,7 @@ public class TanksAnimation{
                     mineLocationArrayList.add(weapon);
                     weapon.setTranslateX(mineLocation[i][1]);
                     weapon.setTranslateY(mineLocation[i][2]);
-                    weapon.setCenterY(-5);
+                    //weapon.setCenterY(-5);
                     weapon.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(mineLocation[i][1])));
                     pane.getChildren().add(mineLocationArrayList.get(numOfMines));
                     hitDetectionMine(tanksFour, weapon);

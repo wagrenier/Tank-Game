@@ -50,7 +50,7 @@ public class RCAnimation {
         weapon.setTranslateX(tank.getTranslateX());
         weapon.setTranslateY(tank.getTranslateY() - 30);
         
-        weapon.setCenterY(-7);
+        //weapon.setCenterY(-7);
         
         animationWeapon =  new Timeline(new KeyFrame(Duration.millis(1), e -> {
             if(hitSomething){
