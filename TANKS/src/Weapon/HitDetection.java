@@ -44,8 +44,8 @@ public class HitDetection extends AnimationTimer{
     
     private Tanks tank;
     
-    WeaponAnimation weaponAnimation;
-    Weapon weapon;
+    private WeaponAnimation weaponAnimation;
+    private Weapon weapon;
 
     public HitDetection(WeaponAnimation weaponAnimation, HUD hud, Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Timeline animation, Timeline animation2, Timeline animation3, Timeline animation4, GamePane pane, Weapon weapon) {
         this.hud = hud;

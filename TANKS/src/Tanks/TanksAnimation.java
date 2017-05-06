@@ -429,7 +429,7 @@ public class TanksAnimation{
     }
     
     public void hitDetectionMine(Tanks tank, Weapon weapon){
-        HitDetectionMine hitDetectionMine = new HitDetectionMine(tanksOne, tanksTwo, tanksThree, tanksFour, tank, weapon, this);
+        HitDetectionMine hitDetectionMine = new HitDetectionMine(tanksOne, tanksTwo, tanksThree, tanksFour, tank, weapon, this, pane);
         mineHitDetectionArrayList.add(hitDetectionMine);
         hitDetectionMine.start();
     }

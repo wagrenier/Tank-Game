@@ -13,6 +13,7 @@ package Weapon;
 import Tanks.Tanks;
 import Tanks.TanksAnimation;
 import javafx.animation.AnimationTimer;
+import javafx.scene.layout.Pane;
 
 /**
  *
@@ -26,12 +27,11 @@ public class HitDetectionMine extends AnimationTimer{
     private final Tanks tanksThree;
     private final Tanks tanksFour;
     private TanksAnimation tanksAnimation;
-    
     private Tanks tank;
-    
-    Weapon weapon;
+    private ExplosionAnimation explosionAnimation;
+    private Weapon weapon;
 
-    public HitDetectionMine(Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Weapon weapon, TanksAnimation tanksAnimation) {
+    public HitDetectionMine(Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Weapon weapon, TanksAnimation tanksAnimation, Pane pane) {
         this.tanksOne = tanksOne;
         this.tanksTwo = tanksTwo;
         this.tanksThree = tanksThree;
@@ -39,6 +39,7 @@ public class HitDetectionMine extends AnimationTimer{
         this.tank = tank;
         this.weapon = weapon;
         this.tanksAnimation = tanksAnimation;
+        explosionAnimation = new ExplosionAnimation(weapon, pane);
     }
 
     public boolean isHitSomething() {
@@ -77,6 +78,8 @@ public class HitDetectionMine extends AnimationTimer{
         
         if(hitSomething){
             tanksAnimation.mineExploded();
+            explosionAnimation.resetAnimationPosition();
+            explosionAnimation.playAnimation();
             tanksAnimation.getPane().getChildren().remove(weapon);
             tanksAnimation.getMineLocationArrayList().remove(weapon);
             tanksAnimation.getMineHitDetectionArrayList().remove(this);
