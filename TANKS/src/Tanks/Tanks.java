@@ -31,6 +31,8 @@ public class Tanks extends ImageView{
     private boolean isImageFlipped = false;
     private final Cannon cannon;
     private int team;
+    private int shield = 1;
+    private int armour = 0;
     
     Tanks(String imagePath, String imageReversePath, String imagePathCannon, int team){
         this.imageReversePath = imageReversePath;
@@ -75,11 +77,41 @@ public class Tanks extends ImageView{
     }
     
     public void damageDone(int damage){
-        if(lifePoint > 0)
-        lifePoint -= damage;
+        if(armour > 0){
+            int remainingArmour = (shield * damage) - armour;
+            if(remainingArmour > 0){
+                lifePoint -= remainingArmour;
+            }
+            else if(remainingArmour >= 0){
+                armour -= (shield * damage);
+            }
+        }
+        else if(lifePoint > 0){
+            lifePoint -= (shield * damage);
+        }
         
-        if(lifePoint <= 0){
+        if(lifePoint < 1){
             isTankAlive = false;
+        }
+    }
+    
+    public boolean restoreLifePoints(int lifeToRestore){
+        //Return a boolean value to indicate if the item was used
+        //True == item was used
+        //False == item was not used
+        if(lifePoint == 0){
+            return false;
+        }
+        else if(lifePoint == 100){
+            return false;
+        }
+        else if(lifePoint + lifeToRestore > 100){
+            lifePoint = 100;
+            return true;
+        }
+        else{
+            lifePoint += lifeToRestore;
+            return true;
         }
     }
 
@@ -157,6 +189,22 @@ public class Tanks extends ImageView{
 
     public double getMaxPixelMove() {
         return maxPixelMove;
+    }
+
+    public void setShield(int shield) {
+        this.shield = shield;
+    }
+
+    public int getShield() {
+        return shield;
+    }
+    
+    public int getArmour() {
+        return armour;
+    }
+
+    public void setArmour(int armour) {
+        this.armour = armour;
     }
     
     

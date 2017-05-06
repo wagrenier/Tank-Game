@@ -16,7 +16,6 @@ import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;
 import classes.Player;
-import java.io.Serializable;
 import java.util.ArrayList;
 import javafx.animation.Animation;
 import static javafx.animation.Animation.Status.RUNNING;
@@ -108,7 +107,7 @@ public class TanksAnimation{
     //Contains all the available weapons in the game
     private WeaponManager weaponManager;
     
-    ArrayList<Player> playerArrayList = new ArrayList<>();
+    private ArrayList<Player> playerArrayList;
     
     private RCAnimation rcAnimation;
     private WeaponAnimation weaponAnimation;
@@ -127,6 +126,7 @@ public class TanksAnimation{
         this.pane = pane;
         this.numOfPlayer = numOfPlayer; 
         this.playerArray = new Player[this.numOfPlayer];
+        this.playerArrayList = playerArrayList;
         
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png", 2);
         tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo, "Texture/Tanks/China/Cannon/Yellow_Cannon_Flipped_(100x100).png", 3);
@@ -231,8 +231,6 @@ public class TanksAnimation{
                 keyReleased = false;
             }
             }); 
-            
-         
     }
     
     private Timeline progressBarInitialSetup(ProgressBar bar){
@@ -389,7 +387,7 @@ public class TanksAnimation{
             x *= hud.getWindResistance();
         }
         
-        int tankOffsetX = 50;
+        int tankOffsetX = 25;
         int tankOffsetY = 50;
         int cannonOffset = 25;
         weapon.setLayoutX(-tankOffsetX);
@@ -531,8 +529,7 @@ public class TanksAnimation{
                     }
                     
             }break;
-                    
-                    
+                        
                 case LEFT: {
                     
                     if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed && keyReleased  && rcAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
@@ -595,7 +592,15 @@ public class TanksAnimation{
             //Controls for player 1
             case SPACE: {
                 if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0)
-                progressBarInGameAnimationPlay(tank, progressBarAnimation, bar);
+                if(this.hud.getWeaponIndex() == 7){
+                        weaponSetup(tank, 1);
+                    }
+                    else if(this.hud.getWeaponIndex() == 8){
+                        weaponSetup(tank, 1);
+                    }
+                    else{
+                        progressBarInGameAnimationPlay(tank, progressBarAnimation, bar);
+                    }
             }break;
                     
                     
@@ -1014,5 +1019,15 @@ public class TanksAnimation{
     public int getNumOfMines() {
         return numOfMines;
     }
+
+    public ArrayList<Player> getPlayerArrayList() {
+        return playerArrayList;
+    }
+
+    public Player[] getPlayerArray() {
+        return playerArray;
+    }
+    
+    
     
 }

@@ -13,7 +13,7 @@ import java.io.Serializable;
  *
  * @author Cedrik Dubois
  */
-public class Item  implements Serializable{
+public class Item{
     
     private String name;
     private int costOfItem;
@@ -34,6 +34,7 @@ public class Item  implements Serializable{
         this.use = use;
         
     }
+    
     public void setUse(String use){
         this.use = use;
     }

@@ -7,6 +7,10 @@ package GamePane;
 
 import Tanks.Tanks;
 import Tanks.TanksAnimation;
+import Weapon.Item;
+import Weapon.Weapon;
+import classes.Player;
+import java.util.ArrayList;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
@@ -26,15 +30,19 @@ public class GameLoop extends AnimationTimer{
     private boolean launchInitiated = false;
     private boolean forceEndedTurn = false;
     private int launchWeaponDelay = 0;
+    private static int numOfTurns = 0;
     private int launchWeaponDelayCounter = 0;
     private int indexOfCurrentPlayerTurn = 0;
-    double gravity;
-    double maxPos;
-    double minPos;
+    private double gravity;
+    private double maxPos;
+    private double minPos;
     double initialPosition;
-    Tanks[] tanksArrayUsed;
-    TanksAnimation tanksAnimation;
-    Timeline[] tanksAnimationArrayUsed;
+    private Tanks[] tanksArrayUsed;
+    private TanksAnimation tanksAnimation;
+    private Timeline[] tanksAnimationArrayUsed;
+    private Player[] playerArray;
+    private ArrayList<Weapon> weaponArrayList;
+    private ArrayList<Item> itemArrayList;
     
     public GameLoop(TanksAnimation tanksAnimation, Timeline[] tanksAnimationArrayUsed, Tanks[] tanksAraryused, int indexPlayer){
         this.tanksAnimation = tanksAnimation;
@@ -42,6 +50,9 @@ public class GameLoop extends AnimationTimer{
         this.tanksArrayUsed = tanksAraryused;
         this.gravity = tanksAnimation.getMapGeneration().getGravity();
         this.indexOfCurrentPlayerTurn = indexPlayer;
+        this.playerArray = tanksAnimation.getPlayerArray();
+        this.weaponArrayList = tanksAnimation.getHud().getWeaponManager().getWeaponArrayList();
+        this.itemArrayList = tanksAnimation.getHud().getWeaponManager().getItemArrayList();
     }
     
     private void playerTurn(int indexOfCurrentPlayer){
@@ -96,6 +107,31 @@ public class GameLoop extends AnimationTimer{
     private void bestWeapon(){
         //TODO Implement this
         //This will be implemented once the weapon store is fully implemented
+        ArrayList<Weapon> possibleWeapon = new ArrayList<>();
+        ArrayList<Item> possibleItem = new ArrayList<>();
+        
+        //Fill the possible temporary array list to check what are the possible weapons/items to buy 
+        for(int i = 0; i < weaponArrayList.size(); i++){
+            if(playerArray[indexOfCurrentPlayerTurn].getMoney() >= weaponArrayList.get(i).getCostOfWeapon()){
+                possibleWeapon.add(weaponArrayList.get(i));
+            }
+        }
+        //Have to make two loops because the arrays are not the same size and could make an out of bound exception
+        /*
+        for(int i = 0; i < itemArrayList.size(); i++){
+            if(playerArray[indexOfCurrentPlayerTurn].getMoney() >= itemArrayList.get(i).getCostOfItem()){
+                possibleItem.add(itemArrayList.get(i));
+            }
+        }*/
+        //If AI has less than 50HP, then it buys a restore pack
+        if(tanksArrayUsed[indexOfCurrentPlayerTurn].getLifePoint() < 101){
+            for(int i = itemArrayList.size() - 1; i > -1; i--){
+                if(playerArray[indexOfCurrentPlayerTurn].getMoney() >= itemArrayList.get(i).getCostOfItem()){
+                    tanksAnimation.getHud().getStoreMenu().buyItemAI(false, i, playerArray[indexOfCurrentPlayerTurn]);
+                    
+                }
+            }
+        }
     }
     
     private void moveToClosestTank(){
@@ -231,13 +267,18 @@ public class GameLoop extends AnimationTimer{
             }
             else{
             if(newTurn){
+                tanksAnimation.getHud().nextItemAction();
+                numOfTurns++;
                 tanksAnimation.setTurnPlayed(false);
                 //System.out.println("New Turn");
+                tanksAnimation.getHud().nextItemAction();
                 tanksAnimation.getHud().generateNewWindRes();
                 tanksAnimation.getHud().resetWeaponIndex();
                 tanksAnimation.getHud().resetItemIndex();
                 tanksAnimation.resetSpeed();
+                
                 tanksAnimation.setIndexOfCurrentPlayerTurn(indexOfCurrentPlayerTurn);
+                
                 tanksAnimation.updateTurn();
                 initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
                 playerTurn(indexOfCurrentPlayerTurn);
@@ -253,6 +294,7 @@ public class GameLoop extends AnimationTimer{
                 newTurn = false;
                 maxPos = initialPosition + tanksArrayUsed[indexOfCurrentPlayerTurn].getMaxPixelMove();
                 minPos = initialPosition - tanksArrayUsed[indexOfCurrentPlayerTurn].getMaxPixelMove();
+                tanksAnimation.getHud().nextItemAction();
             }
             
             if(launchInitiated){

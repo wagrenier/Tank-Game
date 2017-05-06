@@ -699,7 +699,8 @@ public class Store {
             resetItemInfo();
         });
     }
-
+    
+    //Made this method public so the AI can buy items too
     private void buyItem(boolean type, int index) {
         /*
         type = true means it is a weapon, must pick from weaponArray
@@ -718,6 +719,7 @@ public class Store {
                 }
             } else {
                 this.player.addWeapon(index);
+                gamePane.getTanksAnimation().getHud().nextWeaponActionVerification();
             }
             System.out.println("Bought Item");
         } else {
@@ -731,6 +733,44 @@ public class Store {
                 }
             } else {
                 this.player.addItem(index);
+                gamePane.getTanksAnimation().getHud().nextItemActionVerification();
+                System.out.println("Bough Item");
+            }
+        }
+
+    }
+    
+    public void buyItemAI(boolean type, int index, Player playerAI) {
+        /*
+        type = true means it is a weapon, must pick from weaponArray
+        type = false means it is an item, must pick from itemArray
+        index = index of item in relative array in weaponManager
+         */
+
+        if (type) {
+
+            if (playerAI.removeMoney(weaponManager.getWeaponFromWeaponManager(index).getCostOfWeapon()) == false) {
+                if (errorPanelOpen = false) {
+                    throwStoreError("Insuficient Funds");
+                } else {
+                    removeStoreError();
+                    throwStoreError("Insuficient Funds");
+                }
+            } else {
+                playerAI.addWeapon(index);
+            }
+            System.out.println("Bought Item");
+        } else {
+
+            if (playerAI.removeMoney(weaponManager.getItemFromWeaponManager(index).getCostOfItem()) == false) {
+                if (errorPanelOpen = false) {
+                    throwStoreError("Insuficient Funds");
+                } else {
+                    removeStoreError();
+                    throwStoreError("Insuficient Funds");
+                }
+            } else {
+                playerAI.addItem(index);
                 System.out.println("Bough Item");
             }
         }
