@@ -52,6 +52,7 @@ public class SaveFunction {
             objectOutputStream.writeObject(gamePane.getGameLoop().getIndexOfCurrentPlayerTurnArray());
             objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainWhoIsDead());
             objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainMaxPixelMoveSave());
+            objectOutputStream.writeObject(gamePane.getGameLoop().obtainNumOfTurns());
             if(gamePane.getTanksAnimation().getNumOfMines() > 0){
                 objectOutputStream.writeObject(gamePane.getTanksAnimation().obtainMinesLocation());
             }

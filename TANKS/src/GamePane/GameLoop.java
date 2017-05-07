@@ -252,6 +252,16 @@ public class GameLoop extends AnimationTimer{
         this.forceEndedTurn = forceEndedTurn;
     }
     
+    public void resetNumOfTurn(int[] array){
+        numOfTurns = array[0];
+    }
+    
+    public int[] obtainNumOfTurns(){
+        int[] numOfTurnArray = new int[1];
+        numOfTurnArray[0] = numOfTurns;
+        return numOfTurnArray;
+    }
+    
     @Override
     public void handle(long now) {  
             if(tanksAnimation.getHud().getPauseMenu().isGamePaused() || tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0 || tanksAnimation.getRCAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){

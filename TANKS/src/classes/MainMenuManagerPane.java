@@ -181,6 +181,7 @@ public class MainMenuManagerPane extends Pane{
             int[] tanksHP = load.getTanksHP();
             int[] currentTurn = load.getIndexOfCurrentPlayerTurn();
             double[] maxPix = load.getMaxPixMove();
+            int[] numOfTurns = load.getNumOfTurnArray();
             gamePane = new GamePane(load.getGamePane().getPlayerArrayList().size(), load.getGamePane().getPlayerArrayList(), load.getGamePane().getMapGeneration(), currentTurn[0]);
             //gamePane.setTanksAnimation(load.getTanksAnimation());
             borderPane.setCenter(gamePane);
@@ -192,7 +193,7 @@ public class MainMenuManagerPane extends Pane{
             gamePane.getTanksAnimation().resetTankOrientationSave(array2);
             gamePane.getTanksAnimation().resetTankHPSave(tanksHP);
             gamePane.getTanksAnimation().resetWhoIsDead(dead);
-            
+            gamePane.getGameLoop().resetNumOfTurn(numOfTurns);
             if(load.isMinePlaced()){
                 double[][] mineLocation = load.getMineLocation();
                 gamePane.getTanksAnimation().resetMineLocation(mineLocation);

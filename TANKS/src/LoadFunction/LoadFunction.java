@@ -32,6 +32,7 @@ public class LoadFunction {
     int[] indexOfCurrentPlayerTurn;
     double[] maxPixMove;
     double[][] mineLocation;
+    int[] numOfTurnArray;
     boolean minePlaced = false;
     
     public LoadFunction() {
@@ -47,6 +48,7 @@ public class LoadFunction {
             indexOfCurrentPlayerTurn = (int[]) (objectInputStream.readObject());
             dead = (boolean[])(objectInputStream.readObject());
             maxPixMove = (double[])(objectInputStream.readObject());
+            numOfTurnArray = (int[]) (objectInputStream.readObject());
             mineLocation = (double[][]) (objectInputStream.readObject());
             minePlaced = true;
         } catch (java.io.EOFException ex3) {
@@ -59,6 +61,10 @@ public class LoadFunction {
         
     }
 
+    public int[] getNumOfTurnArray() {
+        return numOfTurnArray;
+    }
+    
     public double[][] getMineLocation() {
         return mineLocation;
     }
