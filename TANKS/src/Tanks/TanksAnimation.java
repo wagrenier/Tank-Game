@@ -608,7 +608,7 @@ public class TanksAnimation{
                     
                     if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
                     if(tank.getxSpeed() == 0){
-                            tank.setxSpeed(tank.getxSpeed() - 0.1);
+                            tank.setxSpeed(tank.getxSpeed() - 0.05);
                             //tanksOne.setRotate(90);
                             
                             tank.flipTexture();
@@ -616,8 +616,8 @@ public class TanksAnimation{
                             //tanksOne.getCannon().setRotate(180 - Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
                         }
                     
-                    else if(tank.getxSpeed() > -.1){
-                        tank.setxSpeed(tank.getxSpeed() - 0.1);
+                    else if(tank.getxSpeed() > -.05){
+                        tank.setxSpeed(tank.getxSpeed() - 0.05);
                         //xspeed -= 0.1;
                     }
                     }
@@ -626,15 +626,15 @@ public class TanksAnimation{
                 case RIGHT: {
                     if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
                     if(tank.getxSpeed() == 0){
-                            tank.setxSpeed(tank.getxSpeed() + 0.1);
+                            tank.setxSpeed(tank.getxSpeed() + 0.05);
                             tank.normalTexture();
                             //tank.getCannon().normalTexture();
                             //tanksOne.getCannon().setRotate(180 + Math.toDegrees(tanksOne.getCannon().getCanonAngle()));
                             //cannon.setRotate(180 - Math.toDegrees(cannon.getCanonAngle()));
                         }
                     
-                    else if(tank.getxSpeed() < .1)
-                        tank.setxSpeed(tank.getxSpeed() + 0.1);
+                    else if(tank.getxSpeed() < .05)
+                        tank.setxSpeed(tank.getxSpeed() + 0.05);
                         //xspeed += 0.1;
                     }
                     }break;

@@ -43,6 +43,7 @@ public class GameLoop extends AnimationTimer{
     private Player[] playerArray;
     private ArrayList<Weapon> weaponArrayList;
     private ArrayList<Item> itemArrayList;
+    private int randomWeapon;
     //Must add ability to save current number of turns
     public GameLoop(TanksAnimation tanksAnimation, Timeline[] tanksAnimationArrayUsed, Tanks[] tanksAraryused, int indexPlayer){
         this.tanksAnimation = tanksAnimation;
@@ -97,10 +98,16 @@ public class GameLoop extends AnimationTimer{
                 tanksAnimation.getProgressBarAnimationUsed()[indexOfCurrentPlayerTurn], 
                 tanksAnimation.getProgressBarUsed()[indexOfCurrentPlayerTurn]);
         
-        //Times 60 because the thread is called 60 times per second
-        launchWeaponDelay = (int) ((1 + Math.random() * 4) * (Math.random() * 61));
-        //System.out.println(launchWeaponDelay / 60);
-        launchInitiated = true;
+        if(randomWeapon == 7 || randomWeapon == 8){
+            
+        }
+        else{
+            //Times 60 because the thread is called 60 times per second
+            launchWeaponDelay = (int) ((1 + Math.random() * 4) * (Math.random() * 61));
+            //System.out.println(launchWeaponDelay / 60);
+            launchInitiated = true;
+        }
+        
         
     }
     
@@ -128,7 +135,7 @@ public class GameLoop extends AnimationTimer{
             }
         }
         
-        int randomWeapon = (int) (Math.random() * possibleWeapon.size());
+        randomWeapon = (int) (Math.random() * possibleWeapon.size());
         tanksAnimation.getHud().getStoreMenu().buyItemAI(true, possibleWeapon.get(randomWeapon).getIndexOfWeapon(), playerArray[indexOfCurrentPlayerTurn]);
         tanksAnimation.getHud().nextWeaponAction();
     }
@@ -285,12 +292,11 @@ public class GameLoop extends AnimationTimer{
                 tanksAnimation.getHud().resetWeaponIndex();
                 tanksAnimation.getHud().resetItemIndex();
                 tanksAnimation.resetSpeed();
-                
+                playerTurn(indexOfCurrentPlayerTurn);
                 tanksAnimation.setIndexOfCurrentPlayerTurn(indexOfCurrentPlayerTurn);
-                
                 tanksAnimation.updateTurn();
                 initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
-                playerTurn(indexOfCurrentPlayerTurn);
+                
                 //tanksAnimation.getPane().setFocusTraversable(false);
                 if(tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
                         aiTurn();
