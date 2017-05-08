@@ -231,7 +231,7 @@ public class HUD extends Pane {
             if(itemIndexAI == 6){
                 gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setArmour(weaponManager.getItemArrayList().get(itemIndexAI).getValue());
                 updateItemStatusAI(itemIndexAI);
-                nextItemAction();
+                nextItemActionVerification();
             }
             
             
@@ -239,7 +239,7 @@ public class HUD extends Pane {
                 if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].restoreLifePoints(weaponManager.getItemArrayList().get(itemIndexAI).getValue())){
                     updateHealth(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getLifePoint());
                     updateItemStatusAI(itemIndexAI);
-                    nextItemAction();
+                    nextItemActionVerification();
                 }
             }
             
@@ -256,7 +256,7 @@ public class HUD extends Pane {
             if(itemIndex == 6){
                 gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setArmour(weaponManager.getItemArrayList().get(itemIndex).getValue());
                 updateItemStatus();
-                nextItemAction();
+                nextItemActionVerification();
             }
             
             
@@ -264,13 +264,12 @@ public class HUD extends Pane {
                 if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].restoreLifePoints(weaponManager.getItemArrayList().get(itemIndex).getValue())){
                     updateHealth(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getLifePoint());
                     updateItemStatus();
-                    nextItemAction();
+                    nextItemActionVerification();
                 }
             }
             
             
         }
-        nextItemAction();
     }
 
     private void setItemBtn() {
@@ -307,10 +306,10 @@ public class HUD extends Pane {
     
     public void nextItemActionVerification(){
         if(playerList.get(playerIndex).getItemInventory()[itemIndex] == 0){
-            
+            nextItemAction();
         }
         else{
-            nextItemAction();
+            
         }
     }
     
