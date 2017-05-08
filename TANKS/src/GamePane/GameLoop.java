@@ -276,7 +276,7 @@ public class GameLoop extends AnimationTimer{
             }
             else{
             if(newTurn){
-                tanksAnimation.getHud().nextItemAction();
+                //tanksAnimation.getHud().nextItemAction();
                 numOfTurns++;
                 tanksAnimation.setTurnPlayed(false);
                 //System.out.println("New Turn");

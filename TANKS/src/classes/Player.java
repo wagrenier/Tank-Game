@@ -5,9 +5,6 @@
  */
 package classes;
 
-import Weapon.Item;
-import Weapon.Weapon;
-
 import java.io.Serializable;
 
 
@@ -21,7 +18,6 @@ public class Player implements Serializable{
     private int team;
     private boolean isAI = true;
     private int money = 500;
-    
     private int[] weaponInventory = new int[9];
     private int[] itemInventory = new int[8];
     private int finalScore = 0;//The score of the player

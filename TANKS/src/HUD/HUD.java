@@ -249,7 +249,7 @@ public class HUD extends Pane {
     
     public void useItem(){
         if(isItemInventoryEmpty()){
-            
+            nextItemActionVerification();
         }
         else{
             
@@ -270,6 +270,7 @@ public class HUD extends Pane {
             
             
         }
+        nextItemActionVerification();
     }
 
     private void setItemBtn() {

@@ -6,14 +6,9 @@
 package LoadFunction;
 
 import GamePane.GamePane;
-import Tanks.Tanks;
-import Tanks.TanksAnimation;
-import classes.MainMenuManagerPane;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
