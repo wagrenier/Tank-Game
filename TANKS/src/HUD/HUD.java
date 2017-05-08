@@ -224,7 +224,7 @@ public class HUD extends Pane {
     
     public void useItemAI(int itemIndexAI){
         if(isItemInventoryEmpty()){
-            
+            nextItemActionVerification();
         }
         else{
             
