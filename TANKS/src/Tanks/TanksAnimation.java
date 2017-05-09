@@ -313,8 +313,8 @@ public class TanksAnimation{
     
     private Timeline animationForTanks(Tanks tanks, int cannonOffset, int tankOffsetX, int tankOffsetY, int initialPosition, Timeline progressBarAnimation){
         //Setting the layouts of the tank and cannon
-        tanks.setStroke(Color.BLACK);
-        tanks.getCannon().setStroke(Color.RED);
+        //tanks.setStroke(Color.BLACK);
+        //tanks.getCannon().setStroke(Color.RED);
         //tanks.setCenterX(-18);
        
         //tanks.setLayoutY(-tankOffsetY);

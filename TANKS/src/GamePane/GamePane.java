@@ -32,7 +32,7 @@ import javafx.scene.paint.Color;
  */
 public class GamePane extends Pane implements Serializable{
     
-    private SoundLib sounds;
+    private transient SoundLib sounds;
     
     private int numOfPlayers;
     private int mapIndex;
