@@ -305,6 +305,10 @@ public class HUD extends Pane {
                     updateHealth(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getLifePoint());
                     updateItemStatus();
                     nextItemActionVerification();
+                    if (sounds.isSoundPlaying()){
+                        sounds.getRepair().seek(Duration.ZERO);
+                        sounds.getRepair().play();
+                    }
                 }
             }
             

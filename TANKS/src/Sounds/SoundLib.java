@@ -21,6 +21,7 @@ public class SoundLib {
     private MediaPlayer backgroundMusic = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Background Music.mp3").toURI().toString()));
     private MediaPlayer tankShot = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Tank Shot.mp3").toURI().toString()));
     private MediaPlayer explosion = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Explosion.mp3").toURI().toString()));
+    private MediaPlayer repair = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Repair.mp3").toURI().toString()));
     
     private boolean backgroundMusicPlaying = false;
     
@@ -28,6 +29,7 @@ public class SoundLib {
     public SoundLib(){
         
     }
+    
     public void setSoundPlaying(boolean value){
         this.backgroundMusicPlaying = value;
     }
@@ -46,5 +48,9 @@ public class SoundLib {
     
     public MediaPlayer getExplosion(){
         return explosion;
+    }
+    
+    public MediaPlayer getRepair(){
+        return repair;
     }
 }
