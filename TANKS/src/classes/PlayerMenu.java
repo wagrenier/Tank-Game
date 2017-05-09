@@ -21,6 +21,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  *
@@ -87,8 +88,8 @@ public class PlayerMenu extends Pane{
         
         this.getChildren().add(muteBtn);
         
-        muteBtn.setTranslateX(485.0);
-        muteBtn.setTranslateY(772.0);
+        muteBtn.setTranslateX(456.0);
+        muteBtn.setTranslateY(654.0);
         
         /*
         muteBtn.setOnMouseDragged(e -> {
@@ -166,6 +167,10 @@ public class PlayerMenu extends Pane{
         
         backBtn.setOnMousePressed(e -> {
             backBtn.setImage(backBtnClicked);
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         backBtn.setOnMouseReleased(e -> {
@@ -198,6 +203,10 @@ public class PlayerMenu extends Pane{
         
         nextBtn.setOnMousePressed(e -> {
             nextBtn.setImage(nextBtnClicked);
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         nextBtn.setOnMouseReleased(e -> {
@@ -252,16 +261,17 @@ public class PlayerMenu extends Pane{
             leftBtn.setImage(leftBtnImage);
         });
         
-        leftBtn.setOnMouseClicked(e -> {
-            updatePlayers(true);
-        });
-        
         leftBtn.setOnMousePressed(e -> {
             leftBtn.setImage(leftBtnClicked);
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         leftBtn.setOnMouseReleased(e -> {
             leftBtn.setImage(leftBtnHover);
+            updatePlayers(true);
         });
     }
     private void setRightBtn(){
@@ -288,16 +298,17 @@ public class PlayerMenu extends Pane{
             rightBtn.setImage(rightBtnImage);
         });
         
-        rightBtn.setOnMouseClicked(e -> {
-            updatePlayers(false);
-        });
-        
         rightBtn.setOnMousePressed(e -> {
             rightBtn.setImage(rightBtnClicked);
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         rightBtn.setOnMouseReleased(e -> {
             rightBtn.setImage(rightBtnHover);
+            updatePlayers(false);
         });
     }
     private void setText(){

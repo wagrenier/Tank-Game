@@ -5,6 +5,7 @@
  */
 package classes;
 
+import HUD.HelpMenu;
 import LoadFunction.LoadFunction;
 import Sounds.SoundLib;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 /**
  *
@@ -28,12 +30,17 @@ public class MainMenu extends Pane{
     
     private SoundLib sounds;
     
+    private HelpMenu helpMenu = new HelpMenu(this);
+    
     private static final int HEIGHT = 950;
     private static final int WIDTH = 1200;
     LoadFunction load;
     private ImageView playBtn;
     private ImageView loadBtn;
     private ImageView muteBtn;
+    private ImageView helpBtn;
+    
+    private Image helpBtnImage = new Image("Texture/Menus/MainMenu/Help Button.png");
     
     private Image playBtnImage = new Image("Texture/Menus/MainMenu/Play Button.png");
     private Image playBtnHover = new Image("Texture/Menus/MainMenu/Play Button Hover.png");
@@ -57,6 +64,7 @@ public class MainMenu extends Pane{
         setPlayBtn();
         setLoadBtn();
         setMuteBtn();
+        setHelpBtn();
         
         this.requestFocus();
         
@@ -102,6 +110,28 @@ public class MainMenu extends Pane{
         
     }
     
+    private void setHelpBtn(){
+        helpBtn = new ImageView(helpBtnImage);
+        
+        this.getChildren().add(helpBtn);
+        
+        helpBtn.setTranslateX(601.0);
+        helpBtn.setTranslateY(759.0);
+        
+        /*
+        helpBtn.setOnMouseDragged(e -> {
+            helpBtn.setTranslateX(e.getSceneX());
+            helpBtn.setTranslateY(e.getSceneY());
+            System.out.println(helpBtn.getTranslateX() + ", " + helpBtn.getTranslateY());
+        });
+        */
+        
+        helpBtn.setOnMouseReleased(e -> {
+            if (helpMenu.isHelpOpen() == false){
+                helpMenu.openHelpMenu();
+            }
+        });
+    }
     private void setLoadBtn(){
         loadBtn = new ImageView(loadBtnImage);
         
@@ -136,6 +166,10 @@ public class MainMenu extends Pane{
         
         loadBtn.setOnMousePressed(e -> {
             loadBtn.setImage(loadBtnClicked);
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         loadBtn.setOnMouseReleased(e -> {
@@ -176,6 +210,10 @@ public class MainMenu extends Pane{
         
         playBtn.setOnMousePressed(e -> {
             playBtn.setImage(playBtnClicked);
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         playBtn.setOnMouseReleased(e -> {
             playBtn.setImage(playBtnHover);

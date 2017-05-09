@@ -21,6 +21,8 @@ public class PauseMenu {
     private GamePane gamePane;
 
     private Store storeMenu;
+    
+    private HelpMenu helpMenu;
 
     private boolean isGamePaused = false;
     private boolean isMenuOpened = false;
@@ -36,6 +38,9 @@ public class PauseMenu {
     private ImageView resumeBtn;
     private ImageView exitBtn;
     private ImageView saveBtn;
+    private ImageView helpBtn;
+    
+    private Image helpBtnImage = new Image("Texture/Menus/MainMenu/Help Button.png");
 
     private Image resumeBtnImage = new Image("Texture/Menus/PauseMenu/Resume Button.png");
     private Image resumeBtnHover = new Image("Texture/Menus/PauseMenu/Resume Button Hover.png");
@@ -52,11 +57,34 @@ public class PauseMenu {
     public PauseMenu(GamePane gamePane, Store storeMenu) {
         this.gamePane = gamePane;
         this.storeMenu = storeMenu;
+        this.helpMenu = new HelpMenu(gamePane);
 
         setResumeBtn();
         setSaveBtn();
         setExitBtn();
+        setHelpBtn();
 
+    }
+    
+    private void setHelpBtn(){
+       helpBtn = new ImageView(helpBtnImage);
+       
+       helpBtn.setTranslateX(559.0);
+       helpBtn.setTranslateY(562.0);
+       
+       /*
+       helpBtn.setOnMouseDragged(e -> {
+            helpBtn.setTranslateX(e.getSceneX());
+            helpBtn.setTranslateY(e.getSceneY());
+            System.out.println(helpBtn.getTranslateX() + ", " + helpBtn.getTranslateY());
+        });
+       */
+       
+       helpBtn.setOnMouseReleased(e -> {
+           if (helpMenu.isHelpOpen() == false){
+               helpMenu.openHelpMenu();
+           }
+       });
     }
 
     private void setExitBtn() {
@@ -246,7 +274,7 @@ public class PauseMenu {
             gamePane.getTanksAnimation().getProgressBarAnimationFour().play();
         }
 
-        gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn);
+        gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn);
     }
 
     public void pauseGame(int storePause) {
@@ -322,7 +350,7 @@ public class PauseMenu {
             gamePane.getTanksAnimation().getProgressBarAnimationFour().pause();
         }
 
-        gamePane.getChildren().addAll(pauseMenu, resumeBtn, saveBtn, exitBtn);
+        gamePane.getChildren().addAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn);
     }
 
     public boolean isGamePaused() {
@@ -334,13 +362,13 @@ public class PauseMenu {
     }
 
     public void openMenuWithoutPause() {
-        gamePane.getChildren().addAll(pauseMenu, resumeBtn, saveBtn, exitBtn);
+        gamePane.getChildren().addAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn);
 
         isMenuOpened = true;
     }
 
     public void closeMenuWithoutResume() {
-        gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn);
+        gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn);
 
         isMenuOpened = false;
     }

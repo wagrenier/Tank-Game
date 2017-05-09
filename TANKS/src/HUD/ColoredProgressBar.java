@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,8 +21,14 @@ public class ColoredProgressBar extends ProgressBar{
     }
     
     public void setColor(String color){
-        //getStyleClass().clear();
-        getStyleClass().add(color);
+        if (color.equals("red-bar")){
+            getStyleClass().remove("green-bar");
+            getStyleClass().add(color);
+        }
+        else if (color.equals("green-bar")){
+            getStyleClass().remove("red-bar");
+            getStyleClass().add("green-bar");
+        }
     }
     
   

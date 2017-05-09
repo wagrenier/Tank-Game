@@ -22,6 +22,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 
 /**
  *
@@ -103,8 +104,8 @@ public class CountryMenu extends Pane{
         
         this.getChildren().add(muteBtn);
         
-        muteBtn.setTranslateX(485.0);
-        muteBtn.setTranslateY(772.0);
+        muteBtn.setTranslateX(456.0);
+        muteBtn.setTranslateY(654.0);
         
         /*
         muteBtn.setOnMouseDragged(e -> {
@@ -206,6 +207,10 @@ public class CountryMenu extends Pane{
         
         backBtn.setOnMousePressed(e -> {
             backBtn.setImage(backBtnClicked);
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         backBtn.setOnMouseReleased(e -> {
@@ -251,15 +256,6 @@ public class CountryMenu extends Pane{
             System.out.println(leftBtn.getTranslateX() + ", " + leftBtn.getTranslateY());
         });
         */
-        leftBtn.setOnMouseClicked(e -> {
-            if (tankCount == 0)
-                tankCount = tankList.size() - 1;
-            else
-                tankCount--;
-            
-            tank.setImage(tankList.get(tankCount));
-            flag.setImage(flagList.get(tankCount));
-        });
         
         leftBtn.setOnMouseEntered(e -> {
             leftBtn.setImage(leftBtnHover);
@@ -271,10 +267,21 @@ public class CountryMenu extends Pane{
         
         leftBtn.setOnMousePressed(e -> {
             leftBtn.setImage(leftBtnClicked);
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         leftBtn.setOnMouseReleased(e -> {
             leftBtn.setImage(leftBtnHover);
+            if (tankCount == 0)
+                tankCount = tankList.size() - 1;
+            else
+                tankCount--;
+            
+            tank.setImage(tankList.get(tankCount));
+            flag.setImage(flagList.get(tankCount));
         });
     }
     private void setRightBtn(){
@@ -292,16 +299,6 @@ public class CountryMenu extends Pane{
             System.out.println(rightBtn.getTranslateX() + ", " + rightBtn.getTranslateY());
         });
         */
-        rightBtn.setOnMouseClicked(e -> {
-            if (tankCount == tankList.size() - 1)
-                tankCount = 0;
-            else
-                tankCount++;
-            
-            tank.setImage(tankList.get(tankCount));
-            flag.setImage(flagList.get(tankCount));
-            //getCountry();
-        });
         
         rightBtn.setOnMouseEntered(e -> {
             rightBtn.setImage(rightBtnHover);
@@ -313,10 +310,22 @@ public class CountryMenu extends Pane{
         
         rightBtn.setOnMousePressed(e -> {
             rightBtn.setImage(rightBtnClicked);
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         rightBtn.setOnMouseReleased(e -> {
             rightBtn.setImage(rightBtnHover);
+            if (tankCount == tankList.size() - 1)
+                tankCount = 0;
+            else
+                tankCount++;
+            
+            tank.setImage(tankList.get(tankCount));
+            flag.setImage(flagList.get(tankCount));
+            //getCountry();
         });
     }
     private void setFlag(){
@@ -431,6 +440,10 @@ public class CountryMenu extends Pane{
         
         nextBtn.setOnMousePressed(e -> {
             nextBtn.setImage(nextBtnClicked);
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         nextBtn.setOnMouseReleased(e -> {
