@@ -22,6 +22,7 @@ public class SoundLib {
     private MediaPlayer tankShot = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Tank Shot.mp3").toURI().toString()));
     private MediaPlayer explosion = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Explosion.mp3").toURI().toString()));
     private MediaPlayer repair = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Repair.mp3").toURI().toString()));
+    private MediaPlayer btnClicked = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Button Clicked.mp3").toURI().toString()));
     
     private boolean backgroundMusicPlaying = false;
     
@@ -52,5 +53,9 @@ public class SoundLib {
     
     public MediaPlayer getRepair(){
         return repair;
+    }
+    
+    public MediaPlayer getBtnClicked(){
+        return btnClicked;
     }
 }

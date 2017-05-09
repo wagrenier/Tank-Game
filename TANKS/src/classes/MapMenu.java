@@ -111,8 +111,8 @@ public class MapMenu extends Pane{
         
         this.getChildren().add(muteBtn);
         
-        muteBtn.setTranslateX(485.0);
-        muteBtn.setTranslateY(772.0);
+        muteBtn.setTranslateX(456.0);
+        muteBtn.setTranslateY(654.0);
         
         /*
         muteBtn.setOnMouseDragged(e -> {

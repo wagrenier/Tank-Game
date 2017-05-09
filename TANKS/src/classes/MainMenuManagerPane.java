@@ -5,6 +5,7 @@
  */
 package classes;
 
+import HUD.HelpMenu;
 import GamePane.GamePane;
 import LoadFunction.LoadFunction;
 import Sounds.SoundLib;
