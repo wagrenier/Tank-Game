@@ -23,8 +23,10 @@ import static javafx.animation.Animation.Status.RUNNING;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.scene.CacheHint;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 /**
@@ -308,54 +310,78 @@ public class TanksAnimation{
     
     private Timeline animationForTanks(Tanks tanks, int cannonOffset, int tankOffsetX, int tankOffsetY, int initialPosition, Timeline progressBarAnimation){
         //Setting the layouts of the tank and cannon
+        tanks.setStroke(Color.BLACK);
+        tanks.getCannon().setStroke(Color.RED);
+       // tanks.setCenterX(-18);
+       /**
         tanks.setLayoutY(-tankOffsetY);
         tanks.setLayoutX(-tankOffsetX);
         tanks.getCannon().setLayoutX(-tankOffsetX);
         tanks.getCannon().setLayoutY(-tankOffsetY - cannonOffset);
-        
+        tanks.getCannon().setCenterY(-15);
+        **/
         //Setting the Translation of the tank and cannon
-        tanks.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())));
+        //tanks.setCenterY(-18);
+        //tanks.getCannon().setCenterY(tanks.getCenterY() - 15);
+        tanks.setLayoutY(-18);
+        tanks.getCannon().setLayoutY(tanks.getLayoutY() - 15);
         tanks.setTranslateX(initialPosition);
         tanks.setTranslateY(mapGeneration.getY(initialPosition));
+        tanks.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())));
+        
         tanks.getCannon().setTranslateX(tanks.getTranslateX());
-        tanks.getCannon().setTranslateY(tanks.getTranslateY());
-        tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())) + Math.toDegrees(tanks.getCannon().getCanonAngle()));
+        tanks.getCannon().setTranslateY(mapGeneration.getYCannon(tanks.getCannon().getTranslateX()));
+        //tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())) + Math.toDegrees(tanks.getCannon().getCanonAngle()));
         
         tanks.setxSpeed(0);
+        tanks.setCache(true);
+        tanks.setCacheHint(CacheHint.ROTATE);
+        tanks.setCacheHint(CacheHint.SPEED);
+        tanks.getCannon().setCacheHint(CacheHint.ROTATE);
+        tanks.getCannon().setCacheHint(CacheHint.SPEED);
+        
         
         Timeline tankAnimation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             updateTanksStatus();
             
-            tanks.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())));
             
             if(progressBarAnimation.getStatus().compareTo(RUNNING) == 0){
             tanks.setxSpeed(0);
             tanks.setySpeed(0);
         }
-            
+            //tanks.setVelocities(mapGeneration);
             tanks.setYTanks(mapGeneration.getY(tanks.getTranslateX()));
             tanks.setTranslateY(tanks.getTranslateY() + tanks.getySpeed());
             tanks.setTranslateX((tanks.getTranslateX() + tanks.getxSpeed())); 
-            tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())) + Math.toDegrees(tanks.getCannon().getCanonAngle()));
-            tanks.getCannon().setTranslateX(tanks.getTranslateX()); 
-            tanks.getCannon().setTranslateY(tanks.getTranslateY());
+            tanks.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())));
+            
+            
+            tanks.getCannon().setTranslateX(tanks.getTranslateX() + 7); 
+            tanks.getCannon().setTranslateY(mapGeneration.getYCannon(tanks.getCannon().getTranslateX()));
+            //tanks.setRotate(Math.atan2(tanks.getTranslateY(), tanks.getTranslateX()));
+            //tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX()) + tanks.getCannon().getCanonAngle()));
+           
             
             if(tanks.getxSpeed() < 0){
-                tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())) + Math.toDegrees(tanks.getCannon().getCanonAngle()));
+                tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getCannon().getTranslateX()) + tanks.getCannon().getCanonAngle()));
             }
             
             else if(tanks.getxSpeed() == 0){
                 if(tanks.isIsImageFlipped()){
-                    tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())) + Math.toDegrees(tanks.getCannon().getCanonAngle()));
+                    tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getCannon().getTranslateX()) + tanks.getCannon().getCanonAngle()));
                 }
                 else{
-                    tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())) - Math.toDegrees(tanks.getCannon().getCanonAngle()));   
+                    tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getCannon().getTranslateX()) - tanks.getCannon().getCanonAngle()));   
                 }
             }
             
             else if(tanks.getxSpeed() > 0){
-                tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())) - Math.toDegrees(tanks.getCannon().getCanonAngle()));
+                tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getCannon().getTranslateX()) - tanks.getCannon().getCanonAngle()));
             }
+            
+            //tanks.getCannon().setTranslateX(tanks.getCannon().getTranslateX() + Math.toDegrees(Math.cos(tanks.getCannon().getRotate())));
+            //tanks.getCannon().setTranslateY(tanks.getCannon().getTranslateY() + Math.toDegrees(Math.sin(tanks.getCannon().getRotate())));
+            
             
             if(tanks.getTranslateX() <= 10 || tanks.getTranslateX() >= 1190){
                 tanks.setxSpeed(tanks.getxSpeed() * -1);
@@ -368,16 +394,18 @@ public class TanksAnimation{
                 }
             }
             
+            
+            
+            
             if (tanks.getTranslateY() < tanks.getYTanks() ){
                 tanks.setySpeed(tanks.getySpeed() + gravity);
             }
             else{
-                //yspeed = 0;
                 tanks.setySpeed(0);
             }
             if(tanks.getTranslateY() > tanks.getYTanks()){
                 tanks.setTranslateY(tanks.getYTanks());
-                tanks.getCannon().setTranslateY(tanks.getTranslateY());
+                tanks.getCannon().setTranslateY(mapGeneration.getYCannon(tanks.getCannon().getTranslateX()));
             } 
             }));
         return tankAnimation;
@@ -436,15 +464,19 @@ public class TanksAnimation{
     public void resetSpeed(){
         tanksOne.setxSpeed(0);
         tanksOne.setySpeed(0);
+        tanksOne.setVelocity(0);
         
         tanksTwo.setxSpeed(0);
         tanksTwo.setySpeed(0);
+        tanksTwo.setVelocity(0);
         
         tanksThree.setxSpeed(0);
         tanksThree.setySpeed(0);
+        tanksThree.setVelocity(0);
         
         tanksFour.setxSpeed(0);
         tanksFour.setySpeed(0);
+        tanksFour.setVelocity(0);
     }
     
     public void hitDetectionMine(Tanks tank, Weapon weapon){
@@ -526,6 +558,12 @@ public class TanksAnimation{
         else{
         switch (x){
             
+            /*
+            case F:{
+                pane.getChildren().clear();
+                pane.mapSetupNewMapGeneration(pane);
+                pane.paneSetup(pane, 0);
+            }break;*/
             
             //Controls for player 1
             case SPACE: {
@@ -545,14 +583,15 @@ public class TanksAnimation{
                 case LEFT: {
                     
                     if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed && keyReleased  && rcAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
-                    if(tank.getxSpeed() == 0  && !tank.isIsImageFlipped()){
+                    if(tank.getVelocity() == 0  && !tank.isIsImageFlipped()){
                             //tank.setxSpeed(tank.getxSpeed() - 0.05);
                             tank.flipTexture();
                             break;
                         }
                     
-                    else if(tank.getxSpeed() == 0 && tank.isIsImageFlipped()){
-                        tank.setxSpeed(tank.getxSpeed() - 0.05);
+                    else if(tank.getVelocity() == 0 && tank.isIsImageFlipped()){
+                        tank.setVelocity(tank.getVelocity() - 0.05);
+                        tank.setVelocities(mapGeneration);
                         turnPlayed = true;
                     }
                     }
@@ -560,14 +599,15 @@ public class TanksAnimation{
                     
                 case RIGHT: {
                     if(tank.isTankAlive() && animationTank.getStatus().compareTo(RUNNING) == 0 && !(weaponAnimation == null) && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0 && !tank.isIsAI() && !turnPlayed && keyReleased  && rcAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
-                    if(tank.getxSpeed() == 0 && tank.isIsImageFlipped()){
+                    if(tank.getVelocity() == 0 && tank.isIsImageFlipped()){
                             //tank.setxSpeed(tank.getxSpeed() + 0.05);
                             tank.normalTexture();
                             break;
                         }
                     
-                    else if(tank.getxSpeed() == 0  && !tank.isIsImageFlipped())
-                        tank.setxSpeed(tank.getxSpeed() + 0.05);
+                    else if(tank.getVelocity() == 0  && !tank.isIsImageFlipped())
+                        tank.setVelocity(tank.getVelocity() + 0.05);
+                    tank.setVelocities(mapGeneration);
                         turnPlayed = true;
                     }
                     }break;

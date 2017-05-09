@@ -10,6 +10,7 @@ import Sounds.SoundLib;
 import Tanks.Tanks;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.CacheHint;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -107,6 +108,9 @@ public class WeaponAnimation{
         
         
         weapon.setRotate(Math.toDegrees(angleLaunched));
+        weapon.setCache(true);
+        weapon.setCacheHint(CacheHint.SCALE_AND_ROTATE);
+        weapon.setCacheHint(CacheHint.SPEED);
         
         animationWeapon =  new Timeline(new KeyFrame(Duration.millis(1), e -> {
             if(hitSomething){
@@ -159,7 +163,7 @@ public class WeaponAnimation{
         
         
         pane.getChildren().add(weapon);
-        animationWeapon.setCycleCount(5000);
+        animationWeapon.setCycleCount(10000);
         animationWeapon.play();
         
         

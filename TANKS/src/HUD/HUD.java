@@ -23,8 +23,6 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -589,10 +587,17 @@ public class HUD extends Pane {
         } else {
             playerHealth.setProgress((double) lifePoints / 100.0);
         }
-
-        if ((lifePoints) <= 30) {
+        
+        if (playerHealth.getProgress() < .30) {
             playerHealth.setColor("red-bar");
         }
+        else if(playerHealth.getProgress() < .50){
+            playerHealth.setColor("yellow-bar");
+        }
+        else{
+            playerHealth.setColor("green-bar");
+        }
+        
     }
 
     private void setWind() {
