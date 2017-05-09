@@ -7,6 +7,6 @@ and open the template in the editor.
     Created on : 24-Apr-2017, 8:23:23 PM
     Author     : Cedrik Dubois
 */
-.check-box > .box > .mark {
-    -fx-padding: 50px;
+.check-box {
+    -fx-size: 50;
 }

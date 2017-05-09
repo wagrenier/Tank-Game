@@ -383,16 +383,18 @@ public class CountryMenu extends Pane{
     private void setAI(){
         this.getChildren().add(ai);
         
-        ai.setTranslateX(638.0);
-        ai.setTranslateY(559.0);
+        ai.setTranslateX(632.0);
+        ai.setTranslateY(544.5);
         
-        
+        /*
         ai.setOnMouseDragged(e -> {
             ai.setTranslateX(e.getSceneX());
             ai.setTranslateY(e.getSceneY());
             System.out.println(ai.getTranslateX() + ", " + ai.getTranslateY());
         });
+        */
         
+        ai.setStyle("-fx-font-size: 30;");
         
         
     }
