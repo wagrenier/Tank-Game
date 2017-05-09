@@ -24,9 +24,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.CacheHint;
+import javafx.scene.Group;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
 /**
@@ -323,6 +326,8 @@ public class TanksAnimation{
         //Setting the Translation of the tank and cannon
        // tanks.setCenterY(-18);
         //tanks.getCannon().setCenterY(tanks.getCenterY() - 15);
+        
+        
         tanks.setLayoutY(-18);
         tanks.getCannon().setLayoutY(tanks.getLayoutY());
         
@@ -341,6 +346,9 @@ public class TanksAnimation{
         tanks.getCannon().setCacheHint(CacheHint.ROTATE);
         tanks.getCannon().setCacheHint(CacheHint.SPEED);
         
+        Group group = new Group(tanks, tanks.getCannon());
+        Rotate rotateGroup = new Rotate();
+        Translate translateGroup = new Translate();
         
         Timeline tankAnimation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             updateTanksStatus();
@@ -357,9 +365,10 @@ public class TanksAnimation{
             
             tanks.setTranslateX((tanks.getTranslateX() + tanks.getxSpeed())); 
             tanks.setTranslateY(mapGeneration.getY(tanks.getTranslateX()));
-            
-            tanks.getCannon().setTranslateX(tanks.getTranslateX() + Math.cos(mapGeneration.derivativeFunction(tanks.getTranslateX())));
-            tanks.getCannon().setTranslateY(tanks.getTranslateY() + Math.sin(mapGeneration.derivativeFunction(tanks.getTranslateX())));
+            tanks.getCannon().setTranslateX(tanks.getTranslateX());
+            tanks.getCannon().setTranslateY(tanks.getTranslateY());
+            //tanks.getCannon().setTranslateX(tanks.getTranslateX() + Math.cos(mapGeneration.derivativeFunction(tanks.getTranslateX())));
+            //tanks.getCannon().setTranslateY(tanks.getTranslateY() + Math.sin(mapGeneration.derivativeFunction(tanks.getTranslateX())));
             
             tanks.setYTanks(mapGeneration.getY(tanks.getTranslateX()));
             tanks.getCannon().setTranslateX(tanks.getTranslateX());
