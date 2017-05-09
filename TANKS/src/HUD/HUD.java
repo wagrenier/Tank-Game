@@ -589,9 +589,14 @@ public class HUD extends Pane {
         } else {
             playerHealth.setProgress((double) lifePoints / 100.0);
         }
-
-        if ((lifePoints) <= 30) {
+        System.out.println(lifePoints);
+        if (lifePoints <= 30) {
+            System.out.println("Less than 30 points");
             playerHealth.setColor("red-bar");
+        }
+        else if (lifePoints > 30) {
+            System.out.println("More than 30 points");
+            playerHealth.setColor("green-bar");
         }
     }
 
@@ -868,6 +873,15 @@ public class HUD extends Pane {
         playerTank.setImage(tanks[team]);
 
         playerHealth.setProgress((double) ((double) tank.getLifePoint()) / 100);
+        
+        if (tank.getLifePoint() <= 30) {
+            System.out.println("Less than 30 points");
+            playerHealth.setColor("red-bar");
+        }
+        else if (tank.getLifePoint() > 30) {
+            System.out.println("More than 30 points");
+            playerHealth.setColor("green-bar");
+        }
     }
 
     public void resetWeaponIndex() {
