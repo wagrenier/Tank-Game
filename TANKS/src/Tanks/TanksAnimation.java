@@ -312,19 +312,20 @@ public class TanksAnimation{
         //Setting the layouts of the tank and cannon
         tanks.setStroke(Color.BLACK);
         tanks.getCannon().setStroke(Color.RED);
-       // tanks.setCenterX(-18);
-       /**
-        tanks.setLayoutY(-tankOffsetY);
-        tanks.setLayoutX(-tankOffsetX);
-        tanks.getCannon().setLayoutX(-tankOffsetX);
-        tanks.getCannon().setLayoutY(-tankOffsetY - cannonOffset);
-        tanks.getCannon().setCenterY(-15);
-        **/
+        //tanks.setCenterX(-18);
+       
+        //tanks.setLayoutY(-tankOffsetY);
+        //tanks.setLayoutX(-tankOffsetX);
+        //tanks.getCannon().setLayoutX(-tankOffsetX);
+        //tanks.getCannon().setLayoutY(-tankOffsetY - cannonOffset);
+        //tanks.getCannon().setCenterY(-15);
+        
         //Setting the Translation of the tank and cannon
-        //tanks.setCenterY(-18);
+       // tanks.setCenterY(-18);
         //tanks.getCannon().setCenterY(tanks.getCenterY() - 15);
         tanks.setLayoutY(-18);
-        tanks.getCannon().setLayoutY(tanks.getLayoutY() - 5);
+        tanks.getCannon().setLayoutY(tanks.getLayoutY());
+        
         tanks.setTranslateX(initialPosition);
         tanks.setTranslateY(mapGeneration.getY(initialPosition));
         tanks.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())));
@@ -349,17 +350,20 @@ public class TanksAnimation{
             tanks.setxSpeed(0);
             tanks.setySpeed(0);
         }
+            
             //tanks.setVelocities(mapGeneration);
-            tanks.setYTanks(mapGeneration.getY(tanks.getTranslateX()));
-            tanks.setTranslateY(tanks.getTranslateY() + tanks.getySpeed());
+            
+            
+            
             tanks.setTranslateX((tanks.getTranslateX() + tanks.getxSpeed())); 
-            tanks.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())));
+            tanks.setTranslateY(mapGeneration.getY(tanks.getTranslateX()));
             
+            tanks.getCannon().setTranslateX(tanks.getTranslateX() + Math.cos(mapGeneration.derivativeFunction(tanks.getTranslateX())));
+            tanks.getCannon().setTranslateY(tanks.getTranslateY() + Math.sin(mapGeneration.derivativeFunction(tanks.getTranslateX())));
             
-            tanks.getCannon().setTranslateX(tanks.getTranslateX() + Math.cos(mapGeneration.derivativeFunction(tanks.getTranslateX()))); 
-            tanks.getCannon().setTranslateY(mapGeneration.getYCannon(tanks.getCannon().getTranslateX()));
-            //tanks.setRotate(Math.atan2(tanks.getTranslateY(), tanks.getTranslateX()));
-            //tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX()) + tanks.getCannon().getCanonAngle()));
+            tanks.setYTanks(mapGeneration.getY(tanks.getTranslateX()));
+            tanks.getCannon().setTranslateX(tanks.getTranslateX());
+            
            
             
             if(tanks.getxSpeed() < 0){
@@ -395,7 +399,7 @@ public class TanksAnimation{
             }
             
             
-            
+            tanks.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())));
             
             if (tanks.getTranslateY() < tanks.getYTanks() ){
                 tanks.setySpeed(tanks.getySpeed() + gravity);
@@ -405,7 +409,7 @@ public class TanksAnimation{
             }
             if(tanks.getTranslateY() > tanks.getYTanks()){
                 tanks.setTranslateY(tanks.getYTanks());
-                //tanks.getCannon().setTranslateY(mapGeneration.getYCannon(tanks.getCannon().getTranslateX()));
+                tanks.getCannon().setTranslateY(mapGeneration.getYCannon(tanks.getCannon().getTranslateX()));
             } 
             }));
         return tankAnimation;

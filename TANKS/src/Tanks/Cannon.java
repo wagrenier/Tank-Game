@@ -79,6 +79,8 @@ public class Cannon extends Circle{
        
         if(canonAngle > 0){
         canonAngle -= Math.PI / 25;
+        //this.setTranslateX(this.getTranslateX() + (50 * Math.cos(canonAngle)));
+        //this.setTranslateY(this.getTranslateY() + (50 * Math.sin(canonAngle)));
         }
     }
     

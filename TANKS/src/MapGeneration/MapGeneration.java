@@ -87,7 +87,7 @@ public class MapGeneration implements Serializable{
     }
     
     public double  getYCannon(double x){
-        return (amplitudeOfWave * Math.sin(x / lengthOfWave) + startingPoint - 5 - 18);
+        return (amplitudeOfWave * Math.sin(x / lengthOfWave) + startingPoint);
           //return 700;
     }
 
