@@ -7,12 +7,14 @@ package classes;
 
 import GamePane.GamePane;
 import LoadFunction.LoadFunction;
+import Sounds.SoundLib;
 import java.util.ArrayList;
 import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 /**
  *
@@ -20,13 +22,14 @@ import javafx.scene.layout.Pane;
  */
 public class MainMenuManagerPane extends Pane{
     
+    SoundLib sounds = new SoundLib();
     GamePane gamePane;
     LoadFunction load;
     BorderPane borderPane = new BorderPane();
-    private MainMenu mainMenu = new MainMenu();
-    private PlayerMenu playerMenu = new PlayerMenu();
-    private CountryMenu countryMenu = new CountryMenu();
-    private MapMenu mapMenu = new MapMenu();
+    private MainMenu mainMenu = new MainMenu(sounds);
+    private PlayerMenu playerMenu = new PlayerMenu(sounds);
+    private CountryMenu countryMenu = new CountryMenu(sounds);
+    private MapMenu mapMenu = new MapMenu(sounds);
     
     private static int numberOfPlayers;
     private static int playerCount = 0;
@@ -43,6 +46,14 @@ public class MainMenuManagerPane extends Pane{
         paneList.add(countryMenu);
         paneList.add(mapMenu);
         
+        //start background music and set on loop
+        sounds.getBackgroundMusic().setOnEndOfMedia(new Runnable() {
+            public void run() {
+                sounds.getBackgroundMusic().seek(Duration.ZERO);
+            }
+        });
+        sounds.getBackgroundMusic().play();
+        sounds.setSoundPlaying(true);
         
         
         
@@ -141,7 +152,7 @@ public class MainMenuManagerPane extends Pane{
             
             
             
-            gamePane = new GamePane(numberOfPlayers, playerList, mapMenu.getChosenMap());
+            gamePane = new GamePane(numberOfPlayers, playerList, mapMenu.getChosenMap(), sounds);
             gamePane.setPlayerArrayList(playerList);
             
             
@@ -182,7 +193,7 @@ public class MainMenuManagerPane extends Pane{
             int[] currentTurn = load.getIndexOfCurrentPlayerTurn();
             double[] maxPix = load.getMaxPixMove();
             int[] numOfTurns = load.getNumOfTurnArray();
-            gamePane = new GamePane(load.getGamePane().getPlayerArrayList().size(), load.getGamePane().getPlayerArrayList(), load.getGamePane().getMapGeneration(), currentTurn[0]);
+            gamePane = new GamePane(load.getGamePane().getPlayerArrayList().size(), load.getGamePane().getPlayerArrayList(), load.getGamePane().getMapGeneration(), currentTurn[0], sounds);
             //gamePane.setTanksAnimation(load.getTanksAnimation());
             borderPane.setCenter(gamePane);
             borderPane.setTop(gamePane.getHUD());
