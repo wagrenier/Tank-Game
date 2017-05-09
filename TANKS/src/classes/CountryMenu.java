@@ -5,6 +5,7 @@
  */
 package classes;
 
+import Sounds.SoundLib;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -28,7 +29,7 @@ import javafx.scene.text.FontWeight;
  */
 public class CountryMenu extends Pane{
     
-    private Scene scene;
+    private SoundLib sounds;
     
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 950;
@@ -42,11 +43,14 @@ public class CountryMenu extends Pane{
     private ImageView rightBtn;
     private ImageView tank;
     private ImageView flag;
+    private ImageView muteBtn;
     
     private CheckBox ai = new CheckBox();
     
     private ArrayList<Image> tankList = new ArrayList<>();
     private ArrayList<Image> flagList = new ArrayList<>();
+    
+    private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
     
     private Image nextBtnImage = new Image("Texture/Menus/CountryMenu/Next Button.png");
     private Image nextBtnHover = new Image("Texture/Menus/CountryMenu/Next Button Hover.png");
@@ -72,7 +76,9 @@ public class CountryMenu extends Pane{
     
     private TextField usernameField;
     
-    public CountryMenu(){
+    public CountryMenu(SoundLib sounds){
+        this.sounds = sounds;
+        
         this.setMaxHeight(HEIGHT);
         this.setMinHeight(HEIGHT);
         this.setMaxWidth(WIDTH);
@@ -90,6 +96,34 @@ public class CountryMenu extends Pane{
         setUsername();
         setBackBtn();
         setAI();
+        setMuteBtn();
+    }
+    private void setMuteBtn(){
+        muteBtn = new ImageView(muteBtnImage);
+        
+        this.getChildren().add(muteBtn);
+        
+        muteBtn.setTranslateX(485.0);
+        muteBtn.setTranslateY(772.0);
+        
+        /*
+        muteBtn.setOnMouseDragged(e -> {
+            muteBtn.setTranslateX(e.getSceneX());
+            muteBtn.setTranslateY(e.getSceneY());
+            System.out.println(muteBtn.getTranslateX() + ", " + muteBtn.getTranslateY());
+        });
+        */
+        
+        muteBtn.setOnMouseReleased(e -> {
+            if (sounds.isSoundPlaying()){
+                sounds.getBackgroundMusic().pause();
+                sounds.setSoundPlaying(false);
+            }
+            else if (sounds.isSoundPlaying() == false){
+                sounds.getBackgroundMusic().play();
+                sounds.setSoundPlaying(true);
+            }
+        });
     }
     public void setScene(Scene scene, ImageView cursor, MouseEvent m){
         this.getChildren().remove(cursor);

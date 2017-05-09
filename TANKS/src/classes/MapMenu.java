@@ -5,6 +5,7 @@
  */
 package classes;
 
+import Sounds.SoundLib;
 import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,7 +29,7 @@ import javafx.scene.text.TextAlignment;
  */
 public class MapMenu extends Pane{
     
-    private Scene scene;
+    private SoundLib sounds;
     
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 950;
@@ -54,8 +55,11 @@ public class MapMenu extends Pane{
     private ImageView playBtn;
     private ImageView backBtn;
     private ImageView rightBtn;
+    private ImageView muteBtn;
     
     private Image[] tanks = new Image[4];
+    
+    private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
     
     private Image usaTank = new Image("Texture/Menus/MapMenu/USA.png");
     private Image northKoreaTank = new Image("Texture/Menus/MapMenu/North Korea.png");
@@ -83,7 +87,9 @@ public class MapMenu extends Pane{
     
     
     
-    public MapMenu(){
+    public MapMenu(SoundLib sounds){
+        this.sounds = sounds;
+        
         this.setMinWidth(WIDTH);
         this.setMaxWidth(WIDTH);
         this.setMinHeight(HEIGHT);
@@ -96,8 +102,36 @@ public class MapMenu extends Pane{
         setBackBtn();
         setRightBtn();
         setMapTitle();
+        setMuteBtn();
         
         
+    }
+    private void setMuteBtn(){
+        muteBtn = new ImageView(muteBtnImage);
+        
+        this.getChildren().add(muteBtn);
+        
+        muteBtn.setTranslateX(485.0);
+        muteBtn.setTranslateY(772.0);
+        
+        /*
+        muteBtn.setOnMouseDragged(e -> {
+            muteBtn.setTranslateX(e.getSceneX());
+            muteBtn.setTranslateY(e.getSceneY());
+            System.out.println(muteBtn.getTranslateX() + ", " + muteBtn.getTranslateY());
+        });
+        */
+        
+        muteBtn.setOnMouseReleased(e -> {
+            if (sounds.isSoundPlaying()){
+                sounds.getBackgroundMusic().pause();
+                sounds.setSoundPlaying(false);
+            }
+            else if (sounds.isSoundPlaying() == false){
+                sounds.getBackgroundMusic().play();
+                sounds.setSoundPlaying(true);
+            }
+        });
     }
     public void setScene(Scene scene, ImageView cursor, MouseEvent m){
         this.getChildren().remove(cursor);

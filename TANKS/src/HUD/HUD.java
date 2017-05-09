@@ -6,6 +6,7 @@
 package HUD;
 
 import classes.Player;
+import Sounds.SoundLib;
 import Tanks.Tanks;
 import GamePane.GamePane;
 import Weapon.WeaponManager;
@@ -22,9 +23,12 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  *
@@ -38,6 +42,8 @@ public class HUD extends Pane {
     private PauseMenu pauseMenu;
 
     private Store storeMenu;
+    
+    private SoundLib sounds;
 
     //Scene gameScene;
     private int playerTurn = 0; //Set to zero for the moment but this value will be changed by the player manager during the game
@@ -66,6 +72,9 @@ public class HUD extends Pane {
     private ImageView itemLogo;
 
     private Image emptyLogo = new Image("Texture/Menus/HUD/Not Available Logo.png");
+    
+    private ImageView muteBtn;
+    private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
 
     private ImageView weaponBtn;
     private Image weaponBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
@@ -105,8 +114,10 @@ public class HUD extends Pane {
 
     private ImageCursor cursorImg = new ImageCursor(new Image("Texture/Cursor/Cursor.png"));
 
-    public HUD(WeaponManager weaponManager, GamePane gamePane) {
+    public HUD(WeaponManager weaponManager, GamePane gamePane, SoundLib sounds) {
 
+        this.sounds = sounds;
+        
         this.setCursor(cursorImg);
 
         //gameScene = scene;
@@ -153,7 +164,36 @@ public class HUD extends Pane {
         setStoreBtn();
         setPauseBtn();
         setUseBtn();
+        
+        setMuteBtn();
 
+    }
+    private void setMuteBtn(){
+        muteBtn = new ImageView(muteBtnImage);
+        
+        this.getChildren().add(muteBtn);
+        
+        muteBtn.setTranslateX(795.0);
+        muteBtn.setTranslateY(87.0);
+        
+        /*
+        muteBtn.setOnMouseDragged(e -> {
+            muteBtn.setTranslateX(e.getSceneX());
+            muteBtn.setTranslateY(e.getSceneY());
+            System.out.println(muteBtn.getTranslateX() + ", " + muteBtn.getTranslateY());
+        });
+        */
+        
+        muteBtn.setOnMouseReleased(e -> {
+            if (sounds.isSoundPlaying()){
+                sounds.getBackgroundMusic().pause();
+                sounds.setSoundPlaying(false);
+            }
+            else if (sounds.isSoundPlaying() == false){
+                sounds.getBackgroundMusic().play();
+                sounds.setSoundPlaying(true);
+            }
+        });
     }
 
     public void generateNewWindRes() {

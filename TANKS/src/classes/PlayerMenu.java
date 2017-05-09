@@ -5,6 +5,7 @@
  */
 package classes;
 
+import Sounds.SoundLib;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
@@ -29,6 +30,8 @@ public class PlayerMenu extends Pane{
     
     private Scene scene;
     
+    private SoundLib sounds;
+    
     private static final int WIDTH = 1200;
     private static final int HEIGHT = 950;
     
@@ -39,6 +42,9 @@ public class PlayerMenu extends Pane{
     private ImageView rightBtn;
     private ImageView nextBtn;
     private ImageView backBtn;
+    private ImageView muteBtn;
+    
+    private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
     
     private Image leftBtnImage = new Image("Texture/Menus/PlayerMenu/Left Arrow.png");
     private Image leftBtnHover = new Image("Texture/Menus/PlayerMenu/left Arrow Hover.png");
@@ -57,7 +63,9 @@ public class PlayerMenu extends Pane{
     private Image backBtnClicked = new Image("Texture/Menus/playerMenu/Back Button Clicked.png");
     
     
-    public PlayerMenu(){
+    public PlayerMenu(SoundLib sounds){
+        this.sounds = sounds;
+        
         this.setMaxHeight(HEIGHT);
         this.setMinHeight(HEIGHT);
         this.setMaxWidth(WIDTH);
@@ -70,8 +78,36 @@ public class PlayerMenu extends Pane{
         setRightBtn();
         setNextBtn();
         setBackBtn();
+        setMuteBtn();
         
         
+    }
+    private void setMuteBtn(){
+        muteBtn = new ImageView(muteBtnImage);
+        
+        this.getChildren().add(muteBtn);
+        
+        muteBtn.setTranslateX(485.0);
+        muteBtn.setTranslateY(772.0);
+        
+        /*
+        muteBtn.setOnMouseDragged(e -> {
+            muteBtn.setTranslateX(e.getSceneX());
+            muteBtn.setTranslateY(e.getSceneY());
+            System.out.println(muteBtn.getTranslateX() + ", " + muteBtn.getTranslateY());
+        });
+        */
+        
+        muteBtn.setOnMouseReleased(e -> {
+            if (sounds.isSoundPlaying()){
+                sounds.getBackgroundMusic().pause();
+                sounds.setSoundPlaying(false);
+            }
+            else if (sounds.isSoundPlaying() == false){
+                sounds.getBackgroundMusic().play();
+                sounds.setSoundPlaying(true);
+            }
+        });
     }
     public void setScene(Scene scene, ImageView cursor, MouseEvent m){
         this.getChildren().remove(cursor);

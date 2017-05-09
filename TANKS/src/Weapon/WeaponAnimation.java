@@ -6,6 +6,7 @@
 package Weapon;
 
 import MapGeneration.MapGeneration;
+import Sounds.SoundLib;
 import Tanks.Tanks;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -41,34 +42,38 @@ public class WeaponAnimation{
     private Weapon weapon;
     private Timeline animationWeapon;
     private Tanks tank;
-    private Pane pane;  
+    private Pane pane;
+    private SoundLib sounds;
     
-    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane){
+    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, SoundLib sounds){
         this.pane = pane;
         this.tank = tank;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
+        this.sounds = sounds;
         explosionAnimation = new ExplosionAnimation(weapon, pane);
         setupAnimation(); 
         launchAnimation();
     }
     
-    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, double initialVelocity, double gravity){
+    public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, double initialVelocity, double gravity, SoundLib sounds){
         this.pane = pane;
         this.tank = tank;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
         this.initialVelocity = initialVelocity;
         this.gravity = gravity;
+        this.sounds = sounds;
         explosionAnimation = new ExplosionAnimation(weapon, pane);
         setupAnimation(); 
         //launchAnimation();
     }
     
-    public WeaponAnimation(Weapon weapon, MapGeneration mapGeneration, Pane pane){
+    public WeaponAnimation(Weapon weapon, MapGeneration mapGeneration, Pane pane, SoundLib sounds){
         this.pane = pane;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
+        this.sounds = sounds;
         explosionAnimation = new ExplosionAnimation(weapon, pane);
     }
     
@@ -106,7 +111,7 @@ public class WeaponAnimation{
         animationWeapon =  new Timeline(new KeyFrame(Duration.millis(1), e -> {
             if(hitSomething){
                 explosionAnimation.resetAnimationPosition();
-                explosionAnimation.playAnimation();
+                explosionAnimation.playAnimation(sounds);
                 stopAnimation();
             }
             currentYPosition = mapGeneration.getY(weapon.getTranslateX());
@@ -119,7 +124,7 @@ public class WeaponAnimation{
                 xspeed = 0;
                 pane.getChildren().remove(weapon);
                 explosionAnimation.resetAnimationPosition();
-                explosionAnimation.playAnimation();
+                explosionAnimation.playAnimation(sounds);
                 animationWeapon.stop();
                 //add animation explosion
                 
@@ -134,7 +139,7 @@ public class WeaponAnimation{
                 yspeed = 0;
                 xspeed = 0;
                 explosionAnimation.resetAnimationPosition();
-                explosionAnimation.playAnimation();
+                explosionAnimation.playAnimation(sounds);
                 animationWeapon.stop();
             }
             if(weapon.getTranslateY() > currentYPosition){

@@ -10,6 +10,7 @@
  */
 package Weapon;
 
+import Sounds.SoundLib;
 import Tanks.Tanks;
 import Tanks.TanksAnimation;
 import javafx.animation.AnimationTimer;
@@ -30,8 +31,9 @@ public class HitDetectionMine extends AnimationTimer{
     private Tanks tank;
     private ExplosionAnimation explosionAnimation;
     private Weapon weapon;
+    private SoundLib sounds;
 
-    public HitDetectionMine(Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Weapon weapon, TanksAnimation tanksAnimation, Pane pane) {
+    public HitDetectionMine(Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Weapon weapon, TanksAnimation tanksAnimation, Pane pane, SoundLib sounds) {
         this.tanksOne = tanksOne;
         this.tanksTwo = tanksTwo;
         this.tanksThree = tanksThree;
@@ -39,6 +41,7 @@ public class HitDetectionMine extends AnimationTimer{
         this.tank = tank;
         this.weapon = weapon;
         this.tanksAnimation = tanksAnimation;
+        this.sounds = sounds;
         explosionAnimation = new ExplosionAnimation(weapon, pane);
     }
 
@@ -79,7 +82,7 @@ public class HitDetectionMine extends AnimationTimer{
         if(hitSomething){
             tanksAnimation.mineExploded();
             explosionAnimation.resetAnimationPosition();
-            explosionAnimation.playAnimation();
+            explosionAnimation.playAnimation(sounds);
             tanksAnimation.getPane().getChildren().remove(weapon);
             tanksAnimation.getMineLocationArrayList().remove(weapon);
             tanksAnimation.getMineHitDetectionArrayList().remove(this);

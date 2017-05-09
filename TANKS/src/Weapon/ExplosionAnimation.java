@@ -5,6 +5,7 @@
  */
 package Weapon;
 
+import Sounds.SoundLib;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
@@ -39,7 +40,10 @@ public class ExplosionAnimation {
     private Timeline animation;
     private Weapon weapon;
     
+    
     public ExplosionAnimation(Weapon weapon, Pane pane){
+        
+        
         this.weapon = weapon;
         frames[0] = frame0;
         frames[1] = frame1;
@@ -78,8 +82,13 @@ public class ExplosionAnimation {
         explosion.setTranslateY(weapon.getTranslateY() - 50);
     }
     
-    public void playAnimation(){
+    public void playAnimation(SoundLib sounds){
+        if (sounds.isSoundPlaying()){
+            sounds.getExplosion().seek(Duration.ZERO);
+            sounds.getExplosion().play();
+        }
         animation.play();
+        
     }
 
     public Timeline getAnimation() {

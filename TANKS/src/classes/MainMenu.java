@@ -6,6 +6,7 @@
 package classes;
 
 import LoadFunction.LoadFunction;
+import Sounds.SoundLib;
 import java.util.ArrayList;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -25,11 +26,14 @@ import javafx.scene.input.MouseEvent;
  */
 public class MainMenu extends Pane{
     
+    private SoundLib sounds;
+    
     private static final int HEIGHT = 950;
     private static final int WIDTH = 1200;
     LoadFunction load;
     private ImageView playBtn;
     private ImageView loadBtn;
+    private ImageView muteBtn;
     
     private Image playBtnImage = new Image("Texture/Menus/MainMenu/Play Button.png");
     private Image playBtnHover = new Image("Texture/Menus/MainMenu/Play Button Hover.png");
@@ -39,7 +43,11 @@ public class MainMenu extends Pane{
     private Image loadBtnHover = new Image("Texture/Menus/MainMenu/Load Button Hover.png");
     private Image loadBtnClicked = new Image("Texture/Menus/MainMenu/Load Button Clicked.png");
     
-    public MainMenu(){
+    private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
+    
+    public MainMenu(SoundLib sounds){
+        this.sounds = sounds;
+        
         this.setMaxHeight(HEIGHT);
         this.setMinHeight(HEIGHT);
         this.setMaxWidth(WIDTH);
@@ -48,6 +56,7 @@ public class MainMenu extends Pane{
         
         setPlayBtn();
         setLoadBtn();
+        setMuteBtn();
         
         this.requestFocus();
         
@@ -182,6 +191,33 @@ public class MainMenu extends Pane{
           BackgroundSize.DEFAULT);
        
         this.setBackground(new Background(myBI));
+    }
+    private void setMuteBtn(){
+        muteBtn = new ImageView(muteBtnImage);
+        
+        this.getChildren().add(muteBtn);
+        
+        muteBtn.setTranslateX(485.0);
+        muteBtn.setTranslateY(772.0);
+        
+        /*
+        muteBtn.setOnMouseDragged(e -> {
+            muteBtn.setTranslateX(e.getSceneX());
+            muteBtn.setTranslateY(e.getSceneY());
+            System.out.println(muteBtn.getTranslateX() + ", " + muteBtn.getTranslateY());
+        });
+        */
+        
+        muteBtn.setOnMouseReleased(e -> {
+            if (sounds.isSoundPlaying()){
+                sounds.getBackgroundMusic().pause();
+                sounds.setSoundPlaying(false);
+            }
+            else if (sounds.isSoundPlaying() == false){
+                sounds.getBackgroundMusic().play();
+                sounds.setSoundPlaying(true);
+            }
+        });
     }
 
     public ImageView getLoadBtn() {

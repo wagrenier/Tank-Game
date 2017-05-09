@@ -9,6 +9,7 @@ import Weapon.HitDetection;
 import GamePane.GamePane;
 import HUD.HUD;
 import MapGeneration.MapGeneration;
+import Sounds.SoundLib;
 import Weapon.HitDetectionMine;
 import Weapon.HitDetectionRC;
 import Weapon.RCAnimation;
@@ -98,6 +99,9 @@ public class TanksAnimation{
     ProgressBar barThree = new ProgressBar(0);
     ProgressBar barFour = new ProgressBar(0);
     
+    //sounds of the game
+    SoundLib sounds;
+    
     //Pane of the game
     private GamePane pane;
     
@@ -120,13 +124,14 @@ public class TanksAnimation{
     private ArrayList<Weapon> mineLocationArrayList = new ArrayList<>();
     private ArrayList<HitDetectionMine> mineHitDetectionArrayList = new ArrayList<>();
     
-    public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList, int currentPlayer) {
+    public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList, int currentPlayer, SoundLib sounds) {
         this.mapGeneration = mapGeneration;
         this.indexOfCurrentPlayerTurn = currentPlayer;
         this.pane = pane;
         this.numOfPlayer = numOfPlayer; 
         this.playerArray = new Player[this.numOfPlayer];
         this.playerArrayList = playerArrayList;
+        this.sounds = sounds;
         
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png", 2);
         tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo, "Texture/Tanks/China/Cannon/Yellow_Cannon_Flipped_(100x100).png", 3);
@@ -206,7 +211,7 @@ public class TanksAnimation{
             }
         
         weaponManager = new WeaponManager();
-        hud = new HUD(weaponManager, this.pane);
+        hud = new HUD(weaponManager, this.pane, sounds);
         
         
         
@@ -214,8 +219,8 @@ public class TanksAnimation{
         
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getDamage(), weaponManager.getWeaponFromWeaponManager(((int)(Math.random() * 9))).getTexturePath(), 0);        
         
-       weaponAnimation = new WeaponAnimation(weapon, tanksOne, mapGeneration, pane, 1, 1); //Values are not important as this object wil;l never be used (Initialized to prevent nuillPointerException)
-        rcAnimation = new RCAnimation(weapon, tanksOne, mapGeneration, pane);
+       weaponAnimation = new WeaponAnimation(weapon, tanksOne, mapGeneration, pane, 1, 1, sounds); //Values are not important as this object wil;l never be used (Initialized to prevent nuillPointerException)
+       rcAnimation = new RCAnimation(weapon, tanksOne, mapGeneration, pane, sounds);
        pane.setOnKeyReleased(e -> { 
            keyReleased = true;
        });
@@ -408,7 +413,7 @@ public class TanksAnimation{
         }
         //Special Setup For RC
         else if(this.hud.getWeaponIndex() == 8){
-            rcAnimation = new RCAnimation(weapon, tank, mapGeneration, pane);
+            rcAnimation = new RCAnimation(weapon, tank, mapGeneration, pane, sounds);
             weapon.setLayoutX(-50);
             weapon.setLayoutY(-35);
             rcAnimation.launchAnimation();
@@ -416,8 +421,14 @@ public class TanksAnimation{
         }
         
         else{
-            weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, x, mapGeneration.getGravity());
+            weaponAnimation = new WeaponAnimation(weapon, tank, mapGeneration, pane, x, mapGeneration.getGravity(), sounds);
             weaponAnimation.launchAnimation();
+            
+            if (sounds.isSoundPlaying()){
+            sounds.getTankShot().seek(Duration.ZERO);
+            sounds.getTankShot().play();
+            }
+            
             hitDetection(tank, weapon);
             }
     }
@@ -437,7 +448,7 @@ public class TanksAnimation{
     }
     
     public void hitDetectionMine(Tanks tank, Weapon weapon){
-        HitDetectionMine hitDetectionMine = new HitDetectionMine(tanksOne, tanksTwo, tanksThree, tanksFour, tank, weapon, this, pane);
+        HitDetectionMine hitDetectionMine = new HitDetectionMine(tanksOne, tanksTwo, tanksThree, tanksFour, tank, weapon, this, pane, sounds);
         mineHitDetectionArrayList.add(hitDetectionMine);
         hitDetectionMine.start();
     }
@@ -450,6 +461,7 @@ public class TanksAnimation{
     private void hitDetection(Tanks tank, Weapon weapon){
         HitDetection hitDetection = new HitDetection(weaponAnimation, hud, tanksOne, tanksTwo, tanksThree, tanksFour, tank, animation, animation2, animation3, animation4, pane, weapon);
         hitDetection.start();
+        System.out.println("Hit Something");
     }
     
     public void updateTanksStatus(){

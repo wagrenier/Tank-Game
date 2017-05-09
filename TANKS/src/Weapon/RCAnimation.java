@@ -6,6 +6,7 @@
 package Weapon;
 
 import MapGeneration.MapGeneration;
+import Sounds.SoundLib;
 import Tanks.Tanks;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -32,12 +33,14 @@ public class RCAnimation {
     private Timeline animationWeapon;
     private Tanks tank;
     private Pane pane;  
+    private SoundLib sounds;
     
-    public RCAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane){
+    public RCAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, SoundLib sounds){
         this.pane = pane;
         this.tank = tank;
         this.weapon = weapon;
         this.mapGeneration = mapGeneration;
+        this.sounds = sounds;
         explosionAnimation = new ExplosionAnimation(weapon, pane);
         setupAnimation(); 
     }
@@ -55,7 +58,7 @@ public class RCAnimation {
         animationWeapon =  new Timeline(new KeyFrame(Duration.millis(1), e -> {
             if(hitSomething){
                 explosionAnimation.resetAnimationPosition();
-                explosionAnimation.playAnimation();
+                explosionAnimation.playAnimation(sounds);
                 stopAnimation();
             }
             currentYPosition = mapGeneration.getY(weapon.getTranslateX());

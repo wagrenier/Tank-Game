@@ -8,6 +8,7 @@ package GamePane;
 import HUD.HUD;
 import Tanks.TanksAnimation;
 import MapGeneration.MapGeneration;
+import Sounds.SoundLib;
 import classes.Player;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ import javafx.scene.paint.Color;
  */
 public class GamePane extends Pane implements Serializable{
     
+    private SoundLib sounds;
+    
     private int numOfPlayers;
     private int mapIndex;
     private double width = 1200;
@@ -41,24 +44,26 @@ public class GamePane extends Pane implements Serializable{
     private transient Timeline[] tanksAnimationArrayUsed;
     private transient GameLoop gameLoop;
     
-    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, MapGeneration mapGeneration, int currentPlayer){
+    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, MapGeneration mapGeneration, int currentPlayer, SoundLib sounds){
         this.mapGeneration = mapGeneration;
         this.mapIndex = this.mapGeneration.getMapIndex();
         this.playerArrayList = playerArrayList;
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
         this.numOfPlayers = numOfPlayers;
+        this.sounds = sounds;
         mapSetupRestoredMapGeneration(this);
         paneSetup(this, currentPlayer);   
         gameLoop(currentPlayer);
     }
     
-    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, int mapIndex){
+    public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, int mapIndex, SoundLib sounds){
         this.playerArrayList = playerArrayList;
         this.mapIndex = mapIndex;
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
         this.numOfPlayers = numOfPlayers;
+        this.sounds = sounds;
         mapSetupNewMapGeneration(this);
         paneSetup(this, 0);   
         gameLoop(0);
@@ -138,7 +143,7 @@ public class GamePane extends Pane implements Serializable{
     }
     
     public void tanksSetup(GamePane pane, int currentPlayer){
-        tanksAnimation = new TanksAnimation(mapGeneration, this, numOfPlayers, playerArrayList, currentPlayer);  
+        tanksAnimation = new TanksAnimation(mapGeneration, this, numOfPlayers, playerArrayList, currentPlayer, sounds);  
         tanksAnimationArrayUsed = tanksAnimation.getTanksAnimationArrayUsed();
     }
     
