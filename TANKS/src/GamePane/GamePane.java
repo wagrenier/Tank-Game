@@ -90,14 +90,14 @@ public class GamePane extends Pane implements Serializable{
             
             case 1:{
                 //Mountain Map
-                this.mapGeneration = new MapGeneration(600, 300, 500, 0.0005, 1);
+                this.mapGeneration = new MapGeneration(600, 125, 500, 0.0005, 1);
                 frontGroundSetup(pane, "Pictures/Frontgrounds/Mountain Frontground.png");
                 backGroundSetup(pane, "Pictures/Backgrounds/Mountain Background.png");
             }break;
             
             case 2:{
                 //Space Map
-                this.mapGeneration = new MapGeneration(600, 300, 600, 0.0001, 2);
+                this.mapGeneration = new MapGeneration(600, 75, 600, 0.0001, 2);
                 frontGroundSetup(pane, "Pictures/Frontgrounds/Space Frontground.png");
                 backGroundSetup(pane, "Pictures/Backgrounds/Space Background.png");
             }break;

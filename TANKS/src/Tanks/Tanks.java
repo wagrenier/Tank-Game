@@ -5,6 +5,7 @@
  */
 package Tanks;
 
+import MapGeneration.MapGeneration;
 import java.io.Serializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,10 +16,11 @@ import javafx.scene.shape.Circle;
  *
  * @author william
  */
-public class Tanks extends ImageView{
+public class Tanks extends Circle{
     
     private double xSpeed;
     private double ySpeed;
+    private double Velocity = 0;
     private double y;
     private double maxPixelMove = 100;
     private int lifePoint = 100;
@@ -33,37 +35,49 @@ public class Tanks extends ImageView{
     private int team;
     private int shield = 100;
     private int armour = 0;
+    private final ImagePattern texturePattern;
+    private final ImagePattern texturePatternFlipped;
     
     Tanks(String imagePath, String imageReversePath, String imagePathCannon, int team){
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
         texture = new Image(this.imagePath);
         textureFlipped = new Image(this.imageReversePath);
-        this.setImage(texture);
+        texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
+        texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
+        //this.setCenterY(-18);
+        this.setFill(texturePattern);
+        //this.setImage(texture);
         cannon = new Cannon(imagePathCannon);
         this.team = team;
     }  
     
     Tanks(String imagePath, String imageReversePath, String imagePathCannon, String reverse, int team){
+        this.setRadius(50);
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
         texture = new Image(this.imagePath);
         textureFlipped = new Image(this.imageReversePath);
-        this.setImage(texture);
+       // this.setImage(texture);
+       texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
+        texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
+        //this.setCenterY(-18);
+        this.setFill(texturePattern);
         cannon = new Cannon(imagePathCannon, reverse);
         this.team = team;
+        this.setPickOnBounds(true);
     } 
 
     public void flipTexture(){
-       // this.setFill(texturePatternFlipped);
-       this.setImage(textureFlipped);
+        this.setFill(texturePatternFlipped);
+      // this.setImage(textureFlipped);
         cannon.flipTexture();
         isImageFlipped = true;
     }
     
     public void normalTexture(){
-        //this.setFill(texturePattern);
-        this.setImage(texture);
+        this.setFill(texturePattern);
+        //this.setImage(texture);
         cannon.normalTexture();
         isImageFlipped = false; 
     }
@@ -86,13 +100,14 @@ public class Tanks extends ImageView{
                 armour -= ((shield / 100.0) * damage);
             }
         }
-        else if(lifePoint > 0){
+        else {
             lifePoint -= ((shield / 100.0) * damage);
         }
         
-        if(lifePoint < 1){
+        if(lifePoint < 5){
             isTankAlive = false;
         }
+        System.out.println(lifePoint);
     }
     
     public boolean restoreLifePoints(int lifeToRestore){
@@ -205,6 +220,28 @@ public class Tanks extends ImageView{
 
     public void setArmour(int armour) {
         this.armour = armour;
+    }
+
+    public double getVelocity() {
+        return Velocity;
+    }
+
+    public void setVelocity(double Velocity) {
+        this.Velocity = Velocity;
+        //setVelocities();
+    }
+    
+    public void setVelocities(MapGeneration mapGen){
+        this.setxSpeed(Velocity * Math.cos(mapGen.derivativeFunction(this.getTranslateX())));
+        this.setySpeed(Velocity * Math.sin(mapGen.derivativeFunction(this.getTranslateY())));
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
     
     

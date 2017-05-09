@@ -7,15 +7,9 @@ package Weapon;
 
 import GamePane.GamePane;
 import HUD.HUD;
-import MapGeneration.MapGeneration;
 import Tanks.Tanks;
-import Weapon.Weapon;
-import Weapon.WeaponAnimation;
-import Weapon.WeaponManager;
-import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
-import javafx.scene.control.ProgressBar;
 
 
 /**

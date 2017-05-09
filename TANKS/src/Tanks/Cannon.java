@@ -8,12 +8,16 @@ package Tanks;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 /**
  *
  * @author willi
  */
-public class Cannon extends ImageView{
+public class Cannon extends Circle{
+    
+    private final ImagePattern texturePattern;
+    private final ImagePattern texturePatternFlipped;
     
     private double canonAngle = 0;
     private String imagePath;
@@ -23,7 +27,7 @@ public class Cannon extends ImageView{
     private boolean isImageFlipped = false;
     
     Cannon(String imagePath, String imageReversePath){
-        //this.setRadius(50);
+        this.setRadius(50);
         
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
@@ -31,15 +35,14 @@ public class Cannon extends ImageView{
         texture = new Image(this.imagePath);
         textureFlipped = new Image(this.imageReversePath);
         
-        //texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
-        //texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
+        texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
+        texturePatternFlipped = new ImagePattern(textureFlipped, 0, 0, 1, 1, true);
         
         //ImageView imageView = new ImageView(texture);
         
-        this.setImage(texture);
+        //this.setImage(texture);
         
-        
-        //this.setFill(texturePattern);
+        this.setFill(texturePattern);
         //this.setRotate(20);
         //setStroke(Color.RED);
         //setTranslateX(50);
@@ -51,17 +54,20 @@ public class Cannon extends ImageView{
         texture = new Image(this.imagePath);
         this.imageReversePath = imagePath;
         textureFlipped = new Image(this.imagePath);
+        texturePattern = new ImagePattern(texture, 0, 0, 1, 1, true);
+        texturePatternFlipped = new ImagePattern(texture, 0, 0, 1, 1, true);
+        this.setFill(texturePattern);
     }  
     
     public void flipTexture(){
-        //this.setFill(texturePatternFlipped);
-        this.setImage(textureFlipped);
+        this.setFill(texturePatternFlipped);
+        //this.setImage(textureFlipped);
         isImageFlipped = true;
     }
     
     public void normalTexture(){
-        //this.setFill(texturePattern);
-        this.setImage(texture);
+        this.setFill(texturePattern);
+        //this.setImage(texture);
         isImageFlipped = false;
     }
 

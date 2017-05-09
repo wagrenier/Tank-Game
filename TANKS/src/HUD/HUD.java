@@ -23,8 +23,6 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -589,6 +587,7 @@ public class HUD extends Pane {
         } else {
             playerHealth.setProgress((double) lifePoints / 100.0);
         }
+
         System.out.println(lifePoints);
         if (lifePoints <= 30) {
             System.out.println("Less than 30 points");
@@ -598,6 +597,7 @@ public class HUD extends Pane {
             System.out.println("More than 30 points");
             playerHealth.setColor("green-bar");
         }
+
     }
 
     private void setWind() {
