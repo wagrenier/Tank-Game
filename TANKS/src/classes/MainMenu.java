@@ -41,6 +41,7 @@ public class MainMenu extends Pane{
     private ImageView helpBtn;
     
     private Image helpBtnImage = new Image("Texture/Menus/MainMenu/Help Button.png");
+    private Image helpBtnHover = new Image("Texture/Menus/MainMenu/Help Button Hover.png");
     
     private Image playBtnImage = new Image("Texture/Menus/MainMenu/Play Button.png");
     private Image playBtnHover = new Image("Texture/Menus/MainMenu/Play Button Hover.png");
@@ -130,6 +131,14 @@ public class MainMenu extends Pane{
             if (helpMenu.isHelpOpen() == false){
                 helpMenu.openHelpMenu();
             }
+        });
+        
+        helpBtn.setOnMouseEntered(e -> {
+            helpBtn.setImage(helpBtnHover);
+        });
+        
+        helpBtn.setOnMouseExited(e -> {
+            helpBtn.setImage(helpBtnImage);
         });
     }
     private void setLoadBtn(){

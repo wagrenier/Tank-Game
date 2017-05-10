@@ -6,6 +6,8 @@
 package HUD;
 
 import GamePane.GamePane;
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,16 +28,52 @@ public class HelpMenu {
     private ImageView closeBtn;
     
     private Image closeBtnImage = new Image("Texture/Menus/HelpMenu/Close Button.png");
+    private Image closeBtnHover = new Image("Texture/Menus/HelpMenu/Close Button Hover.png");
     
     private Text helpInformation = new Text();
     
     private boolean helpOpen = false;
+    
+    public HelpMenu(Pane pane, ImageCursor cursorImg){
+        this.pane = pane;
+        
+        setTextArea();
+        setCloseBtn(cursorImg);
+    }
     
     public HelpMenu(Pane pane){
         this.pane = pane;
         
         setTextArea();
         setCloseBtn();
+    }
+    private void setCloseBtn(ImageCursor cursorImg){
+        closeBtn = new ImageView(closeBtnImage);
+        
+        closeBtn.setTranslateX(555.0);
+        closeBtn.setTranslateY(130.0);
+        
+        /*
+        closeBtn.setOnMouseDragged(e -> {
+            closeBtn.setTranslateX(e.getSceneX());
+            closeBtn.setTranslateY(e.getSceneY());
+            System.out.println(closeBtn.getTranslateX() + ", " + closeBtn.getTranslateY());
+        });
+        */
+        
+        closeBtn.setOnMouseReleased(e -> {
+            closeHelpMenu();
+        });
+        
+        closeBtn.setOnMouseEntered(e -> {
+            closeBtn.setImage(closeBtnHover);
+            this.pane.setCursor(Cursor.HAND);
+        });
+        
+        closeBtn.setOnMouseExited(e -> {
+            closeBtn.setImage(closeBtnImage);
+            this.pane.setCursor(cursorImg);
+        });
     }
     private void setCloseBtn(){
         closeBtn = new ImageView(closeBtnImage);
@@ -53,6 +91,14 @@ public class HelpMenu {
         
         closeBtn.setOnMouseReleased(e -> {
             closeHelpMenu();
+        });
+        
+        closeBtn.setOnMouseEntered(e -> {
+            closeBtn.setImage(closeBtnHover);
+        });
+        
+        closeBtn.setOnMouseExited(e -> {
+            closeBtn.setImage(closeBtnImage);
         });
     }
     

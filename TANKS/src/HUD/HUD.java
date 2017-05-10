@@ -125,7 +125,7 @@ public class HUD extends Pane {
 
         this.gamePane = gamePane;
         this.storeMenu = new Store(this.gamePane, this.weaponManager);
-        this.pauseMenu = new PauseMenu(this.gamePane, this.storeMenu);
+        this.pauseMenu = new PauseMenu(this.gamePane, this.storeMenu, this.sounds, this.cursorImg);
 
         //The gravity in the hud is multiplied by 100 to prevent the game from displaying 5e-6
         //Instead, it will just display 0.05
@@ -191,6 +191,14 @@ public class HUD extends Pane {
                 sounds.getBackgroundMusic().play();
                 sounds.setSoundPlaying(true);
             }
+        });
+        
+        muteBtn.setOnMouseEntered(e -> {
+            this.setCursor(Cursor.HAND);
+        });
+        
+        muteBtn.setOnMouseExited(e -> {
+            this.setCursor(cursorImg);
         });
     }
 

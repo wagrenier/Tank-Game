@@ -7,10 +7,13 @@ package HUD;
 
 import GamePane.GamePane;
 import SaveFunction.SaveFunction;
+import Sounds.SoundLib;
 import static javafx.animation.Animation.Status.RUNNING;
 import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 /**
  *
@@ -23,6 +26,8 @@ public class PauseMenu {
     private Store storeMenu;
     
     private HelpMenu helpMenu;
+    
+    private SoundLib sounds;
 
     private boolean isGamePaused = false;
     private boolean isMenuOpened = false;
@@ -39,6 +44,10 @@ public class PauseMenu {
     private ImageView exitBtn;
     private ImageView saveBtn;
     private ImageView helpBtn;
+    private ImageView saveMsg;
+    
+    private Image goodSaveMsg = new Image("Texture/Menus/PauseMenu/Good Save Message.png");
+    private Image badSaveMsg = new Image("Texture/Menus/PauseMenu/Bad Save Message.png");
     
     private Image helpBtnImage = new Image("Texture/Menus/MainMenu/Help Button.png");
 
@@ -53,17 +62,36 @@ public class PauseMenu {
     private Image exitBtnImage = new Image("Texture/Menus/PauseMenu/Exit Button.png");
     private Image exitBtnHover = new Image("Texture/Menus/PauseMenu/Exit Button Hover.png");
     private Image exitBtnClicked = new Image("Texture/Menus/PauseMenu/Exit Button Clicked.png");
+    
+    private ImageCursor cursorImg;
 
-    public PauseMenu(GamePane gamePane, Store storeMenu) {
+    public PauseMenu(GamePane gamePane, Store storeMenu, SoundLib sounds, ImageCursor cursorImg) {
         this.gamePane = gamePane;
         this.storeMenu = storeMenu;
-        this.helpMenu = new HelpMenu(gamePane);
+        this.sounds = sounds;
+        this.cursorImg = cursorImg;
+        this.helpMenu = new HelpMenu(this.gamePane, this.cursorImg);
 
         setResumeBtn();
         setSaveBtn();
         setExitBtn();
         setHelpBtn();
-
+        setSaveMsg();
+    }
+    private void setSaveMsg(){
+        //temp
+        saveMsg = new ImageView();
+        
+        saveMsg.setTranslateX(448.5);
+        saveMsg.setTranslateY(652.0);
+        
+        /*
+        saveMsg.setOnMouseDragged(e -> {
+            saveMsg.setTranslateX(e.getSceneX());
+            saveMsg.setTranslateY(e.getSceneY());
+            System.out.println(saveMsg.getTranslateX() + ", " + saveMsg.getTranslateY());
+        });
+        */
     }
     
     private void setHelpBtn(){
@@ -84,6 +112,14 @@ public class PauseMenu {
            if (helpMenu.isHelpOpen() == false){
                helpMenu.openHelpMenu();
            }
+       });
+       
+       helpBtn.setOnMouseEntered(e -> {
+           this.gamePane.setCursor(Cursor.HAND);
+       });
+       
+       helpBtn.setOnMouseExited(e -> {
+           this.gamePane.setCursor(cursorImg);
        });
     }
 
@@ -106,7 +142,7 @@ public class PauseMenu {
         });
 
         exitBtn.setOnMouseExited(e -> {
-            gamePane.setCursor(Cursor.DEFAULT);
+            gamePane.setCursor(cursorImg);
             exitBtn.setImage(exitBtnImage);
         });
 
@@ -139,7 +175,7 @@ public class PauseMenu {
         });
 
         saveBtn.setOnMouseExited(e -> {
-            gamePane.setCursor(Cursor.DEFAULT);
+            gamePane.setCursor(cursorImg);
             saveBtn.setImage(saveBtnImage);
         });
 
@@ -147,9 +183,22 @@ public class PauseMenu {
             saveBtn.setImage(saveBtnClicked);
             if (gamePane.getTanksAnimation().isPossibleToSave()) {
                 SaveFunction save = new SaveFunction(gamePane);
-                System.out.println("Successful Save");
+                
+                if (sounds.isSoundPlaying()){
+                    sounds.getSave().seek(Duration.ZERO);
+                    sounds.getSave().play();
+                }
+                
+                saveMsg.setImage(goodSaveMsg);
+                gamePane.getChildren().add(saveMsg);
+                        
             } else {
-                System.out.println("Did not Save");
+                if (sounds.isSoundPlaying()){
+                    sounds.getFailSave().seek(Duration.ZERO);
+                    sounds.getFailSave().play();
+                }
+                saveMsg.setImage(badSaveMsg);
+                gamePane.getChildren().add(saveMsg);
             }
         });
 
@@ -177,7 +226,7 @@ public class PauseMenu {
         });
 
         resumeBtn.setOnMouseExited(e -> {
-            gamePane.setCursor(Cursor.DEFAULT);
+            gamePane.setCursor(cursorImg);
             resumeBtn.setImage(resumeBtnImage);
         });
 
@@ -274,7 +323,7 @@ public class PauseMenu {
             gamePane.getTanksAnimation().getProgressBarAnimationFour().play();
         }
 
-        gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn);
+        gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn, saveMsg);
     }
 
     public void pauseGame(int storePause) {
@@ -368,7 +417,7 @@ public class PauseMenu {
     }
 
     public void closeMenuWithoutResume() {
-        gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn);
+        gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn, saveMsg);
 
         isMenuOpened = false;
     }
