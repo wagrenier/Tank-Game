@@ -10,7 +10,13 @@ import Tanks.TanksAnimation;
 import Weapon.Item;
 import Weapon.Weapon;
 import classes.Player;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
@@ -269,6 +275,33 @@ public class GameLoop extends AnimationTimer{
         return numOfTurnArray;
     }
     
+    public void leaderboard(){
+        File file = new File("src/Leaderboard/leaderboard.txt");
+        int[] score = new int[10];
+        String[] names = new String[10];
+        
+        try {
+            Scanner out = new Scanner(file);
+            out.useDelimiter(",");
+            int highScoreIndex = -1;
+            
+            for(int i = 0; i < 10; i++){
+                names[i] = out.next();
+                BigInteger big = new BigInteger(out.next());
+                score[i] = big.intValue();
+                
+                
+                if(playerArray[indexOfCurrentPlayerTurn].getFinalScore() > score[i]){
+                    
+                }
+                System.out.println(score[i] + " " + names[i]);
+            }
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @Override
     public void handle(long now) {  
             if(tanksAnimation.getHud().getPauseMenu().isGamePaused() || tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0 || tanksAnimation.getRCAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
@@ -286,6 +319,7 @@ public class GameLoop extends AnimationTimer{
                 //tanksAnimation.getHud().nextItemAction();
                 numOfTurns++;
                 tanksAnimation.setTurnPlayed(false);
+                leaderboard();
                 //System.out.println("New Turn");
                 tanksAnimation.getHud().nextItemAction();
                 tanksAnimation.getHud().generateNewWindRes();
@@ -355,6 +389,7 @@ public class GameLoop extends AnimationTimer{
                 System.out.println("Game Over");
                 playerTurn(indexOfCurrentPlayerTurn);
                 playerArray[indexOfCurrentPlayerTurn].setFinalScore((int) (playerArray[indexOfCurrentPlayerTurn].getMoney() / numOfTurns));
+                leaderboard();
                 this.stop();
                 //System.exit(1);
             }
