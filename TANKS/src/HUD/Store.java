@@ -512,6 +512,11 @@ public class Store {
             addItemInfo(6);
 
         });
+        
+        armorBtn.setOnMouseReleased(e -> {
+            buyButtonAction(false, 6);
+        });
+        
         armorBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
             resetItemInfo();
@@ -537,6 +542,11 @@ public class Store {
             addItemInfo(7);
 
         });
+        
+        engineBtn.setOnMouseReleased(e -> {
+            buyButtonAction(false, 7);
+        });
+        
         engineBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
             resetItemInfo();
@@ -733,25 +743,32 @@ public class Store {
                 
                 if(index == 3 || index == 4 || index == 5){
                     if(index == 3 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 90){
-                        gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());gamePane.getTanksAnimation().getHud().nextItemAction();
+                        gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
+                        gamePane.getTanksAnimation().getHud().nextItemAction();
                     }
                     else if(index == 3){
                         this.player.addMoney(100);
                     }
                     else if(index == 4 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 80){
-                        gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());gamePane.getTanksAnimation().getHud().nextItemAction();
+                        gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
+                        gamePane.getTanksAnimation().getHud().nextItemAction();
                     }
                     else if(index == 4){
                         this.player.addMoney(150);
                     }
                     else if(index == 5 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 70){
-                        gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());gamePane.getTanksAnimation().getHud().nextItemAction();
+                        gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
+                        gamePane.getTanksAnimation().getHud().nextItemAction();
                     }
                     else if(index == 5){
                         this.player.addMoney(200);
                     }
                     System.out.println(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield());
             }
+                else if( index == 6){
+                    gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setArmour(weaponManager.getItemArrayList().get(index).getValue());
+                    gamePane.getTanksAnimation().getHud().nextItemAction();
+                }
             
                 else if(index == 7){
                     if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getMaxPixelMove() > 500){
@@ -824,6 +841,8 @@ public class Store {
                     }
                     System.out.println(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield());
             }
+                
+                
             
                 else if(index == 7){
                     if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getMaxPixelMove() > 500){

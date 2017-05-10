@@ -27,7 +27,6 @@ import javafx.scene.CacheHint;
 import javafx.scene.Group;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
@@ -99,13 +98,13 @@ public class TanksAnimation{
     private Timeline progressBarAnimationFour;
     
     //Progress Bar of the tanks
-    ProgressBar barOne = new ProgressBar(0);
-    ProgressBar barTwo = new ProgressBar(0);
-    ProgressBar barThree = new ProgressBar(0);
-    ProgressBar barFour = new ProgressBar(0);
+    private ProgressBar barOne = new ProgressBar(0);
+    private ProgressBar barTwo = new ProgressBar(0);
+    private ProgressBar barThree = new ProgressBar(0);
+    private ProgressBar barFour = new ProgressBar(0);
     
     //sounds of the game
-    SoundLib sounds;
+    private SoundLib sounds;
     
     //Pane of the game
     private GamePane pane;
@@ -442,7 +441,8 @@ public class TanksAnimation{
         //Special Setup For Mines
         if(this.hud.getWeaponIndex() == 7){
             mineLocationArrayList.add(weapon);
-            weapon.setLayoutX(-50);
+            //weapon.setCenterY(-5);
+            //weapon.setLayoutX(-50);
             weapon.setLayoutY(-30);
             weapon.setTranslateX(tank.getTranslateX());
             weapon.setTranslateY(tank.getTranslateY());
@@ -455,8 +455,11 @@ public class TanksAnimation{
         //Special Setup For RC
         else if(this.hud.getWeaponIndex() == 8){
             rcAnimation = new RCAnimation(weapon, tank, mapGeneration, pane, sounds);
-            weapon.setLayoutX(-50);
-            weapon.setLayoutY(-35);
+            weapon.setLayoutX(0);
+            weapon.setLayoutY(0);
+            weapon.setCenterY(-10);
+            //weapon.setLayoutX(-50);
+            //weapon.setLayoutY(-30);
             rcAnimation.launchAnimation();
             hitDetectionRC(tank, weapon, rcAnimation);
         }

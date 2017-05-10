@@ -19,7 +19,6 @@ public class HitDetectionRC extends AnimationTimer{
     
     private HUD hud;
     
-    
     private final Tanks tanksOne;
     private final Tanks tanksTwo;
     private final Tanks tanksThree;

@@ -6,9 +6,7 @@
 package Tanks;
 
 import MapGeneration.MapGeneration;
-import java.io.Serializable;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
@@ -220,6 +218,7 @@ public class Tanks extends Circle{
 
     public void setArmour(int armour) {
         this.armour = armour;
+        //System.out.println("Armour: " + armour);
     }
 
     public double getVelocity() {

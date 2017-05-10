@@ -5,10 +5,7 @@
  */
 package Weapon;
 
-import MapGeneration.MapGeneration;
-import java.io.Serializable;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.ImagePattern;
@@ -18,7 +15,7 @@ import javafx.scene.shape.Circle;
  *
  * @author willi
  */
-public class Weapon extends ImageView{
+public class Weapon extends Circle{
     
     private int costOfWeapon;
     private int damage;
@@ -27,22 +24,27 @@ public class Weapon extends ImageView{
     private String weaponName;
     private String shotType;
     private Image texture;
+    private ImagePattern texturePattern;
     private Media soundEffect;
     private MediaPlayer soundEffectPlayer;
     private int indexOfWeapon;
    
     
     public Weapon(int damage, String texturePath, int indexOfWeapon){
+        this.setRadius(25);
         this.texturePath = texturePath;
         texture = new Image(this.texturePath);
-        this.setImage(texture);
+        //this.setImage(texture);
         this.damage = damage;
         this.indexOfWeapon = indexOfWeapon;
+        texturePattern = new ImagePattern(texture);
+        this.setFill(texturePattern);
         //this.setLayoutX(50);
         //this.setLayoutY(50);
     }
     
     public Weapon(int damage, int costOfWeapon, String weaponName, String texturePath, String shotType, int indexOfWeapon) {
+        this.setRadius(25);
         this.costOfWeapon = costOfWeapon;
         this.texturePath = texturePath;
         this.soundEffectPath = soundEffectPath;
@@ -50,19 +52,24 @@ public class Weapon extends ImageView{
         this.shotType = shotType;
         this.weaponName = weaponName;
         texture = new Image(this.texturePath);
-        this.setImage(texture);
+        texturePattern = new ImagePattern(texture);
+        //this.setImage(texture);
+        this.setFill(texturePattern);
         this.indexOfWeapon = indexOfWeapon;
         //this.setLayoutX(50);
         //this.setLayoutY(50);
     }
 
     public Weapon(int costOfWeapon, String weaponName, String texturePath, String soundEffectPath, int indexOfWeapon) {
+        this.setRadius(25);
         this.costOfWeapon = costOfWeapon;
         this.texturePath = texturePath;
         this.soundEffectPath = soundEffectPath;
         this.weaponName = weaponName;        
         texture = new Image(this.texturePath);
-        this.setImage(texture);
+        texturePattern = new ImagePattern(texture);
+        this.setFill(texturePattern);
+        //this.setImage(texture);
         soundEffect = new Media(this.soundEffectPath);
         soundEffectPlayer = new MediaPlayer(this.soundEffect);   
         this.indexOfWeapon = indexOfWeapon;
