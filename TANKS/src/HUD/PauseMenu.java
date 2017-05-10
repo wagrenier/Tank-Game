@@ -190,6 +190,8 @@ public class PauseMenu {
                 }
                 
                 saveMsg.setImage(goodSaveMsg);
+                
+                gamePane.getChildren().remove(saveMsg);
                 gamePane.getChildren().add(saveMsg);
                         
             } else {
@@ -198,6 +200,7 @@ public class PauseMenu {
                     sounds.getFailSave().play();
                 }
                 saveMsg.setImage(badSaveMsg);
+                gamePane.getChildren().remove(saveMsg);
                 gamePane.getChildren().add(saveMsg);
             }
         });
