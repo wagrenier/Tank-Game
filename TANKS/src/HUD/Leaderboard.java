@@ -44,7 +44,7 @@ public class Leaderboard {
         scores.setText("");
         
         for (int i = 0; i < pane.getGameLoop().getNames().length; i++){
-            names.setText(names.getText() + "\n" + pane.getGameLoop().getNames()[i]);
+            names.setText(names.getText() + pane.getGameLoop().getNames()[i] + "\n");
         }
         
         for (int i = 0; i < pane.getGameLoop().getScores().length; i++){

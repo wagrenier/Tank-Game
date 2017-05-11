@@ -476,19 +476,30 @@ public class HUD extends Pane {
         });
 
         pauseBtn.setOnMousePressed(e -> {
-            pauseBtn.setImage(pauseBtnClicked);
+            
+            
+            
+               pauseBtn.setImage(pauseBtnClicked);
             
             if (sounds.isSoundPlaying()){
                 sounds.getBtnClicked().seek(Duration.ZERO);
                 sounds.getBtnClicked().play();
-            }
+            } 
+                
+            
+            
 
         });
 
         pauseBtn.setOnMouseReleased(e -> {
             pauseBtn.setImage(pauseBtnImage);
-
-            if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen() == false) {
+            if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].isIsAI()){
+            
+        }
+            
+            
+            else{
+                if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen() == false) {
                 pauseMenu.openMenuWithoutPause();
             } else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen()) {
                 pauseMenu.closeMenuWithoutResume();
@@ -496,6 +507,7 @@ public class HUD extends Pane {
                 pauseMenu.pauseGame();
             } else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() == false && pauseMenu.isMenuOpen() == true) {
                 pauseMenu.resumeGame();
+            }
             }
 
             System.out.println("Game Pause: " + pauseMenu.isGamePaused());
@@ -537,7 +549,11 @@ public class HUD extends Pane {
         });
 
         storeBtn.setOnMouseReleased(e -> {
-            storeBtn.setImage(storeBtnImage);
+            if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].isIsAI()){
+            
+        }
+            else{
+                storeBtn.setImage(storeBtnImage);
 
             if (storeMenu.isStoreOpened() && pauseMenu.isGamePaused() && pauseMenu.isMenuOpen()) {
 
@@ -548,6 +564,7 @@ public class HUD extends Pane {
             } else if (storeMenu.isStoreOpened() == true) {
                 storeMenu.closeStore();
                 pauseMenu.resumeGame(1);
+            }
             }
 
             System.out.println("Game Pause: " + pauseMenu.isGamePaused());

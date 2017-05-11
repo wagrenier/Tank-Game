@@ -12,6 +12,9 @@ import Weapon.Weapon;
 import classes.Player;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -290,15 +293,12 @@ public class GameLoop extends AnimationTimer{
                 names[i] = out.next();
                 BigInteger big = new BigInteger(out.next());
                 score[i] = big.intValue();
-                
-                
-                
-                System.out.println(score[i] + " " + names[i]);
+                //System.out.println(score[i] + " " + names[i]);
             }
             
-            if(playerArray[indexOfCurrentPlayerTurn].getFinalScore() > score[9]){
-                score[9] = playerArray[indexOfCurrentPlayerTurn].getFinalScore();
-                names[9] = playerArray[indexOfCurrentPlayerTurn].getUsername();
+            if(playerArray[indexOfCurrentPlayerTurn].getFinalScore() > score[0]){
+                score[0] = playerArray[indexOfCurrentPlayerTurn].getFinalScore();
+                names[0] = "\n" + playerArray[indexOfCurrentPlayerTurn].getUsername();
                  for (int i = 1; i < score.length; i++) {
 	            for(int j = i ; j > 0 ; j--){
 	                if(score[j] < score[j - 1]){
@@ -312,10 +312,18 @@ public class GameLoop extends AnimationTimer{
 	            }
 	        }
                  
-                 
+                 out.close();
+                 //PrintWriter writer = new PrintWriter(file);
+                 FileWriter writer = new FileWriter(file);
+                 for(int i = 0; i < 10; i++){          
+                     writer.write(names[i] + "," + score[i] + ",");
+                 }
+                 writer.close();
             }
             
         } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
