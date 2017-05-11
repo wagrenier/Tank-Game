@@ -353,7 +353,7 @@ public class GameLoop extends AnimationTimer{
                 //tanksAnimation.getHud().nextItemAction();
                 numOfTurns++;
                 tanksAnimation.setTurnPlayed(false);
-                
+                leaderboard();
                 //System.out.println("New Turn");
                 tanksAnimation.getHud().nextItemAction();
                 tanksAnimation.getHud().generateNewWindRes();
