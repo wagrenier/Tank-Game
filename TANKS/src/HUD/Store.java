@@ -6,6 +6,7 @@
 package HUD;
 
 import GamePane.GamePane;
+import Sounds.SoundLib;
 import Weapon.WeaponManager;
 import classes.Player;
 import javafx.scene.Cursor;
@@ -15,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  *
@@ -26,6 +28,7 @@ public class Store {
 
     private GamePane gamePane;
     private WeaponManager weaponManager;
+    private SoundLib sounds;
 
     private Player player;//Player accessing the store
 
@@ -77,15 +80,21 @@ public class Store {
 
     private Text errorMsg = new Text("Insufficient funds");
 
-    public Store(GamePane gamePane, WeaponManager weaponManager) {
+    public Store(GamePane gamePane, WeaponManager weaponManager, SoundLib sounds) {
         this.gamePane = gamePane;
         this.weaponManager = weaponManager;
+        this.sounds = sounds;
 
         storeBackground.setFitWidth(this.gamePane.getMinWidth());
         storeBackground.setFitHeight(this.gamePane.getMinHeight());
     }
 
     private void throwStoreError(String error) {
+        if (sounds.isSoundPlaying()){
+                    sounds.getError().seek(Duration.ZERO);
+                    sounds.getError().play();
+                }
+        
         errorPanelOpen = true;
         errorMsg.setText(error);
 
@@ -728,8 +737,13 @@ public class Store {
             } else {
                 this.player.addWeapon(index);
                 gamePane.getTanksAnimation().getHud().nextWeaponActionVerification();
+                
+                if (sounds.isSoundPlaying()){
+                    sounds.getBought().seek(Duration.ZERO);
+                    sounds.getBought().play();
+                }
             }
-            System.out.println("Bought Item");
+            
         } else {
 
             if (this.player.removeMoney(weaponManager.getItemFromWeaponManager(index).getCostOfItem()) == false) {
@@ -782,6 +796,11 @@ public class Store {
                 else{
                     this.player.addItem(index);
                     gamePane.getTanksAnimation().getHud().nextItemAction();
+                    
+                    if (sounds.isSoundPlaying()){
+                    sounds.getBought().seek(Duration.ZERO);
+                    sounds.getBought().play();
+                }   
                 }
                 
                 System.out.println("Bough Item");

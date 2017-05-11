@@ -124,7 +124,7 @@ public class HUD extends Pane {
         this.setMaxSize(WIDTH, HEIGHT);
 
         this.gamePane = gamePane;
-        this.storeMenu = new Store(this.gamePane, this.weaponManager);
+        this.storeMenu = new Store(this.gamePane, this.weaponManager, this.sounds);
         this.pauseMenu = new PauseMenu(this.gamePane, this.storeMenu, this.sounds, this.cursorImg);
 
         //The gravity in the hud is multiplied by 100 to prevent the game from displaying 5e-6
@@ -346,6 +346,11 @@ public class HUD extends Pane {
 
         itemBtn.setOnMousePressed(e -> {
             itemBtn.setImage(itemBtnClicked);
+            
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
 
         itemBtn.setOnMouseReleased(e -> {
@@ -416,6 +421,11 @@ public class HUD extends Pane {
 
         weaponBtn.setOnMousePressed(e -> {
             weaponBtn.setImage(weaponBtnClicked);
+            
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
 
         weaponBtn.setOnMouseReleased(e -> {
@@ -467,6 +477,11 @@ public class HUD extends Pane {
 
         pauseBtn.setOnMousePressed(e -> {
             pauseBtn.setImage(pauseBtnClicked);
+            
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
 
         });
 
@@ -514,6 +529,11 @@ public class HUD extends Pane {
 
         storeBtn.setOnMousePressed(e -> {
             storeBtn.setImage(storeBtnClicked);
+            
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
 
         storeBtn.setOnMouseReleased(e -> {

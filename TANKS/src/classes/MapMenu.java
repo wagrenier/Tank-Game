@@ -22,6 +22,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 
 /**
  *
@@ -283,6 +284,11 @@ public class MapMenu extends Pane{
         
         rightBtn.setOnMousePressed(e -> {
             rightBtn.setImage(rightBtnClicked);
+            
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         rightBtn.setOnMouseReleased(e -> {
@@ -315,6 +321,11 @@ public class MapMenu extends Pane{
         
         backBtn.setOnMousePressed(e -> {
             backBtn.setImage(backBtnClicked);
+            
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         backBtn.setOnMouseReleased(e -> {
@@ -348,6 +359,11 @@ public class MapMenu extends Pane{
         
         playBtn.setOnMousePressed(e -> {
             playBtn.setImage(playBtnClicked);
+            
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
         });
         
         /*

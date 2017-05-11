@@ -25,6 +25,8 @@ public class SoundLib {
     private MediaPlayer btnClicked = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Button Clicked.mp3").toURI().toString()));
     private MediaPlayer save = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Save.mp3").toURI().toString()));
     private MediaPlayer failSave = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Fail Save.mp3").toURI().toString()));
+    private MediaPlayer bought = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Bought Sound.mp3").toURI().toString()));
+    private MediaPlayer error = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Error.mp3").toURI().toString()));
     
     private boolean backgroundMusicPlaying = false;
     
@@ -67,5 +69,13 @@ public class SoundLib {
     
     public MediaPlayer getFailSave(){
         return failSave;
+    }
+    
+    public MediaPlayer getBought(){
+        return bought;
+    }
+    
+    public MediaPlayer getError(){
+        return error;
     }
 }
