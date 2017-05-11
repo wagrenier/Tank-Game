@@ -27,6 +27,9 @@ import javafx.scene.CacheHint;
 import javafx.scene.Group;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
@@ -128,6 +131,9 @@ public class TanksAnimation{
     private ArrayList<Weapon> mineLocationArrayList = new ArrayList<>();
     private ArrayList<HitDetectionMine> mineHitDetectionArrayList = new ArrayList<>();
     
+    private Text nextPlayerText = new Text();
+    private Timeline nextPlayerAnimation;
+    
     public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList, int currentPlayer, SoundLib sounds) {
         this.mapGeneration = mapGeneration;
         this.indexOfCurrentPlayerTurn = currentPlayer;
@@ -136,6 +142,8 @@ public class TanksAnimation{
         this.playerArray = new Player[this.numOfPlayer];
         this.playerArrayList = playerArrayList;
         this.sounds = sounds;
+        
+        setNextPlayerAnimation();
         
         tanksOne = new Tanks(pathForTextureTankOne, pathForTextureFlippedTankOne, pathForTextureCannonOne, "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100)_Flipped.png", 2);
         tanksTwo = new Tanks(pathForTextureTankTwo, pathForTextureFlippedTankTwo, pathForTextureCannonTwo, "Texture/Tanks/China/Cannon/Yellow_Cannon_Flipped_(100x100).png", 3);
@@ -240,6 +248,26 @@ public class TanksAnimation{
                 keyReleased = false;
             }
             }); 
+    }
+    
+    private void setNextPlayerAnimation(){
+        
+        nextPlayerText.setTranslateX(600);
+        nextPlayerText.setTranslateY(400);
+        nextPlayerText.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
+        
+        nextPlayerText.setOnMouseDragged(e -> {
+            nextPlayerText.setTranslateX(e.getSceneX());
+            nextPlayerText.setTranslateY(e.getSceneY());
+            System.out.println(nextPlayerText.getTranslateX() + ", " + nextPlayerText.getTranslateY());
+        });
+        
+        
+        nextPlayerAnimation = new Timeline(new KeyFrame(Duration.seconds(7), e -> {
+            this.pane.getChildren().remove(nextPlayerText);
+        }));
+        nextPlayerAnimation.setCycleCount(1);
+        
     }
     
     private Timeline progressBarInitialSetup(ProgressBar bar){
@@ -730,6 +758,10 @@ public class TanksAnimation{
     }
     
     public void updateTurn(){
+        nextPlayerText.setText(playerArray[indexOfCurrentPlayerTurn].getUsername() + "'s turn!");
+        this.pane.getChildren().add(nextPlayerText);
+        nextPlayerAnimation.play();
+        
         hud.setCurrentPlayerName(playerArray[indexOfCurrentPlayerTurn].getUsername());
         hud.setCurrentPlayerTank(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[indexOfCurrentPlayerTurn].getTeam(), indexOfCurrentPlayerTurn);
     }
