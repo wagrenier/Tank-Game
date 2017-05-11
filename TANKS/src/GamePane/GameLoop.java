@@ -50,6 +50,8 @@ public class GameLoop extends AnimationTimer{
     private ArrayList<Weapon> weaponArrayList;
     private ArrayList<Item> itemArrayList;
     private int randomWeapon;
+    private int[] score = new int[10];
+    private String[] names = new String[10];
     //Must add ability to save current number of turns
     public GameLoop(TanksAnimation tanksAnimation, Timeline[] tanksAnimationArrayUsed, Tanks[] tanksAraryused, int indexPlayer){
         this.tanksAnimation = tanksAnimation;
@@ -277,8 +279,7 @@ public class GameLoop extends AnimationTimer{
     
     public void leaderboard(){
         File file = new File("src/Leaderboard/leaderboard.txt");
-        int[] score = new int[10];
-        String[] names = new String[10];
+        
         
         try {
             Scanner out = new Scanner(file);
@@ -317,6 +318,14 @@ public class GameLoop extends AnimationTimer{
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public int[] getScores(){
+        return this.score;
+    }
+    
+    public String[] getNames(){
+        return this.names;
     }
     
     @Override
