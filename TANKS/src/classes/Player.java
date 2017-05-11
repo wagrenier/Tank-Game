@@ -165,6 +165,8 @@ public class Player implements Serializable{
     
     public void setShield(int var){
         this.shield = var;
+        
+        System.out.println(this.username + " " + this.shield);
     }
     
     public int getShield(){

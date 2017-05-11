@@ -16,3 +16,7 @@
     -fx-background-color: red;
     -fx-padding: 2;
 }
+.default-color {
+    -fx-background-color: greenyellow;
+    -fx-padding: 2;
+}

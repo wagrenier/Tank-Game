@@ -626,9 +626,11 @@ public class HUD extends Pane {
              System.out.println(playerHealth.getProgress());
          });*/
     }
+    
     public void updateHealth(){
         if (this.playerList.get(playerIndex).getShield() == 0){
-            
+            System.out.println("test");
+            playerHealth.setBorderColor("default-color");
         }
         else if (this.playerList.get(playerIndex).getShield() == 1){
             playerHealth.setBorderColor("small-shield");
@@ -640,26 +642,17 @@ public class HUD extends Pane {
             playerHealth.setBorderColor("large-shield");
         }
     }
-
+    
     public void updateHealth(int lifePoints) {
+        System.out.println("test");
+        
         if (lifePoints < 0) {
             playerHealth.setProgress(0);
         } else {
             playerHealth.setProgress((double) lifePoints / 100.0);
         }
         
-        if (this.playerList.get(playerIndex).getShield() == 0){
-            
-        }
-        else if (this.playerList.get(playerIndex).getShield() == 1){
-            playerHealth.setBorderColor("small-shield");
-        }
-        else if (this.playerList.get(playerIndex).getShield() == 2){
-            playerHealth.setBorderColor("medium-shield");
-        }
-        else if (this.playerList.get(playerIndex).getShield() == 3){
-            playerHealth.setBorderColor("large-shield");
-        }
+        
         
         System.out.println(lifePoints);
         if (lifePoints <= 30) {
@@ -958,6 +951,20 @@ public class HUD extends Pane {
         else if (tank.getLifePoint() > 30) {
             System.out.println("More than 30 points");
             playerHealth.setColor("green-bar");
+        }
+        
+        if (this.playerList.get(playerIndex).getShield() == 0){
+            System.out.println("test");
+            playerHealth.setBorderColor("default-color");
+        }
+        else if (this.playerList.get(playerIndex).getShield() == 1){
+            playerHealth.setBorderColor("small-shield");
+        }
+        else if (this.playerList.get(playerIndex).getShield() == 2){
+            playerHealth.setBorderColor("medium-shield");
+        }
+        else if (this.playerList.get(playerIndex).getShield() == 3){
+            playerHealth.setBorderColor("large-shield");
         }
     }
 

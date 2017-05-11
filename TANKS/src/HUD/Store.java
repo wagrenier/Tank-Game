@@ -99,7 +99,7 @@ public class Store {
         
         errorPanelOpen = true;
         errorMsg.setText(error);
-
+        this.gamePane.getChildren().removeAll(errorPanel, errorMsg);
         this.gamePane.getChildren().addAll(errorPanel, errorMsg);
     }
 
