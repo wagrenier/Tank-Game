@@ -759,6 +759,7 @@ public class Store {
                     if(index == 3 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 90){
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
                         gamePane.getTanksAnimation().getHud().nextItemAction();
+                        
                     }
                     else if(index == 3){
                         this.player.addMoney(100);
@@ -779,7 +780,7 @@ public class Store {
                     }
                     System.out.println(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield());
             }
-                else if( index == 6){
+                else if(index == 6){
                     gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setArmour(weaponManager.getItemArrayList().get(index).getValue());
                     gamePane.getTanksAnimation().getHud().nextItemAction();
                 }

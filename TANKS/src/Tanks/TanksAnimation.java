@@ -760,6 +760,7 @@ public class TanksAnimation{
     
     public void updateTurn(){
         nextPlayerText.setText(playerArray[indexOfCurrentPlayerTurn].getUsername() + "'s turn!");
+        this.pane.getChildren().remove(nextPlayerText);
         this.pane.getChildren().add(nextPlayerText);
         nextPlayerAnimation.play();
         
