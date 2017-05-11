@@ -252,18 +252,19 @@ public class TanksAnimation{
     
     private void setNextPlayerAnimation(){
         
-        nextPlayerText.setTranslateX(600);
-        nextPlayerText.setTranslateY(400);
+        nextPlayerText.setTranslateX(472.5);
+        nextPlayerText.setTranslateY(66.0);
         nextPlayerText.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
         
+        /*
         nextPlayerText.setOnMouseDragged(e -> {
             nextPlayerText.setTranslateX(e.getSceneX());
             nextPlayerText.setTranslateY(e.getSceneY());
             System.out.println(nextPlayerText.getTranslateX() + ", " + nextPlayerText.getTranslateY());
         });
+        */
         
-        
-        nextPlayerAnimation = new Timeline(new KeyFrame(Duration.seconds(7), e -> {
+        nextPlayerAnimation = new Timeline(new KeyFrame(Duration.seconds(2), e -> {
             this.pane.getChildren().remove(nextPlayerText);
         }));
         nextPlayerAnimation.setCycleCount(1);
