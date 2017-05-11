@@ -435,15 +435,15 @@ public class TanksAnimation{
         int tankOffsetX = 25;
         int tankOffsetY = 50;
         int cannonOffset = 25;
-        weapon.setLayoutX(-tankOffsetX);
-        weapon.setLayoutY(-tankOffsetY + cannonOffset);
+        //weapon.setLayoutX(-tankOffsetX);
+        //weapon.setLayoutY(-tankOffsetY + cannonOffset);
         
         //Special Setup For Mines
         if(this.hud.getWeaponIndex() == 7){
             mineLocationArrayList.add(weapon);
             //weapon.setCenterY(-5);
             //weapon.setLayoutX(-50);
-            weapon.setLayoutY(-30);
+           //weapon.setLayoutY(-30);
             weapon.setTranslateX(tank.getTranslateX());
             weapon.setTranslateY(tank.getTranslateY());
             weapon.setRotate(tank.getRotate());

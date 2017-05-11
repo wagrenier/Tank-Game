@@ -61,12 +61,12 @@ public class MapGeneration implements Serializable{
         //Thus, the starting point + amplitude < 700 & starting point - amplitude > 0
         //this.startingPoint = (350 + Math.random() * startingPoint);
         
-        this.startingPoint = startingPoint;
-        this.amplitudeOfWave = amplitudeOfWave;
-        this.lengthOfWave = 101;
         //this.startingPoint = startingPoint;
-       // this.amplitudeOfWave = (Math.random() * amplitudeOfWave);
-        //this.lengthOfWave = 100 + (Math.random() * lengthOfWave);
+        //this.amplitudeOfWave = amplitudeOfWave;
+        //this.lengthOfWave = 101;
+        this.startingPoint = startingPoint;
+        this.amplitudeOfWave = (Math.random() * amplitudeOfWave);
+        this.lengthOfWave = 100 + (Math.random() * lengthOfWave);
         //System.out.println("StartingPoint: " + this.startingPoint);
         //System.out.println("Wave amplitude: " + this.amplitudeOfWave);
        // System.out.println("Length of wave: " + this.lengthOfWave);

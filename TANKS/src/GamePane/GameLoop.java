@@ -291,10 +291,27 @@ public class GameLoop extends AnimationTimer{
                 score[i] = big.intValue();
                 
                 
-                if(playerArray[indexOfCurrentPlayerTurn].getFinalScore() > score[i]){
-                    
-                }
+                
                 System.out.println(score[i] + " " + names[i]);
+            }
+            
+            if(playerArray[indexOfCurrentPlayerTurn].getFinalScore() > score[9]){
+                score[9] = playerArray[indexOfCurrentPlayerTurn].getFinalScore();
+                names[9] = playerArray[indexOfCurrentPlayerTurn].getUsername();
+                 for (int i = 1; i < score.length; i++) {
+	            for(int j = i ; j > 0 ; j--){
+	                if(score[j] < score[j - 1]){
+	                    int temp = score[j];
+                            String temp2 = names[j];
+	                    score[j] = score[j - 1];
+                            names[j] = names[j - 1];
+	                    score[j - 1] = temp;
+                            names[j - 1] = temp2;
+	                }
+	            }
+	        }
+                 
+                 
             }
             
         } catch (FileNotFoundException ex) {
