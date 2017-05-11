@@ -1,4 +1,18 @@
-.root { -fx-background-color: cornsilk; -fxpadding: 15; }
+
+
 .yellow-bar { -fx-accent: yellow; }
 .green-bar  { -fx-accent: green;  }
 .red-bar    { -fx-accent: red;    }
+
+.small-shield {
+    -fx-background-color: yellow;
+    -fx-padding: 2;
+}
+.medium-shield {
+    -fx-background-color: purple;
+    -fx-padding: 2;
+}
+.large-shield {
+    -fx-background-color: red;
+    -fx-padding: 2;
+}

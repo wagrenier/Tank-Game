@@ -31,5 +31,9 @@ public class ColoredProgressBar extends ProgressBar{
         }
     }
     
+    public void setBorderColor(String color){
+        getStyleClass().add(color);
+    }
+    
   
 }

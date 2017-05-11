@@ -29,6 +29,7 @@ public class Store {
     private GamePane gamePane;
     private WeaponManager weaponManager;
     private SoundLib sounds;
+    private HUD hud;
 
     private Player player;//Player accessing the store
 
@@ -80,10 +81,11 @@ public class Store {
 
     private Text errorMsg = new Text("Insufficient funds");
 
-    public Store(GamePane gamePane, WeaponManager weaponManager, SoundLib sounds) {
+    public Store(GamePane gamePane, WeaponManager weaponManager, SoundLib sounds, HUD hud) {
         this.gamePane = gamePane;
         this.weaponManager = weaponManager;
         this.sounds = sounds;
+        this.hud = hud;
 
         storeBackground.setFitWidth(this.gamePane.getMinWidth());
         storeBackground.setFitHeight(this.gamePane.getMinHeight());
@@ -759,37 +761,82 @@ public class Store {
                     if(index == 3 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 90){
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
                         gamePane.getTanksAnimation().getHud().nextItemAction();
+                        player.setShield(1);
+                        hud.updateHealth();
+                        
+                        
+                        if (sounds.isSoundPlaying()){
+                    sounds.getBought().seek(Duration.ZERO);
+                    sounds.getBought().play();
+                }
                     }
                     else if(index == 3){
                         this.player.addMoney(100);
+                        
+                        throwStoreError("Item Already Bought");
                     }
                     else if(index == 4 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 80){
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
                         gamePane.getTanksAnimation().getHud().nextItemAction();
+                        player.setShield(2);
+                        hud.updateHealth();
+                        
+                        
+                        if (sounds.isSoundPlaying()){
+                    sounds.getBought().seek(Duration.ZERO);
+                    sounds.getBought().play();
+                }
                     }
                     else if(index == 4){
                         this.player.addMoney(150);
+                        
+                        throwStoreError("Item Already Bought");
                     }
                     else if(index == 5 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 70){
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
                         gamePane.getTanksAnimation().getHud().nextItemAction();
+                        player.setShield(3);
+                        hud.updateHealth();
+                        
+                        
+                        if (sounds.isSoundPlaying()){
+                    sounds.getBought().seek(Duration.ZERO);
+                    sounds.getBought().play();
+                }
                     }
                     else if(index == 5){
                         this.player.addMoney(200);
+                        
+                        throwStoreError("Item Already Bought");
                     }
                     System.out.println(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield());
             }
                 else if( index == 6){
                     gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setArmour(weaponManager.getItemArrayList().get(index).getValue());
                     gamePane.getTanksAnimation().getHud().nextItemAction();
+                    
+                    if (sounds.isSoundPlaying()){
+                    sounds.getBought().seek(Duration.ZERO);
+                    sounds.getBought().play();
+                }
                 }
             
                 else if(index == 7){
                     if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getMaxPixelMove() > 500){
                         this.player.addMoney(200);
+                        
+                        if (sounds.isSoundPlaying()){
+                            sounds.getError().seek(Duration.ZERO);
+                            sounds.getError().play();
+                        }
                     }
                     else{
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setMaxPixelMove(50);gamePane.getTanksAnimation().getHud().nextItemAction();
+                        
+                        if (sounds.isSoundPlaying()){
+                    sounds.getBought().seek(Duration.ZERO);
+                    sounds.getBought().play();
+                }
                     }  
                     System.out.println(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getMaxPixelMove());
             }

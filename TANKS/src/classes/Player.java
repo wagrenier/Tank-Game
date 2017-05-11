@@ -21,6 +21,7 @@ public class Player implements Serializable{
     private int[] weaponInventory = new int[9];
     private int[] itemInventory = new int[8];
     private int finalScore = 0;//The score of the player
+    private int shield = 0;
     
     /**
      * Index of the teams
@@ -160,6 +161,14 @@ public class Player implements Serializable{
 
     public void setFinalScore(int finalScore) {
         this.finalScore = finalScore;
+    }
+    
+    public void setShield(int var){
+        this.shield = var;
+    }
+    
+    public int getShield(){
+        return this.shield;
     }
     
 }

@@ -48,7 +48,7 @@ public class PlayerMenu extends Pane{
     private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
     
     private Image leftBtnImage = new Image("Texture/Menus/PlayerMenu/Left Arrow.png");
-    private Image leftBtnHover = new Image("Texture/Menus/PlayerMenu/left Arrow Hover.png");
+    private Image leftBtnHover = new Image("Texture/Menus/PlayerMenu/Left Arrow Hover.png");
     private Image leftBtnClicked = new Image("Texture/Menus/PlayerMenu/Left Arrow Clicked.png");
     
     private Image rightBtnImage = new Image("Texture/Menus/PlayerMenu/Right Arrow.png");

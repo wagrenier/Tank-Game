@@ -124,7 +124,7 @@ public class HUD extends Pane {
         this.setMaxSize(WIDTH, HEIGHT);
 
         this.gamePane = gamePane;
-        this.storeMenu = new Store(this.gamePane, this.weaponManager, this.sounds);
+        this.storeMenu = new Store(this.gamePane, this.weaponManager, this.sounds, this);
         this.pauseMenu = new PauseMenu(this.gamePane, this.storeMenu, this.sounds, this.cursorImg);
 
         //The gravity in the hud is multiplied by 100 to prevent the game from displaying 5e-6
@@ -581,6 +581,7 @@ public class HUD extends Pane {
         playerHealth.setTranslateY(46.5);
 
         playerHealth.getStylesheets().add(getClass().getResource("progress.css").toExternalForm());
+        
 
         /*
          playerHealth.setOnMouseDragged(e -> {
@@ -608,6 +609,20 @@ public class HUD extends Pane {
              System.out.println(playerHealth.getProgress());
          });*/
     }
+    public void updateHealth(){
+        if (this.playerList.get(playerIndex).getShield() == 0){
+            
+        }
+        else if (this.playerList.get(playerIndex).getShield() == 1){
+            playerHealth.setBorderColor("small-shield");
+        }
+        else if (this.playerList.get(playerIndex).getShield() == 2){
+            playerHealth.setBorderColor("medium-shield");
+        }
+        else if (this.playerList.get(playerIndex).getShield() == 3){
+            playerHealth.setBorderColor("large-shield");
+        }
+    }
 
     public void updateHealth(int lifePoints) {
         if (lifePoints < 0) {
@@ -615,7 +630,20 @@ public class HUD extends Pane {
         } else {
             playerHealth.setProgress((double) lifePoints / 100.0);
         }
-
+        
+        if (this.playerList.get(playerIndex).getShield() == 0){
+            
+        }
+        else if (this.playerList.get(playerIndex).getShield() == 1){
+            playerHealth.setBorderColor("small-shield");
+        }
+        else if (this.playerList.get(playerIndex).getShield() == 2){
+            playerHealth.setBorderColor("medium-shield");
+        }
+        else if (this.playerList.get(playerIndex).getShield() == 3){
+            playerHealth.setBorderColor("large-shield");
+        }
+        
         System.out.println(lifePoints);
         if (lifePoints <= 30) {
             System.out.println("Less than 30 points");
@@ -626,6 +654,10 @@ public class HUD extends Pane {
             playerHealth.setColor("green-bar");
         }
 
+    }
+    
+    public ColoredProgressBar getHealth(){
+        return this.playerHealth;
     }
 
     private void setWind() {
