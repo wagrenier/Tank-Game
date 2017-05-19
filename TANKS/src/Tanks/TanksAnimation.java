@@ -16,7 +16,7 @@ import Weapon.RCAnimation;
 import Weapon.Weapon;
 import Weapon.WeaponAnimation;
 import Weapon.WeaponManager;
-import classes.Player;
+import PlayerSettings.Player;
 import java.util.ArrayList;
 import javafx.animation.Animation;
 import static javafx.animation.Animation.Status.RUNNING;
@@ -531,7 +531,7 @@ public class TanksAnimation{
     }
     
     private void hitDetectionRC(Tanks tank, Weapon weapon, RCAnimation rcAnimation){
-        HitDetectionRC hitDetectionRC = new HitDetectionRC(rcAnimation, hud, tanksOne, tanksTwo, tanksThree, tanksFour, tank, animation, animation2, animation3, animation4, pane, weapon);
+        HitDetectionRC hitDetectionRC = new HitDetectionRC(rcAnimation, tanksOne, tanksTwo, tanksThree, tanksFour, tank, animation, animation2, animation3, animation4, pane, weapon);
         hitDetectionRC.start();
     }
     

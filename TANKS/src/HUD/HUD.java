@@ -5,7 +5,7 @@
  */
 package HUD;
 
-import classes.Player;
+import PlayerSettings.Player;
 import Sounds.SoundLib;
 import Tanks.Tanks;
 import GamePane.GamePane;

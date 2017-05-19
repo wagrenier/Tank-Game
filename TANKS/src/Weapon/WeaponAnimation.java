@@ -34,7 +34,7 @@ public class WeaponAnimation{
     private double currentYPosition;
     private double canonAngle;
     private double angleLaunched; // angle must be between 0 and 1 included
-    private double initialYVelocity;
+    
     private double yspeed;
     private double xspeed;
     
@@ -99,7 +99,6 @@ public class WeaponAnimation{
         this.initialYPosition = tank.getTranslateY() + (50 * Math.sin(angleLaunched) - 35);
         
         
-        initialYVelocity = initialVelocity * Math.sin(angleLaunched);
         yspeed = initialVelocity * Math.sin(angleLaunched);
         xspeed = initialVelocity * Math.cos(angleLaunched);
         
@@ -181,6 +180,15 @@ public class WeaponAnimation{
     private double projectileRotation(){
         return Math.toDegrees(Math.asin((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));
     }
+    
+    public void stopAnimation(){
+        animationWeapon.stop();
+        pane.getChildren().removeAll(weapon);
+    }
+    
+    public void removeWeaponFromPane(){
+        pane.getChildren().removeAll(weapon);
+    }
 
     public double getInitialVelocity() {
         return initialVelocity;
@@ -209,14 +217,103 @@ public class WeaponAnimation{
     public void setHitSomething(boolean hitSomething) {
         this.hitSomething = hitSomething;
     }
-    
-    public void stopAnimation(){
-        animationWeapon.stop();
-        pane.getChildren().removeAll(weapon);
+
+    public double getInitialXPosition() {
+        return initialXPosition;
+    }
+
+    public void setInitialXPosition(double initialXPosition) {
+        this.initialXPosition = initialXPosition;
+    }
+
+    public double getInitialYPosition() {
+        return initialYPosition;
+    }
+
+    public void setInitialYPosition(double initialYPosition) {
+        this.initialYPosition = initialYPosition;
+    }
+
+    public double getGravity() {
+        return gravity;
+    }
+
+    public void setGravity(double gravity) {
+        this.gravity = gravity;
+    }
+
+    public double getCurrentYPosition() {
+        return currentYPosition;
+    }
+
+    public void setCurrentYPosition(double currentYPosition) {
+        this.currentYPosition = currentYPosition;
+    }
+
+    public double getCanonAngle() {
+        return canonAngle;
+    }
+
+    public void setCanonAngle(double canonAngle) {
+        this.canonAngle = canonAngle;
+    }
+
+    public double getAngleLaunched() {
+        return angleLaunched;
+    }
+
+    public void setAngleLaunched(double angleLaunched) {
+        this.angleLaunched = angleLaunched;
+    }
+
+    public double getYspeed() {
+        return yspeed;
+    }
+
+    public void setYspeed(double yspeed) {
+        this.yspeed = yspeed;
+    }
+
+    public double getXspeed() {
+        return xspeed;
+    }
+
+    public void setXspeed(double xspeed) {
+        this.xspeed = xspeed;
+    }
+
+    public ExplosionAnimation getExplosionAnimation() {
+        return explosionAnimation;
+    }
+
+    public void setExplosionAnimation(ExplosionAnimation explosionAnimation) {
+        this.explosionAnimation = explosionAnimation;
+    }
+
+    public MapGeneration getMapGeneration() {
+        return mapGeneration;
+    }
+
+    public void setMapGeneration(MapGeneration mapGeneration) {
+        this.mapGeneration = mapGeneration;
+    }
+
+    public Pane getPane() {
+        return pane;
+    }
+
+    public void setPane(Pane pane) {
+        this.pane = pane;
+    }
+
+    public SoundLib getSounds() {
+        return sounds;
+    }
+
+    public void setSounds(SoundLib sounds) {
+        this.sounds = sounds;
     }
     
-    public void removeWeaponFromPane(){
-        pane.getChildren().removeAll(weapon);
-    }
+    
     
 }

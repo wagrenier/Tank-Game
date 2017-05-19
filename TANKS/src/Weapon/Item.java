@@ -14,13 +14,14 @@ import java.io.Serializable;
  * @author Cedrik Dubois
  */
 public class Item{
-    
-    private String name;
     private int costOfItem;
+    private int value;
+    private String name;
+    private String use;
     private String texturePath;
     private Image itemImage;
-    private String use;
-    private int value;
+    
+    
     
     public Item(){
         
@@ -74,4 +75,14 @@ public class Item{
     public int getValue(){
         return this.value;
     }
+
+    public String getTexturePath() {
+        return texturePath;
+    }
+
+    public void setTexturePath(String texturePath) {
+        this.texturePath = texturePath;
+    }
+    
+    
 }

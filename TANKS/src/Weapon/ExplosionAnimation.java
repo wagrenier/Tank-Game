@@ -11,7 +11,6 @@ import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 /**
@@ -19,7 +18,7 @@ import javafx.util.Duration;
  * @author willi
  */
 public class ExplosionAnimation {
-    private int frame = 0;
+    private int frameIndex = 0;
     private Image frame1 = new Image("Explosion/Explosion Animation/Frame 1.png");
     private Image frame2 = new Image("Explosion/Explosion Animation/Frame 2.png");
     private Image frame3 = new Image("Explosion/Explosion Animation/Frame 3.png");
@@ -59,7 +58,7 @@ public class ExplosionAnimation {
         frames[11] = frame11;
         frames[12] = frame12;
         
-        explosion = new ImageView(frames[frame]);
+        explosion = new ImageView(frames[frameIndex]);
         explosion.setFitHeight(100);
         explosion.setFitWidth(100);
         
@@ -67,12 +66,12 @@ public class ExplosionAnimation {
         pane.getChildren().add(explosion);
         
         animation = new Timeline(new KeyFrame(Duration.millis(50), e -> {
-            if (frame == 12)
-                frame =0;
+            if (frameIndex == 12)
+                frameIndex = 0;
             else
-                frame++;
+                frameIndex++;
             
-            explosion.setImage(frames[frame]);
+            explosion.setImage(frames[frameIndex]);
         }));
         animation.setCycleCount(13);
     }

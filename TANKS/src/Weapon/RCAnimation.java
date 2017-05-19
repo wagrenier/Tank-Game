@@ -18,11 +18,9 @@ import javafx.util.Duration;
  * @author willi
  */
 public class RCAnimation {
+    
     private boolean hitSomething = false;
-    private double initialXPosition;
-    private double initialYPosition;
     private double initialVelocity = .5;
-    private double gravity = .0005;
     private double currentYPosition;
     private double yspeed;
     private double xspeed;
@@ -76,7 +74,7 @@ public class RCAnimation {
                 yspeed *= -1;
             }
             if (weapon.getTranslateY() < currentYPosition ){
-                yspeed += gravity;
+                yspeed += mapGeneration.getGravity();
             }
             else{
                 yspeed = 0;
@@ -148,4 +146,62 @@ public class RCAnimation {
     public void removeWeaponFromPane(){
         pane.getChildren().removeAll(weapon);
     }
+
+    public double getCurrentYPosition() {
+        return currentYPosition;
+    }
+
+    public void setCurrentYPosition(double currentYPosition) {
+        this.currentYPosition = currentYPosition;
+    }
+
+    public double getYspeed() {
+        return yspeed;
+    }
+
+    public void setYspeed(double yspeed) {
+        this.yspeed = yspeed;
+    }
+
+    public double getXspeed() {
+        return xspeed;
+    }
+
+    public void setXspeed(double xspeed) {
+        this.xspeed = xspeed;
+    }
+
+    public ExplosionAnimation getExplosionAnimation() {
+        return explosionAnimation;
+    }
+
+    public void setExplosionAnimation(ExplosionAnimation explosionAnimation) {
+        this.explosionAnimation = explosionAnimation;
+    }
+
+    public MapGeneration getMapGeneration() {
+        return mapGeneration;
+    }
+
+    public void setMapGeneration(MapGeneration mapGeneration) {
+        this.mapGeneration = mapGeneration;
+    }
+
+    public Pane getPane() {
+        return pane;
+    }
+
+    public void setPane(Pane pane) {
+        this.pane = pane;
+    }
+
+    public SoundLib getSounds() {
+        return sounds;
+    }
+
+    public void setSounds(SoundLib sounds) {
+        this.sounds = sounds;
+    }
+    
+    
 }

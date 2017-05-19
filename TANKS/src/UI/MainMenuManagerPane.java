@@ -5,7 +5,7 @@
  */
 package classes;
 
-import HUD.HelpMenu;
+import PlayerSettings.Player;
 import GamePane.GamePane;
 import LoadFunction.LoadFunction;
 import Sounds.SoundLib;
@@ -23,22 +23,21 @@ import javafx.util.Duration;
  */
 public class MainMenuManagerPane extends Pane{
     
-    SoundLib sounds = new SoundLib();
-    GamePane gamePane;
-    LoadFunction load;
-    BorderPane borderPane = new BorderPane();
-    private MainMenu mainMenu = new MainMenu(sounds);
-    private PlayerMenu playerMenu = new PlayerMenu(sounds);
-    private CountryMenu countryMenu = new CountryMenu(sounds);
-    private MapMenu mapMenu = new MapMenu(sounds);
     
     private static int numberOfPlayers;
     private static int playerCount = 0;
     private static int paneCount = 0;
+    
+    private SoundLib sounds = new SoundLib();
+    private GamePane gamePane;
+    private LoadFunction load;
+    private BorderPane borderPane = new BorderPane();
+    private MainMenu mainMenu = new MainMenu(sounds);
+    private PlayerMenu playerMenu = new PlayerMenu(sounds);
+    private CountryMenu countryMenu = new CountryMenu(sounds);
+    private MapMenu mapMenu = new MapMenu(sounds);
     private ArrayList<Pane> paneList = new ArrayList<>();
     private ArrayList<Player> playerList = new ArrayList<>();
-    //private ImageView cursor = new ImageView(new Image("Texture/Cursor/Cursor.png"));
-    
     private Background chosenMap;
     
     public MainMenuManagerPane() {
@@ -216,7 +215,7 @@ public class MainMenuManagerPane extends Pane{
         pane.setCursor(new ImageCursor(new Image("Texture/Cursor/Cursor.png")));
     }
     
-    private void registerPlayer(boolean lastplayer){
+    private void registerPlayer(boolean lastPlayer){
         
         playerList.get(playerCount).setName(countryMenu.getPlayerName());
         playerList.get(playerCount).setTeam(countryMenu.getCountry());
@@ -225,7 +224,7 @@ public class MainMenuManagerPane extends Pane{
         else
             playerList.get(playerCount).setIsAI(false);
         
-        if (!lastplayer)
+        if (!lastPlayer)
             countryMenu.removeTeam(countryMenu.getTankCount());
     }
 
@@ -264,5 +263,47 @@ public class MainMenuManagerPane extends Pane{
     public ArrayList<Player> getPlayerList() {
         return playerList;
     } 
+
+    public SoundLib getSounds() {
+        return sounds;
+    }
+
+    public void setSounds(SoundLib sounds) {
+        this.sounds = sounds;
+    }
+
+    public GamePane getGamePane() {
+        return gamePane;
+    }
+
+    public void setGamePane(GamePane gamePane) {
+        this.gamePane = gamePane;
+    }
+
+    public LoadFunction getLoad() {
+        return load;
+    }
+
+    public void setLoad(LoadFunction load) {
+        this.load = load;
+    }
+
+    public BorderPane getBorderPane() {
+        return borderPane;
+    }
+
+    public void setBorderPane(BorderPane borderPane) {
+        this.borderPane = borderPane;
+    }
+
+    public Background getChosenMap() {
+        return chosenMap;
+    }
+
+    public void setChosenMap(Background chosenMap) {
+        this.chosenMap = chosenMap;
+    }
+    
+    
     
 }

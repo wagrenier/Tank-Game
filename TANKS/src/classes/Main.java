@@ -5,7 +5,6 @@
  */
 package classes;
 
-
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
@@ -18,79 +17,34 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     
-    
-    Scene scene;
-    
     @Override
     public void start(Stage primaryStage) {
         
-
-
+        MainMenuManagerPane mainMenuManagerPane = new MainMenuManagerPane();
         
-        /*
+        Scene scene = new Scene(mainMenuManagerPane, 1200, 950);
         
-        MainMenu mainMenuPane = new MainMenu();
-
-        
-        
-        scene = new Scene(mainMenuPane, 1200, 800);
-
-        
-        primaryStage.getIcons().add(new Image("Texture/Tanks/USA/Body/Green_Tank_(100x100).png"));
-        primaryStage.setTitle("Tanks");
-        
-       /*
-        scene.setOnDragDetected(e ->{
-            
-            
-           width = pane.getWidth();
-           //System.out.println(width);
-           height = pane.getHeight();
-           ratio = 1200 / width;
-           ratioHeight = 800 / height;
-           
-           pane.setScaleX(ratio);
-           pane.setScaleY(ratioHeight);
-           //pane.resize(width, height);
-           
-           //ratioHeight = 800 / height;
-           //pane.resize(width, height);
-           //pane.setLayoutX(pane.getTranslateX() * ratio);
-           //pane.setLayoutY(pane.getTranslateY() * ratio);
-            
-            /**
-            pie.stop();
-            pane.getChildren().clear();
-            pie.getChildren().clear();
-            paneSetup(pane);
-            movingBallSetup(pane);
-            
-            
-            
-        });
-        
-       
         primaryStage.setScene(scene);
+        
+        
         primaryStage.show();
         
-       primaryStage.setResizable(false);
+        Image icon = new Image("Texture/Icons/icon.png");
         
-        
-        primaryStage.setMinHeight(800);
+        primaryStage.getIcons().add(icon);
+        primaryStage.setTitle("Tanks");
+        primaryStage.setMinHeight(750);
         primaryStage.setMinWidth(1200);
-        
-        primaryStage.setMaxWidth(1200);
-        primaryStage.setMaxHeight(800);
-        mainMenuPane.requestFocus();*/
+
+        primaryStage.setResizable(false);
+
+        primaryStage.sizeToScene(); 
     }
     
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
-    }
-
-    
+    } 
 }

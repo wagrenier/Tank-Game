@@ -5,6 +5,7 @@
  */
 package classes;
 
+import PlayerSettings.Player;
 import Sounds.SoundLib;
 import java.util.ArrayList;
 import javafx.scene.Scene;

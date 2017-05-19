@@ -22,10 +22,10 @@ public class HitDetection extends AnimationTimer{
     private HUD hud;
     
     
-    private final Tanks tanksOne;
-    private final Tanks tanksTwo;
-    private final Tanks tanksThree;
-    private final Tanks tanksFour;
+    private Tanks tanksOne;
+    private Tanks tanksTwo;
+    private Tanks tanksThree;
+    private Tanks tanksFour;
     
     //Variable for the tanks' animation
     private Timeline animation;

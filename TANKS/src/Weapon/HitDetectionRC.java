@@ -17,7 +17,6 @@ import javafx.animation.Timeline;
  */
 public class HitDetectionRC extends AnimationTimer{
     
-    private HUD hud;
     
     private final Tanks tanksOne;
     private final Tanks tanksTwo;
@@ -37,8 +36,8 @@ public class HitDetectionRC extends AnimationTimer{
     private RCAnimation weaponAnimation;
     private Weapon weapon;
 
-    public HitDetectionRC(RCAnimation weaponAnimation, HUD hud, Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Timeline animation, Timeline animation2, Timeline animation3, Timeline animation4, GamePane pane, Weapon weapon) {
-        this.hud = hud;
+    public HitDetectionRC(RCAnimation weaponAnimation, Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Timeline animation, Timeline animation2, Timeline animation3, Timeline animation4, GamePane pane, Weapon weapon) {
+        
         this.tanksOne = tanksOne;
         this.tanksTwo = tanksTwo;
         this.tanksThree = tanksThree;

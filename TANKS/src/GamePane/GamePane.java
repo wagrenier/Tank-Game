@@ -9,7 +9,7 @@ import HUD.HUD;
 import Tanks.TanksAnimation;
 import MapGeneration.MapGeneration;
 import Sounds.SoundLib;
-import classes.Player;
+import PlayerSettings.Player;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javafx.animation.Timeline;
@@ -36,8 +36,8 @@ public class GamePane extends Pane implements Serializable{
     
     private int numOfPlayers;
     private int mapIndex;
-    private double width = 1200;
-    private double height = 800;
+    private int width = 1200;
+    private int height = 800;
     private transient TanksAnimation tanksAnimation;
     private MapGeneration mapGeneration;
     private ArrayList<Player> playerArrayList = new ArrayList<>();
@@ -205,4 +205,38 @@ public class GamePane extends Pane implements Serializable{
     public GameLoop getGameLoop() {
         return gameLoop;
     }
+
+    public SoundLib getSounds() {
+        return sounds;
+    }
+
+    public void setSounds(SoundLib sounds) {
+        this.sounds = sounds;
+    }
+
+    public int getNumOfPlayers() {
+        return numOfPlayers;
+    }
+
+    public void setNumOfPlayers(int numOfPlayers) {
+        this.numOfPlayers = numOfPlayers;
+    }
+
+    public int getMapIndex() {
+        return mapIndex;
+    }
+
+    public void setMapIndex(int mapIndex) {
+        this.mapIndex = mapIndex;
+    }
+
+    public Timeline[] getTanksAnimationArrayUsed() {
+        return tanksAnimationArrayUsed;
+    }
+
+    public void setTanksAnimationArrayUsed(Timeline[] tanksAnimationArrayUsed) {
+        this.tanksAnimationArrayUsed = tanksAnimationArrayUsed;
+    }
+    
+    
 }

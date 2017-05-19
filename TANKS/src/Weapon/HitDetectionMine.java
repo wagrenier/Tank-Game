@@ -23,10 +23,10 @@ import javafx.scene.layout.Pane;
 public class HitDetectionMine extends AnimationTimer{
     
     private boolean hitSomething = false;
-    private final Tanks tanksOne;
-    private final Tanks tanksTwo;
-    private final Tanks tanksThree;
-    private final Tanks tanksFour;
+    private Tanks tanksOne;
+    private Tanks tanksTwo;
+    private Tanks tanksThree;
+    private Tanks tanksFour;
     private TanksAnimation tanksAnimation;
     private Tanks tank;
     private ExplosionAnimation explosionAnimation;

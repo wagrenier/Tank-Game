@@ -5,14 +5,13 @@
  */
 package Weapon;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author willi
  */
-public class WeaponManager  implements Serializable{
+public class WeaponManager{
    
     /**
      * This class is used to manage the Objects weapon.
@@ -20,10 +19,8 @@ public class WeaponManager  implements Serializable{
      * 
      */
     
-    private transient  ArrayList<Weapon> weaponArrayList = new ArrayList<>();
+    private ArrayList<Weapon> weaponArrayList = new ArrayList<>();
     private ArrayList<Item> itemArrayList = new ArrayList<>();
-    
-    
     
     public WeaponManager(){
         setupWeaponManager();
@@ -85,5 +82,14 @@ public class WeaponManager  implements Serializable{
     public ArrayList<Item> getItemArrayList(){
         return itemArrayList;
     }
+
+    public void setWeaponArrayList(ArrayList<Weapon> weaponArrayList) {
+        this.weaponArrayList = weaponArrayList;
+    }
+
+    public void setItemArrayList(ArrayList<Item> itemArrayList) {
+        this.itemArrayList = itemArrayList;
+    }
+    
     
 }

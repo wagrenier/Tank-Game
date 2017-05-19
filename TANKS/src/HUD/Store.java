@@ -8,7 +8,7 @@ package HUD;
 import GamePane.GamePane;
 import Sounds.SoundLib;
 import Weapon.WeaponManager;
-import classes.Player;
+import PlayerSettings.Player;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;

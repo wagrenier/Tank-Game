@@ -17,6 +17,8 @@ import javafx.scene.shape.Circle;
  */
 public class Weapon extends Circle{
     
+    
+    private int indexOfWeapon;
     private int costOfWeapon;
     private int damage;
     private String texturePath;
@@ -27,20 +29,17 @@ public class Weapon extends Circle{
     private ImagePattern texturePattern;
     private Media soundEffect;
     private MediaPlayer soundEffectPlayer;
-    private int indexOfWeapon;
+    
    
     
     public Weapon(int damage, String texturePath, int indexOfWeapon){
         this.setRadius(25);
         this.texturePath = texturePath;
         texture = new Image(this.texturePath);
-        //this.setImage(texture);
         this.damage = damage;
         this.indexOfWeapon = indexOfWeapon;
         texturePattern = new ImagePattern(texture);
         this.setFill(texturePattern);
-        //this.setLayoutX(50);
-        //this.setLayoutY(50);
     }
     
     public Weapon(int damage, int costOfWeapon, String weaponName, String texturePath, String shotType, int indexOfWeapon) {
@@ -53,11 +52,8 @@ public class Weapon extends Circle{
         this.weaponName = weaponName;
         texture = new Image(this.texturePath);
         texturePattern = new ImagePattern(texture);
-        //this.setImage(texture);
         this.setFill(texturePattern);
         this.indexOfWeapon = indexOfWeapon;
-        //this.setLayoutX(50);
-        //this.setLayoutY(50);
     }
 
     public Weapon(int costOfWeapon, String weaponName, String texturePath, String soundEffectPath, int indexOfWeapon) {
@@ -69,12 +65,9 @@ public class Weapon extends Circle{
         texture = new Image(this.texturePath);
         texturePattern = new ImagePattern(texture);
         this.setFill(texturePattern);
-        //this.setImage(texture);
         soundEffect = new Media(this.soundEffectPath);
         soundEffectPlayer = new MediaPlayer(this.soundEffect);   
         this.indexOfWeapon = indexOfWeapon;
-        //this.setLayoutX(50);
-        //this.setLayoutY(50);
     }
     
     public String getShotType(){
@@ -132,6 +125,15 @@ public class Weapon extends Circle{
     public int getIndexOfWeapon() {
         return indexOfWeapon;
     }
+
+    public ImagePattern getTexturePattern() {
+        return texturePattern;
+    }
+
+    public void setTexturePattern(ImagePattern texturePattern) {
+        this.texturePattern = texturePattern;
+    }
+    
     
     
 }
