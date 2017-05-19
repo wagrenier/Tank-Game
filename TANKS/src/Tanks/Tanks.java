@@ -24,17 +24,17 @@ public class Tanks extends Circle{
     private int lifePoint = 100;
     private boolean isTankAlive = false;
     private boolean isAI = false;
-    private final String imagePath;
-    private final String imageReversePath;
-    private final Image texture;
-    private final Image textureFlipped;
+    private String imagePath;
+    private String imageReversePath;
+    private Image texture;
+    private Image textureFlipped;
     private boolean isImageFlipped = false;
-    private final Cannon cannon;
+    private Cannon cannon;
     private int team;
     private int shield = 100;
     private int armour = 0;
-    private final ImagePattern texturePattern;
-    private final ImagePattern texturePatternFlipped;
+    private ImagePattern texturePattern;
+    private ImagePattern texturePatternFlipped;
     
     Tanks(String imagePath, String imageReversePath, String imagePathCannon, int team){
         this.imageReversePath = imageReversePath;

@@ -305,5 +305,4 @@ public class MainMenuManagerPane extends Pane{
     }
     
     
-    
 }
