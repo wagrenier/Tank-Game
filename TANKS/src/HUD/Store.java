@@ -92,11 +92,11 @@ public class Store {
     }
 
     private void throwStoreError(String error) {
-        if (sounds.isSoundPlaying()){
-                    sounds.getError().seek(Duration.ZERO);
-                    sounds.getError().play();
-                }
-        
+        if (sounds.isSoundPlaying()) {
+            sounds.getError().seek(Duration.ZERO);
+            sounds.getError().play();
+        }
+
         errorPanelOpen = true;
         errorMsg.setText(error);
         this.gamePane.getChildren().removeAll(errorPanel, errorMsg);
@@ -523,11 +523,11 @@ public class Store {
             addItemInfo(6);
 
         });
-        
+
         armorBtn.setOnMouseReleased(e -> {
             buyButtonAction(false, 6);
         });
-        
+
         armorBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
             resetItemInfo();
@@ -553,11 +553,11 @@ public class Store {
             addItemInfo(7);
 
         });
-        
+
         engineBtn.setOnMouseReleased(e -> {
             buyButtonAction(false, 7);
         });
-        
+
         engineBtn.setOnMouseExited(e -> {
             this.gamePane.setCursor(cursorImg);
             resetItemInfo();
@@ -718,7 +718,7 @@ public class Store {
             resetItemInfo();
         });
     }
-    
+
     //Made this method public so the AI can buy items too
     private void buyItem(boolean type, int index) {
         /*
@@ -739,13 +739,13 @@ public class Store {
             } else {
                 this.player.addWeapon(index);
                 gamePane.getTanksAnimation().getHud().nextWeaponActionVerification();
-                
-                if (sounds.isSoundPlaying()){
+
+                if (sounds.isSoundPlaying()) {
                     sounds.getBought().seek(Duration.ZERO);
                     sounds.getBought().play();
                 }
             }
-            
+
         } else {
 
             if (this.player.removeMoney(weaponManager.getItemFromWeaponManager(index).getCostOfItem()) == false) {
@@ -756,108 +756,96 @@ public class Store {
                     throwStoreError("Insuficient Funds");
                 }
             } else {
-                
-                if(index == 3 || index == 4 || index == 5){
-                    if(index == 3 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 90){
+
+                if (index == 3 || index == 4 || index == 5) {
+                    if (index == 3 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 90) {
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
                         gamePane.getTanksAnimation().getHud().nextItemAction();
 
                         player.setShield(1);
                         hud.updateHealth();
-                        
-                        
-                        if (sounds.isSoundPlaying()){
-                    sounds.getBought().seek(Duration.ZERO);
-                    sounds.getBought().play();
-                }
 
-                    }
-                    else if(index == 3){
+                        if (sounds.isSoundPlaying()) {
+                            sounds.getBought().seek(Duration.ZERO);
+                            sounds.getBought().play();
+                        }
+
+                    } else if (index == 3) {
                         this.player.addMoney(100);
-                        
+
                         throwStoreError("Item Already Bought");
-                    }
-                    else if(index == 4 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 80){
+                    } else if (index == 4 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 80) {
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
                         gamePane.getTanksAnimation().getHud().nextItemAction();
                         player.setShield(2);
                         hud.updateHealth();
-                        
-                        
-                        if (sounds.isSoundPlaying()){
-                    sounds.getBought().seek(Duration.ZERO);
-                    sounds.getBought().play();
-                }
-                    }
-                    else if(index == 4){
+
+                        if (sounds.isSoundPlaying()) {
+                            sounds.getBought().seek(Duration.ZERO);
+                            sounds.getBought().play();
+                        }
+                    } else if (index == 4) {
                         this.player.addMoney(150);
-                        
+
                         throwStoreError("Item Already Bought");
-                    }
-                    else if(index == 5 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 70){
+                    } else if (index == 5 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 70) {
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
                         gamePane.getTanksAnimation().getHud().nextItemAction();
                         player.setShield(3);
                         hud.updateHealth();
-                        
-                        
-                        if (sounds.isSoundPlaying()){
-                    sounds.getBought().seek(Duration.ZERO);
-                    sounds.getBought().play();
-                }
-                    }
-                    else if(index == 5){
+
+                        if (sounds.isSoundPlaying()) {
+                            sounds.getBought().seek(Duration.ZERO);
+                            sounds.getBought().play();
+                        }
+                    } else if (index == 5) {
                         this.player.addMoney(200);
-                        
+
                         throwStoreError("Item Already Bought");
                     }
                     System.out.println(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield());
-            }
-                else if(index == 6){
+                } else if (index == 6) {
                     gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setArmour(weaponManager.getItemArrayList().get(index).getValue());
                     gamePane.getTanksAnimation().getHud().nextItemAction();
-                    
-                    if (sounds.isSoundPlaying()){
-                    sounds.getBought().seek(Duration.ZERO);
-                    sounds.getBought().play();
-                }
-                }
-            
-                else if(index == 7){
-                    if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getMaxPixelMove() > 500){
+
+                    if (sounds.isSoundPlaying()) {
+                        sounds.getBought().seek(Duration.ZERO);
+                        sounds.getBought().play();
+                    }
+                } else if (index == 7) {
+                    if (gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getMaxPixelMove() > 500) {
                         this.player.addMoney(200);
-                        
-                        if (sounds.isSoundPlaying()){
+
+                        if (sounds.isSoundPlaying()) {
                             sounds.getError().seek(Duration.ZERO);
                             sounds.getError().play();
                         }
+                    } else {
+                        gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setMaxPixelMove(50);
+                        gamePane.getTanksAnimation().getHud().nextItemAction();
+
+                        if (sounds.isSoundPlaying()) {
+                            sounds.getBought().seek(Duration.ZERO);
+                            sounds.getBought().play();
+                        }
                     }
-                    else{
-                        gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setMaxPixelMove(50);gamePane.getTanksAnimation().getHud().nextItemAction();
-                        
-                        if (sounds.isSoundPlaying()){
-                    sounds.getBought().seek(Duration.ZERO);
-                    sounds.getBought().play();
-                }
-                    }  
                     System.out.println(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getMaxPixelMove());
-            }
-                else{
+                } else {
                     this.player.addItem(index);
                     gamePane.getTanksAnimation().getHud().nextItemAction();
-                    
-                    if (sounds.isSoundPlaying()){
-                    sounds.getBought().seek(Duration.ZERO);
-                    sounds.getBought().play();
-                }   
+
+                    if (sounds.isSoundPlaying()) {
+                        sounds.getBought().seek(Duration.ZERO);
+                        sounds.getBought().play();
+                    }
                 }
-                
+
                 System.out.println("Bough Item");
             }
         }
 
     }
-    
+
     public void buyItemAI(boolean type, int index, Player playerAI) {
         /*
         type = true means it is a weapon, must pick from weaponArray
@@ -888,40 +876,29 @@ public class Store {
                     throwStoreError("Insuficient Funds");
                 }
             } else {
-                if(index == 3 || index == 4 || index == 5){
-                    if(index == 3 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 90){
+                if (index == 3 || index == 4 || index == 5) {
+                    if (index == 3 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 90) {
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
-                    }
-                    else if(index == 3){
+                    } else if (index == 3) {
                         playerAI.addMoney(100);
-                    }
-                    else if(index == 4 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 80){
+                    } else if (index == 4 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 80) {
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
-                    }
-                    else if(index == 4){
+                    } else if (index == 4) {
                         playerAI.addMoney(150);
-                    }
-                    else if(index == 5 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 70){
+                    } else if (index == 5 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 70) {
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
-                    }
-                    else if(index == 5){
+                    } else if (index == 5) {
                         playerAI.addMoney(200);
                     }
                     System.out.println(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield());
-            }
-                
-                
-            
-                else if(index == 7){
-                    if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getMaxPixelMove() > 500){
+                } else if (index == 7) {
+                    if (gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getMaxPixelMove() > 500) {
                         playerAI.addMoney(200);
-                    }
-                    else{
+                    } else {
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setMaxPixelMove(50);
-                    }  
+                    }
                     System.out.println(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getMaxPixelMove());
-            }
-                else{
+                } else {
                     playerAI.addItem(index);
                     gamePane.getTanksAnimation().getHud().nextItemActionVerification();
                 }

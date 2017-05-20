@@ -34,13 +34,12 @@ import javafx.util.Duration;
  */
 public class HUD extends Pane {
 
-    //private ImageView pointer = new ImageView(new Image("Texture/Teleport.png"));
     private GamePane gamePane;
 
     private PauseMenu pauseMenu;
 
     private Store storeMenu;
-    
+
     private SoundLib sounds;
 
     //Scene gameScene;
@@ -56,9 +55,6 @@ public class HUD extends Pane {
     private int weaponIndex = 0;
     private int itemIndex = 0;
 
-    //private Text weapon = new Text("Missile");
-    //private Text weaponAmount = new Text("($0.00)");
-    //private ImageView weaponLogo = new ImageView(new Image("Texture/Items/Normal/Missile.png"));
     private Text weapon = new Text();
     private Text weaponAmount = new Text();
     private ImageView weaponLogo;
@@ -70,7 +66,7 @@ public class HUD extends Pane {
     private ImageView itemLogo;
 
     private Image emptyLogo = new Image("Texture/Menus/HUD/Not Available Logo.png");
-    
+
     private ImageView muteBtn;
     private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
 
@@ -115,7 +111,7 @@ public class HUD extends Pane {
     public HUD(WeaponManager weaponManager, GamePane gamePane, SoundLib sounds) {
 
         this.sounds = sounds;
-        
+
         this.setCursor(cursorImg);
 
         //gameScene = scene;
@@ -162,41 +158,40 @@ public class HUD extends Pane {
         setStoreBtn();
         setPauseBtn();
         setUseBtn();
-        
+
         setMuteBtn();
 
     }
-    private void setMuteBtn(){
+
+    private void setMuteBtn() {
         muteBtn = new ImageView(muteBtnImage);
-        
+
         this.getChildren().add(muteBtn);
-        
+
         muteBtn.setTranslateX(795.0);
         muteBtn.setTranslateY(87.0);
-        
+
         /*
         muteBtn.setOnMouseDragged(e -> {
             muteBtn.setTranslateX(e.getSceneX());
             muteBtn.setTranslateY(e.getSceneY());
             System.out.println(muteBtn.getTranslateX() + ", " + muteBtn.getTranslateY());
         });
-        */
-        
+         */
         muteBtn.setOnMouseReleased(e -> {
-            if (sounds.isSoundPlaying()){
+            if (sounds.isSoundPlaying()) {
                 sounds.getBackgroundMusic().pause();
                 sounds.setSoundPlaying(false);
-            }
-            else if (sounds.isSoundPlaying() == false){
+            } else if (sounds.isSoundPlaying() == false) {
                 sounds.getBackgroundMusic().play();
                 sounds.setSoundPlaying(true);
             }
         });
-        
+
         muteBtn.setOnMouseEntered(e -> {
             this.setCursor(Cursor.HAND);
         });
-        
+
         muteBtn.setOnMouseExited(e -> {
             this.setCursor(cursorImg);
         });
@@ -267,58 +262,48 @@ public class HUD extends Pane {
         });
 
     }
-    
-    public void useItemAI(int itemIndexAI){
-        if(isItemInventoryEmpty()){
+
+    public void useItemAI(int itemIndexAI) {
+        if (isItemInventoryEmpty()) {
             nextItemAction();
-        }
-        else{
-            
-            if(itemIndexAI == 6){
+        } else {
+
+            if (itemIndexAI == 6) {
                 gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setArmour(weaponManager.getItemArrayList().get(itemIndexAI).getValue());
                 updateItemStatusAI(itemIndexAI);
                 nextItemActionVerification();
-            }
-            
-            
-            else if(itemIndexAI == 0 || itemIndexAI == 1 || itemIndexAI == 2){
-                if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].restoreLifePoints(weaponManager.getItemArrayList().get(itemIndexAI).getValue())){
+            } else if (itemIndexAI == 0 || itemIndexAI == 1 || itemIndexAI == 2) {
+                if (gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].restoreLifePoints(weaponManager.getItemArrayList().get(itemIndexAI).getValue())) {
                     updateHealth(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getLifePoint());
                     updateItemStatusAI(itemIndexAI);
                     nextItemActionVerification();
                 }
             }
-            
-            
+
         }
     }
-    
-    public void useItem(){
-        if(isItemInventoryEmpty()){
+
+    public void useItem() {
+        if (isItemInventoryEmpty()) {
             nextItemAction();
-        }
-        else{
-            
-            if(itemIndex == 6){
+        } else {
+
+            if (itemIndex == 6) {
                 gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setArmour(weaponManager.getItemArrayList().get(itemIndex).getValue());
                 updateItemStatus();
                 nextItemActionVerification();
-            }
-            
-            
-            else if(itemIndex == 0 || itemIndex == 1 || itemIndex == 2){
-                if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].restoreLifePoints(weaponManager.getItemArrayList().get(itemIndex).getValue())){
+            } else if (itemIndex == 0 || itemIndex == 1 || itemIndex == 2) {
+                if (gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].restoreLifePoints(weaponManager.getItemArrayList().get(itemIndex).getValue())) {
                     updateHealth(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getLifePoint());
                     updateItemStatus();
                     nextItemActionVerification();
-                    if (sounds.isSoundPlaying()){
+                    if (sounds.isSoundPlaying()) {
                         sounds.getRepair().seek(Duration.ZERO);
                         sounds.getRepair().play();
                     }
                 }
             }
-            
-            
+
         }
     }
 
@@ -346,8 +331,8 @@ public class HUD extends Pane {
 
         itemBtn.setOnMousePressed(e -> {
             itemBtn.setImage(itemBtnClicked);
-            
-            if (sounds.isSoundPlaying()){
+
+            if (sounds.isSoundPlaying()) {
                 sounds.getBtnClicked().seek(Duration.ZERO);
                 sounds.getBtnClicked().play();
             }
@@ -358,43 +343,41 @@ public class HUD extends Pane {
             nextItemAction();
         });
     }
-    
-    public void nextItemActionVerification(){
-        if(playerList.get(playerIndex).getItemInventory()[itemIndex] == 0){
+
+    public void nextItemActionVerification() {
+        if (playerList.get(playerIndex).getItemInventory()[itemIndex] == 0) {
             nextItemAction();
-        }
-        else{
-            
+        } else {
+
         }
     }
-    
-    public void nextWeaponActionVerification(){
-        if(playerList.get(playerIndex).getWeaponInventory()[weaponIndex] == 0){
-            
-        }
-        else{
+
+    public void nextWeaponActionVerification() {
+        if (playerList.get(playerIndex).getWeaponInventory()[weaponIndex] == 0) {
+
+        } else {
             nextWeaponAction();
         }
     }
-    
-    public void nextItemAction(){
-        if (isItemInventoryEmpty() == false) {
-                do {
-                    if (itemIndex < playerList.get(playerIndex).getItemInventory().length - 1) {
-                        itemIndex++;
-                    } else {
-                        itemIndex = 0;
-                    }
-                } while (playerList.get(playerIndex).getItemInventory()[itemIndex] == 0);
 
-                item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
-                itemAmount.setText(playerList.get(playerIndex).getItemInventory()[itemIndex] + "");
-                itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
-            } else {
-                item.setText("Empty");
-                itemAmount.setText("");
-                itemLogo.setImage(emptyLogo);
-            }
+    public void nextItemAction() {
+        if (isItemInventoryEmpty() == false) {
+            do {
+                if (itemIndex < playerList.get(playerIndex).getItemInventory().length - 1) {
+                    itemIndex++;
+                } else {
+                    itemIndex = 0;
+                }
+            } while (playerList.get(playerIndex).getItemInventory()[itemIndex] == 0);
+
+            item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
+            itemAmount.setText(playerList.get(playerIndex).getItemInventory()[itemIndex] + "");
+            itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
+        } else {
+            item.setText("Empty");
+            itemAmount.setText("");
+            itemLogo.setImage(emptyLogo);
+        }
     }
 
     private void setWeaponBtn() {
@@ -421,8 +404,8 @@ public class HUD extends Pane {
 
         weaponBtn.setOnMousePressed(e -> {
             weaponBtn.setImage(weaponBtnClicked);
-            
-            if (sounds.isSoundPlaying()){
+
+            if (sounds.isSoundPlaying()) {
                 sounds.getBtnClicked().seek(Duration.ZERO);
                 sounds.getBtnClicked().play();
             }
@@ -434,23 +417,23 @@ public class HUD extends Pane {
         });
 
     }
-    
-    public void nextWeaponAction(){
+
+    public void nextWeaponAction() {
         if (gamePane.getTanksAnimation().getProgressBarAnimationUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getStatus().compareTo(Animation.Status.RUNNING) == 0 || gamePane.getTanksAnimation().getRCAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0 || gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0) {
 
-            } else {
-                do {
-                    if (weaponIndex < playerList.get(playerIndex).getWeaponInventory().length - 1) {
-                        weaponIndex++;
-                    } else {
-                        weaponIndex = 0;
-                    }
-                } while (playerList.get(playerIndex).getWeaponInventory()[weaponIndex] == 0);
+        } else {
+            do {
+                if (weaponIndex < playerList.get(playerIndex).getWeaponInventory().length - 1) {
+                    weaponIndex++;
+                } else {
+                    weaponIndex = 0;
+                }
+            } while (playerList.get(playerIndex).getWeaponInventory()[weaponIndex] == 0);
 
-                weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
-                weaponAmount.setText(playerList.get(playerIndex).getWeaponInventory()[weaponIndex] + "");
-                weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
-            }
+            weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
+            weaponAmount.setText(playerList.get(playerIndex).getWeaponInventory()[weaponIndex] + "");
+            weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
+        }
     }
 
     private void setPauseBtn() {
@@ -476,38 +459,30 @@ public class HUD extends Pane {
         });
 
         pauseBtn.setOnMousePressed(e -> {
-            
-            
-            
-               pauseBtn.setImage(pauseBtnClicked);
-            
-            if (sounds.isSoundPlaying()){
+
+            pauseBtn.setImage(pauseBtnClicked);
+
+            if (sounds.isSoundPlaying()) {
                 sounds.getBtnClicked().seek(Duration.ZERO);
                 sounds.getBtnClicked().play();
-            } 
-                
-            
-            
+            }
 
         });
 
         pauseBtn.setOnMouseReleased(e -> {
             pauseBtn.setImage(pauseBtnImage);
-            if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].isIsAI()){
-            
-        }
-            
-            
-            else{
+            if (gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].isIsAI()) {
+
+            } else {
                 if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen() == false) {
-                pauseMenu.openMenuWithoutPause();
-            } else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen()) {
-                pauseMenu.closeMenuWithoutResume();
-            } else if (pauseMenu.isGamePaused() == false && storeMenu.isStoreOpened() == false && pauseMenu.isMenuOpen() == false) {
-                pauseMenu.pauseGame();
-            } else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() == false && pauseMenu.isMenuOpen() == true) {
-                pauseMenu.resumeGame();
-            }
+                    pauseMenu.openMenuWithoutPause();
+                } else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen()) {
+                    pauseMenu.closeMenuWithoutResume();
+                } else if (pauseMenu.isGamePaused() == false && storeMenu.isStoreOpened() == false && pauseMenu.isMenuOpen() == false) {
+                    pauseMenu.pauseGame();
+                } else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() == false && pauseMenu.isMenuOpen() == true) {
+                    pauseMenu.resumeGame();
+                }
             }
 
             System.out.println("Game Pause: " + pauseMenu.isGamePaused());
@@ -541,30 +516,29 @@ public class HUD extends Pane {
 
         storeBtn.setOnMousePressed(e -> {
             storeBtn.setImage(storeBtnClicked);
-            
-            if (sounds.isSoundPlaying()){
+
+            if (sounds.isSoundPlaying()) {
                 sounds.getBtnClicked().seek(Duration.ZERO);
                 sounds.getBtnClicked().play();
             }
         });
 
         storeBtn.setOnMouseReleased(e -> {
-            if(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].isIsAI()){
-            
-        }
-            else{
+            if (gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].isIsAI()) {
+
+            } else {
                 storeBtn.setImage(storeBtnImage);
 
-            if (storeMenu.isStoreOpened() && pauseMenu.isGamePaused() && pauseMenu.isMenuOpen()) {
+                if (storeMenu.isStoreOpened() && pauseMenu.isGamePaused() && pauseMenu.isMenuOpen()) {
 
-            } else if (storeMenu.isStoreOpened() == false && pauseMenu.isGamePaused() == false) {
-                storeMenu.openStore(playerList.get(playerIndex));
-                pauseMenu.pauseGame(1);
-                System.out.println(playerList.get(playerIndex).getUsername());
-            } else if (storeMenu.isStoreOpened() == true) {
-                storeMenu.closeStore();
-                pauseMenu.resumeGame(1);
-            }
+                } else if (storeMenu.isStoreOpened() == false && pauseMenu.isGamePaused() == false) {
+                    storeMenu.openStore(playerList.get(playerIndex));
+                    pauseMenu.pauseGame(1);
+                    System.out.println(playerList.get(playerIndex).getUsername());
+                } else if (storeMenu.isStoreOpened() == true) {
+                    storeMenu.closeStore();
+                    pauseMenu.resumeGame(1);
+                }
             }
 
             System.out.println("Game Pause: " + pauseMenu.isGamePaused());
@@ -598,7 +572,7 @@ public class HUD extends Pane {
         playerHealth.setTranslateY(46.5);
 
         playerHealth.getStylesheets().add(getClass().getResource("progress.css").toExternalForm());
-        
+
 
         /*
          playerHealth.setOnMouseDragged(e -> {
@@ -626,47 +600,41 @@ public class HUD extends Pane {
              System.out.println(playerHealth.getProgress());
          });*/
     }
-    
-    public void updateHealth(){
-        if (this.playerList.get(playerIndex).getShield() == 0){
+
+    public void updateHealth() {
+        if (this.playerList.get(playerIndex).getShield() == 0) {
             System.out.println("test");
             playerHealth.setBorderColor("default-color");
-        }
-        else if (this.playerList.get(playerIndex).getShield() == 1){
+        } else if (this.playerList.get(playerIndex).getShield() == 1) {
             playerHealth.setBorderColor("small-shield");
-        }
-        else if (this.playerList.get(playerIndex).getShield() == 2){
+        } else if (this.playerList.get(playerIndex).getShield() == 2) {
             playerHealth.setBorderColor("medium-shield");
-        }
-        else if (this.playerList.get(playerIndex).getShield() == 3){
+        } else if (this.playerList.get(playerIndex).getShield() == 3) {
             playerHealth.setBorderColor("large-shield");
         }
     }
-    
+
     public void updateHealth(int lifePoints) {
         System.out.println("test");
-        
+
         if (lifePoints < 0) {
             playerHealth.setProgress(0);
         } else {
             playerHealth.setProgress((double) lifePoints / 100.0);
         }
-        
-        
-        
+
         System.out.println(lifePoints);
         if (lifePoints <= 30) {
             System.out.println("Less than 30 points");
             playerHealth.setColor("red-bar");
-        }
-        else if (lifePoints > 30) {
+        } else if (lifePoints > 30) {
             System.out.println("More than 30 points");
             playerHealth.setColor("green-bar");
         }
 
     }
-    
-    public ColoredProgressBar getHealth(){
+
+    public ColoredProgressBar getHealth() {
         return this.playerHealth;
     }
 
@@ -943,27 +911,23 @@ public class HUD extends Pane {
         playerTank.setImage(tanks[team]);
 
         playerHealth.setProgress((double) ((double) tank.getLifePoint()) / 100);
-        
+
         if (tank.getLifePoint() <= 30) {
             System.out.println("Less than 30 points");
             playerHealth.setColor("red-bar");
-        }
-        else if (tank.getLifePoint() > 30) {
+        } else if (tank.getLifePoint() > 30) {
             System.out.println("More than 30 points");
             playerHealth.setColor("green-bar");
         }
-        
-        if (this.playerList.get(playerIndex).getShield() == 0){
+
+        if (this.playerList.get(playerIndex).getShield() == 0) {
             System.out.println("test");
             playerHealth.setBorderColor("default-color");
-        }
-        else if (this.playerList.get(playerIndex).getShield() == 1){
+        } else if (this.playerList.get(playerIndex).getShield() == 1) {
             playerHealth.setBorderColor("small-shield");
-        }
-        else if (this.playerList.get(playerIndex).getShield() == 2){
+        } else if (this.playerList.get(playerIndex).getShield() == 2) {
             playerHealth.setBorderColor("medium-shield");
-        }
-        else if (this.playerList.get(playerIndex).getShield() == 3){
+        } else if (this.playerList.get(playerIndex).getShield() == 3) {
             playerHealth.setBorderColor("large-shield");
         }
     }
@@ -997,8 +961,8 @@ public class HUD extends Pane {
     public void updateItemStatus() {
         playerList.get(playerIndex).removeItem(itemIndex);
     }
-    
-    public void updateItemStatusAI(int itemIndexAI){
+
+    public void updateItemStatusAI(int itemIndexAI) {
         playerList.get(playerIndex).removeItem(itemIndexAI);
     }
 
@@ -1019,6 +983,5 @@ public class HUD extends Pane {
     public Store getStoreMenu() {
         return storeMenu;
     }
-    
-}
 
+}

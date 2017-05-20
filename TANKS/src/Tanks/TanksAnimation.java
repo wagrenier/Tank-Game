@@ -40,6 +40,9 @@ public class TanksAnimation{
     //Width of the pane in pixels
     private double width = 1200;
     
+    //Number of players in the game
+    private int numOfPlayer;
+    
     //The number of mines currently in the game
     private int numOfMines = 0;
     
@@ -81,7 +84,7 @@ public class TanksAnimation{
     private String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
     
     
-    private int numOfPlayer;
+    
     private Tanks tanksOne;
     private Tanks tanksTwo;
     private Tanks tanksThree;
@@ -339,7 +342,7 @@ public class TanksAnimation{
         tanks.setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())));
         
         tanks.getCannon().setTranslateX(tanks.getTranslateX());
-        tanks.getCannon().setTranslateY(mapGeneration.getYCannon(tanks.getCannon().getTranslateX()));
+        tanks.getCannon().setTranslateY(tanks.getCannon().getTranslateY());
         
         tanks.setxSpeed(0);
         tanks.setCache(true);
@@ -407,7 +410,7 @@ public class TanksAnimation{
             }
             if(tanks.getTranslateY() > tanks.getYTanks()){
                 tanks.setTranslateY(tanks.getYTanks());
-                tanks.getCannon().setTranslateY(mapGeneration.getYCannon(tanks.getCannon().getTranslateX()));
+                tanks.getCannon().setTranslateY(tanks.getCannon().getTranslateX());
             } 
             }));
         return tankAnimation;

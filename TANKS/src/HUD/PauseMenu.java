@@ -24,11 +24,11 @@ public class PauseMenu {
     private GamePane gamePane;
 
     private Store storeMenu;
-    
+
     private HelpMenu helpMenu;
-    
+
     private SoundLib sounds;
-    
+
     private Leaderboard leaderboard;
 
     private boolean isGamePaused = false;
@@ -48,12 +48,12 @@ public class PauseMenu {
     private ImageView helpBtn;
     private ImageView saveMsg;
     private ImageView leaderBoard;
-    
+
     private Image leaderboardImage = new Image("Texture/Menus/PauseMenu/Leaderboard Button.png");
-    
+
     private Image goodSaveMsg = new Image("Texture/Menus/PauseMenu/Good Save Message.png");
     private Image badSaveMsg = new Image("Texture/Menus/PauseMenu/Bad Save Message.png");
-    
+
     private Image helpBtnImage = new Image("Texture/Menus/MainMenu/Help Button.png");
 
     private Image resumeBtnImage = new Image("Texture/Menus/PauseMenu/Resume Button.png");
@@ -67,7 +67,7 @@ public class PauseMenu {
     private Image exitBtnImage = new Image("Texture/Menus/PauseMenu/Exit Button.png");
     private Image exitBtnHover = new Image("Texture/Menus/PauseMenu/Exit Button Hover.png");
     private Image exitBtnClicked = new Image("Texture/Menus/PauseMenu/Exit Button Clicked.png");
-    
+
     private ImageCursor cursorImg;
 
     public PauseMenu(GamePane gamePane, Store storeMenu, SoundLib sounds, ImageCursor cursorImg) {
@@ -85,69 +85,67 @@ public class PauseMenu {
         setSaveMsg();
         setLeaderboardBtn();
     }
-    
-    private void setLeaderboardBtn(){
+
+    private void setLeaderboardBtn() {
         leaderBoard = new ImageView(leaderboardImage);
-        
+
         leaderBoard.setTranslateX(624.0);
         leaderBoard.setTranslateY(562.5);
-        
+
         /*
         leaderBoard.setOnMouseDragged(e -> {
             leaderBoard.setTranslateX(e.getSceneX());
             leaderBoard.setTranslateY(e.getSceneY());
             System.out.println(leaderBoard.getTranslateX() + ", " + leaderBoard.getTranslateY());
         });
-        */
-        
+         */
         leaderBoard.setOnMouseReleased(e -> {
             this.leaderboard.openLeaderBoard();
         });
     }
-    
-    private void setSaveMsg(){
+
+    private void setSaveMsg() {
         //temp
         saveMsg = new ImageView();
-        
+
         saveMsg.setTranslateX(448.5);
         saveMsg.setTranslateY(652.0);
-        
+
         /*
         saveMsg.setOnMouseDragged(e -> {
             saveMsg.setTranslateX(e.getSceneX());
             saveMsg.setTranslateY(e.getSceneY());
             System.out.println(saveMsg.getTranslateX() + ", " + saveMsg.getTranslateY());
         });
-        */
+         */
     }
-    
-    private void setHelpBtn(){
-       helpBtn = new ImageView(helpBtnImage);
-       
-       helpBtn.setTranslateX(559.0);
-       helpBtn.setTranslateY(562.0);
-       
-       /*
+
+    private void setHelpBtn() {
+        helpBtn = new ImageView(helpBtnImage);
+
+        helpBtn.setTranslateX(559.0);
+        helpBtn.setTranslateY(562.0);
+
+        /*
        helpBtn.setOnMouseDragged(e -> {
             helpBtn.setTranslateX(e.getSceneX());
             helpBtn.setTranslateY(e.getSceneY());
             System.out.println(helpBtn.getTranslateX() + ", " + helpBtn.getTranslateY());
         });
-       */
-       
-       helpBtn.setOnMouseReleased(e -> {
-           if (helpMenu.isHelpOpen() == false){
-               helpMenu.openHelpMenu();
-           }
-       });
-       
-       helpBtn.setOnMouseEntered(e -> {
-           this.gamePane.setCursor(Cursor.HAND);
-       });
-       
-       helpBtn.setOnMouseExited(e -> {
-           this.gamePane.setCursor(cursorImg);
-       });
+         */
+        helpBtn.setOnMouseReleased(e -> {
+            if (helpMenu.isHelpOpen() == false) {
+                helpMenu.openHelpMenu();
+            }
+        });
+
+        helpBtn.setOnMouseEntered(e -> {
+            this.gamePane.setCursor(Cursor.HAND);
+        });
+
+        helpBtn.setOnMouseExited(e -> {
+            this.gamePane.setCursor(cursorImg);
+        });
     }
 
     private void setExitBtn() {
@@ -210,19 +208,19 @@ public class PauseMenu {
             saveBtn.setImage(saveBtnClicked);
             if (gamePane.getTanksAnimation().isPossibleToSave()) {
                 SaveFunction save = new SaveFunction(gamePane);
-                
-                if (sounds.isSoundPlaying()){
+
+                if (sounds.isSoundPlaying()) {
                     sounds.getSave().seek(Duration.ZERO);
                     sounds.getSave().play();
                 }
-                
+
                 saveMsg.setImage(goodSaveMsg);
-                
+
                 gamePane.getChildren().remove(saveMsg);
                 gamePane.getChildren().add(saveMsg);
-                        
+
             } else {
-                if (sounds.isSoundPlaying()){
+                if (sounds.isSoundPlaying()) {
                     sounds.getFailSave().seek(Duration.ZERO);
                     sounds.getFailSave().play();
                 }

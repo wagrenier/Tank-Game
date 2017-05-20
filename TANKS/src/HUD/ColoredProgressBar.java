@@ -6,7 +6,6 @@
  */
 package HUD;
 
-import java.io.Serializable;
 import javafx.scene.control.ProgressBar;
 
 /**
@@ -35,5 +34,4 @@ public class ColoredProgressBar extends ProgressBar{
         getStyleClass().add(color);
     }
     
-  
 }

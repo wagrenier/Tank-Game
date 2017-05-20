@@ -71,10 +71,6 @@ public class MapGeneration implements Serializable{
         //System.out.println("Wave amplitude: " + this.amplitudeOfWave);
        // System.out.println("Length of wave: " + this.lengthOfWave);
     }
-
-    public int getMapIndex() {
-        return mapIndex;
-    }
     
     public double derivativeFunction(double x){
         return ((amplitudeOfWave * Math.cos( x / lengthOfWave)) / lengthOfWave) ;
@@ -85,15 +81,37 @@ public class MapGeneration implements Serializable{
           return (amplitudeOfWave * Math.sin(x / lengthOfWave) + startingPoint);
           //return 700;
     }
-    
-    public double  getYCannon(double x){
-        return (amplitudeOfWave * Math.sin(x / lengthOfWave) + startingPoint);
-          //return 700;
-    }
 
     public double getGravity() {
         return gravity;
     }
     
+    public int getMapIndex() {
+        return mapIndex;
+    }
+
+    public double getAmplitudeOfWave() {
+        return amplitudeOfWave;
+    }
+
+    public void setAmplitudeOfWave(double amplitudeOfWave) {
+        this.amplitudeOfWave = amplitudeOfWave;
+    }
+
+    public double getStartingPoint() {
+        return startingPoint;
+    }
+
+    public void setStartingPoint(double startingPoint) {
+        this.startingPoint = startingPoint;
+    }
+
+    public double getLengthOfWave() {
+        return lengthOfWave;
+    }
+
+    public void setLengthOfWave(double lengthOfWave) {
+        this.lengthOfWave = lengthOfWave;
+    }
     
 }

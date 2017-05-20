@@ -62,18 +62,7 @@ public class MainMenuManagerPane extends Pane{
         cursorSetting(this);
         
         mainMenu.getLoadBtn().setOnMouseClicked(e -> {
-            
-            this.getChildren().clear();
             resetLoad();
-            //gamePane.getTanksAnimation().setIndexOfCurrentPlayerTurn(currentTurn[0]);
-            this.setMinSize(1200, 950);
-            this.setMaxSize(1200, 950);
-            
-            
-            
-            gamePane.setFocusTraversable(true);
-            this.getChildren().add(borderPane);
-            this.autosize();
         });
         
         mainMenu.getPlayBtn().setOnMouseClicked(e -> {
@@ -186,6 +175,16 @@ public class MainMenuManagerPane extends Pane{
     
     private void resetLoad(){
         load = new LoadFunction();
+        
+        if(load.isSuccessfulLoad()){
+            this.getChildren().clear();
+            this.setMinSize(1200, 950);
+            this.setMaxSize(1200, 950);
+            
+            
+            
+            
+            
             double[][] array = load.getTanksArray();
             boolean[] array2 = load.getDirection();
             boolean[] dead = load.getDead();
@@ -209,6 +208,16 @@ public class MainMenuManagerPane extends Pane{
                 double[][] mineLocation = load.getMineLocation();
                 gamePane.getTanksAnimation().resetMineLocation(mineLocation);
             }
+            
+            gamePane.setFocusTraversable(true);
+            this.getChildren().add(borderPane);
+            this.autosize();
+        }
+        
+        else if(!load.isSuccessfulLoad()){
+            
+    }
+            
     }
     
     private void cursorSetting(Pane pane){
