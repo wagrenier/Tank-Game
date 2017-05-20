@@ -19,7 +19,9 @@ import javafx.scene.text.Text;
  * @author Cedrik Dubois
  */
 public class HelpMenu {
-
+    
+    private boolean helpOpen = false;
+    
     private Pane pane;
 
     private ImageView background = new ImageView(new Image("Texture/Menus/HelpMenu/Background.png"));
@@ -29,9 +31,7 @@ public class HelpMenu {
     private Image closeBtnHover = new Image("Texture/Menus/HelpMenu/Close Button Hover.png");
 
     private Text helpInformation = new Text();
-
-    private boolean helpOpen = false;
-
+    
     public HelpMenu(Pane pane, ImageCursor cursorImg) {
         this.pane = pane;
 

@@ -20,6 +20,15 @@ import javafx.util.Duration;
  * @author Cedrik Dubois
  */
 public class PauseMenu {
+    
+    private boolean isGamePaused = false;
+    private boolean isMenuOpened = false;
+
+    private boolean isProgressBarStopped1 = false;
+    private boolean isProgressBarStopped2 = false;
+    private boolean isProgressBarStopped3 = false;
+    private boolean isProgressBarStopped4 = false;
+    private boolean isWeaponAnimationStopped = false;
 
     private GamePane gamePane;
 
@@ -30,16 +39,6 @@ public class PauseMenu {
     private SoundLib sounds;
 
     private Leaderboard leaderboard;
-
-    private boolean isGamePaused = false;
-    private boolean isMenuOpened = false;
-
-    private boolean isProgressBarStopped1 = false;
-    private boolean isProgressBarStopped2 = false;
-    private boolean isProgressBarStopped3 = false;
-    private boolean isProgressBarStopped4 = false;
-    private boolean isWeaponAnimationStopped = false;
-
     private ImageView pauseMenu = new ImageView(new Image("Texture/Menus/PauseMenu/Pause Menu.png"));
 
     private ImageView resumeBtn;
