@@ -6,7 +6,6 @@
 package Tanks;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
@@ -16,15 +15,14 @@ import javafx.scene.shape.Circle;
  */
 public class Cannon extends Circle{
     
-    private final ImagePattern texturePattern;
-    private final ImagePattern texturePatternFlipped;
-    
+    private boolean isImageFlipped = false;
     private double canonAngle = 0;
     private String imagePath;
     private String imageReversePath;
     private Image texture;
     private Image textureFlipped;
-    private boolean isImageFlipped = false;
+    private ImagePattern texturePattern;
+    private ImagePattern texturePatternFlipped;
     
     Cannon(String imagePath, String imageReversePath){
         this.setRadius(50);
@@ -70,10 +68,6 @@ public class Cannon extends Circle{
         //this.setImage(texture);
         isImageFlipped = false;
     }
-
-    public boolean isIsImageFlipped() {
-        return isImageFlipped;
-    }
     
     public void lowerAngle(){
        
@@ -100,6 +94,10 @@ public class Cannon extends Circle{
     
     public double getCanonAngle() {
         return canonAngle;
+    }
+    
+    public boolean isIsImageFlipped() {
+        return isImageFlipped;
     }
      
 }

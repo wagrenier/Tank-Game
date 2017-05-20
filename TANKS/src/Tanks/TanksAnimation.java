@@ -24,14 +24,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.CacheHint;
-import javafx.scene.Group;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
 /**
@@ -40,10 +37,14 @@ import javafx.util.Duration;
  */
 public class TanksAnimation{
     
-    //Width of the pane
-    private final double width = 1200;
+    //Width of the pane in pixels
+    private double width = 1200;
     
+    //The number of mines currently in the game
     private int numOfMines = 0;
+    
+    //Gravity of the game is not the same for weapon because like that the tanks stick to the ground
+    private double gravity = 0.05;
     
     //HUD for the game
     private HUD hud;
@@ -56,37 +57,35 @@ public class TanksAnimation{
     private boolean turnPlayed = false;
     
     //Variables for tank 1
-    final String  pathForTextureTankOne = "Texture/Tanks/Canada/Body/Red_Tank_(100x100).png";
-    final String pathForTextureFlippedTankOne = "Texture/Tanks/Canada/Body/Red_Tank_Flipped_(100x100).png";
-    final String pathForTextureCannonOne = "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100).png";
+    private String  pathForTextureTankOne = "Texture/Tanks/Canada/Body/Red_Tank_(100x100).png";
+    private String pathForTextureFlippedTankOne = "Texture/Tanks/Canada/Body/Red_Tank_Flipped_(100x100).png";
+    private String pathForTextureCannonOne = "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100).png";
     
     
     
     //Variables for tank 2
-    final String pathForTextureTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_(100x100).png";
-    final String pathForTextureFlippedTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_Flipped_(100x100).png";
-    final String pathForTextureCannonTwo = "Texture/Tanks/China/Cannon/Yellow_Cannon_(100x100).png";
+    private String pathForTextureTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_(100x100).png";
+    private String pathForTextureFlippedTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_Flipped_(100x100).png";
+    private String pathForTextureCannonTwo = "Texture/Tanks/China/Cannon/Yellow_Cannon_(100x100).png";
     
     
     //Variables for tanks 3
-    final String pathForTextureTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_(100x100).png";
-    final String pathForTextureFlippedTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_Flipped_(100x100).png";
-    final String pathForTextureCannonThree = "Texture/Tanks/NorthKorea/Cannon/Blue_Cannon_(100x100).png";
+    private String pathForTextureTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_(100x100).png";
+    private String pathForTextureFlippedTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_Flipped_(100x100).png";
+    private String pathForTextureCannonThree = "Texture/Tanks/NorthKorea/Cannon/Blue_Cannon_(100x100).png";
     
     
     //Variables for tank 4
-    final String pathForTextureTankFour = "Texture/Tanks/USA/Body/Green_Tank_(100x100).png";
-    final String pathForTextureFlippedTankFour = "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png";
-    final String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
+    private String pathForTextureTankFour = "Texture/Tanks/USA/Body/Green_Tank_(100x100).png";
+    private String pathForTextureFlippedTankFour = "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png";
+    private String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
     
-    //Gravity of the game is not the same for weapon because like that the tanks stick to the ground
-    private double gravity = 0.05;
     
     private int numOfPlayer;
-    private final Tanks tanksOne;
-    private final Tanks tanksTwo;
-    private final Tanks tanksThree;
-    private final Tanks tanksFour;
+    private Tanks tanksOne;
+    private Tanks tanksTwo;
+    private Tanks tanksThree;
+    private Tanks tanksFour;
     
     //Variable for the tanks' animation
     private Timeline animation;
@@ -166,14 +165,11 @@ public class TanksAnimation{
         progressBarAnimationUsed = new Timeline[numOfPlayer];
         progressBarUsed = new ProgressBar[numOfPlayer];
         
-        int tanksOffSetX = 50;
-        int tankOffSetY = 70;
-        int cannonOffset = 15;
         
-        animation = animationForTanks(tanksOne, cannonOffset, tanksOffSetX, tankOffSetY, 300, progressBarAnimationOne);
-        animation2 = animationForTanks(tanksTwo, cannonOffset, tanksOffSetX, tankOffSetY, 500, progressBarAnimationTwo);
-        animation3 = animationForTanks(tanksThree, cannonOffset, tanksOffSetX, tankOffSetY, 700, progressBarAnimationThree);
-        animation4 = animationForTanks(tanksFour, cannonOffset, tanksOffSetX, tankOffSetY, 100, progressBarAnimationFour);
+        animation = animationForTanks(tanksOne, 300, progressBarAnimationOne);
+        animation2 = animationForTanks(tanksTwo, 500, progressBarAnimationTwo);
+        animation3 = animationForTanks(tanksThree, 700, progressBarAnimationThree);
+        animation4 = animationForTanks(tanksFour, 100, progressBarAnimationFour);
         
         for(int i = 0; i < playerArray.length; i++){
             playerArray[i] = playerArrayList.get(i);
@@ -256,13 +252,6 @@ public class TanksAnimation{
         nextPlayerText.setTranslateY(66.0);
         nextPlayerText.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
         
-        /*
-        nextPlayerText.setOnMouseDragged(e -> {
-            nextPlayerText.setTranslateX(e.getSceneX());
-            nextPlayerText.setTranslateY(e.getSceneY());
-            System.out.println(nextPlayerText.getTranslateX() + ", " + nextPlayerText.getTranslateY());
-        });
-        */
         
         nextPlayerAnimation = new Timeline(new KeyFrame(Duration.seconds(2), e -> {
             this.pane.getChildren().remove(nextPlayerText);
@@ -339,21 +328,7 @@ public class TanksAnimation{
         }
     }
     
-    private Timeline animationForTanks(Tanks tanks, int cannonOffset, int tankOffsetX, int tankOffsetY, int initialPosition, Timeline progressBarAnimation){
-        //Setting the layouts of the tank and cannon
-        //tanks.setStroke(Color.BLACK);
-        //tanks.getCannon().setStroke(Color.RED);
-        //tanks.setCenterX(-18);
-       
-        //tanks.setLayoutY(-tankOffsetY);
-        //tanks.setLayoutX(-tankOffsetX);
-        //tanks.getCannon().setLayoutX(-tankOffsetX);
-        //tanks.getCannon().setLayoutY(-tankOffsetY - cannonOffset);
-        //tanks.getCannon().setCenterY(-15);
-        
-        //Setting the Translation of the tank and cannon
-       // tanks.setCenterY(-18);
-        //tanks.getCannon().setCenterY(tanks.getCenterY() - 15);
+    private Timeline animationForTanks(Tanks tanks, int initialPosition, Timeline progressBarAnimation){
         
         
         tanks.setLayoutY(-18);
@@ -365,7 +340,6 @@ public class TanksAnimation{
         
         tanks.getCannon().setTranslateX(tanks.getTranslateX());
         tanks.getCannon().setTranslateY(mapGeneration.getYCannon(tanks.getCannon().getTranslateX()));
-        //tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getTranslateX())) + Math.toDegrees(tanks.getCannon().getCanonAngle()));
         
         tanks.setxSpeed(0);
         tanks.setCache(true);
@@ -374,9 +348,6 @@ public class TanksAnimation{
         tanks.getCannon().setCacheHint(CacheHint.ROTATE);
         tanks.getCannon().setCacheHint(CacheHint.SPEED);
         
-        Group group = new Group(tanks, tanks.getCannon());
-        Rotate rotateGroup = new Rotate();
-        Translate translateGroup = new Translate();
         
         Timeline tankAnimation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             updateTanksStatus();
@@ -387,21 +358,13 @@ public class TanksAnimation{
             tanks.setySpeed(0);
         }
             
-            //tanks.setVelocities(mapGeneration);
-            
-            
-            
             tanks.setTranslateX((tanks.getTranslateX() + tanks.getxSpeed())); 
             tanks.setTranslateY(mapGeneration.getY(tanks.getTranslateX()));
             tanks.getCannon().setTranslateX(tanks.getTranslateX());
             tanks.getCannon().setTranslateY(tanks.getTranslateY());
-            //tanks.getCannon().setTranslateX(tanks.getTranslateX() + Math.cos(mapGeneration.derivativeFunction(tanks.getTranslateX())));
-            //tanks.getCannon().setTranslateY(tanks.getTranslateY() + Math.sin(mapGeneration.derivativeFunction(tanks.getTranslateX())));
             
             tanks.setYTanks(mapGeneration.getY(tanks.getTranslateX()));
             tanks.getCannon().setTranslateX(tanks.getTranslateX());
-            
-           
             
             if(tanks.getxSpeed() < 0){
                 tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getCannon().getTranslateX()) + tanks.getCannon().getCanonAngle()));
@@ -420,8 +383,6 @@ public class TanksAnimation{
                 tanks.getCannon().setRotate(Math.toDegrees(mapGeneration.derivativeFunction(tanks.getCannon().getTranslateX()) - tanks.getCannon().getCanonAngle()));
             }
             
-            //tanks.getCannon().setTranslateX(tanks.getCannon().getTranslateX() + Math.toDegrees(Math.cos(tanks.getCannon().getRotate())));
-            //tanks.getCannon().setTranslateY(tanks.getCannon().getTranslateY() + Math.toDegrees(Math.sin(tanks.getCannon().getRotate())));
             
             
             if(tanks.getTranslateX() <= 10 || tanks.getTranslateX() >= 1190){
@@ -959,6 +920,8 @@ public class TanksAnimation{
             tanksArrayUsed[i].setMaxPixelMove(maxPixMove[i]);
         }
     }
+    
+    
     //Beginning of setters and getters
     public double getWidth() {
         return width;
@@ -1108,8 +1071,6 @@ public class TanksAnimation{
         return rcAnimation;
     }
     
-    //End of setters and getters
-
     public ArrayList<Weapon> getMineLocationArrayList() {
         return mineLocationArrayList;
     }
@@ -1129,7 +1090,94 @@ public class TanksAnimation{
     public Player[] getPlayerArray() {
         return playerArray;
     }
+
+    public boolean isKeyReleased() {
+        return keyReleased;
+    }
+
+    public void setKeyReleased(boolean keyReleased) {
+        this.keyReleased = keyReleased;
+    }
+
+    public ProgressBar getBarOne() {
+        return barOne;
+    }
+
+    public void setBarOne(ProgressBar barOne) {
+        this.barOne = barOne;
+    }
+
+    public ProgressBar getBarTwo() {
+        return barTwo;
+    }
+
+    public void setBarTwo(ProgressBar barTwo) {
+        this.barTwo = barTwo;
+    }
+
+    public ProgressBar getBarThree() {
+        return barThree;
+    }
+
+    public void setBarThree(ProgressBar barThree) {
+        this.barThree = barThree;
+    }
+
+    public ProgressBar getBarFour() {
+        return barFour;
+    }
+
+    public void setBarFour(ProgressBar barFour) {
+        this.barFour = barFour;
+    }
+
+    public SoundLib getSounds() {
+        return sounds;
+    }
+
+    public void setSounds(SoundLib sounds) {
+        this.sounds = sounds;
+    }
+
+    public WeaponManager getWeaponManager() {
+        return weaponManager;
+    }
+
+    public void setWeaponManager(WeaponManager weaponManager) {
+        this.weaponManager = weaponManager;
+    }
+
+    public RCAnimation getRcAnimation() {
+        return rcAnimation;
+    }
+
+    public void setRcAnimation(RCAnimation rcAnimation) {
+        this.rcAnimation = rcAnimation;
+    }
+
+    public Tanks[] getTanksArray() {
+        return tanksArray;
+    }
+
+    public void setTanksArray(Tanks[] tanksArray) {
+        this.tanksArray = tanksArray;
+    }
+
+    public Text getNextPlayerText() {
+        return nextPlayerText;
+    }
+
+    public void setNextPlayerText(Text nextPlayerText) {
+        this.nextPlayerText = nextPlayerText;
+    }
+
+    public Timeline getNextPlayerAnimation() {
+        return nextPlayerAnimation;
+    }
+
+    public void setNextPlayerAnimation(Timeline nextPlayerAnimation) {
+        this.nextPlayerAnimation = nextPlayerAnimation;
+    }
     
-    
-    
+     //End of setters and getters
 }

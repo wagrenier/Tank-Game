@@ -16,23 +16,30 @@ import javafx.scene.shape.Circle;
  */
 public class Tanks extends Circle{
     
+    private boolean isTankAlive = false;
+    private boolean isAI = false;
+    private boolean isImageFlipped = false;
+    
+    private int team;
+    private int shield = 100;
+    private int armour = 0;
+    private int lifePoint = 100;
+    
     private double xSpeed;
     private double ySpeed;
     private double Velocity = 0;
     private double y;
     private double maxPixelMove = 100;
-    private int lifePoint = 100;
-    private boolean isTankAlive = false;
-    private boolean isAI = false;
+    
+    
     private String imagePath;
     private String imageReversePath;
     private Image texture;
     private Image textureFlipped;
-    private boolean isImageFlipped = false;
+    
     private Cannon cannon;
-    private int team;
-    private int shield = 100;
-    private int armour = 0;
+    
+    
     private ImagePattern texturePattern;
     private ImagePattern texturePatternFlipped;
     
@@ -79,14 +86,6 @@ public class Tanks extends Circle{
         cannon.normalTexture();
         isImageFlipped = false; 
     }
-
-    public boolean isIsImageFlipped() {
-        return isImageFlipped;
-    }
-
-    public Cannon getCannon() {
-        return cannon;
-    }
     
     public void damageDone(int damage){
         if(armour > 0){
@@ -126,6 +125,11 @@ public class Tanks extends Circle{
             lifePoint += lifeToRestore;
             return true;
         }
+    }
+    
+    public void setVelocities(MapGeneration mapGen){
+        this.setxSpeed(Velocity * Math.cos(mapGen.derivativeFunction(this.getTranslateX())));
+        this.setySpeed(Velocity * Math.sin(mapGen.derivativeFunction(this.getTranslateY())));
     }
 
     public int getLifePoint() {
@@ -170,6 +174,14 @@ public class Tanks extends Circle{
 
     public void setySpeed(double ySpeed) {
         this.ySpeed = ySpeed;
+    }
+    
+    public boolean isIsImageFlipped() {
+        return isImageFlipped;
+    }
+
+    public Cannon getCannon() {
+        return cannon;
     }
 
     public double getYTanks() {
@@ -218,7 +230,6 @@ public class Tanks extends Circle{
 
     public void setArmour(int armour) {
         this.armour = armour;
-        //System.out.println("Armour: " + armour);
     }
 
     public double getVelocity() {
@@ -227,14 +238,8 @@ public class Tanks extends Circle{
 
     public void setVelocity(double Velocity) {
         this.Velocity = Velocity;
-        //setVelocities();
     }
     
-    public void setVelocities(MapGeneration mapGen){
-        this.setxSpeed(Velocity * Math.cos(mapGen.derivativeFunction(this.getTranslateX())));
-        this.setySpeed(Velocity * Math.sin(mapGen.derivativeFunction(this.getTranslateY())));
-    }
-
     public double getY() {
         return y;
     }
@@ -242,7 +247,20 @@ public class Tanks extends Circle{
     public void setY(double y) {
         this.y = y;
     }
-    
-    
-    
+
+    public ImagePattern getTexturePattern() {
+        return texturePattern;
+    }
+
+    public void setTexturePattern(ImagePattern texturePattern) {
+        this.texturePattern = texturePattern;
+    }
+
+    public ImagePattern getTexturePatternFlipped() {
+        return texturePatternFlipped;
+    }
+
+    public void setTexturePatternFlipped(ImagePattern texturePatternFlipped) {
+        this.texturePatternFlipped = texturePatternFlipped;
+    }
 }
