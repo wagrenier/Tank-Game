@@ -33,6 +33,9 @@ import javafx.util.Duration;
  * @author Cedrik Dubois
  */
 public class HUD extends Pane {
+    
+    private int WIDTH = 1200;
+    private int HEIGHT = 150;
 
     private GamePane gamePane;
 
@@ -42,16 +45,12 @@ public class HUD extends Pane {
 
     private SoundLib sounds;
 
-    //Scene gameScene;
     private int playerTurn = 0; //Set to zero for the moment but this value will be changed by the player manager during the game
-
-    private static final int WIDTH = 1200;
-    private static final int HEIGHT = 150;
-
+ 
     private Text player = new Text();
-    private static int playerIndex = 0;
+    private int playerIndex = 0;
 
-    WeaponManager weaponManager;
+    private WeaponManager weaponManager;
     private int weaponIndex = 0;
     private int itemIndex = 0;
 
@@ -633,9 +632,15 @@ public class HUD extends Pane {
         }
 
     }
+    
+    public boolean isItemInventoryEmpty() {
+        for (int i = 0; i < playerList.get(playerIndex).getItemInventory().length; i++) {
+            if (playerList.get(playerIndex).getItemInventory()[i] > 0) {
+                return false;
+            }
+        }
 
-    public ColoredProgressBar getHealth() {
-        return this.playerHealth;
+        return true;
     }
 
     private void setWind() {
@@ -764,8 +769,65 @@ public class HUD extends Pane {
          */
         player.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
 
+    }    
+
+    private void setBackground() {
+        BackgroundImage myBI = new BackgroundImage(new Image("Texture/Menus/HUD/Background.png", WIDTH, HEIGHT, false, true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        this.setBackground(new Background(myBI));
+    }
+    
+    public void resetWeaponIndex() {
+        weaponIndex = 0;
+
+        weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
+        weaponAmount.setText(playerList.get(playerIndex).getWeaponInventory()[weaponIndex] + "");
+        weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
     }
 
+    public void resetItemIndex() {
+        itemIndex = 0;
+        System.out.println(isItemInventoryEmpty() + ", " + playerList.get(playerIndex).getUsername());
+        if (isItemInventoryEmpty() == false) {
+            item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
+            itemAmount.setText(playerList.get(playerIndex).getItemInventory()[itemIndex] + "");
+            itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
+        } else {
+            item.setText("Empty");
+            itemAmount.setText("");
+            itemLogo.setImage(emptyLogo);
+        }
+    }
+    
+    public void setCurrentPlayerTank(Tanks tank, int team, int indexCurrentPlayer) {
+        playerIndex = indexCurrentPlayer;
+        playerTank.setImage(tanks[team]);
+
+        playerHealth.setProgress((double) ((double) tank.getLifePoint()) / 100);
+
+        if (tank.getLifePoint() <= 30) {
+            System.out.println("Less than 30 points");
+            playerHealth.setColor("red-bar");
+        } else if (tank.getLifePoint() > 30) {
+            System.out.println("More than 30 points");
+            playerHealth.setColor("green-bar");
+        }
+
+        if (this.playerList.get(playerIndex).getShield() == 0) {
+            playerHealth.setBorderColor("default-color");
+        } else if (this.playerList.get(playerIndex).getShield() == 1) {
+            playerHealth.setBorderColor("small-shield");
+        } else if (this.playerList.get(playerIndex).getShield() == 2) {
+            playerHealth.setBorderColor("medium-shield");
+        } else if (this.playerList.get(playerIndex).getShield() == 3) {
+            playerHealth.setBorderColor("large-shield");
+        }
+    }
+    
+    //Beginning of Setters and Getters
+    
     public Text getWeapon() {
         return weapon;
     }
@@ -790,14 +852,6 @@ public class HUD extends Pane {
         this.weaponLogo = weaponLogo;
     }
 
-    private void setBackground() {
-        BackgroundImage myBI = new BackgroundImage(new Image("Texture/Menus/HUD/Background.png", WIDTH, HEIGHT, false, true),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-
-        this.setBackground(new Background(myBI));
-    }
-
     public GamePane getGamePane() {
         return gamePane;
     }
@@ -810,11 +864,11 @@ public class HUD extends Pane {
         return playerTurn;
     }
 
-    public static int getWIDTH() {
+    public int getWIDTH() {
         return WIDTH;
     }
 
-    public static int getHEIGHT() {
+    public int getHEIGHT() {
         return HEIGHT;
     }
 
@@ -822,7 +876,7 @@ public class HUD extends Pane {
         return player;
     }
 
-    public static int getPlayerIndex() {
+    public int getPlayerIndex() {
         return playerIndex;
     }
 
@@ -905,55 +959,7 @@ public class HUD extends Pane {
     public void setCurrentPlayerName(String name) {
         player.setText(name);
     }
-
-    public void setCurrentPlayerTank(Tanks tank, int team, int indexCurrentPlayer) {
-        playerIndex = indexCurrentPlayer;
-        playerTank.setImage(tanks[team]);
-
-        playerHealth.setProgress((double) ((double) tank.getLifePoint()) / 100);
-
-        if (tank.getLifePoint() <= 30) {
-            System.out.println("Less than 30 points");
-            playerHealth.setColor("red-bar");
-        } else if (tank.getLifePoint() > 30) {
-            System.out.println("More than 30 points");
-            playerHealth.setColor("green-bar");
-        }
-
-        if (this.playerList.get(playerIndex).getShield() == 0) {
-            System.out.println("test");
-            playerHealth.setBorderColor("default-color");
-        } else if (this.playerList.get(playerIndex).getShield() == 1) {
-            playerHealth.setBorderColor("small-shield");
-        } else if (this.playerList.get(playerIndex).getShield() == 2) {
-            playerHealth.setBorderColor("medium-shield");
-        } else if (this.playerList.get(playerIndex).getShield() == 3) {
-            playerHealth.setBorderColor("large-shield");
-        }
-    }
-
-    public void resetWeaponIndex() {
-        weaponIndex = 0;
-
-        weapon.setText(weaponManager.getWeaponFromWeaponManager(weaponIndex).getWeaponName());
-        weaponAmount.setText(playerList.get(playerIndex).getWeaponInventory()[weaponIndex] + "");
-        weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
-    }
-
-    public void resetItemIndex() {
-        itemIndex = 0;
-        System.out.println(isItemInventoryEmpty() + ", " + playerList.get(playerIndex).getUsername());
-        if (isItemInventoryEmpty() == false) {
-            item.setText(weaponManager.getItemFromWeaponManager(itemIndex).getName());
-            itemAmount.setText(playerList.get(playerIndex).getItemInventory()[itemIndex] + "");
-            itemLogo.setImage(weaponManager.getItemFromWeaponManager(itemIndex).getItemImage());
-        } else {
-            item.setText("Empty");
-            itemAmount.setText("");
-            itemLogo.setImage(emptyLogo);
-        }
-    }
-
+    
     public void updateWeaponStatus() {
         playerList.get(playerIndex).removeWeapon(weaponIndex);
     }
@@ -970,18 +976,173 @@ public class HUD extends Pane {
         return playerList.get(index);
     }
 
-    public boolean isItemInventoryEmpty() {
-        for (int i = 0; i < playerList.get(playerIndex).getItemInventory().length; i++) {
-            if (playerList.get(playerIndex).getItemInventory()[i] > 0) {
-                return false;
-            }
-        }
-
-        return true;
+    public ColoredProgressBar getHealth() {
+        return this.playerHealth;
     }
 
     public Store getStoreMenu() {
         return storeMenu;
     }
 
+    public SoundLib getSounds() {
+        return sounds;
+    }
+
+    public void setSounds(SoundLib sounds) {
+        this.sounds = sounds;
+    }
+
+    public int getItemIndex() {
+        return itemIndex;
+    }
+
+    public void setItemIndex(int itemIndex) {
+        this.itemIndex = itemIndex;
+    }
+
+    public Text getWeaponAmount() {
+        return weaponAmount;
+    }
+
+    public void setWeaponAmount(Text weaponAmount) {
+        this.weaponAmount = weaponAmount;
+    }
+
+    public ArrayList<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(ArrayList<Player> playerList) {
+        this.playerList = playerList;
+    }
+
+    public Text getItem() {
+        return item;
+    }
+
+    public void setItem(Text item) {
+        this.item = item;
+    }
+
+    public Text getItemAmount() {
+        return itemAmount;
+    }
+
+    public void setItemAmount(Text itemAmount) {
+        this.itemAmount = itemAmount;
+    }
+
+    public ImageView getItemLogo() {
+        return itemLogo;
+    }
+
+    public void setItemLogo(ImageView itemLogo) {
+        this.itemLogo = itemLogo;
+    }
+
+    public Image getEmptyLogo() {
+        return emptyLogo;
+    }
+
+    public void setEmptyLogo(Image emptyLogo) {
+        this.emptyLogo = emptyLogo;
+    }
+
+    public ImageView getMuteBtn() {
+        return muteBtn;
+    }
+
+    public void setMuteBtn(ImageView muteBtn) {
+        this.muteBtn = muteBtn;
+    }
+
+    public Image getMuteBtnImage() {
+        return muteBtnImage;
+    }
+
+    public void setMuteBtnImage(Image muteBtnImage) {
+        this.muteBtnImage = muteBtnImage;
+    }
+
+    public ImageView getItemBtn() {
+        return itemBtn;
+    }
+
+    public void setItemBtn(ImageView itemBtn) {
+        this.itemBtn = itemBtn;
+    }
+
+    public Image getItemBtnImage() {
+        return itemBtnImage;
+    }
+
+    public void setItemBtnImage(Image itemBtnImage) {
+        this.itemBtnImage = itemBtnImage;
+    }
+
+    public Image getItemBtnClicked() {
+        return itemBtnClicked;
+    }
+
+    public void setItemBtnClicked(Image itemBtnClicked) {
+        this.itemBtnClicked = itemBtnClicked;
+    }
+
+    public ImageView getUseBtn() {
+        return useBtn;
+    }
+
+    public void setUseBtn(ImageView useBtn) {
+        this.useBtn = useBtn;
+    }
+
+    public Image getUseBtnImage() {
+        return useBtnImage;
+    }
+
+    public void setUseBtnImage(Image useBtnImage) {
+        this.useBtnImage = useBtnImage;
+    }
+
+    public Image getUseBtnClicked() {
+        return useBtnClicked;
+    }
+
+    public void setUseBtnClicked(Image useBtnClicked) {
+        this.useBtnClicked = useBtnClicked;
+    }
+
+    public Image getUsaTank() {
+        return usaTank;
+    }
+
+    public void setUsaTank(Image usaTank) {
+        this.usaTank = usaTank;
+    }
+
+    public Image getNorthKoreaTank() {
+        return northKoreaTank;
+    }
+
+    public void setNorthKoreaTank(Image northKoreaTank) {
+        this.northKoreaTank = northKoreaTank;
+    }
+
+    public Image getChinaTank() {
+        return chinaTank;
+    }
+
+    public void setChinaTank(Image chinaTank) {
+        this.chinaTank = chinaTank;
+    }
+
+    public ImageCursor getCursorImg() {
+        return cursorImg;
+    }
+
+    public void setCursorImg(ImageCursor cursorImg) {
+        this.cursorImg = cursorImg;
+    }
+    
+    //End of Setters and Getters
 }
