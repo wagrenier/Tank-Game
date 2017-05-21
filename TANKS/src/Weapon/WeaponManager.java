@@ -1,8 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/****************************************************************
+ *  Header File: BXXXXXXX.h
+ *  Description: Generic Business Function Header File
+ *    History:
+ *     Date    Programmer SAR# - Description
+ *     ---------- ---------- ----------------------------
+ *  Author 03/15/2006           - Created
+ *
+ ****************************************************************/
 package Weapon;
 
 import java.util.ArrayList;
