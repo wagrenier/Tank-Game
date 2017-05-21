@@ -21,6 +21,11 @@ public class ShieldItem extends Item{
         -Medium shield: protects 50%
         -Large shield: protects 75%
     */
+
+    /**
+     *
+     */
+
     
     
     
@@ -28,6 +33,14 @@ public class ShieldItem extends Item{
         
     }
     
+    /**
+     *
+     * @param name
+     * @param costOfItem
+     * @param texturePath
+     * @param shieldProtection
+     * @param use
+     */
     public ShieldItem(String name, int costOfItem, String texturePath, int shieldProtection, String use){
         this.setName(name);
         this.setCostOfItem(costOfItem);
@@ -36,6 +49,10 @@ public class ShieldItem extends Item{
         this.setValue(shieldProtection);
     }
     
+    /**
+     *
+     * @param shieldProtection
+     */
     public void setShieldProtection(int shieldProtection){
         this.setValue(shieldProtection);
     }

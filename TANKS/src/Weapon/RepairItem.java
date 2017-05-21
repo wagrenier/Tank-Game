@@ -21,6 +21,11 @@ public class RepairItem extends Item{
         -Medium repair tool: 50%
         -Large repair tool: 75%
     */
+
+    /**
+     *
+     */
+
     
     
     
@@ -28,6 +33,14 @@ public class RepairItem extends Item{
         
     }
     
+    /**
+     *
+     * @param name
+     * @param costOfItem
+     * @param texturePath
+     * @param repairPercentage
+     * @param use
+     */
     public RepairItem(String name, int costOfItem, String texturePath, int repairPercentage, String use){
         this.setName(name);
         this.setCostOfItem(costOfItem);
@@ -37,6 +50,10 @@ public class RepairItem extends Item{
        
     }
     
+    /**
+     *
+     * @param repairPercentage
+     */
     public void setRepairPercentage(int repairPercentage){
         this.setValue(repairPercentage);
     }

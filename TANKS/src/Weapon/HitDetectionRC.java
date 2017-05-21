@@ -10,7 +10,6 @@
 package Weapon;
 
 import GamePane.GamePane;
-import HUD.HUD;
 import Tanks.Tanks;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
@@ -40,6 +39,21 @@ public class HitDetectionRC extends AnimationTimer{
     private RCAnimation weaponAnimation;
     private Weapon weapon;
 
+    /**
+     *
+     * @param weaponAnimation
+     * @param tanksOne
+     * @param tanksTwo
+     * @param tanksThree
+     * @param tanksFour
+     * @param tank
+     * @param animation
+     * @param animation2
+     * @param animation3
+     * @param animation4
+     * @param pane
+     * @param weapon
+     */
     public HitDetectionRC(RCAnimation weaponAnimation, Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Timeline animation, Timeline animation2, Timeline animation3, Timeline animation4, GamePane pane, Weapon weapon) {
         
         this.tanksOne = tanksOne;

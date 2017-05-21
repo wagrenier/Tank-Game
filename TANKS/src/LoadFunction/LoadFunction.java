@@ -33,7 +33,9 @@ public class LoadFunction {
     private double[][] mineLocation; // The lcoation of the mines in the pane
     private GamePane gamePane; // The game pane containing all crucial information about the game
     
-    
+    /**
+     *
+     */
     public LoadFunction() {
         
         try {
@@ -60,90 +62,178 @@ public class LoadFunction {
         
     }
 
+    /**
+     *
+     * @return
+     */
     public int[] getNumOfTurnArray() {
         return numOfTurnArray;
     }
     
+    /**
+     *
+     * @return
+     */
     public double[][] getMineLocation() {
         return mineLocation;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isMinePlaced() {
         return minePlaced;
     }
 
+    /**
+     *
+     * @return
+     */
     public double[] getMaxPixMove() {
         return maxPixMove;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean[] getDead() {
         return dead;
     }
 
+    /**
+     *
+     * @return
+     */
     public int[] getIndexOfCurrentPlayerTurn() {
         return indexOfCurrentPlayerTurn;
     }
     
+    /**
+     *
+     * @return
+     */
     public int[] getTanksHP() {
         return tanksHP;
     }
     
+    /**
+     *
+     * @return
+     */
     public double[][] getTanksArray() {
         return tanksArray;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean[] getDirection() {
         return direction;
     }
     
+    /**
+     *
+     * @return
+     */
     public GamePane getGamePane() {
         return gamePane;
     }
 
+    /**
+     *
+     * @param minePlaced
+     */
     public void setMinePlaced(boolean minePlaced) {
         this.minePlaced = minePlaced;
     }
 
+    /**
+     *
+     * @param direction
+     */
     public void setDirection(boolean[] direction) {
         this.direction = direction;
     }
 
+    /**
+     *
+     * @param dead
+     */
     public void setDead(boolean[] dead) {
         this.dead = dead;
     }
 
+    /**
+     *
+     * @param numOfTurnArray
+     */
     public void setNumOfTurnArray(int[] numOfTurnArray) {
         this.numOfTurnArray = numOfTurnArray;
     }
 
+    /**
+     *
+     * @param tanksHP
+     */
     public void setTanksHP(int[] tanksHP) {
         this.tanksHP = tanksHP;
     }
 
+    /**
+     *
+     * @param indexOfCurrentPlayerTurn
+     */
     public void setIndexOfCurrentPlayerTurn(int[] indexOfCurrentPlayerTurn) {
         this.indexOfCurrentPlayerTurn = indexOfCurrentPlayerTurn;
     }
 
+    /**
+     *
+     * @param tanksArray
+     */
     public void setTanksArray(double[][] tanksArray) {
         this.tanksArray = tanksArray;
     }
 
+    /**
+     *
+     * @param maxPixMove
+     */
     public void setMaxPixMove(double[] maxPixMove) {
         this.maxPixMove = maxPixMove;
     }
 
+    /**
+     *
+     * @param mineLocation
+     */
     public void setMineLocation(double[][] mineLocation) {
         this.mineLocation = mineLocation;
     }
 
+    /**
+     *
+     * @param gamePane
+     */
     public void setGamePane(GamePane gamePane) {
         this.gamePane = gamePane;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isSuccessfulLoad() {
         return successfulLoad;
     }
 
+    /**
+     *
+     * @param successfulLoad
+     */
     public void setSuccessfulLoad(boolean successfulLoad) {
         this.successfulLoad = successfulLoad;
     }

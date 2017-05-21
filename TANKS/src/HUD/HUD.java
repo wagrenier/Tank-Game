@@ -111,6 +111,12 @@ public class HUD extends Pane {
 
     private ImageCursor cursorImg = new ImageCursor(new Image("Texture/Cursor/Cursor.png"));
 
+    /**
+     *
+     * @param weaponManager
+     * @param gamePane
+     * @param sounds
+     */
     public HUD(WeaponManager weaponManager, GamePane gamePane, SoundLib sounds) {
 
         this.sounds = sounds;
@@ -200,6 +206,9 @@ public class HUD extends Pane {
         });
     }
 
+    /**
+     *
+     */
     public void generateNewWindRes() {
         /**
          * private double windResistance = 30;//Default value for the moment
@@ -266,6 +275,10 @@ public class HUD extends Pane {
 
     }
 
+    /**
+     *
+     * @param itemIndexAI
+     */
     public void useItemAI(int itemIndexAI) {
         if (isItemInventoryEmpty()) {
             nextItemAction();
@@ -286,6 +299,9 @@ public class HUD extends Pane {
         }
     }
 
+    /**
+     *
+     */
     public void useItem() {
         if (isItemInventoryEmpty()) {
             nextItemAction();
@@ -347,6 +363,9 @@ public class HUD extends Pane {
         });
     }
 
+    /**
+     *
+     */
     public void nextItemActionVerification() {
         if (playerList.get(playerIndex).getItemInventory()[itemIndex] == 0) {
             nextItemAction();
@@ -355,6 +374,9 @@ public class HUD extends Pane {
         }
     }
 
+    /**
+     *
+     */
     public void nextWeaponActionVerification() {
         if (playerList.get(playerIndex).getWeaponInventory()[weaponIndex] == 0) {
 
@@ -363,6 +385,9 @@ public class HUD extends Pane {
         }
     }
 
+    /**
+     *
+     */
     public void nextItemAction() {
         if (isItemInventoryEmpty() == false) {
             do {
@@ -421,6 +446,9 @@ public class HUD extends Pane {
 
     }
 
+    /**
+     *
+     */
     public void nextWeaponAction() {
         if (gamePane.getTanksAnimation().getProgressBarAnimationUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getStatus().compareTo(Animation.Status.RUNNING) == 0 || gamePane.getTanksAnimation().getRCAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0 || gamePane.getTanksAnimation().getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0) {
 
@@ -604,6 +632,9 @@ public class HUD extends Pane {
          });*/
     }
 
+    /**
+     *
+     */
     public void updateHealth() {
         if (this.playerList.get(playerIndex).getShield() == 0) {
             System.out.println("test");
@@ -617,6 +648,10 @@ public class HUD extends Pane {
         }
     }
 
+    /**
+     *
+     * @param lifePoints
+     */
     public void updateHealth(int lifePoints) {
         System.out.println("test");
 
@@ -637,6 +672,10 @@ public class HUD extends Pane {
 
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isItemInventoryEmpty() {
         for (int i = 0; i < playerList.get(playerIndex).getItemInventory().length; i++) {
             if (playerList.get(playerIndex).getItemInventory()[i] > 0) {
@@ -783,6 +822,9 @@ public class HUD extends Pane {
         this.setBackground(new Background(myBI));
     }
     
+    /**
+     *
+     */
     public void resetWeaponIndex() {
         weaponIndex = 0;
 
@@ -791,6 +833,9 @@ public class HUD extends Pane {
         weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
     }
 
+    /**
+     *
+     */
     public void resetItemIndex() {
         itemIndex = 0;
         System.out.println(isItemInventoryEmpty() + ", " + playerList.get(playerIndex).getUsername());
@@ -805,6 +850,12 @@ public class HUD extends Pane {
         }
     }
     
+    /**
+     *
+     * @param tank
+     * @param team
+     * @param indexCurrentPlayer
+     */
     public void setCurrentPlayerTank(Tanks tank, int team, int indexCurrentPlayer) {
         playerIndex = indexCurrentPlayer;
         playerTank.setImage(tanks[team]);
@@ -831,319 +882,635 @@ public class HUD extends Pane {
     }
     
     //Beginning of Setters and Getters
+
+    /**
+     *
+     * @return
+     */
     
     public Text getWeapon() {
         return weapon;
     }
 
+    /**
+     *
+     * @param weapon
+     */
     public void setWeapon(Text weapon) {
         this.weapon = weapon;
     }
 
+    /**
+     *
+     * @return
+     */
     public Text getWeaponCost() {
         return weaponAmount;
     }
 
+    /**
+     *
+     * @param weaponCost
+     */
     public void setWeaponCost(Text weaponCost) {
         this.weaponAmount = weaponCost;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getWeaponLogo() {
         return weaponLogo;
     }
 
+    /**
+     *
+     * @param weaponLogo
+     */
     public void setWeaponLogo(ImageView weaponLogo) {
         this.weaponLogo = weaponLogo;
     }
 
+    /**
+     *
+     * @return
+     */
     public GamePane getGamePane() {
         return gamePane;
     }
 
+    /**
+     *
+     * @return
+     */
     public PauseMenu getPauseMenu() {
         return pauseMenu;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPlayerTurn() {
         return playerTurn;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getWIDTH() {
         return WIDTH;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getHEIGHT() {
         return HEIGHT;
     }
 
+    /**
+     *
+     * @return
+     */
     public Text getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPlayerIndex() {
         return playerIndex;
     }
 
+    /**
+     *
+     * @return
+     */
     public WeaponManager getWeaponManager() {
         return weaponManager;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getWeaponIndex() {
         return weaponIndex;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getWeaponBtn() {
         return weaponBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getWeaponBtnImage() {
         return weaponBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getWeaponBtnClicked() {
         return weaponBtnClicked;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getStoreBtn() {
         return storeBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getStoreBtnImage() {
         return storeBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getStoreBtnClicked() {
         return storeBtnClicked;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getPauseBtn() {
         return pauseBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getPauseBtnImage() {
         return pauseBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getPauseBtnClicked() {
         return pauseBtnClicked;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getGravity() {
         return gravity;
     }
 
+    /**
+     *
+     * @return
+     */
     public Text getGravityLbl() {
         return gravityLbl;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getWindResistance() {
         return windResistance;
     }
 
+    /**
+     *
+     * @return
+     */
     public Text getWind() {
         return wind;
     }
 
+    /**
+     *
+     * @return
+     */
     public ColoredProgressBar getPlayerHealth() {
         return playerHealth;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getPlayerTank() {
         return playerTank;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image[] getTanks() {
         return tanks;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getCanadaTank() {
         return canadaTank;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setCurrentPlayerName(String name) {
         player.setText(name);
     }
     
+    /**
+     *
+     */
     public void updateWeaponStatus() {
         playerList.get(playerIndex).removeWeapon(weaponIndex);
     }
 
+    /**
+     *
+     */
     public void updateItemStatus() {
         playerList.get(playerIndex).removeItem(itemIndex);
     }
 
+    /**
+     *
+     * @param itemIndexAI
+     */
     public void updateItemStatusAI(int itemIndexAI) {
         playerList.get(playerIndex).removeItem(itemIndexAI);
     }
 
+    /**
+     *
+     * @param index
+     * @return
+     */
     public Player getCurrentPlayerTurn(int index) {
         return playerList.get(index);
     }
 
+    /**
+     *
+     * @return
+     */
     public ColoredProgressBar getHealth() {
         return this.playerHealth;
     }
 
+    /**
+     *
+     * @return
+     */
     public Store getStoreMenu() {
         return storeMenu;
     }
 
+    /**
+     *
+     * @return
+     */
     public SoundLib getSounds() {
         return sounds;
     }
 
+    /**
+     *
+     * @param sounds
+     */
     public void setSounds(SoundLib sounds) {
         this.sounds = sounds;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getItemIndex() {
         return itemIndex;
     }
 
+    /**
+     *
+     * @param itemIndex
+     */
     public void setItemIndex(int itemIndex) {
         this.itemIndex = itemIndex;
     }
 
+    /**
+     *
+     * @return
+     */
     public Text getWeaponAmount() {
         return weaponAmount;
     }
 
+    /**
+     *
+     * @param weaponAmount
+     */
     public void setWeaponAmount(Text weaponAmount) {
         this.weaponAmount = weaponAmount;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Player> getPlayerList() {
         return playerList;
     }
 
+    /**
+     *
+     * @param playerList
+     */
     public void setPlayerList(ArrayList<Player> playerList) {
         this.playerList = playerList;
     }
 
+    /**
+     *
+     * @return
+     */
     public Text getItem() {
         return item;
     }
 
+    /**
+     *
+     * @param item
+     */
     public void setItem(Text item) {
         this.item = item;
     }
 
+    /**
+     *
+     * @return
+     */
     public Text getItemAmount() {
         return itemAmount;
     }
 
+    /**
+     *
+     * @param itemAmount
+     */
     public void setItemAmount(Text itemAmount) {
         this.itemAmount = itemAmount;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getItemLogo() {
         return itemLogo;
     }
 
+    /**
+     *
+     * @param itemLogo
+     */
     public void setItemLogo(ImageView itemLogo) {
         this.itemLogo = itemLogo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getEmptyLogo() {
         return emptyLogo;
     }
 
+    /**
+     *
+     * @param emptyLogo
+     */
     public void setEmptyLogo(Image emptyLogo) {
         this.emptyLogo = emptyLogo;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getMuteBtn() {
         return muteBtn;
     }
 
+    /**
+     *
+     * @param muteBtn
+     */
     public void setMuteBtn(ImageView muteBtn) {
         this.muteBtn = muteBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getMuteBtnImage() {
         return muteBtnImage;
     }
 
+    /**
+     *
+     * @param muteBtnImage
+     */
     public void setMuteBtnImage(Image muteBtnImage) {
         this.muteBtnImage = muteBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getItemBtn() {
         return itemBtn;
     }
 
+    /**
+     *
+     * @param itemBtn
+     */
     public void setItemBtn(ImageView itemBtn) {
         this.itemBtn = itemBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getItemBtnImage() {
         return itemBtnImage;
     }
 
+    /**
+     *
+     * @param itemBtnImage
+     */
     public void setItemBtnImage(Image itemBtnImage) {
         this.itemBtnImage = itemBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getItemBtnClicked() {
         return itemBtnClicked;
     }
 
+    /**
+     *
+     * @param itemBtnClicked
+     */
     public void setItemBtnClicked(Image itemBtnClicked) {
         this.itemBtnClicked = itemBtnClicked;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getUseBtn() {
         return useBtn;
     }
 
+    /**
+     *
+     * @param useBtn
+     */
     public void setUseBtn(ImageView useBtn) {
         this.useBtn = useBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getUseBtnImage() {
         return useBtnImage;
     }
 
+    /**
+     *
+     * @param useBtnImage
+     */
     public void setUseBtnImage(Image useBtnImage) {
         this.useBtnImage = useBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getUseBtnClicked() {
         return useBtnClicked;
     }
 
+    /**
+     *
+     * @param useBtnClicked
+     */
     public void setUseBtnClicked(Image useBtnClicked) {
         this.useBtnClicked = useBtnClicked;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getUsaTank() {
         return usaTank;
     }
 
+    /**
+     *
+     * @param usaTank
+     */
     public void setUsaTank(Image usaTank) {
         this.usaTank = usaTank;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getNorthKoreaTank() {
         return northKoreaTank;
     }
 
+    /**
+     *
+     * @param northKoreaTank
+     */
     public void setNorthKoreaTank(Image northKoreaTank) {
         this.northKoreaTank = northKoreaTank;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getChinaTank() {
         return chinaTank;
     }
 
+    /**
+     *
+     * @param chinaTank
+     */
     public void setChinaTank(Image chinaTank) {
         this.chinaTank = chinaTank;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageCursor getCursorImg() {
         return cursorImg;
     }
 
+    /**
+     *
+     * @param cursorImg
+     */
     public void setCursorImg(ImageCursor cursorImg) {
         this.cursorImg = cursorImg;
     }

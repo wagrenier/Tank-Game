@@ -37,6 +37,18 @@ public class HitDetectionMine extends AnimationTimer{
     private Weapon weapon;
     private SoundLib sounds;
 
+    /**
+     *
+     * @param tanksOne
+     * @param tanksTwo
+     * @param tanksThree
+     * @param tanksFour
+     * @param tank
+     * @param weapon
+     * @param tanksAnimation
+     * @param pane
+     * @param sounds
+     */
     public HitDetectionMine(Tanks tanksOne, Tanks tanksTwo, Tanks tanksThree, Tanks tanksFour, Tanks tank, Weapon weapon, TanksAnimation tanksAnimation, Pane pane, SoundLib sounds) {
         this.tanksOne = tanksOne;
         this.tanksTwo = tanksTwo;
@@ -49,10 +61,18 @@ public class HitDetectionMine extends AnimationTimer{
         explosionAnimation = new ExplosionAnimation(weapon, pane);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isHitSomething() {
         return hitSomething;
     }
 
+    /**
+     *
+     * @return
+     */
     public Tanks getTank() {
         return tank;
     }

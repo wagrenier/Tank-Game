@@ -88,6 +88,10 @@ public class MapMenu extends Pane {
     private Text mapTitle = new Text();
     private String[] titleList = new String[4];
 
+    /**
+     *
+     * @param sounds
+     */
     public MapMenu(SoundLib sounds) {
         this.sounds = sounds;
 
@@ -133,6 +137,12 @@ public class MapMenu extends Pane {
         });
     }
 
+    /**
+     *
+     * @param scene
+     * @param cursor
+     * @param m
+     */
     public void setScene(Scene scene, ImageView cursor, MouseEvent m) {
         this.getChildren().remove(cursor);
 
@@ -180,6 +190,9 @@ public class MapMenu extends Pane {
          */
     }
 
+    /**
+     *
+     */
     public void resetPane() {
         for (int i = 0; i < playerNames.size(); i++) {
             this.getChildren().remove(playerNames.get(i));
@@ -233,6 +246,9 @@ public class MapMenu extends Pane {
 
     }
 
+    /**
+     *
+     */
     public void setPlayers() {
         for (int i = 0; i < players.size(); i++) {
             playerNames.add(new Text(players.get(i).getUsername()));
@@ -244,6 +260,10 @@ public class MapMenu extends Pane {
         setPlayerTanks();
     }
 
+    /**
+     *
+     * @param players
+     */
     public void setPlayerList(ArrayList<Player> players) {
         this.players = players;
     }
@@ -373,6 +393,10 @@ public class MapMenu extends Pane {
         });*/
     }
     
+    /**
+     *
+     * @return
+     */
     public int getChosenMap() {
 
         /*
@@ -401,14 +425,26 @@ public class MapMenu extends Pane {
         this.setBackground(backgrounds[backgroundIndex]);
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getPlayBtn() {
         return playBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getPlayBtnHover() {
         return playBtnHover;
     }
     
+    /**
+     *
+     * @return
+     */
     public ImageView getBackBtn() {
         return backBtn;
     }

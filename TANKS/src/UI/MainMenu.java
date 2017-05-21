@@ -55,6 +55,10 @@ public class MainMenu extends Pane {
 
     private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
 
+    /**
+     *
+     * @param sounds
+     */
     public MainMenu(SoundLib sounds) {
         this.sounds = sounds;
 
@@ -73,6 +77,11 @@ public class MainMenu extends Pane {
 
     }
 
+    /**
+     *
+     * @param scene
+     * @param cursor
+     */
     public void setScene(Scene scene, ImageView cursor) {
 
         scene.setOnMouseEntered(e -> {
@@ -91,6 +100,12 @@ public class MainMenu extends Pane {
         });
     }
 
+    /**
+     *
+     * @param scene
+     * @param cursor
+     * @param m
+     */
     public void setScene(Scene scene, ImageView cursor, MouseEvent m) {
         this.getChildren().remove(cursor);
 
@@ -264,122 +279,242 @@ public class MainMenu extends Pane {
         });
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getLoadBtn() {
         return loadBtn;
     }
     
+    /**
+     *
+     * @return
+     */
     public ImageView getPlayBtn() {
         return playBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public SoundLib getSounds() {
         return sounds;
     }
 
+    /**
+     *
+     * @param sounds
+     */
     public void setSounds(SoundLib sounds) {
         this.sounds = sounds;
     }
 
+    /**
+     *
+     * @return
+     */
     public HelpMenu getHelpMenu() {
         return helpMenu;
     }
 
+    /**
+     *
+     * @param helpMenu
+     */
     public void setHelpMenu(HelpMenu helpMenu) {
         this.helpMenu = helpMenu;
     }
 
+    /**
+     *
+     * @return
+     */
     public LoadFunction getLoad() {
         return load;
     }
 
+    /**
+     *
+     * @param load
+     */
     public void setLoad(LoadFunction load) {
         this.load = load;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getMuteBtn() {
         return muteBtn;
     }
 
+    /**
+     *
+     * @param muteBtn
+     */
     public void setMuteBtn(ImageView muteBtn) {
         this.muteBtn = muteBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getHelpBtn() {
         return helpBtn;
     }
 
+    /**
+     *
+     * @param helpBtn
+     */
     public void setHelpBtn(ImageView helpBtn) {
         this.helpBtn = helpBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getHelpBtnImage() {
         return helpBtnImage;
     }
 
+    /**
+     *
+     * @param helpBtnImage
+     */
     public void setHelpBtnImage(Image helpBtnImage) {
         this.helpBtnImage = helpBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getHelpBtnHover() {
         return helpBtnHover;
     }
 
+    /**
+     *
+     * @param helpBtnHover
+     */
     public void setHelpBtnHover(Image helpBtnHover) {
         this.helpBtnHover = helpBtnHover;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getPlayBtnImage() {
         return playBtnImage;
     }
 
+    /**
+     *
+     * @param playBtnImage
+     */
     public void setPlayBtnImage(Image playBtnImage) {
         this.playBtnImage = playBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getPlayBtnHover() {
         return playBtnHover;
     }
 
+    /**
+     *
+     * @param playBtnHover
+     */
     public void setPlayBtnHover(Image playBtnHover) {
         this.playBtnHover = playBtnHover;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getPlayBtnClicked() {
         return playBtnClicked;
     }
 
+    /**
+     *
+     * @param playBtnClicked
+     */
     public void setPlayBtnClicked(Image playBtnClicked) {
         this.playBtnClicked = playBtnClicked;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getLoadBtnImage() {
         return loadBtnImage;
     }
 
+    /**
+     *
+     * @param loadBtnImage
+     */
     public void setLoadBtnImage(Image loadBtnImage) {
         this.loadBtnImage = loadBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getLoadBtnHover() {
         return loadBtnHover;
     }
 
+    /**
+     *
+     * @param loadBtnHover
+     */
     public void setLoadBtnHover(Image loadBtnHover) {
         this.loadBtnHover = loadBtnHover;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getLoadBtnClicked() {
         return loadBtnClicked;
     }
 
+    /**
+     *
+     * @param loadBtnClicked
+     */
     public void setLoadBtnClicked(Image loadBtnClicked) {
         this.loadBtnClicked = loadBtnClicked;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getMuteBtnImage() {
         return muteBtnImage;
     }
 
+    /**
+     *
+     * @param muteBtnImage
+     */
     public void setMuteBtnImage(Image muteBtnImage) {
         this.muteBtnImage = muteBtnImage;
     }

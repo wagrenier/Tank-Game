@@ -36,6 +36,11 @@ public class HelpMenu {
 
     private Text helpInformation = new Text();
     
+    /**
+     *
+     * @param pane
+     * @param cursorImg
+     */
     public HelpMenu(Pane pane, ImageCursor cursorImg) {
         this.pane = pane;
 
@@ -43,6 +48,10 @@ public class HelpMenu {
         setCloseBtn(cursorImg);
     }
 
+    /**
+     *
+     * @param pane
+     */
     public HelpMenu(Pane pane) {
         this.pane = pane;
 
@@ -139,6 +148,9 @@ public class HelpMenu {
         helpInformation.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
     }
 
+    /**
+     *
+     */
     public void openHelpMenu() {
         this.pane.getChildren().add(background);
         this.pane.getChildren().add(helpInformation);
@@ -146,6 +158,9 @@ public class HelpMenu {
         helpOpen = true;
     }
 
+    /**
+     *
+     */
     public void closeHelpMenu() {
         this.pane.getChildren().remove(background);
         this.pane.getChildren().remove(helpInformation);
@@ -153,6 +168,10 @@ public class HelpMenu {
         helpOpen = false;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isHelpOpen() {
         return helpOpen;
     }

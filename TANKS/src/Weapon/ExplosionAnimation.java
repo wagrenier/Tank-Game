@@ -1,6 +1,6 @@
 /****************************************************************
  *  File: ExplosionAnimation
- *  Description: The object containing the animation for the explosion
+ *  Description: Animates an explosion once a weapon animation is completed
  *    History:
  *     Date    05/10/2006 
  *     ---------- ---------- ----------------------------
@@ -19,9 +19,10 @@ import javafx.util.Duration;
 
 /**
  *
- * @author willi
+ * Animates an explosion once a weapon animation is completed
  */
 public class ExplosionAnimation {
+    /**Index*/
     private int frameIndex = 0;
     private Image frame1 = new Image("Explosion/Explosion Animation/Frame 1.png");
     private Image frame2 = new Image("Explosion/Explosion Animation/Frame 2.png");
@@ -43,7 +44,11 @@ public class ExplosionAnimation {
     private Timeline animation;
     private Weapon weapon;
     
-    
+    /**
+     *
+     * @param weapon
+     * @param pane
+     */
     public ExplosionAnimation(Weapon weapon, Pane pane){
         
         
@@ -80,11 +85,18 @@ public class ExplosionAnimation {
         animation.setCycleCount(13);
     }
     
+    /**
+     *
+     */
     public void resetAnimationPosition(){
         explosion.setTranslateX(weapon.getTranslateX() - 50);
         explosion.setTranslateY(weapon.getTranslateY() - 50);
     }
     
+    /**
+     *
+     * @param sounds
+     */
     public void playAnimation(SoundLib sounds){
         if (sounds.isSoundPlaying()){
             sounds.getExplosion().seek(Duration.ZERO);
@@ -94,6 +106,10 @@ public class ExplosionAnimation {
         
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline getAnimation() {
         return animation;
     }

@@ -35,6 +35,10 @@ public class Leaderboard {
 
     private boolean leaderboardOpen = false;
 
+    /**
+     *
+     * @param pane
+     */
     public Leaderboard(GamePane pane) {
         this.pane = pane;
 
@@ -106,10 +110,17 @@ public class Leaderboard {
         });
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isLeaderboardOpen() {
         return this.leaderboardOpen;
     }
 
+    /**
+     *
+     */
     public void openLeaderBoard() {
         updateBoard();
 
@@ -117,6 +128,9 @@ public class Leaderboard {
         this.leaderboardOpen = true;
     }
 
+    /**
+     *
+     */
     public void closeLeaderboard() {
         this.pane.getChildren().removeAll(background, names, scores, closeBtn);
         this.leaderboardOpen = false;

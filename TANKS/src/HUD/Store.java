@@ -85,6 +85,13 @@ public class Store {
 
     private Text errorMsg = new Text("Insufficient funds");
 
+    /**
+     *
+     * @param gamePane
+     * @param weaponManager
+     * @param sounds
+     * @param hud
+     */
     public Store(GamePane gamePane, WeaponManager weaponManager, SoundLib sounds, HUD hud) {
         this.gamePane = gamePane;
         this.weaponManager = weaponManager;
@@ -218,6 +225,10 @@ public class Store {
 
     }
 
+    /**
+     *
+     * @param player
+     */
     public void openStore(Player player) {//Will later request the player accessing the store
         this.gamePane.getChildren().add(storeBackground);
         this.player = player;
@@ -254,6 +265,9 @@ public class Store {
         storeOpened = true;
     }
 
+    /**
+     *
+     */
     public void closeStore() {
         this.gamePane.getChildren().remove(storeBackground);
         this.gamePane.getChildren().remove(atomicBtn);
@@ -281,6 +295,10 @@ public class Store {
         storeOpened = false;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isStoreOpened() {
         return storeOpened;
     }
@@ -850,6 +868,12 @@ public class Store {
 
     }
 
+    /**
+     *
+     * @param type
+     * @param index
+     * @param playerAI
+     */
     public void buyItemAI(boolean type, int index, Player playerAI) {
         /*
         type = true means it is a weapon, must pick from weaponArray

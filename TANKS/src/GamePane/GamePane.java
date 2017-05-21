@@ -48,6 +48,14 @@ public class GamePane extends Pane implements Serializable{
     private transient Timeline[] tanksAnimationArrayUsed;
     private transient GameLoop gameLoop;
     
+    /**
+     *
+     * @param numOfPlayers
+     * @param playerArrayList
+     * @param mapGeneration
+     * @param currentPlayer
+     * @param sounds
+     */
     public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, MapGeneration mapGeneration, int currentPlayer, SoundLib sounds){
         this.mapGeneration = mapGeneration;
         this.mapIndex = this.mapGeneration.getMapIndex();
@@ -61,6 +69,13 @@ public class GamePane extends Pane implements Serializable{
         gameLoop(currentPlayer);
     }
     
+    /**
+     *
+     * @param numOfPlayers
+     * @param playerArrayList
+     * @param mapIndex
+     * @param sounds
+     */
     public GamePane(int numOfPlayers, ArrayList<Player> playerArrayList, int mapIndex, SoundLib sounds){
         this.playerArrayList = playerArrayList;
         this.mapIndex = mapIndex;
@@ -74,15 +89,29 @@ public class GamePane extends Pane implements Serializable{
     }
     
     //The game's main loop put in a thread because otherwise the program hangs in here
+
+    /**
+     *
+     * @param currentPlayer
+     */
     public void gameLoop(int currentPlayer){
         gameLoop = new GameLoop(tanksAnimation, tanksAnimationArrayUsed, tanksAnimation.getTanksArrayUsed(), currentPlayer);
         gameLoop.start();
     }
     
+    /**
+     *
+     * @param pane
+     * @param currentPlayer
+     */
     public void paneSetup(GamePane pane, int currentPlayer){
         tanksSetup(pane, currentPlayer);
     }
     
+    /**
+     *
+     * @param pane
+     */
     public void mapSetupNewMapGeneration(GamePane pane){
         switch(mapIndex){
             case 0:{
@@ -117,6 +146,10 @@ public class GamePane extends Pane implements Serializable{
         
     }
     
+    /**
+     *
+     * @param pane
+     */
     public void mapSetupRestoredMapGeneration(GamePane pane){
         switch(mapIndex){
             case 0:{
@@ -146,11 +179,21 @@ public class GamePane extends Pane implements Serializable{
         
     }
     
+    /**
+     *
+     * @param pane
+     * @param currentPlayer
+     */
     public void tanksSetup(GamePane pane, int currentPlayer){
         tanksAnimation = new TanksAnimation(mapGeneration, this, numOfPlayers, playerArrayList, currentPlayer, sounds);  
         tanksAnimationArrayUsed = tanksAnimation.getTanksAnimationArrayUsed();
     }
     
+    /**
+     *
+     * @param pane
+     * @param backGroundPath
+     */
     public void backGroundSetup(GamePane pane, String backGroundPath){
         //Setting the background of the pane
         BackgroundImage myBI= new BackgroundImage(new Image(backGroundPath, width, height, false, true),
@@ -159,6 +202,11 @@ public class GamePane extends Pane implements Serializable{
         pane.setBackground(new Background(myBI));
     }
     
+    /**
+     *
+     * @param pane
+     * @param frontGroundImagePath
+     */
     public void frontGroundSetup(GamePane pane, String frontGroundImagePath){
        Image image = new Image(frontGroundImagePath);
        PixelReader pixelReader = image.getPixelReader();
@@ -178,66 +226,130 @@ public class GamePane extends Pane implements Serializable{
        this.getChildren().add(new ImageView(writeImage));
    }
     
+    /**
+     *
+     * @return
+     */
     public HUD getHUD(){
         return tanksAnimation.getHud();
     }
 
+    /**
+     *
+     * @param tanksAnimation
+     */
     public void setTanksAnimation(TanksAnimation tanksAnimation) {
         this.tanksAnimation = tanksAnimation;
     }
     
+    /**
+     *
+     * @return
+     */
     public TanksAnimation getTanksAnimation() {
         return tanksAnimation;
     }
     
+    /**
+     *
+     * @param playerArrayList
+     */
     public void setPlayerArrayList(ArrayList<Player> playerArrayList){
         this.playerArrayList = playerArrayList;
     }
     
+    /**
+     *
+     * @param player
+     */
     public void addPlayer(Player player){
         playerArrayList.add(player);
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Player> getPlayerArrayList() {
         return playerArrayList;
     }
 
+    /**
+     *
+     * @return
+     */
     public MapGeneration getMapGeneration() {
         return mapGeneration;
     }
 
+    /**
+     *
+     * @return
+     */
     public GameLoop getGameLoop() {
         return gameLoop;
     }
 
+    /**
+     *
+     * @return
+     */
     public SoundLib getSounds() {
         return sounds;
     }
 
+    /**
+     *
+     * @param sounds
+     */
     public void setSounds(SoundLib sounds) {
         this.sounds = sounds;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumOfPlayers() {
         return numOfPlayers;
     }
 
+    /**
+     *
+     * @param numOfPlayers
+     */
     public void setNumOfPlayers(int numOfPlayers) {
         this.numOfPlayers = numOfPlayers;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMapIndex() {
         return mapIndex;
     }
 
+    /**
+     *
+     * @param mapIndex
+     */
     public void setMapIndex(int mapIndex) {
         this.mapIndex = mapIndex;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline[] getTanksAnimationArrayUsed() {
         return tanksAnimationArrayUsed;
     }
 
+    /**
+     *
+     * @param tanksAnimationArrayUsed
+     */
     public void setTanksAnimationArrayUsed(Timeline[] tanksAnimationArrayUsed) {
         this.tanksAnimationArrayUsed = tanksAnimationArrayUsed;
     }

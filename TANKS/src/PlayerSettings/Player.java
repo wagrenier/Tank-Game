@@ -37,6 +37,11 @@ public class Player implements Serializable {
         setItemInventory();
     }
 
+    /**
+     *
+     * @param username
+     * @param team
+     */
     public Player(String username, int team) {
         if (username.length() > 10) {
             this.username = username.substring(0, 10);
@@ -47,6 +52,10 @@ public class Player implements Serializable {
         setItemInventory();
     }
     
+    /**
+     *
+     * @param index
+     */
     public void removeWeapon(int index) {
         if (index == 0) {
 
@@ -59,18 +68,35 @@ public class Player implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param index
+     */
     public void addWeapon(int index) {
         weaponInventory[index] = weaponInventory[index] + 1;
     }
 
+    /**
+     *
+     * @param index
+     */
     public void removeItem(int index) {
         itemInventory[index] = itemInventory[index] - 1;
     }
 
+    /**
+     *
+     * @param index
+     */
     public void addItem(int index) {
         itemInventory[index] = itemInventory[index] + 1;
     }
 
+    /**
+     *
+     * @param amount
+     * @return
+     */
     public boolean removeMoney(int amount) {
 
         if (amount <= this.money) {
@@ -81,6 +107,10 @@ public class Player implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param amount
+     */
     public void addMoney(int amount) {
         this.money = this.money + amount;
     }
@@ -108,14 +138,26 @@ public class Player implements Serializable {
         itemInventory[7] = 0;
     }
 
+    /**
+     *
+     * @return
+     */
     public int[] getItemInventory() {
         return this.itemInventory;
     }
 
+    /**
+     *
+     * @return
+     */
     public int[] getWeaponInventory() {
         return this.weaponInventory;
     }
 
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         if (name.length() > 10) {
             this.username = name.substring(0, 10);
@@ -125,44 +167,84 @@ public class Player implements Serializable {
 
     }
 
+    /**
+     *
+     * @param team
+     */
     public void setTeam(int team) {
         this.team = team;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUsername() {
         return this.username;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTeam() {
         return this.team;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isIsAI() {
         return isAI;
     }
 
+    /**
+     *
+     * @param isAI
+     */
     public void setIsAI(boolean isAI) {
         this.isAI = isAI;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMoney() {
         return this.money;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getFinalScore() {
         return finalScore;
     }
 
+    /**
+     *
+     * @param finalScore
+     */
     public void setFinalScore(int finalScore) {
         this.finalScore = finalScore;
     }
 
+    /**
+     *
+     * @param var
+     */
     public void setShield(int var) {
         this.shield = var;
 
         System.out.println(this.username + " " + this.shield);
     }
 
+    /**
+     *
+     * @return
+     */
     public int getShield() {
         return this.shield;
     }

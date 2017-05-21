@@ -41,6 +41,7 @@ public class SaveFunction {
      * GameLoop:
      * InitialPosition
      * 
+     * @param gamePane
      */
     public SaveFunction(GamePane gamePane){
         try {

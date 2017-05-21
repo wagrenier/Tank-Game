@@ -79,6 +79,10 @@ public class CountryMenu extends Pane {
 
     private TextField usernameField;
 
+    /**
+     *
+     * @param sounds
+     */
     public CountryMenu(SoundLib sounds) {
         this.sounds = sounds;
 
@@ -128,6 +132,12 @@ public class CountryMenu extends Pane {
         });
     }
 
+    /**
+     *
+     * @param scene
+     * @param cursor
+     * @param m
+     */
     public void setScene(Scene scene, ImageView cursor, MouseEvent m) {
         this.getChildren().remove(cursor);
 
@@ -153,6 +163,9 @@ public class CountryMenu extends Pane {
         scene.getStylesheets().add("classes/checkbox.css");
     }
 
+    /**
+     *
+     */
     public void resetPane() {
         setTankList();
         setFlagList();
@@ -162,12 +175,20 @@ public class CountryMenu extends Pane {
         flag.setImage(flagList.get(tankCount));
     }
 
+    /**
+     *
+     * @param country
+     */
     public void removeTeam(int country) {
         tankList.remove(country);
         flagList.remove(country);
 
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCountry() {
         if (tankList.get(tankCount).equals(northkorea)) {
             return 0;
@@ -403,6 +424,10 @@ public class CountryMenu extends Pane {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isAI() {
         if (ai.isSelected()) {
             return true;
@@ -411,6 +436,10 @@ public class CountryMenu extends Pane {
         }
     }
 
+    /**
+     *
+     * @param var
+     */
     public void refreshPane(int var) {
         player = var;
         usernameField.setText("Player " + player);
@@ -468,262 +497,522 @@ public class CountryMenu extends Pane {
         this.setBackground(new Background(myBI));
     }
     
+    /**
+     *
+     * @return
+     */
     public ImageView getNextBtn() {
         return nextBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getBackBtn() {
         return backBtn;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getTankCount() {
         return tankCount;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getPlayerName() {
         return usernameField.getText();
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @param player
+     */
     public static void setPlayer(int player) {
         CountryMenu.player = player;
     }
 
+    /**
+     *
+     * @return
+     */
     public SoundLib getSounds() {
         return sounds;
     }
 
+    /**
+     *
+     * @param sounds
+     */
     public void setSounds(SoundLib sounds) {
         this.sounds = sounds;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getLeftBtn() {
         return leftBtn;
     }
 
+    /**
+     *
+     * @param leftBtn
+     */
     public void setLeftBtn(ImageView leftBtn) {
         this.leftBtn = leftBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getRightBtn() {
         return rightBtn;
     }
 
+    /**
+     *
+     * @param rightBtn
+     */
     public void setRightBtn(ImageView rightBtn) {
         this.rightBtn = rightBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getTank() {
         return tank;
     }
 
+    /**
+     *
+     * @param tank
+     */
     public void setTank(ImageView tank) {
         this.tank = tank;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getFlag() {
         return flag;
     }
 
+    /**
+     *
+     * @param flag
+     */
     public void setFlag(ImageView flag) {
         this.flag = flag;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getMuteBtn() {
         return muteBtn;
     }
 
+    /**
+     *
+     * @param muteBtn
+     */
     public void setMuteBtn(ImageView muteBtn) {
         this.muteBtn = muteBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public CheckBox getAi() {
         return ai;
     }
 
+    /**
+     *
+     * @param ai
+     */
     public void setAi(CheckBox ai) {
         this.ai = ai;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Image> getTankList() {
         return tankList;
     }
 
+    /**
+     *
+     * @param tankList
+     */
     public void setTankList(ArrayList<Image> tankList) {
         this.tankList = tankList;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Image> getFlagList() {
         return flagList;
     }
 
+    /**
+     *
+     * @param flagList
+     */
     public void setFlagList(ArrayList<Image> flagList) {
         this.flagList = flagList;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getMuteBtnImage() {
         return muteBtnImage;
     }
 
+    /**
+     *
+     * @param muteBtnImage
+     */
     public void setMuteBtnImage(Image muteBtnImage) {
         this.muteBtnImage = muteBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getNextBtnImage() {
         return nextBtnImage;
     }
 
+    /**
+     *
+     * @param nextBtnImage
+     */
     public void setNextBtnImage(Image nextBtnImage) {
         this.nextBtnImage = nextBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getNextBtnHover() {
         return nextBtnHover;
     }
 
+    /**
+     *
+     * @param nextBtnHover
+     */
     public void setNextBtnHover(Image nextBtnHover) {
         this.nextBtnHover = nextBtnHover;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getNextBtnClicked() {
         return nextBtnClicked;
     }
 
+    /**
+     *
+     * @param nextBtnClicked
+     */
     public void setNextBtnClicked(Image nextBtnClicked) {
         this.nextBtnClicked = nextBtnClicked;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getBackBtnImage() {
         return backBtnImage;
     }
 
+    /**
+     *
+     * @param backBtnImage
+     */
     public void setBackBtnImage(Image backBtnImage) {
         this.backBtnImage = backBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getBackBtnHover() {
         return backBtnHover;
     }
 
+    /**
+     *
+     * @param backBtnHover
+     */
     public void setBackBtnHover(Image backBtnHover) {
         this.backBtnHover = backBtnHover;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getBackBtnClicked() {
         return backBtnClicked;
     }
 
+    /**
+     *
+     * @param backBtnClicked
+     */
     public void setBackBtnClicked(Image backBtnClicked) {
         this.backBtnClicked = backBtnClicked;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getLeftBtnImage() {
         return leftBtnImage;
     }
 
+    /**
+     *
+     * @param leftBtnImage
+     */
     public void setLeftBtnImage(Image leftBtnImage) {
         this.leftBtnImage = leftBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getLeftBtnHover() {
         return leftBtnHover;
     }
 
+    /**
+     *
+     * @param leftBtnHover
+     */
     public void setLeftBtnHover(Image leftBtnHover) {
         this.leftBtnHover = leftBtnHover;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getLeftBtnClicked() {
         return leftBtnClicked;
     }
 
+    /**
+     *
+     * @param leftBtnClicked
+     */
     public void setLeftBtnClicked(Image leftBtnClicked) {
         this.leftBtnClicked = leftBtnClicked;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getRightBtnImage() {
         return rightBtnImage;
     }
 
+    /**
+     *
+     * @param rightBtnImage
+     */
     public void setRightBtnImage(Image rightBtnImage) {
         this.rightBtnImage = rightBtnImage;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getRightBtnHover() {
         return rightBtnHover;
     }
 
+    /**
+     *
+     * @param rightBtnHover
+     */
     public void setRightBtnHover(Image rightBtnHover) {
         this.rightBtnHover = rightBtnHover;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getRightBtnClicked() {
         return rightBtnClicked;
     }
 
+    /**
+     *
+     * @param rightBtnClicked
+     */
     public void setRightBtnClicked(Image rightBtnClicked) {
         this.rightBtnClicked = rightBtnClicked;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getNorthkorea() {
         return northkorea;
     }
 
+    /**
+     *
+     * @param northkorea
+     */
     public void setNorthkorea(Image northkorea) {
         this.northkorea = northkorea;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getUsa() {
         return usa;
     }
 
+    /**
+     *
+     * @param usa
+     */
     public void setUsa(Image usa) {
         this.usa = usa;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getCanada() {
         return canada;
     }
 
+    /**
+     *
+     * @param canada
+     */
     public void setCanada(Image canada) {
         this.canada = canada;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getChina() {
         return china;
     }
 
+    /**
+     *
+     * @param china
+     */
     public void setChina(Image china) {
         this.china = china;
     }
 
+    /**
+     *
+     * @return
+     */
     public TextField getUsernameField() {
         return usernameField;
     }
 
+    /**
+     *
+     * @param usernameField
+     */
     public void setUsernameField(TextField usernameField) {
         this.usernameField = usernameField;
     }
 
+    /**
+     *
+     * @param tankCount
+     */
     public static void setTankCount(int tankCount) {
         CountryMenu.tankCount = tankCount;
     }
 
+    /**
+     *
+     * @param backBtn
+     */
     public void setBackBtn(ImageView backBtn) {
         this.backBtn = backBtn;
     }
 
+    /**
+     *
+     * @param nextBtn
+     */
     public void setNextBtn(ImageView nextBtn) {
         this.nextBtn = nextBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getWIDTH() {
         return WIDTH;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getHEIGHT() {
         return HEIGHT;
     }

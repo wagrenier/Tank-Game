@@ -50,6 +50,14 @@ public class WeaponAnimation{
     private Pane pane;
     private SoundLib sounds;
     
+    /**
+     *
+     * @param weapon
+     * @param tank
+     * @param mapGeneration
+     * @param pane
+     * @param sounds
+     */
     public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, SoundLib sounds){
         this.pane = pane;
         this.tank = tank;
@@ -61,6 +69,16 @@ public class WeaponAnimation{
         launchAnimation();
     }
     
+    /**
+     *
+     * @param weapon
+     * @param tank
+     * @param mapGeneration
+     * @param pane
+     * @param initialVelocity
+     * @param gravity
+     * @param sounds
+     */
     public WeaponAnimation(Weapon weapon, Tanks tank, MapGeneration mapGeneration, Pane pane, double initialVelocity, double gravity, SoundLib sounds){
         this.pane = pane;
         this.tank = tank;
@@ -74,6 +92,13 @@ public class WeaponAnimation{
         //launchAnimation();
     }
     
+    /**
+     *
+     * @param weapon
+     * @param mapGeneration
+     * @param pane
+     * @param sounds
+     */
     public WeaponAnimation(Weapon weapon, MapGeneration mapGeneration, Pane pane, SoundLib sounds){
         this.pane = pane;
         this.weapon = weapon;
@@ -162,6 +187,9 @@ public class WeaponAnimation{
         
     }
     
+    /**
+     *
+     */
     public void launchAnimation(){
         
         
@@ -185,135 +213,265 @@ public class WeaponAnimation{
         return Math.toDegrees(Math.asin((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));
     }
     
+    /**
+     *
+     */
     public void stopAnimation(){
         animationWeapon.stop();
         pane.getChildren().removeAll(weapon);
     }
     
+    /**
+     *
+     */
     public void removeWeaponFromPane(){
         pane.getChildren().removeAll(weapon);
     }
 
+    /**
+     *
+     * @return
+     */
     public double getInitialVelocity() {
         return initialVelocity;
     }
 
+    /**
+     *
+     * @param initialVelocity
+     */
     public void setInitialVelocity(double initialVelocity) {
         this.initialVelocity = initialVelocity;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline getAnimationWeapon() {
         return animationWeapon;
     }
 
+    /**
+     *
+     * @return
+     */
     public Tanks getTank() {
         return tank;
     }
 
+    /**
+     *
+     * @return
+     */
     public Weapon getWeapon() {
         return weapon;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isHitSomething() {
         return hitSomething;
     }
 
+    /**
+     *
+     * @param hitSomething
+     */
     public void setHitSomething(boolean hitSomething) {
         this.hitSomething = hitSomething;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getInitialXPosition() {
         return initialXPosition;
     }
 
+    /**
+     *
+     * @param initialXPosition
+     */
     public void setInitialXPosition(double initialXPosition) {
         this.initialXPosition = initialXPosition;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getInitialYPosition() {
         return initialYPosition;
     }
 
+    /**
+     *
+     * @param initialYPosition
+     */
     public void setInitialYPosition(double initialYPosition) {
         this.initialYPosition = initialYPosition;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getGravity() {
         return gravity;
     }
 
+    /**
+     *
+     * @param gravity
+     */
     public void setGravity(double gravity) {
         this.gravity = gravity;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getCurrentYPosition() {
         return currentYPosition;
     }
 
+    /**
+     *
+     * @param currentYPosition
+     */
     public void setCurrentYPosition(double currentYPosition) {
         this.currentYPosition = currentYPosition;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getCanonAngle() {
         return canonAngle;
     }
 
+    /**
+     *
+     * @param canonAngle
+     */
     public void setCanonAngle(double canonAngle) {
         this.canonAngle = canonAngle;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getAngleLaunched() {
         return angleLaunched;
     }
 
+    /**
+     *
+     * @param angleLaunched
+     */
     public void setAngleLaunched(double angleLaunched) {
         this.angleLaunched = angleLaunched;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getYspeed() {
         return yspeed;
     }
 
+    /**
+     *
+     * @param yspeed
+     */
     public void setYspeed(double yspeed) {
         this.yspeed = yspeed;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getXspeed() {
         return xspeed;
     }
 
+    /**
+     *
+     * @param xspeed
+     */
     public void setXspeed(double xspeed) {
         this.xspeed = xspeed;
     }
 
+    /**
+     *
+     * @return
+     */
     public ExplosionAnimation getExplosionAnimation() {
         return explosionAnimation;
     }
 
+    /**
+     *
+     * @param explosionAnimation
+     */
     public void setExplosionAnimation(ExplosionAnimation explosionAnimation) {
         this.explosionAnimation = explosionAnimation;
     }
 
+    /**
+     *
+     * @return
+     */
     public MapGeneration getMapGeneration() {
         return mapGeneration;
     }
 
+    /**
+     *
+     * @param mapGeneration
+     */
     public void setMapGeneration(MapGeneration mapGeneration) {
         this.mapGeneration = mapGeneration;
     }
 
+    /**
+     *
+     * @return
+     */
     public Pane getPane() {
         return pane;
     }
 
+    /**
+     *
+     * @param pane
+     */
     public void setPane(Pane pane) {
         this.pane = pane;
     }
 
+    /**
+     *
+     * @return
+     */
     public SoundLib getSounds() {
         return sounds;
     }
 
+    /**
+     *
+     * @param sounds
+     */
     public void setSounds(SoundLib sounds) {
         this.sounds = sounds;
     }

@@ -63,6 +63,10 @@ public class PlayerMenu extends Pane {
     private Image backBtnHover = new Image("Texture/Menus/PlayerMenu/Back Button Hover.png");
     private Image backBtnClicked = new Image("Texture/Menus/playerMenu/Back Button Clicked.png");
 
+    /**
+     *
+     * @param sounds
+     */
     public PlayerMenu(SoundLib sounds) {
         this.sounds = sounds;
 
@@ -108,6 +112,12 @@ public class PlayerMenu extends Pane {
         });
     }
 
+    /**
+     *
+     * @param scene
+     * @param cursor
+     * @param m
+     */
     public void setScene(Scene scene, ImageView cursor, MouseEvent m) {
         this.getChildren().remove(cursor);
 
@@ -325,14 +335,26 @@ public class PlayerMenu extends Pane {
         this.setBackground(new Background(myBI));
     }
     
+    /**
+     *
+     * @return
+     */
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getNextBtn() {
         return nextBtn;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImageView getBackBtn() {
         return backBtn;
     }

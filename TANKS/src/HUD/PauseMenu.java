@@ -73,6 +73,13 @@ public class PauseMenu {
 
     private ImageCursor cursorImg;
 
+    /**
+     *
+     * @param gamePane
+     * @param storeMenu
+     * @param sounds
+     * @param cursorImg
+     */
     public PauseMenu(GamePane gamePane, Store storeMenu, SoundLib sounds, ImageCursor cursorImg) {
         this.gamePane = gamePane;
         this.storeMenu = storeMenu;
@@ -284,6 +291,10 @@ public class PauseMenu {
         });
     }
 
+    /**
+     *
+     * @param storeResume
+     */
     public void resumeGame(int storeResume) {
 
         isGamePaused = false;
@@ -319,6 +330,9 @@ public class PauseMenu {
         }
     }
 
+    /**
+     *
+     */
     public void resumeGame() {
 
         isGamePaused = false;
@@ -357,6 +371,10 @@ public class PauseMenu {
         gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn, saveMsg, leaderBoard);
     }
 
+    /**
+     *
+     * @param storePause
+     */
     public void pauseGame(int storePause) {
         isGamePaused = true;
         gamePane.getTanksAnimation().getAnimation().pause();
@@ -392,6 +410,9 @@ public class PauseMenu {
         }
     }
 
+    /**
+     *
+     */
     public void pauseGame() {
         System.out.println("Game Paused");
 
@@ -433,20 +454,34 @@ public class PauseMenu {
         gamePane.getChildren().addAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn, leaderBoard);
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isGamePaused() {
         return this.isGamePaused;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isMenuOpen() {
         return this.isMenuOpened;
     }
 
+    /**
+     *
+     */
     public void openMenuWithoutPause() {
         gamePane.getChildren().addAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn, leaderBoard);
 
         isMenuOpened = true;
     }
 
+    /**
+     *
+     */
     public void closeMenuWithoutResume() {
         gamePane.getChildren().removeAll(pauseMenu, resumeBtn, saveBtn, exitBtn, helpBtn, saveMsg, leaderBoard);
 

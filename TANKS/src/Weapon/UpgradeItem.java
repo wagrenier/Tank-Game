@@ -22,6 +22,11 @@ public class UpgradeItem extends Item{
         -Everytime armor item is purchased, upgrade life point by 5
         -Everytime engine item is purchases, upgrade moving pixels by 25
     */
+
+    /**
+     *
+     */
+
     
     
     
@@ -29,6 +34,14 @@ public class UpgradeItem extends Item{
         
     }
     
+    /**
+     *
+     * @param name
+     * @param costOfItem
+     * @param texturePath
+     * @param upgradeUnit
+     * @param use
+     */
     public UpgradeItem(String name, int costOfItem, String texturePath, int upgradeUnit, String use){
         this.setName(name);
         this.setCostOfItem(costOfItem);
@@ -37,6 +50,10 @@ public class UpgradeItem extends Item{
         this.setValue(upgradeUnit);
     }
     
+    /**
+     *
+     * @param upgradeUnit
+     */
     public void setUpgradeUnit(int upgradeUnit){
         this.setValue(upgradeUnit);
     }

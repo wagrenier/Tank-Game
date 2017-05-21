@@ -61,18 +61,27 @@ public class Cannon extends Circle{
         this.setFill(texturePattern);
     }  
     
+    /**
+     *
+     */
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
         //this.setImage(textureFlipped);
         isImageFlipped = true;
     }
     
+    /**
+     *
+     */
     public void normalTexture(){
         this.setFill(texturePattern);
         //this.setImage(texture);
         isImageFlipped = false;
     }
     
+    /**
+     *
+     */
     public void lowerAngle(){
        
         if(canonAngle > 0){
@@ -82,6 +91,9 @@ public class Cannon extends Circle{
         }
     }
     
+    /**
+     *
+     */
     public void higherAngle(){
         
         if(canonAngle < (0.879645943005142)){
@@ -92,14 +104,26 @@ public class Cannon extends Circle{
         
     }
     
+    /**
+     *
+     * @param angle
+     */
     public void setAICannonAngle(double angle){
         canonAngle = angle;
     }
     
+    /**
+     *
+     * @return
+     */
     public double getCanonAngle() {
         return canonAngle;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isIsImageFlipped() {
         return isImageFlipped;
     }

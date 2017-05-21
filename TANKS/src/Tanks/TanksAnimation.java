@@ -142,6 +142,15 @@ public class TanksAnimation{
     private Text nextPlayerText = new Text();
     private Timeline nextPlayerAnimation;
     
+    /**
+     *
+     * @param mapGeneration
+     * @param pane
+     * @param numOfPlayer
+     * @param playerArrayList
+     * @param currentPlayer
+     * @param sounds
+     */
     public TanksAnimation(MapGeneration mapGeneration, GamePane pane, int numOfPlayer, ArrayList<Player> playerArrayList, int currentPlayer, SoundLib sounds) {
         this.mapGeneration = mapGeneration;
         this.indexOfCurrentPlayerTurn = currentPlayer;
@@ -422,6 +431,11 @@ public class TanksAnimation{
         return tankAnimation;
     }
     
+    /**
+     *
+     * @param tank
+     * @param x
+     */
     public void weaponSetup(Tanks tank, double x){
         shotFired = true;
         Weapon weapon = new Weapon(weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getDamage(), weaponManager.getWeaponFromWeaponManager(this.hud.getWeaponIndex()).getTexturePath(), 0);        
@@ -476,6 +490,9 @@ public class TanksAnimation{
             }
     }
     
+    /**
+     *
+     */
     public void resetSpeed(){
         tanksOne.setxSpeed(0);
         tanksOne.setySpeed(0);
@@ -494,6 +511,11 @@ public class TanksAnimation{
         tanksFour.setVelocity(0);
     }
     
+    /**
+     *
+     * @param tank
+     * @param weapon
+     */
     public void hitDetectionMine(Tanks tank, Weapon weapon){
         HitDetectionMine hitDetectionMine = new HitDetectionMine(tanksOne, tanksTwo, tanksThree, tanksFour, tank, weapon, this, pane, sounds);
         mineHitDetectionArrayList.add(hitDetectionMine);
@@ -511,6 +533,9 @@ public class TanksAnimation{
         System.out.println("Hit Something");
     }
     
+    /**
+     *
+     */
     public void updateTanksStatus(){
         if(!tanksOne.isTankAlive()){
                animation.stop();
@@ -536,6 +561,10 @@ public class TanksAnimation{
            }
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean moreThanOneTankAlive(){
         int numOfTanksAlive = 0;
         
@@ -553,6 +582,10 @@ public class TanksAnimation{
         return false;
     }
     
+    /**
+     *
+     * @return
+     */
     public int numOfTanksAlive(){
         int numOfTanksAlive = 0;
         
@@ -565,6 +598,14 @@ public class TanksAnimation{
         return numOfTanksAlive;
     }
     
+    /**
+     *
+     * @param x
+     * @param tank
+     * @param animationTank
+     * @param progressBarAnimation
+     * @param bar
+     */
     public void keyPressed(KeyCode x, Tanks tank, Timeline animationTank, Timeline progressBarAnimation, ProgressBar bar){
         if(hud.getPauseMenu().isGamePaused() || turnPlayed || shotFired){
             
@@ -647,6 +688,14 @@ public class TanksAnimation{
         }
     }
     
+    /**
+     *
+     * @param x
+     * @param tank
+     * @param animationTank
+     * @param progressBarAnimation
+     * @param bar
+     */
     public void keyPressedAI(KeyCode x, Tanks tank, Timeline animationTank, Timeline progressBarAnimation, ProgressBar bar){
         if(hud.getPauseMenu().isGamePaused()){
             
@@ -728,6 +777,9 @@ public class TanksAnimation{
         }
     }
     
+    /**
+     *
+     */
     public void updateTurn(){
         nextPlayerText.setText(playerArray[indexOfCurrentPlayerTurn].getUsername() + "'s turn!");
         this.pane.getChildren().remove(nextPlayerText);
@@ -738,11 +790,19 @@ public class TanksAnimation{
         hud.setCurrentPlayerTank(tanksArrayUsed[indexOfCurrentPlayerTurn], tanksArrayUsed[indexOfCurrentPlayerTurn].getTeam(), indexOfCurrentPlayerTurn);
     }
     
+    /**
+     *
+     */
     public void mineExploded(){
         numOfMines--;
     }
     
     //Methods Related to saving/loading the game
+
+    /**
+     *
+     * @return
+     */
     public double[][] obtainMinesLocation(){
         if(mineLocationArrayList.isEmpty()){
             return null;//If no mines are in the game
@@ -757,6 +817,10 @@ public class TanksAnimation{
         return minesLocation;
     }
     
+    /**
+     *
+     * @param mineLocation
+     */
     public void resetMineLocation(double[][] mineLocation){
         
         for(int i = 0; i < mineLocation.length; i++){
@@ -815,6 +879,10 @@ public class TanksAnimation{
             }
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isPossibleToSave(){
         if(tanksArrayUsed[indexOfCurrentPlayerTurn].getxSpeed() == 0 && progressBarAnimationUsed[indexOfCurrentPlayerTurn].getStatus().compareTo(Animation.Status.STOPPED) == 0 && weaponAnimation.getAnimationWeapon().getStatus().compareTo(Animation.Status.STOPPED) == 0){
             System.out.println("Possible");
@@ -826,6 +894,10 @@ public class TanksAnimation{
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public String reasonSaveFailed(){
         if(!(tanksArrayUsed[indexOfCurrentPlayerTurn].getxSpeed() == 0)){
             return "Game Cannot Be Saved When The Tanks Are Moving. Please Wait For The End Of The Turn.";
@@ -839,6 +911,10 @@ public class TanksAnimation{
         return "Error Finding The Error!";
     }
     
+    /**
+     *
+     * @return
+     */
     public int[] obtainTanksHP(){
         int[] tankHP = new int[tanksArrayUsed.length];
         for(int i = 0; i < tankHP.length; i++){
@@ -847,12 +923,20 @@ public class TanksAnimation{
         return tankHP;
     }
     
+    /**
+     *
+     * @param tankHP
+     */
     public void resetTankHPSave(int[] tankHP){
         for(int i = 0; i < tankHP.length; i++){
             tanksArrayUsed[i].setLifePoint(tankHP[i]);
         }
     }
     
+    /**
+     *
+     * @param tankOrientation
+     */
     public void resetTankOrientationSave(boolean[] tankOrientation){
         for(int i = 0; i < tankOrientation.length; i++){
             if(tankOrientation[i])
@@ -860,6 +944,10 @@ public class TanksAnimation{
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean[] obtainEachTanksDirection(){
         boolean[] tankOrientation = new boolean[tanksArrayUsed.length];
         for(int i = 0; i < tankOrientation.length; i++){
@@ -868,6 +956,10 @@ public class TanksAnimation{
         return tankOrientation;
     }
     
+    /**
+     *
+     * @param tanksArraySave
+     */
     public void resetTankPositionSave(double[][] tanksArraySave){
         for(int i = 0; i < tanksArraySave.length; i++){
             for(int k = 0; k < 2; k++){
@@ -880,6 +972,10 @@ public class TanksAnimation{
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public double[][] obtainEachTanksTranslation(){
         double[][] tankLocation = new double[tanksArrayUsed.length][2];
         for(int i = 0; i < tankLocation.length; i++){
@@ -894,12 +990,20 @@ public class TanksAnimation{
         return tankLocation;
     }
     
+    /**
+     *
+     * @return
+     */
     public int[] getIndexOfCurrentPlayerTurnArray(){
         int[] turn = new int[1];
         turn[0] = indexOfCurrentPlayerTurn;
         return turn;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean[] obtainWhoIsDead(){
         boolean[] dead = new boolean[tanksArrayUsed.length];
         
@@ -909,6 +1013,10 @@ public class TanksAnimation{
         return dead;
     }
     
+    /**
+     *
+     * @param dead
+     */
     public void resetWhoIsDead(boolean[] dead){
         for(int i = 0;i < tanksArrayUsed.length; i++){
             tanksArrayUsed[i].setIsTankAlive(dead[i]);
@@ -916,6 +1024,11 @@ public class TanksAnimation{
     }
     
     //To reset the maximum number of pixels a tank can travel
+
+    /**
+     *
+     * @return
+     */
     public double[] obtainMaxPixelMoveSave(){
         double[] maxPixMove = new double[tanksArrayUsed.length];
         for(int i = 0; i < tanksArrayUsed.length; i++){
@@ -924,6 +1037,10 @@ public class TanksAnimation{
         return maxPixMove;
     }
     
+    /**
+     *
+     * @param maxPixMove
+     */
     public void resetMaxPixelMove(double[] maxPixMove){
         for(int i = 0; i < tanksArrayUsed.length; i++){
             tanksArrayUsed[i].setMaxPixelMove(maxPixMove[i]);
@@ -932,258 +1049,515 @@ public class TanksAnimation{
     
     
     //Beginning of setters and getters
+
+    /**
+     *
+     * @return
+     */
     public double getWidth() {
         return width;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getGravity() {
         return gravity;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumOfPlayer() {
         return numOfPlayer;
     }
 
+    /**
+     *
+     * @param numOfPlayer
+     */
     public void setNumOfPlayer(int numOfPlayer) {
         this.numOfPlayer = numOfPlayer;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline getAnimation() {
         return animation;
     }
 
+    /**
+     *
+     * @param animation
+     */
     public void setAnimation(Timeline animation) {
         this.animation = animation;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline getAnimation2() {
         return animation2;
     }
 
+    /**
+     *
+     * @param animation2
+     */
     public void setAnimation2(Timeline animation2) {
         this.animation2 = animation2;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline getAnimation3() {
         return animation3;
     }
 
+    /**
+     *
+     * @param animation3
+     */
     public void setAnimation3(Timeline animation3) {
         this.animation3 = animation3;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline getAnimation4() {
         return animation4;
     }
 
+    /**
+     *
+     * @param animation4
+     */
     public void setAnimation4(Timeline animation4) {
         this.animation4 = animation4;
     }
 
+    /**
+     *
+     * @return
+     */
     public GamePane getPane() {
         return pane;
     }
 
+    /**
+     *
+     * @param pane
+     */
     public void setPane(GamePane pane) {
         this.pane = pane;
     }
 
+    /**
+     *
+     * @return
+     */
     public MapGeneration getMapGeneration() {
         return mapGeneration;
     }
 
+    /**
+     *
+     * @param mapGeneration
+     */
     public void setMapGeneration(MapGeneration mapGeneration) {
         this.mapGeneration = mapGeneration;
     }
     
+    /**
+     *
+     * @return
+     */
     public Tanks getTanksOne() {
         return tanksOne;
     }
 
+    /**
+     *
+     * @return
+     */
     public Tanks getTanksTwo() {
         return tanksTwo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Tanks getTanksThree() {
         return tanksThree;
     }
 
+    /**
+     *
+     * @return
+     */
     public Tanks getTanksFour() {
         return tanksFour;
     }  
 
+    /**
+     *
+     * @return
+     */
     public HUD getHud() {
         return hud;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline getProgressBarAnimationOne() {
         return progressBarAnimationOne;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline getProgressBarAnimationTwo() {
         return progressBarAnimationTwo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline getProgressBarAnimationThree() {
         return progressBarAnimationThree;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline getProgressBarAnimationFour() {
         return progressBarAnimationFour;
     }
 
+    /**
+     *
+     * @return
+     */
     public WeaponAnimation getWeaponAnimation() {
         return weaponAnimation;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline[] getTanksAnimationArrayUsed() {
         return tanksAnimationArrayUsed;
     }
 
+    /**
+     *
+     * @return
+     */
     public Tanks[] getTanksArrayUsed() {
         return tanksArrayUsed;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isShotFired() {
         return shotFired;
     }
 
+    /**
+     *
+     * @param shotFired
+     */
     public void setShotFired(boolean shotFired) {
         this.shotFired = shotFired;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIndexOfCurrentPlayerTurn() {
         return indexOfCurrentPlayerTurn;
     }
 
+    /**
+     *
+     * @param indexOfCurrentPlayerTurn
+     */
     public void setIndexOfCurrentPlayerTurn(int indexOfCurrentPlayerTurn) {
         this.indexOfCurrentPlayerTurn = indexOfCurrentPlayerTurn;
     }
 
+    /**
+     *
+     * @return
+     */
     public ProgressBar[] getProgressBarUsed() {
         return progressBarUsed;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline[] getProgressBarAnimationUsed() {
         return progressBarAnimationUsed;
     }
 
+    /**
+     *
+     * @param turnPlayed
+     */
     public void setTurnPlayed(boolean turnPlayed) {
         this.turnPlayed = turnPlayed;
     }
     
+    /**
+     *
+     * @param hud
+     */
     public void setHud(HUD hud) {
         this.hud = hud;
     }
     
+    /**
+     *
+     * @return
+     */
     public RCAnimation getRCAnimation(){
         return rcAnimation;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Weapon> getMineLocationArrayList() {
         return mineLocationArrayList;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<HitDetectionMine> getMineHitDetectionArrayList() {
         return mineHitDetectionArrayList;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumOfMines() {
         return numOfMines;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Player> getPlayerArrayList() {
         return playerArrayList;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player[] getPlayerArray() {
         return playerArray;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isKeyReleased() {
         return keyReleased;
     }
 
+    /**
+     *
+     * @param keyReleased
+     */
     public void setKeyReleased(boolean keyReleased) {
         this.keyReleased = keyReleased;
     }
 
+    /**
+     *
+     * @return
+     */
     public ProgressBar getBarOne() {
         return barOne;
     }
 
+    /**
+     *
+     * @param barOne
+     */
     public void setBarOne(ProgressBar barOne) {
         this.barOne = barOne;
     }
 
+    /**
+     *
+     * @return
+     */
     public ProgressBar getBarTwo() {
         return barTwo;
     }
 
+    /**
+     *
+     * @param barTwo
+     */
     public void setBarTwo(ProgressBar barTwo) {
         this.barTwo = barTwo;
     }
 
+    /**
+     *
+     * @return
+     */
     public ProgressBar getBarThree() {
         return barThree;
     }
 
+    /**
+     *
+     * @param barThree
+     */
     public void setBarThree(ProgressBar barThree) {
         this.barThree = barThree;
     }
 
+    /**
+     *
+     * @return
+     */
     public ProgressBar getBarFour() {
         return barFour;
     }
 
+    /**
+     *
+     * @param barFour
+     */
     public void setBarFour(ProgressBar barFour) {
         this.barFour = barFour;
     }
 
+    /**
+     *
+     * @return
+     */
     public SoundLib getSounds() {
         return sounds;
     }
 
+    /**
+     *
+     * @param sounds
+     */
     public void setSounds(SoundLib sounds) {
         this.sounds = sounds;
     }
 
+    /**
+     *
+     * @return
+     */
     public WeaponManager getWeaponManager() {
         return weaponManager;
     }
 
+    /**
+     *
+     * @param weaponManager
+     */
     public void setWeaponManager(WeaponManager weaponManager) {
         this.weaponManager = weaponManager;
     }
 
+    /**
+     *
+     * @return
+     */
     public RCAnimation getRcAnimation() {
         return rcAnimation;
     }
 
+    /**
+     *
+     * @param rcAnimation
+     */
     public void setRcAnimation(RCAnimation rcAnimation) {
         this.rcAnimation = rcAnimation;
     }
 
+    /**
+     *
+     * @return
+     */
     public Tanks[] getTanksArray() {
         return tanksArray;
     }
 
+    /**
+     *
+     * @param tanksArray
+     */
     public void setTanksArray(Tanks[] tanksArray) {
         this.tanksArray = tanksArray;
     }
 
+    /**
+     *
+     * @return
+     */
     public Text getNextPlayerText() {
         return nextPlayerText;
     }
 
+    /**
+     *
+     * @param nextPlayerText
+     */
     public void setNextPlayerText(Text nextPlayerText) {
         this.nextPlayerText = nextPlayerText;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timeline getNextPlayerAnimation() {
         return nextPlayerAnimation;
     }
 
+    /**
+     *
+     * @param nextPlayerAnimation
+     */
     public void setNextPlayerAnimation(Timeline nextPlayerAnimation) {
         this.nextPlayerAnimation = nextPlayerAnimation;
     }

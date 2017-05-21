@@ -26,10 +26,16 @@ public class WeaponManager{
     private ArrayList<Weapon> weaponArrayList = new ArrayList<>();
     private ArrayList<Item> itemArrayList = new ArrayList<>();
     
+    /**
+     *
+     */
     public WeaponManager(){
         setupWeaponManager();
     }
     
+    /**
+     *
+     */
     public void setupWeaponManager(){
         
         
@@ -71,26 +77,52 @@ public class WeaponManager{
        
     }
     
+    /**
+     *
+     * @param index
+     * @return
+     */
     public Weapon getWeaponFromWeaponManager(int index){
         return weaponArrayList.get(index);
     }
     
+    /**
+     *
+     * @param index
+     * @return
+     */
     public Item getItemFromWeaponManager(int index){
         return itemArrayList.get(index);
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Weapon> getWeaponArrayList() {
         return weaponArrayList;
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<Item> getItemArrayList(){
         return itemArrayList;
     }
 
+    /**
+     *
+     * @param weaponArrayList
+     */
     public void setWeaponArrayList(ArrayList<Weapon> weaponArrayList) {
         this.weaponArrayList = weaponArrayList;
     }
 
+    /**
+     *
+     * @param itemArrayList
+     */
     public void setItemArrayList(ArrayList<Item> itemArrayList) {
         this.itemArrayList = itemArrayList;
     }

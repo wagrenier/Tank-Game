@@ -34,50 +34,97 @@ public class SoundLib {
     private MediaPlayer bought = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Bought Sound.mp3").toURI().toString()));
     private MediaPlayer error = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Error.mp3").toURI().toString()));
     
+    /**
+     *
+     */
     public SoundLib(){
         
     }
     
+    /**
+     *
+     * @param value
+     */
     public void setSoundPlaying(boolean value){
         this.backgroundMusicPlaying = value;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isSoundPlaying(){
         return this.backgroundMusicPlaying;
     }
     
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getBackgroundMusic(){
         return backgroundMusic;
     }
     
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getTankShot(){
         return tankShot;
     }
     
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getExplosion(){
         return explosion;
     }
     
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getRepair(){
         return repair;
     }
     
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getBtnClicked(){
         return btnClicked;
     }
     
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getSave(){
         return save;
     }
     
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getFailSave(){
         return failSave;
     }
     
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getBought(){
         return bought;
     }
     
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getError(){
         return error;
     }

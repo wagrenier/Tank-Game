@@ -34,8 +34,12 @@ public class Weapon extends Circle{
     private Media soundEffect;
     private MediaPlayer soundEffectPlayer;
     
-   
-    
+    /**
+     *
+     * @param damage
+     * @param texturePath
+     * @param indexOfWeapon
+     */
     public Weapon(int damage, String texturePath, int indexOfWeapon){
         this.setRadius(25);
         this.texturePath = texturePath;
@@ -46,6 +50,15 @@ public class Weapon extends Circle{
         this.setFill(texturePattern);
     }
     
+    /**
+     *
+     * @param damage
+     * @param costOfWeapon
+     * @param weaponName
+     * @param texturePath
+     * @param shotType
+     * @param indexOfWeapon
+     */
     public Weapon(int damage, int costOfWeapon, String weaponName, String texturePath, String shotType, int indexOfWeapon) {
         this.setRadius(25);
         this.costOfWeapon = costOfWeapon;
@@ -60,6 +73,14 @@ public class Weapon extends Circle{
         this.indexOfWeapon = indexOfWeapon;
     }
 
+    /**
+     *
+     * @param costOfWeapon
+     * @param weaponName
+     * @param texturePath
+     * @param soundEffectPath
+     * @param indexOfWeapon
+     */
     public Weapon(int costOfWeapon, String weaponName, String texturePath, String soundEffectPath, int indexOfWeapon) {
         this.setRadius(25);
         this.costOfWeapon = costOfWeapon;
@@ -74,66 +95,130 @@ public class Weapon extends Circle{
         this.indexOfWeapon = indexOfWeapon;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getShotType(){
         return shotType;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCostOfWeapon() {
         return costOfWeapon;
     }
 
+    /**
+     *
+     * @param costOfWeapon
+     */
     public void setCostOfWeapon(int costOfWeapon) {
         this.costOfWeapon = costOfWeapon;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getTexture() {
         return texture;
     }
 
+    /**
+     *
+     * @param texture
+     */
     public void setTexture(Image texture) {
         this.texture = texture;
     }
 
+    /**
+     *
+     * @return
+     */
     public Media getSoundEffect() {
         return soundEffect;
     }
 
+    /**
+     *
+     * @param soundEffect
+     */
     public void setSoundEffect(Media soundEffect) {
         this.soundEffect = soundEffect;
     }
 
+    /**
+     *
+     * @return
+     */
     public MediaPlayer getSoundEffectPlayer() {
         return soundEffectPlayer;
     }
 
+    /**
+     *
+     * @param soundEffectPlayer
+     */
     public void setSoundEffectPlayer(MediaPlayer soundEffectPlayer) {
         this.soundEffectPlayer = soundEffectPlayer;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTexturePath() {
         return texturePath;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDamage() {
         return damage;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getSoundEffectPath() {
         return soundEffectPath;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getWeaponName() {
         return weaponName;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getIndexOfWeapon() {
         return indexOfWeapon;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImagePattern getTexturePattern() {
         return texturePattern;
     }
 
+    /**
+     *
+     * @param texturePattern
+     */
     public void setTexturePattern(ImagePattern texturePattern) {
         this.texturePattern = texturePattern;
     }

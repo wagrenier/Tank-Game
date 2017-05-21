@@ -60,6 +60,13 @@ public class GameLoop extends AnimationTimer{
     private int[] score = new int[10];
     private String[] names = new String[10];
     
+    /**
+     *
+     * @param tanksAnimation
+     * @param tanksAnimationArrayUsed
+     * @param tanksAraryused
+     * @param indexPlayer
+     */
     public GameLoop(TanksAnimation tanksAnimation, Timeline[] tanksAnimationArrayUsed, Tanks[] tanksAraryused, int indexPlayer){
         this.tanksAnimation = tanksAnimation;
         this.tanksAnimationArrayUsed = tanksAnimationArrayUsed;
@@ -260,30 +267,53 @@ public class GameLoop extends AnimationTimer{
         moveToClosestTank();   
     }
     
+    /**
+     *
+     * @return
+     */
     public int getIndexOfCurrentPlayerTurn() {
         return indexOfCurrentPlayerTurn;
     }
     
+    /**
+     *
+     * @return
+     */
     public int[] getIndexOfCurrentPlayerTurnArray(){
         int[] turn = new int[1];
         turn[0] = indexOfCurrentPlayerTurn;
         return turn;
     }
 
+    /**
+     *
+     * @param forceEndedTurn
+     */
     public void setForceEndedTurn(boolean forceEndedTurn) {
         this.forceEndedTurn = forceEndedTurn;
     }
     
+    /**
+     *
+     * @param array
+     */
     public void resetNumOfTurn(int[] array){
         numOfTurns = array[0];
     }
     
+    /**
+     *
+     * @return
+     */
     public int[] obtainNumOfTurns(){
         int[] numOfTurnArray = new int[1];
         numOfTurnArray[0] = numOfTurns;
         return numOfTurnArray;
     }
     
+    /**
+     *
+     */
     public void leaderboard(){
         File file = new File("src/Leaderboard/leaderboard.txt");
         
@@ -332,10 +362,18 @@ public class GameLoop extends AnimationTimer{
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public int[] getScores(){
         return this.score;
     }
     
+    /**
+     *
+     * @return
+     */
     public String[] getNames(){
         return this.names;
     }

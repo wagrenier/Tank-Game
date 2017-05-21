@@ -22,6 +22,10 @@ public class ColoredProgressBar extends ProgressBar{
         getStyleClass().add(styleClass);
     }
     
+    /**
+     *
+     * @param color
+     */
     public void setColor(String color){
         if (color.equals("red-bar")){
             getStyleClass().remove("green-bar");
@@ -33,6 +37,10 @@ public class ColoredProgressBar extends ProgressBar{
         }
     }
     
+    /**
+     *
+     * @param color
+     */
     public void setBorderColor(String color){
         getStyleClass().add(color);
     }

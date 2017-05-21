@@ -19,10 +19,10 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Cedrik Dubois
+ * The main class of the program. Launches the application Tanks
  */
 public class Main extends Application {
-    
+    /**Method that launches the app*/
     @Override
     public void start(Stage primaryStage) {
         
@@ -48,7 +48,8 @@ public class Main extends Application {
     }
     
     /**
-     * @param args the command line arguments
+     * Method that launches the program
+     * @param args
      */
     public static void main(String[] args) {
         launch(args);

@@ -58,6 +58,14 @@ public class MapGeneration implements Serializable{
     double gravity;
     private int mapIndex;
     
+    /**
+     *
+     * @param startingPoint
+     * @param amplitudeOfWave
+     * @param lengthOfWave
+     * @param gravity
+     * @param mapIndex
+     */
     public MapGeneration(double startingPoint, double amplitudeOfWave, double lengthOfWave, double gravity, int mapIndex){
         this.gravity = gravity;
         this.mapIndex = mapIndex;
@@ -76,44 +84,86 @@ public class MapGeneration implements Serializable{
        // System.out.println("Length of wave: " + this.lengthOfWave);
     }
     
+    /**
+     *
+     * @param x
+     * @return
+     */
     public double derivativeFunction(double x){
         return ((amplitudeOfWave * Math.cos( x / lengthOfWave)) / lengthOfWave) ;
        //return 0;
     }
     
+    /**
+     *
+     * @param x
+     * @return
+     */
     public double getY(double x){
           return (amplitudeOfWave * Math.sin(x / lengthOfWave) + startingPoint);
           //return 700;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getGravity() {
         return gravity;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getMapIndex() {
         return mapIndex;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getAmplitudeOfWave() {
         return amplitudeOfWave;
     }
 
+    /**
+     *
+     * @param amplitudeOfWave
+     */
     public void setAmplitudeOfWave(double amplitudeOfWave) {
         this.amplitudeOfWave = amplitudeOfWave;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getStartingPoint() {
         return startingPoint;
     }
 
+    /**
+     *
+     * @param startingPoint
+     */
     public void setStartingPoint(double startingPoint) {
         this.startingPoint = startingPoint;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getLengthOfWave() {
         return lengthOfWave;
     }
 
+    /**
+     *
+     * @param lengthOfWave
+     */
     public void setLengthOfWave(double lengthOfWave) {
         this.lengthOfWave = lengthOfWave;
     }

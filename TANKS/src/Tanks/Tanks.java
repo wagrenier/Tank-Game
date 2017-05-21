@@ -77,6 +77,9 @@ public class Tanks extends Circle{
         this.setPickOnBounds(true);
     } 
 
+    /**
+     *
+     */
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
       // this.setImage(textureFlipped);
@@ -84,6 +87,9 @@ public class Tanks extends Circle{
         isImageFlipped = true;
     }
     
+    /**
+     *
+     */
     public void normalTexture(){
         this.setFill(texturePattern);
         //this.setImage(texture);
@@ -91,6 +97,10 @@ public class Tanks extends Circle{
         isImageFlipped = false; 
     }
     
+    /**
+     *
+     * @param damage
+     */
     public void damageDone(int damage){
         if(armour > 0){
             int remainingArmour = (int)((shield / 100.0) * damage) - armour;
@@ -111,6 +121,11 @@ public class Tanks extends Circle{
         System.out.println(lifePoint);
     }
     
+    /**
+     *
+     * @param lifeToRestore
+     * @return
+     */
     public boolean restoreLifePoints(int lifeToRestore){
         //Return a boolean value to indicate if the item was used
         //True == item was used
@@ -131,139 +146,275 @@ public class Tanks extends Circle{
         }
     }
     
+    /**
+     *
+     * @param mapGen
+     */
     public void setVelocities(MapGeneration mapGen){
         this.setxSpeed(Velocity * Math.cos(mapGen.derivativeFunction(this.getTranslateX())));
         this.setySpeed(Velocity * Math.sin(mapGen.derivativeFunction(this.getTranslateY())));
     }
 
+    /**
+     *
+     * @return
+     */
     public int getLifePoint() {
         return lifePoint;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getImagePath() {
         return imagePath;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getImageReversePath() {
         return imageReversePath;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getTexture() {
         return texture;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getTextureFlipped() {
         return textureFlipped;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isTankAlive() {
         return isTankAlive;
     }
 
+    /**
+     *
+     * @param isTankAlive
+     */
     public void setIsTankAlive(boolean isTankAlive) {
         this.isTankAlive = isTankAlive;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getxSpeed() {
         return xSpeed;
     }
 
+    /**
+     *
+     * @param xSpeed
+     */
     public void setxSpeed(double xSpeed) {
         this.xSpeed = xSpeed;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getySpeed() {
         return ySpeed;
     }
 
+    /**
+     *
+     * @param ySpeed
+     */
     public void setySpeed(double ySpeed) {
         this.ySpeed = ySpeed;
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean isIsImageFlipped() {
         return isImageFlipped;
     }
 
+    /**
+     *
+     * @return
+     */
     public Cannon getCannon() {
         return cannon;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getYTanks() {
         return y;
     }
 
+    /**
+     *
+     * @param y
+     */
     public void setYTanks(double y) {
         this.y = y;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTeam() {
         return team;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isIsAI() {
         return isAI;
     }
 
+    /**
+     *
+     * @param isAI
+     */
     public void setIsAI(boolean isAI) {
         this.isAI = isAI;
     }
 
+    /**
+     *
+     * @param lifePoint
+     */
     public void setLifePoint(int lifePoint) {
         this.lifePoint = lifePoint;
     }
     
+    /**
+     *
+     * @param maxPixelMove
+     */
     public void setMaxPixelMove(double maxPixelMove){
         this.maxPixelMove += maxPixelMove;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getMaxPixelMove() {
         return maxPixelMove;
     }
 
+    /**
+     *
+     * @param shield
+     */
     public void setShield(int shield) {
         this.shield = shield;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getShield() {
         return shield;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getArmour() {
         return armour;
     }
 
+    /**
+     *
+     * @param armour
+     */
     public void setArmour(int armour) {
         this.armour = armour;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getVelocity() {
         return Velocity;
     }
 
+    /**
+     *
+     * @param Velocity
+     */
     public void setVelocity(double Velocity) {
         this.Velocity = Velocity;
     }
     
+    /**
+     *
+     * @return
+     */
     public double getY() {
         return y;
     }
 
+    /**
+     *
+     * @param y
+     */
     public void setY(double y) {
         this.y = y;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImagePattern getTexturePattern() {
         return texturePattern;
     }
 
+    /**
+     *
+     * @param texturePattern
+     */
     public void setTexturePattern(ImagePattern texturePattern) {
         this.texturePattern = texturePattern;
     }
 
+    /**
+     *
+     * @return
+     */
     public ImagePattern getTexturePatternFlipped() {
         return texturePatternFlipped;
     }
 
+    /**
+     *
+     * @param texturePatternFlipped
+     */
     public void setTexturePatternFlipped(ImagePattern texturePatternFlipped) {
         this.texturePatternFlipped = texturePatternFlipped;
     }

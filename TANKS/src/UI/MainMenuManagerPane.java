@@ -44,6 +44,9 @@ public class MainMenuManagerPane extends Pane{
     private ArrayList<Player> playerList = new ArrayList<>();
     private Background chosenMap;
     
+    /**
+     *
+     */
     public MainMenuManagerPane() {
         paneList.add(mainMenu);
         paneList.add(playerMenu);
@@ -241,78 +244,154 @@ public class MainMenuManagerPane extends Pane{
             countryMenu.removeTeam(countryMenu.getTankCount());
     }
 
+    /**
+     *
+     * @return
+     */
     public MainMenu getMainMenu() {
         return mainMenu;
     }
 
+    /**
+     *
+     * @return
+     */
     public PlayerMenu getPlayerMenu() {
         return playerMenu;
     }
 
+    /**
+     *
+     * @return
+     */
     public CountryMenu getCountryMenu() {
         return countryMenu;
     }
 
+    /**
+     *
+     * @return
+     */
     public MapMenu getMapMenu() {
         return mapMenu;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getPlayerCount() {
         return playerCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getPaneCount() {
         return paneCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Pane> getPaneList() {
         return paneList;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Player> getPlayerList() {
         return playerList;
     } 
 
+    /**
+     *
+     * @return
+     */
     public SoundLib getSounds() {
         return sounds;
     }
 
+    /**
+     *
+     * @param sounds
+     */
     public void setSounds(SoundLib sounds) {
         this.sounds = sounds;
     }
 
+    /**
+     *
+     * @return
+     */
     public GamePane getGamePane() {
         return gamePane;
     }
 
+    /**
+     *
+     * @param gamePane
+     */
     public void setGamePane(GamePane gamePane) {
         this.gamePane = gamePane;
     }
 
+    /**
+     *
+     * @return
+     */
     public LoadFunction getLoad() {
         return load;
     }
 
+    /**
+     *
+     * @param load
+     */
     public void setLoad(LoadFunction load) {
         this.load = load;
     }
 
+    /**
+     *
+     * @return
+     */
     public BorderPane getBorderPane() {
         return borderPane;
     }
 
+    /**
+     *
+     * @param borderPane
+     */
     public void setBorderPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }
 
+    /**
+     *
+     * @return
+     */
     public Background getChosenMap() {
         return chosenMap;
     }
 
+    /**
+     *
+     * @param chosenMap
+     */
     public void setChosenMap(Background chosenMap) {
         this.chosenMap = chosenMap;
     }
