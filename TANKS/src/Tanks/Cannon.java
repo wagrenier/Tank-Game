@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: Cannon.java
+ *  Description: The cannon is split from the tank so that it can rotate separately of the tank. It extends circle so that it is easier to compute its location. 
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    03/05/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package Tanks;

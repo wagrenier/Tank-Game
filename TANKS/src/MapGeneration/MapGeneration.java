@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: MapGeneration.java
+ *  Description: This object is created once to generate a new random map. The hills intensity depends of the map chosen on the map menu screen. Implements the interface Serializable so that it can be saved in a file.
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    03/01/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package MapGeneration;

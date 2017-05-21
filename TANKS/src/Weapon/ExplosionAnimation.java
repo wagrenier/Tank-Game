@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: ExplosionAnimation
+ *  Description: The object containing the animation for the explosion
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    05/10/2006 
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Author     Cedrik Dubois     
  *
  ****************************************************************/
 package Weapon;

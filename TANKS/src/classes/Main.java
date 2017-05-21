@@ -1,10 +1,11 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: Main.java
+ *  Description: The main class of the program. Launches the application Tanks
+ *  Program Description: Tanks is a single/multi player game that offers a vast array of weapons and items to defeat the opponent. 
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    02/15/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier & Cedrik Dubois          
  *
  ****************************************************************/
 package classes;

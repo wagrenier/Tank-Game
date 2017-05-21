@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: Item.java
+ *  Description: The Item object contains the items in the game that are not see in the GamePane
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    04/10/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  Cedrik Dubois        
  *
  ****************************************************************/
 package Weapon;

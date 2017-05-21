@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: HitDetectionMine.java
+ *  Description: The hit detection for the mines. Does not explode if the tank is an ally.
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    04/20/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 

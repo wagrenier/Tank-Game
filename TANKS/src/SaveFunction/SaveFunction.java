@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: SaveFunction.java
+ *  Description: This object is created every time the game is saved.
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    05/10/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package SaveFunction;
@@ -14,8 +14,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -61,9 +59,8 @@ public class SaveFunction {
             }
             
         } catch (IOException ex) {
-            Logger.getLogger(SaveFunction.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(SaveFunction.class.getName()).log(Level.SEVERE, null, ex);
             File file = new File("Save/save.dat"); //There in case user Deletes the save files
-            //File file2 = new File("Save/saveLocation.dat");
         }
     }
 }

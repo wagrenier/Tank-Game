@@ -1,10 +1,11 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: TanksAnimation.java
+ *  Description: This controls the input of the user and the game's render. This class contains all the necessary elements to display the game, but lacking the game mechanics(ie turn by turn, AI,...)
+ *               The animation of the 4 tanks are stored in this object. Therefore, there should only have one instance of this object in the entire code, as it can easily slow down the code and create memory leaks if not properly managed.
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    03/20/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package Tanks;
@@ -59,9 +60,9 @@ public class TanksAnimation{
     //The index of current player turn
     private int indexOfCurrentPlayerTurn = 0;
     
-    private boolean keyReleased = true;
-    private boolean shotFired = false;
-    private boolean turnPlayed = false;
+    private boolean keyReleased = true; //Prevents the program from registering more than once the same input (if the user holds the key, the computer will register it as 1 input)
+    private boolean shotFired = false; //Prevents any other input until the end of turn once a weapon as been fired. Note: a mine does not change this variable to true, but all other weapons do.
+    private boolean turnPlayed = false; //If the user has played their turn, prevents other actions.
     
     //Variables for tank 1
     private String  pathForTextureTankOne = "Texture/Tanks/Canada/Body/Red_Tank_(100x100).png";
@@ -88,7 +89,7 @@ public class TanksAnimation{
     private String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
     
     
-    
+    //The tanks
     private Tanks tanksOne;
     private Tanks tanksTwo;
     private Tanks tanksThree;
@@ -124,18 +125,19 @@ public class TanksAnimation{
     //Contains all the available weapons in the game
     private WeaponManager weaponManager;
     
+    //Array list of all the players in the game
     private ArrayList<Player> playerArrayList;
     
-    private RCAnimation rcAnimation;
-    private WeaponAnimation weaponAnimation;
-    private Player[] playerArray;
-    private Tanks[] tanksArray = new Tanks[4];
-    private Tanks[] tanksArrayUsed;
-    private Timeline[] tanksAnimationArrayUsed;
-    private Timeline[] progressBarAnimationUsed = new Timeline[4];
-    private ProgressBar[] progressBarUsed = new ProgressBar[4];
-    private ArrayList<Weapon> mineLocationArrayList = new ArrayList<>();
-    private ArrayList<HitDetectionMine> mineHitDetectionArrayList = new ArrayList<>();
+    private RCAnimation rcAnimation; //The animation for the rc, there should only be one at a time
+    private WeaponAnimation weaponAnimation; //Same as rc but for other weapons
+    private Player[] playerArray; // Array containing all the players in the game, program uses this more often instead of the array because it is more optimized than the .get(int index)
+    private Tanks[] tanksArray = new Tanks[4]; // The array containing all the tanks in order of their variable's name (ie tanksOne, tanksTwo,...)
+    private Tanks[] tanksArrayUsed; // The array of the tanks being used in the game. If the player choses the tank 4, then the tanks 4 will be first in this array.
+    private Timeline[] tanksAnimationArrayUsed; // Same as tanksArrayUsed, but for the animation
+    private Timeline[] progressBarAnimationUsed = new Timeline[4];// Same as tanksArrayUsed, but for the animation of progress bar
+    private ProgressBar[] progressBarUsed = new ProgressBar[4];// Same as tanksArrayUsed, but for the progress bar
+    private ArrayList<Weapon> mineLocationArrayList = new ArrayList<>(); // The arrayList of the mines currently in the game
+    private ArrayList<HitDetectionMine> mineHitDetectionArrayList = new ArrayList<>(); // An array list containg all the hit detection for mine currently running. Once the mine explodes, its corresponding hit detection is removed from this array list
     
     private Text nextPlayerText = new Text();
     private Timeline nextPlayerAnimation;

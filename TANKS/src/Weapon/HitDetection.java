@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: HitDetection.java
+ *  Description: This object is created when a new weapon is put into the pane. It checks if it collides with another enemy tank to make damage.
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    04/20/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package Weapon;

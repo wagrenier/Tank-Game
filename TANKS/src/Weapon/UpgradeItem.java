@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: UpgradeItem.java
+ *  Description: Items that serve as an upgrade in the game (have limited use).
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    04/13/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  Cedrik Dubois       
  *
  ****************************************************************/
 package Weapon;

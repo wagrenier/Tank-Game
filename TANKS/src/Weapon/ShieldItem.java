@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: ShieldItem.java
+ *  Description: This is the the shield that serves as a permanent protection to the tanks.
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    04/12/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  Cedrik        
  *
  ****************************************************************/
 package Weapon;

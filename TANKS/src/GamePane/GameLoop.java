@@ -1,10 +1,11 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: GameLoop.java
+ *  Description: This object contains all the logic of the game(ie AI, current turns,...). This object extends Animation Timer because it will be called 60 times per second, acting as an infinite loop.
+ *               Plus, Animation Timer is on the JavaFX thread, so it can modify anything extending Node, (ie Pane, Circle,...) 
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    04/18/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package GamePane;
@@ -18,7 +19,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -38,28 +38,28 @@ import javafx.scene.input.KeyCode;
  */
 public class GameLoop extends AnimationTimer{
     
-    private boolean newTurn = true;
-    private boolean endTurn = false;
-    private boolean launchInitiated = false;
-    private boolean forceEndedTurn = false;
-    private int launchWeaponDelay = 0;
-    private static int numOfTurns = 1;
+    private boolean newTurn = true; // If this current loop passage is a new turn
+    private boolean endTurn = false; // If the turn has ended, if true, then newTurn will be set as true
+    private boolean launchInitiated = false; // If the AI has initiated the launch of a weapon with the progress bar
+    private boolean forceEndedTurn = false; // If the player has forced ended a turn, giving extra money
+    private int launchWeaponDelay = 0; // A number randomly generated to decide in how many frames the AI will press space again to launch the weapon
+    private static int numOfTurns = 1; // The number of turns made so far, default value is 1 to prevent a case where the game could end with 0 turn and making the game grash because of a division by 0
     private int launchWeaponDelayCounter = 0;
     private int indexOfCurrentPlayerTurn = 0;
-    private double gravity;
-    private double maxPos;
-    private double minPos;
-    double initialPosition;
+    private int randomWeapon;
+    private double gravity; // The gravity of this map
+    private double maxPos; //The maximum position of the tank for this turn
+    private double minPos; //The minimum...
+    double initialPosition; // The initial position of the tank
     private Tanks[] tanksArrayUsed;
     private TanksAnimation tanksAnimation;
     private Timeline[] tanksAnimationArrayUsed;
     private Player[] playerArray;
     private ArrayList<Weapon> weaponArrayList;
     private ArrayList<Item> itemArrayList;
-    private int randomWeapon;
     private int[] score = new int[10];
     private String[] names = new String[10];
-    //Must add ability to save current number of turns
+    
     public GameLoop(TanksAnimation tanksAnimation, Timeline[] tanksAnimationArrayUsed, Tanks[] tanksAraryused, int indexPlayer){
         this.tanksAnimation = tanksAnimation;
         this.tanksAnimationArrayUsed = tanksAnimationArrayUsed;
@@ -342,10 +342,12 @@ public class GameLoop extends AnimationTimer{
     
     @Override
     public void handle(long now) {  
+        
+        //The game's loop is located here. THere is no do while or while loops because the Animation Timer acts as one, since this is called 60 times per second
             if(tanksAnimation.getHud().getPauseMenu().isGamePaused() || tanksAnimation.getWeaponAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0 || tanksAnimation.getRCAnimation().getAnimationWeapon().getStatus().compareTo(Animation.Status.RUNNING) == 0){
-                //System.out.println("Stuck in Pause");
+                //if ever the pause/store is open or an AI is currently playing
         }
-            
+            //Checks if the current player is alive. If not, it skips to the next player in the array.
             else if(!tanksArrayUsed[indexOfCurrentPlayerTurn].isTankAlive()){
                 indexOfCurrentPlayerTurn++;
                    if(indexOfCurrentPlayerTurn >= tanksArrayUsed.length){
@@ -353,6 +355,7 @@ public class GameLoop extends AnimationTimer{
                    }
             }
             else{
+                //Checks if a new turn has been initialized
             if(newTurn){
                 //tanksAnimation.getHud().nextItemAction();
                 numOfTurns++;
@@ -369,14 +372,13 @@ public class GameLoop extends AnimationTimer{
                 tanksAnimation.updateTurn();
                 initialPosition = tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX();
                 
-                //tanksAnimation.getPane().setFocusTraversable(false);
+                //Checks if this player is an AI
                 if(tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
                         aiTurn();
-                        //System.out.println("AI Turn");
                     }
                 
                 else if(!tanksArrayUsed[indexOfCurrentPlayerTurn].isIsAI()){
-                    //tanksAnimation.getPane().setFocusTraversable(true);
+                    //The game has nothing to do in case the player is not an AI.
                 }
                 newTurn = false;
                 maxPos = initialPosition + tanksArrayUsed[indexOfCurrentPlayerTurn].getMaxPixelMove();
@@ -384,7 +386,9 @@ public class GameLoop extends AnimationTimer{
                 tanksAnimation.getHud().nextItemAction();
             }
             
+            //Checks if the computer has pressed the space key
             if(launchInitiated){
+                //Increases the number of frames that have passed since the AI has pressed space
                 launchWeaponDelayCounter++;
                 
                 if(launchWeaponDelayCounter >= launchWeaponDelay){
@@ -398,11 +402,12 @@ public class GameLoop extends AnimationTimer{
                 }
             }
             
-            
+            //Checks if the current player its maximum/minimum displacement
                 if(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() >= maxPos || tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX() < minPos || tanksAnimation.isShotFired()){
                     endTurn = true;
                 }
-
+                
+                //Checks if the player has pressed the force end turn key ('e'), or the turn is over
                if(endTurn || forceEndedTurn){
                    if(forceEndedTurn){
                        forceEndedTurn = false;
@@ -424,9 +429,10 @@ public class GameLoop extends AnimationTimer{
             
             if(!moreThanOneTankAlive()){
                 //End Game
-                System.out.println("Game Over");
+                //System.out.println("Game Over");
                 playerTurn(indexOfCurrentPlayerTurn);
-                playerArray[indexOfCurrentPlayerTurn].setFinalScore((int) (playerArray[indexOfCurrentPlayerTurn].getMoney() / numOfTurns));
+                int finalScore = (int) playerArray[indexOfCurrentPlayerTurn].getMoney() * (numOfTurns / playerArray.length);
+                playerArray[indexOfCurrentPlayerTurn].setFinalScore(finalScore);
                 leaderboard();
                 this.stop();
                 //System.exit(1);

@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: GamePane.java
+ *  Description: This object contains all the necessary elements for the game's visuals. It implements serializable so that it can be written directly in a file. This pane is where the tanks are and most of the game, except the hud. 
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    03/02/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package GamePane;

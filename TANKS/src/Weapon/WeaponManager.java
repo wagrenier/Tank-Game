@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: WeaponManager.java
+ *  Description: An array list containing all the weapons and items in the game. This object should be created only once in the game as it can easily lead to a memory leak.
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    04/01/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package Weapon;

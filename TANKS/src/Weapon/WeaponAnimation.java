@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: WeaponAnimation.java
+ *  Description: The object containing the animation of the weapon. The animation has a limited time of 15 seconds in the pane to prevent a memory leak and a slow down of the cpu for too many animations.
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    03/18/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package Weapon;

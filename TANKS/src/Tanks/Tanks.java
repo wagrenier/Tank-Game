@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: Tanks.java
+ *  Description: This object is what the player will identify as. There are 4 different tanks available (each of a different country) to play as. Each tanks have their own cannon.
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    03/10/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package Tanks;
@@ -20,20 +20,20 @@ import javafx.scene.shape.Circle;
  */
 public class Tanks extends Circle{
     
-    private boolean isTankAlive = false;
-    private boolean isAI = false;
-    private boolean isImageFlipped = false;
+    private boolean isTankAlive = false; //If the tank is still alive
+    private boolean isAI = false; //If this tank is controlled by an AI
+    private boolean isImageFlipped = false; //If the texture of the tank is flipped
     
-    private int team;
-    private int shield = 100;
-    private int armour = 0;
-    private int lifePoint = 100;
+    private int team; //THe index of this tank's team
+    private int shield = 100; //The amount of shield of this tank, 100=100% of damage being taken, 90=90% damage taken,...
+    private int armour = 0; //The amount of armour available for this tank, max is 100
+    private int lifePoint = 100; //The life points of the tank, once it reaches 0, the tank is considered as 'dead'
     
-    private double xSpeed;
-    private double ySpeed;
-    private double Velocity = 0;
-    private double y;
-    private double maxPixelMove = 100;
+    private double xSpeed; //The velocity in x of the tank
+    private double ySpeed; //The velocity in y of the tank
+    private double Velocity = 0; //The tanks velocity (represented as a vector)
+    private double y; //The y location of the tank
+    private double maxPixelMove = 100; //The maximum number that a tank can move per turn. The limit is 500
     
     
     private String imagePath;
@@ -41,7 +41,7 @@ public class Tanks extends Circle{
     private Image texture;
     private Image textureFlipped;
     
-    private Cannon cannon;
+    private Cannon cannon;//The cannon associated with this tank
     
     
     private ImagePattern texturePattern;

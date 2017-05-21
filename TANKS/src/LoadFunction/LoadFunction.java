@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: LoadFunction.java
+ *  Description: Loads the values of a previous game from a binary file, to allow saving object.
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    04/20/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package LoadFunction;
@@ -23,15 +23,15 @@ public class LoadFunction {
     //Default Save file: Saves/save.txt
     private boolean minePlaced = false;//If ever there are no mines placed on the map
     private boolean successfulLoad = false;//If ever the fil is incompatible with the current build
-    private boolean[] direction;
-    private boolean[] dead;
-    private int[] numOfTurnArray;
-    private int[] tanksHP;
-    private int[] indexOfCurrentPlayerTurn;
-    private double[][] tanksArray;
-    private double[] maxPixMove;
-    private double[][] mineLocation;
-    private GamePane gamePane;
+    private boolean[] direction; // The direction facing each tanks
+    private boolean[] dead; //If the tank was dead when saved
+    private int[] numOfTurnArray; //The number of turns made in the current game
+    private int[] tanksHP; // The hp left for each of the tanks
+    private int[] indexOfCurrentPlayerTurn; // The index of the current tank's turn
+    private double[][] tanksArray; // The tanks used in the pane, saves their team only, from their the tanks can be recreated
+    private double[] maxPixMove; // The maximum pixels that a tank can do
+    private double[][] mineLocation; // The lcoation of the mines in the pane
+    private GamePane gamePane; // The game pane containing all crucial information about the game
     
     
     public LoadFunction() {

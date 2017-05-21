@@ -1,10 +1,10 @@
 /****************************************************************
- *  Header File: BXXXXXXX.h
- *  Description: Generic Business Function Header File
+ *  File: Weapon.java
+ *  Description: The weapons that destroy the other tanks. Extends a circle so that it can be more easily calculated from the center of circle rather the top left of an ImageView.
  *    History:
- *     Date    Programmer SAR# - Description
+ *     Date    03/15/2017
  *     ---------- ---------- ----------------------------
- *  Author 03/15/2006           - Created
+ *  Authors  William Adam-Grenier        
  *
  ****************************************************************/
 package Weapon;
