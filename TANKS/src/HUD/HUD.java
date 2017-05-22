@@ -726,13 +726,13 @@ public class HUD extends Pane {
 
         wind.setTranslateX(998.0);
         wind.setTranslateY(36.5);
-
+/*
         wind.setOnMouseDragged(e -> {
             wind.setTranslateX(e.getSceneX());
             wind.setTranslateY(e.getSceneY());
             System.out.println(wind.getTranslateX() + ", " + wind.getTranslateY());
         });
-
+*/
         wind.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
     }
     
