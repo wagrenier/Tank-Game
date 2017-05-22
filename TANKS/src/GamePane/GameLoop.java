@@ -65,20 +65,21 @@ public class GameLoop extends AnimationTimer{
     /**The initial position of the tank*/
     double initialPosition; // 
     
+    /**Sets the tanks used by this current game*/
     private Tanks[] tanksArrayUsed;
-    
+    /**Sets the object TanksAnimation for this current game*/
     private TanksAnimation tanksAnimation;
-    
+    /**Sets the tanks animation used by this current game*/
     private Timeline[] tanksAnimationArrayUsed;
-    
+    /**Sets the players used byu this current game*/
     private Player[] playerArray;
-    
+    /**Sets the array list of all available weapons in the game, for the AI*/
     private ArrayList<Weapon> weaponArrayList;
-    
+    /**Sets the array list of all available items in the game, for the AI*/
     private ArrayList<Item> itemArrayList;
-    
+    /**Sets an arrays for the 10 scores saved in the leaderboards*/
     private int[] score = new int[10];
-    
+    /**Sets an arrays for the 10 names saved in the leaderboards*/
     private String[] names = new String[10];
     
     /**
