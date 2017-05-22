@@ -27,45 +27,65 @@ import javafx.util.Duration;
  * @author Cedrik Dubois
  */
 public class Store {
-
+    /**Checks if the store is opened*/
     private boolean storeOpened = false;
-
+    
+    
     private GamePane gamePane;
     private WeaponManager weaponManager;
     private SoundLib sounds;
     private HUD hud;
-
-    private Player player;//Player accessing the store
-
+    
+    /**Player accessing the store*/
+    private Player player;//
+    
+    /**Creates an Image for that Item/Weapon*/
     private Image buyImg = new Image("Texture/Menus/Store/Buy Button.png");
-
-    private transient ImageView storeBackground = new ImageView(new Image("Texture/Menus/Store/Store.png"));
+    
+    /**Creates an ImageView for that Item/Weapon*/
+    private ImageView storeBackground = new ImageView(new Image("Texture/Menus/Store/Store.png"));
 
     private ImageCursor cursorImg = new ImageCursor(new Image("Texture/Cursor/Cursor.png"));
 
     //All different buttons for every item
     //Weapons
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView atomicBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView laserBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView missileBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView shrapnelBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView lmgBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView hmgBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView mineBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView c4rcBtn = new ImageView(buyImg);
 
     //Repair tools
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView repairSmallBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView repairMediumBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView repairLargeBtn = new ImageView(buyImg);
 
     //Shields
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView shieldSmallBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView shieldMediumBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView shieldLargeBtn = new ImageView(buyImg);
 
     //Upgrades
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView armorBtn = new ImageView(buyImg);
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView engineBtn = new ImageView(buyImg);
 
     //Player Info
@@ -80,13 +100,15 @@ public class Store {
     private Text itemDesc = new Text("Description");
 
     //Error Panel
+    /**Creates an ImageView for that Item/Weapon*/
     private ImageView errorPanel = new ImageView(new Image("Texture/Menus/Store/Error Panel.png"));
     private boolean errorPanelOpen = false;
-
+    
+    /**Writes the error message*/
     private Text errorMsg = new Text("Insufficient funds");
 
     /**
-     *
+     *Constructor
      * @param gamePane
      * @param weaponManager
      * @param sounds
@@ -101,7 +123,8 @@ public class Store {
         storeBackground.setFitWidth(this.gamePane.getMinWidth());
         storeBackground.setFitHeight(this.gamePane.getMinHeight());
     }
-
+    
+    /**Sets the properties for this elements*/
     private void throwStoreError(String error) {
         if (sounds.isSoundPlaying()) {
             sounds.getError().seek(Duration.ZERO);
@@ -113,14 +136,14 @@ public class Store {
         this.gamePane.getChildren().removeAll(errorPanel, errorMsg);
         this.gamePane.getChildren().addAll(errorPanel, errorMsg);
     }
-
+/**Sets the properties for this elements*/
     private void removeStoreError() {
         errorPanelOpen = false;
 
         this.gamePane.getChildren().removeAll(errorPanel, errorMsg);
         errorMsg.setText("");
     }
-
+/**Sets the properties for this elements*/
     private void setErrorPanel() {
 
         /*
@@ -145,7 +168,7 @@ public class Store {
         errorMsg.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
 
     }
-
+/**Sets the properties for this elements*/
     private void setInfoPanel() {
 
         this.gamePane.getChildren().addAll(infoPanel, itemCost, itemValue, itemDesc);
@@ -174,27 +197,27 @@ public class Store {
         itemDesc.setTranslateY(475.0);
 
     }
-
+/**Sets the properties for this elements*/
     private void addItemInfo(int index) {
         itemCost.setText("Cost: " + weaponManager.getItemFromWeaponManager(index).getCostOfItem() + "$");
         itemValue.setText("Value: " + weaponManager.getItemFromWeaponManager(index).getValue());
         itemDesc.setText(weaponManager.getItemFromWeaponManager(index).getUse());
 
     }
-
+/**Sets the properties for this elements*/
     private void resetItemInfo() {
         itemCost.setText("Cost of Item");
         itemValue.setText("Value of Item");
         itemDesc.setText("Descrption");
     }
-
+/**Sets the properties for this elements*/
     private void addWeaponInfo(int index) {
         itemCost.setText("Cost: " + weaponManager.getWeaponFromWeaponManager(index).getCostOfWeapon() + "$");
         itemValue.setText("Damage: " + weaponManager.getWeaponFromWeaponManager(index).getDamage());
         itemDesc.setText("Fire: " + weaponManager.getWeaponFromWeaponManager(index).getShotType());
 
     }
-
+/**Sets the properties for this elements*/
     private void setPlayerInfo(Player player) {
         playerName.setText(player.getUsername());
         playerMoney.setText(player.getMoney() + "$");
@@ -302,7 +325,7 @@ public class Store {
     public boolean isStoreOpened() {
         return storeOpened;
     }
-
+/**Sets the properties for this elements*/
     private void addAtomic() {
         this.gamePane.getChildren().add(atomicBtn);
 
@@ -330,7 +353,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addLaser() {
         this.gamePane.getChildren().add(laserBtn);
 
@@ -358,7 +381,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addMissile() {
         this.gamePane.getChildren().add(missileBtn);
 
@@ -386,7 +409,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addShrapnel() {
         this.gamePane.getChildren().add(shrapnelBtn);
 
@@ -414,7 +437,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addLMG() {
         this.gamePane.getChildren().add(lmgBtn);
 
@@ -442,7 +465,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addHMG() {
         this.gamePane.getChildren().add(hmgBtn);
 
@@ -470,7 +493,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addMine() {
         this.gamePane.getChildren().add(mineBtn);
 
@@ -498,7 +521,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addC4RC() {
         this.gamePane.getChildren().add(c4rcBtn);
 
@@ -526,7 +549,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addArmor() {
         this.gamePane.getChildren().add(armorBtn);
 
@@ -556,7 +579,7 @@ public class Store {
 
         });
     }
-
+/**Sets the properties for this elements*/
     private void addEngine() {
         this.gamePane.getChildren().add(engineBtn);
 
@@ -585,7 +608,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addSmallRepair() {
         this.gamePane.getChildren().add(repairSmallBtn);
 
@@ -613,7 +636,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addMediumRepair() {
         this.gamePane.getChildren().add(repairMediumBtn);
 
@@ -634,7 +657,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addLargeRepair() {
         this.gamePane.getChildren().add(repairLargeBtn);
 
@@ -655,7 +678,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addSmallShield() {
         this.gamePane.getChildren().add(shieldSmallBtn);
 
@@ -683,7 +706,7 @@ public class Store {
             resetItemInfo();
         });
     }
-
+/**Sets the properties for this elements*/
     private void addMediumShield() {
         this.gamePane.getChildren().add(shieldMediumBtn);
 
@@ -712,7 +735,7 @@ public class Store {
         });
 
     }
-
+/**Sets the properties for this elements*/
     private void addLargeShield() {
         this.gamePane.getChildren().add(shieldLargeBtn);
 
@@ -742,6 +765,7 @@ public class Store {
     }
 
     //Made this method public so the AI can buy items too
+    /**Method for when an Item is bought*/
     private void buyItem(boolean type, int index) {
         /*
         type = true means it is a weapon, must pick from weaponArray
@@ -935,12 +959,14 @@ public class Store {
         }
 
     }
-
+    
+    /**Sets the properties for this elements*/
     private void buyButtonAction(boolean type, int index) {
         buyItem(type, index);
         playerMoney.setText(player.getMoney() + "$");
     }
-
+    
+    /**Sets the properties for this elements*/
     private void showCostAndAmount(boolean type, int index) {
         /*
         type = true means it is a weapon, must pick from weaponArray

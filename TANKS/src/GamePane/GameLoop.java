@@ -30,38 +30,59 @@ import javafx.animation.Timeline;
 import javafx.scene.input.KeyCode;
 
 /**
- *
+ *This object contains all the logic of the game(ie AI, current turns,...). This object extends Animation Timer because it will be called 60 times per second, acting as an infinite loop.
+ *Plus, Animation Timer is on the JavaFX thread, so it can modify anything extending Node, (ie Pane, Circle,...) 
  * @author willi
  * 
  * 
  * Current known issues: the animation is not stopped when paused if time correctly (Fixed, Updated to AnimationTimer)
  */
 public class GameLoop extends AnimationTimer{
-    
-    private boolean newTurn = true; // If this current loop passage is a new turn
-    private boolean endTurn = false; // If the turn has ended, if true, then newTurn will be set as true
-    private boolean launchInitiated = false; // If the AI has initiated the launch of a weapon with the progress bar
-    private boolean forceEndedTurn = false; // If the player has forced ended a turn, giving extra money
-    private int launchWeaponDelay = 0; // A number randomly generated to decide in how many frames the AI will press space again to launch the weapon
-    private static int numOfTurns = 1; // The number of turns made so far, default value is 1 to prevent a case where the game could end with 0 turn and making the game grash because of a division by 0
+    /**If this current loop passage is a new turn*/
+    private boolean newTurn = true; // 
+    /**If the turn has ended, if true, then newTurn will be set as true*/
+    private boolean endTurn = false; 
+    /**If the AI has initiated the launch of a weapon with the progress bar*/
+    private boolean launchInitiated = false; // 
+    /**If the player has forced ended a turn, giving extra money*/
+    private boolean forceEndedTurn = false; // 
+    /**A number randomly generated to decide in how many frames the AI will press space again to launch the weapon*/
+    private int launchWeaponDelay = 0; // 
+    /**The number of turns made so far, default value is 1 to prevent a case where the game could end with 0 turn and making the game crash because of a division by 0*/
+    private static int numOfTurns = 1; // 
+    /**The delay between the first and second space bar enter from the AI*/
     private int launchWeaponDelayCounter = 0;
+    /**Index of the current player*/
     private int indexOfCurrentPlayerTurn = 0;
+    /**Generates a random index for a weapon*/
     private int randomWeapon;
-    private double gravity; // The gravity of this map
-    private double maxPos; //The maximum position of the tank for this turn
-    private double minPos; //The minimum...
-    double initialPosition; // The initial position of the tank
+    /**The gravity of this map*/
+    private double gravity; // 
+    /**The maximum position of the tank for this turn*/
+    private double maxPos; //
+    /**The minimum...*/
+    private double minPos; //
+    /**The initial position of the tank*/
+    double initialPosition; // 
+    
     private Tanks[] tanksArrayUsed;
+    
     private TanksAnimation tanksAnimation;
+    
     private Timeline[] tanksAnimationArrayUsed;
+    
     private Player[] playerArray;
+    
     private ArrayList<Weapon> weaponArrayList;
+    
     private ArrayList<Item> itemArrayList;
+    
     private int[] score = new int[10];
+    
     private String[] names = new String[10];
     
     /**
-     *
+     *Constructor
      * @param tanksAnimation
      * @param tanksAnimationArrayUsed
      * @param tanksAraryused
@@ -77,7 +98,7 @@ public class GameLoop extends AnimationTimer{
         this.weaponArrayList = tanksAnimation.getHud().getWeaponManager().getWeaponArrayList();
         this.itemArrayList = tanksAnimation.getHud().getWeaponManager().getItemArrayList();
     }
-    
+    /**Sets the next player turn*/
     private void playerTurn(int indexOfCurrentPlayer){
         for(int i = 0; i < tanksAnimationArrayUsed.length; i++){
             if(i == indexOfCurrentPlayer && tanksArrayUsed[i].isTankAlive()){
@@ -88,7 +109,7 @@ public class GameLoop extends AnimationTimer{
             }
         }
     }
-    
+    /**Checks if there are more thank one tanks alive*/
     private boolean moreThanOneTankAlive(){
         int numOfTanksAlive = 0;
         
@@ -105,7 +126,7 @@ public class GameLoop extends AnimationTimer{
         }
         return false;
     }
-    
+    /**Fire the weapon for the AI*/
     private void fireWeapon(Tanks tank){
         //TODO Implement this
         bestWeapon();
@@ -132,7 +153,7 @@ public class GameLoop extends AnimationTimer{
         
         
     }
-    
+    /**Checks what is the best weapon/item for the AI*/
     private void bestWeapon(){
         //TODO Implement this
         //This will be implemented once the weapon store is fully implemented
@@ -161,7 +182,7 @@ public class GameLoop extends AnimationTimer{
         tanksAnimation.getHud().getStoreMenu().buyItemAI(true, possibleWeapon.get(randomWeapon).getIndexOfWeapon(), playerArray[indexOfCurrentPlayerTurn]);
         tanksAnimation.getHud().nextWeaponAction();
     }
-    
+    /**Moves the AI to the closest tanks*/
     private void moveToClosestTank(){
         //TODO Implement this
         double[] tanksDistance = new double[tanksArrayUsed.length];
@@ -218,7 +239,7 @@ public class GameLoop extends AnimationTimer{
             //System.out.println("AI Moves Right");
         }
     }
-    
+    /**Decides at what angle to shoot to hit the closest tank*/
     private double angleToShoot(Tanks tank){
         //The initial velocity (v) is set to 0.5 at all time and does not use the real value to allow the human to win sometimes.
         double angleMap = tanksAnimation.getMapGeneration().derivativeFunction(tanksArrayUsed[indexOfCurrentPlayerTurn].getTranslateX());
@@ -240,12 +261,12 @@ public class GameLoop extends AnimationTimer{
         
     }
     
-    //tank is the current player's tank and other tank is another tank in the pane
+    /*tank is the current player's tank and other tank is another tank in the pane*/
     private double distanceToTanks(Tanks tank, Tanks otherTank){
         //TODO Implement this
         return Math.sqrt(Math.pow((tank.getTranslateX() - otherTank.getTranslateX()), 2) + Math.pow((tank.getTranslateY() - otherTank.getTranslateY()), 2));
     }
-    
+    /**Contains the logic for the AI. Private so that only the game itself can decide when the AI plays*/
     private void aiTurn(){
         /**
          * 

@@ -23,16 +23,20 @@ import javafx.scene.text.Text;
 public class Leaderboard {
     /**The pane of the game*/
     private GamePane pane;
-
+    /**Sets the image for this object*/
     private ImageView background = new ImageView(new Image("Texture/Menus/HelpMenu/Background.png"));
+    /**Sets the image for this object*/
     private ImageView closeBtn;
-
+    /**Sets the image for this object*/
     private Image closeBtnImage = new Image("Texture/Menus/HelpMenu/Close Button.png");
+    /**Sets the image for this object*/
     private Image closeBtnHover = new Image("Texture/Menus/HelpMenu/Close Button Hover.png");
-
+    /**Creates a text where the leaderboard names can be written to*/
     private Text names = new Text("");
+    /**Creates a text where the leaderboard scores can be written to*/
     private Text scores = new Text("");
-
+    
+    /**Checks if the leaderboard is open*/
     private boolean leaderboardOpen = false;
 
     /**
@@ -45,7 +49,7 @@ public class Leaderboard {
         setTextArea();
         setCloseBtn();
     }
-
+    /**Updates the leaderboard*/
     private void updateBoard() {
         names.setText("");
         scores.setText("");
@@ -58,7 +62,7 @@ public class Leaderboard {
             scores.setText(scores.getText() + "\n\n" + pane.getGameLoop().getScores()[i]);
         }
     }
-
+    /**Sets where the text is displayed*/
     private void setTextArea() {
 
         names.setTranslateX(452.0);
@@ -83,7 +87,7 @@ public class Leaderboard {
         names.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         scores.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
     }
-
+    /**Sets the properties for this elements*/
     private void setCloseBtn() {
         closeBtn = new ImageView(closeBtnImage);
 
