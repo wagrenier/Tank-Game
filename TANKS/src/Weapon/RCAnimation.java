@@ -23,22 +23,34 @@ import javafx.util.Duration;
  */
 public class RCAnimation {
     
+    /**Checks if the mine has exploded*/
     private boolean hitSomething = false;
+    /**The initial velocity of this weapon*/
     private double initialVelocity = .5;
+    /**The initial y position of this weapon*/
     private double currentYPosition;
+    /**The yspeed of this weapon*/
     private double yspeed;
+    /** the x speed of this weapon*/
     private double xspeed;
     
+    /**The explosion animation of this weapon*/
     private ExplosionAnimation explosionAnimation;
+    /**The map generation*/
     private MapGeneration mapGeneration;
+    /**The weapon*/
     private Weapon weapon;
+    /**The weapon animation*/
     private Timeline animationWeapon;
+    /**Tank associated with that weapon*/
     private Tanks tank;
+    /**The game's pane*/
     private Pane pane;  
+    /**The sound played for this weapon*/
     private SoundLib sounds;
     
     /**
-     *
+     * Constructor
      * @param weapon
      * @param tank
      * @param mapGeneration
@@ -55,6 +67,7 @@ public class RCAnimation {
         setupAnimation(); 
     }
     
+    /**Sets up the animation for the RC*/
     private void setupAnimation(){
        
 

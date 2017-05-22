@@ -21,26 +21,35 @@ import javafx.animation.Timeline;
 public class HitDetectionRC extends AnimationTimer{
     
     
-    private final Tanks tanksOne;
-    private final Tanks tanksTwo;
-    private final Tanks tanksThree;
-    private final Tanks tanksFour;
+    /**One of the 4 tanks*/
+    private Tanks tanksOne;
+    /**One of the 4 tanks*/
+    private Tanks tanksTwo;
+    /**One of the 4 tanks*/
+    private Tanks tanksThree;
+    /**One of the 4 tanks*/
+    private Tanks tanksFour;
     
     //Variable for the tanks' animation
+    /**One of the 4 animation*/
     private Timeline animation;
+    /**One of the 4 animation*/
     private Timeline animation2;
+    /**One of the 4 animation*/
     private Timeline animation3;
+    /**One of the 4 animation*/
     private Timeline animation4;
     
     //Pane of the game
     private GamePane pane;
-    
+    /**The tank associated with that weapon*/
     private Tanks tank;
+    /**The RCAnimation associated with hit detection*/
     private RCAnimation weaponAnimation;
     private Weapon weapon;
 
     /**
-     *
+     * The constructor
      * @param weaponAnimation
      * @param tanksOne
      * @param tanksTwo
@@ -70,6 +79,7 @@ public class HitDetectionRC extends AnimationTimer{
         this.weapon = weapon;
     }
     
+    @Override
     public void handle(long now){
         if(weapon.getBoundsInParent().intersects(tanksOne.getBoundsInParent()) && tank != tanksOne && tanksOne.isTankAlive()){
            if(!weaponAnimation.isHitSomething()){

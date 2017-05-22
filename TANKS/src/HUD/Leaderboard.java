@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
  * @author Cedrik Dubois
  */
 public class Leaderboard {
-
+    /**The pane of the game*/
     private GamePane pane;
 
     private ImageView background = new ImageView(new Image("Texture/Menus/HelpMenu/Background.png"));

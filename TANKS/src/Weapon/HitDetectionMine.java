@@ -26,19 +26,30 @@ import javafx.scene.layout.Pane;
  */
 public class HitDetectionMine extends AnimationTimer{
     
+    /**Checks if the mine has exploded*/
     private boolean hitSomething = false;
+    
+    /**One of the 4 tanks*/
     private Tanks tanksOne;
+    /**One of the 4 tanks*/
     private Tanks tanksTwo;
+    /**One of the 4 tanks*/
     private Tanks tanksThree;
+    /**One of the 4 tanks*/
     private Tanks tanksFour;
+    /**The tank's animation*/
     private TanksAnimation tanksAnimation;
+    /**The tank associated with that mine*/
     private Tanks tank;
+    /**The explosion animation*/
     private ExplosionAnimation explosionAnimation;
+    /**The mine*/
     private Weapon weapon;
+    /**The sounds played*/
     private SoundLib sounds;
 
     /**
-     *
+     * The constructor of this object
      * @param tanksOne
      * @param tanksTwo
      * @param tanksThree
@@ -63,7 +74,7 @@ public class HitDetectionMine extends AnimationTimer{
 
     /**
      *
-     * @return
+     * @return boolean
      */
     public boolean isHitSomething() {
         return hitSomething;
@@ -71,7 +82,7 @@ public class HitDetectionMine extends AnimationTimer{
 
     /**
      *
-     * @return
+     * @return Tanks
      */
     public Tanks getTank() {
         return tank;

@@ -42,108 +42,150 @@ import javafx.util.Duration;
  */
 public class TanksAnimation{
     
-    //Width of the pane in pixels
+    /**Width of the pane in pixels*/
     private double width = 1200;
     
-    //Number of players in the game
+    /**Number of players in the game*/
     private int numOfPlayer;
     
-    //The number of mines currently in the game
+    /**The number of mines currently in the game*/
     private int numOfMines = 0;
     
-    //Gravity of the game is not the same for weapon because like that the tanks stick to the ground
+    /**Gravity of the game is not the same for weapon because like that the tanks stick to the ground*/
     private double gravity = 0.05;
     
-    //HUD for the game
+    /**HUD for the game*/
     private HUD hud;
     
-    //The index of current player turn
+    /**The index of current player turn*/
     private int indexOfCurrentPlayerTurn = 0;
     
-    private boolean keyReleased = true; //Prevents the program from registering more than once the same input (if the user holds the key, the computer will register it as 1 input)
-    private boolean shotFired = false; //Prevents any other input until the end of turn once a weapon as been fired. Note: a mine does not change this variable to true, but all other weapons do.
-    private boolean turnPlayed = false; //If the user has played their turn, prevents other actions.
+    /**Prevents the program from registering more than once the same input (if the user holds the key, the computer will register it as 1 input)*/
+    private boolean keyReleased = true; 
+    /**Prevents any other input until the end of turn once a weapon as been fired. Note: a mine does not change this variable to true, but all other weapons do.*/
+    private boolean shotFired = false; 
+    /**If the user has played their turn, prevents other actions.*/
+    private boolean turnPlayed = false; 
     
     //Variables for tank 1
+    /**Sets the texture for the tank*/
     private String  pathForTextureTankOne = "Texture/Tanks/Canada/Body/Red_Tank_(100x100).png";
+    /**Sets the texture for the tank*/
     private String pathForTextureFlippedTankOne = "Texture/Tanks/Canada/Body/Red_Tank_Flipped_(100x100).png";
+    /**Sets the texture for the tank*/
     private String pathForTextureCannonOne = "Texture/Tanks/Canada/Cannon/Red_Cannon_(100x100).png";
     
     
     
     //Variables for tank 2
+    /**Sets the texture for the tank*/
     private String pathForTextureTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_(100x100).png";
+    /**Sets the texture for the tank*/
     private String pathForTextureFlippedTankTwo = "Texture/Tanks/China/Body/Yellow_Tank_Flipped_(100x100).png";
+    /**Sets the texture for the tank*/
     private String pathForTextureCannonTwo = "Texture/Tanks/China/Cannon/Yellow_Cannon_(100x100).png";
     
     
     //Variables for tanks 3
+    /**Sets the texture for the tank*/
     private String pathForTextureTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_(100x100).png";
+    /**Sets the texture for the tank*/
     private String pathForTextureFlippedTankThree = "Texture/Tanks/NorthKorea/Body/Blue_Tank_Flipped_(100x100).png";
+    /**Sets the texture for the tank*/
     private String pathForTextureCannonThree = "Texture/Tanks/NorthKorea/Cannon/Blue_Cannon_(100x100).png";
     
     
     //Variables for tank 4
+    /**Sets the texture for the tank*/
     private String pathForTextureTankFour = "Texture/Tanks/USA/Body/Green_Tank_(100x100).png";
+    /**Sets the texture for the tank*/
     private String pathForTextureFlippedTankFour = "Texture/Tanks/USA/Body/Green_Tank_Flipped_(100x100).png";
+    /**Sets the texture for the tank*/
     private String pathForTextureCannonFour = "Texture/Tanks/USA/Cannon/Green_Cannon_(100x100).png";
     
     
     //The tanks
+    /**Creates the object tank*/
     private Tanks tanksOne;
+    /**Creates the object tank*/
     private Tanks tanksTwo;
+    /**Creates the object tank*/
     private Tanks tanksThree;
+    /**Creates the object tank*/
     private Tanks tanksFour;
     
     //Variable for the tanks' animation
+    /**Creates the animation for the tank*/
     private Timeline animation;
+    /**Creates the animation for the tank*/
     private Timeline animation2;
+    /**Creates the animation for the tank*/
     private Timeline animation3;
+    /**Creates the animation for the tank*/
     private Timeline animation4;
     
     //Variables for the tanks' progress bar animation, which serves as the setter for the initial velocity
+    /**Variables for the tanks' progress bar animation, which serves as the setter for the initial velocity*/
     private Timeline progressBarAnimationOne;
+    /**Variables for the tanks' progress bar animation, which serves as the setter for the initial velocity*/
     private Timeline progressBarAnimationTwo;
+    /**Variables for the tanks' progress bar animation, which serves as the setter for the initial velocity*/
     private Timeline progressBarAnimationThree;
+    /**Variables for the tanks' progress bar animation, which serves as the setter for the initial velocity*/
     private Timeline progressBarAnimationFour;
     
-    //Progress Bar of the tanks
+    /**Progress Bar of the tanks*/
     private ProgressBar barOne = new ProgressBar(0);
+    /**Progress Bar of the tanks*/
     private ProgressBar barTwo = new ProgressBar(0);
+    /**Progress Bar of the tanks*/
     private ProgressBar barThree = new ProgressBar(0);
+    /**Progress Bar of the tanks*/
     private ProgressBar barFour = new ProgressBar(0);
     
-    //sounds of the game
+    /**sounds of the game*/
     private SoundLib sounds;
     
-    //Pane of the game
+    /**Pane of the game*/
     private GamePane pane;
     
-    //This variable generates the map of the game
+    /**This variable generates the map of the game*/
     private MapGeneration mapGeneration;
     
-    //Contains all the available weapons in the game
+    /**Contains all the available weapons in the game*/
     private WeaponManager weaponManager;
     
-    //Array list of all the players in the game
+    /**Array list of all the players in the game*/
     private ArrayList<Player> playerArrayList;
     
-    private RCAnimation rcAnimation; //The animation for the rc, there should only be one at a time
-    private WeaponAnimation weaponAnimation; //Same as rc but for other weapons
-    private Player[] playerArray; // Array containing all the players in the game, program uses this more often instead of the array because it is more optimized than the .get(int index)
-    private Tanks[] tanksArray = new Tanks[4]; // The array containing all the tanks in order of their variable's name (ie tanksOne, tanksTwo,...)
-    private Tanks[] tanksArrayUsed; // The array of the tanks being used in the game. If the player choses the tank 4, then the tanks 4 will be first in this array.
-    private Timeline[] tanksAnimationArrayUsed; // Same as tanksArrayUsed, but for the animation
-    private Timeline[] progressBarAnimationUsed = new Timeline[4];// Same as tanksArrayUsed, but for the animation of progress bar
-    private ProgressBar[] progressBarUsed = new ProgressBar[4];// Same as tanksArrayUsed, but for the progress bar
-    private ArrayList<Weapon> mineLocationArrayList = new ArrayList<>(); // The arrayList of the mines currently in the game
-    private ArrayList<HitDetectionMine> mineHitDetectionArrayList = new ArrayList<>(); // An array list containg all the hit detection for mine currently running. Once the mine explodes, its corresponding hit detection is removed from this array list
+    /**The animation for the rc, there should only be one at a time*/
+    private RCAnimation rcAnimation; 
+    /**Same as rc but for other weapons*/
+    private WeaponAnimation weaponAnimation;
+    /**Array containing all the players in the game, program uses this more often instead of the array because it is more optimized than the .get(int index)*/
+    private Player[] playerArray; 
+    /**The array containing all the tanks in order of their variable's name (ie tanksOne, tanksTwo,...)*/
+    private Tanks[] tanksArray = new Tanks[4]; 
+    /**The array of the tanks being used in the game. If the player chooses the tank 4, then the tanks 4 will be first in this array.*/
+    private Tanks[] tanksArrayUsed; 
+    /**Same as tanksArrayUsed, but for the animation*/
+    private Timeline[] tanksAnimationArrayUsed; 
+    /**Same as tanksArrayUsed, but for the animation of progress bar*/
+    private Timeline[] progressBarAnimationUsed = new Timeline[4];
+    /**Same as tanksArrayUsed, but for the progress bar*/
+    private ProgressBar[] progressBarUsed = new ProgressBar[4]; 
+    /**The arrayList of the mines currently in the game*/
+    private ArrayList<Weapon> mineLocationArrayList = new ArrayList<>();
+    /**An array list containing all the hit detection for mine currently running. Once the mine explodes, its corresponding hit detection is removed from this array list*/
+    private ArrayList<HitDetectionMine> mineHitDetectionArrayList = new ArrayList<>(); 
     
+    /**Shows the next player Turn*/
     private Text nextPlayerText = new Text();
+    /**The animation of the next player*/
     private Timeline nextPlayerAnimation;
     
     /**
-     *
+     * Constructor
      * @param mapGeneration
      * @param pane
      * @param numOfPlayer
@@ -264,6 +306,7 @@ public class TanksAnimation{
             }); 
     }
     
+    /**Sets the next player animation indicator*/
     private void setNextPlayerAnimation(){
         
         nextPlayerText.setTranslateX(472.5);
@@ -278,6 +321,7 @@ public class TanksAnimation{
         
     }
     
+    /**The setup for the progress bar*/
     private Timeline progressBarInitialSetup(ProgressBar bar){
         bar.setPrefSize(200, 24);
 
@@ -297,6 +341,7 @@ public class TanksAnimation{
         return progressBarAnimation;
     }
     
+    /**Plays the animation of the progress bar of the current play once the space has been pressed*/
     private void progressBarInGameAnimationPlay(Tanks tank, Timeline progressBarAnimation, ProgressBar bar){
         if(progressBarAnimation.getStatus().compareTo(RUNNING) == 0){
             progressBarInGameAnimationStop(tank, progressBarAnimation, bar);
@@ -313,12 +358,14 @@ public class TanksAnimation{
         
     }
     
+    /**Stops the progress bar of the player once the space bar has been repressed*/
     private void progressBarInGameAnimationStop(Tanks tank, Timeline progressBarAnimation, ProgressBar bar){
         progressBarAnimation.stop();
         pane.getChildren().remove(bar);
         weaponSetup(tank, bar.getProgress());
     }
     
+    /**Sets the player tanks*/
     private void setupTanksPlayer(){
         for(int i = 0; i < tanksArrayUsed.length; i++){
             pane.getChildren().add(tanksArrayUsed[i].getCannon());
@@ -346,6 +393,7 @@ public class TanksAnimation{
         }
     }
     
+    /**Sets the timeline animation for all the tanks*/
     private Timeline animationForTanks(Tanks tanks, int initialPosition, Timeline progressBarAnimation){
         
         
@@ -432,7 +480,7 @@ public class TanksAnimation{
     }
     
     /**
-     *
+     * Sets the weapon to launch it and put it into the pane
      * @param tank
      * @param x
      */
@@ -491,7 +539,7 @@ public class TanksAnimation{
     }
     
     /**
-     *
+     * Resets the speed of all the tanks
      */
     public void resetSpeed(){
         tanksOne.setxSpeed(0);
@@ -512,7 +560,7 @@ public class TanksAnimation{
     }
     
     /**
-     *
+     * Launches the hit detection for a mine
      * @param tank
      * @param weapon
      */
@@ -522,11 +570,12 @@ public class TanksAnimation{
         hitDetectionMine.start();
     }
     
+    /**Launches the hit detection for a RC*/
     private void hitDetectionRC(Tanks tank, Weapon weapon, RCAnimation rcAnimation){
         HitDetectionRC hitDetectionRC = new HitDetectionRC(rcAnimation, tanksOne, tanksTwo, tanksThree, tanksFour, tank, animation, animation2, animation3, animation4, pane, weapon);
         hitDetectionRC.start();
     }
-    
+    /**Launches the hit detection for a weapon*/
     private void hitDetection(Tanks tank, Weapon weapon){
         HitDetection hitDetection = new HitDetection(weaponAnimation, hud, tanksOne, tanksTwo, tanksThree, tanksFour, tank, animation, animation2, animation3, animation4, pane, weapon);
         hitDetection.start();
@@ -534,7 +583,7 @@ public class TanksAnimation{
     }
     
     /**
-     *
+     * Updates the status for all the tanks, if they are dead or not
      */
     public void updateTanksStatus(){
         if(!tanksOne.isTankAlive()){
@@ -562,8 +611,8 @@ public class TanksAnimation{
     }
     
     /**
-     *
-     * @return
+     *Checks if there are more than one tank alive. If not, the game ends.
+     * @return boolean
      */
     public boolean moreThanOneTankAlive(){
         int numOfTanksAlive = 0;
@@ -583,8 +632,8 @@ public class TanksAnimation{
     }
     
     /**
-     *
-     * @return
+     * Returns the number of tanks alive
+     * @return int
      */
     public int numOfTanksAlive(){
         int numOfTanksAlive = 0;
@@ -599,7 +648,7 @@ public class TanksAnimation{
     }
     
     /**
-     *
+     * The key pressed by the user 
      * @param x
      * @param tank
      * @param animationTank
@@ -689,7 +738,7 @@ public class TanksAnimation{
     }
     
     /**
-     *
+     * The key pressed by the AI
      * @param x
      * @param tank
      * @param animationTank
@@ -778,7 +827,7 @@ public class TanksAnimation{
     }
     
     /**
-     *
+     *Updates the HUD to the current player's turn
      */
     public void updateTurn(){
         nextPlayerText.setText(playerArray[indexOfCurrentPlayerTurn].getUsername() + "'s turn!");
@@ -791,7 +840,7 @@ public class TanksAnimation{
     }
     
     /**
-     *
+     *Checks if a mine has exploded
      */
     public void mineExploded(){
         numOfMines--;

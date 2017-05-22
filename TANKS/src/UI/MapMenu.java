@@ -46,50 +46,81 @@ public class MapMenu extends Pane {
     *cycle through the maps.
     *
      */
- /*
-        0 = Desert Map
-        1 = Mountain Map
-        2 = Space Map
+ /**
+  * 
+        0 = Desert Map, 
+        1 = Mountain Map, 
+        2 = Space Map, 
         3 = Snow Map
      */
     private Background[] backgrounds = new Background[4];
     private static int backgroundIndex = 0;
 
     private ImageView playBtn;
+    /**The back button*/
     private ImageView backBtn;
+    /**The right button*/
     private ImageView rightBtn;
+    /**The mute button*/
     private ImageView muteBtn;
 
     private Image[] tanks = new Image[4];
-
+    
+    
+    /**Image of the mute button*/
     private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
-
+/**Image of the next button*/
+    private Image nextBtnImage = new Image("Texture/Menus/CountryMenu/Next Button.png");
+    /**Image of the next hover button*/
+    private Image nextBtnHover = new Image("Texture/Menus/CountryMenu/Next Button Hover.png");
+    /**Image of the next clicked button*/
+    private Image nextBtnClicked = new Image("Texture/Menus/CountryMenu/Next Button Clicked.png");
+/**Image of the back button*/
+    private Image backBtnImage = new Image("Texture/Menus/PlayerMenu/Back Button.png");
+    /**Image of the back hover button*/
+    private Image backBtnHover = new Image("Texture/Menus/PlayerMenu/Back Button Hover.png");
+    /**Image of the button*/
+    private Image backBtnClicked = new Image("Texture/Menus/playerMenu/Back Button Clicked.png");
+/**Image of the left button*/
+    private Image leftBtnImage = new Image("Texture/Menus/PlayerMenu/Left Arrow.png");
+    /**Image of the left hover button*/
+    private Image leftBtnHover = new Image("Texture/Menus/PlayerMenu/left Arrow Hover.png");
+    /**Image of the left clicked button*/
+    private Image leftBtnClicked = new Image("Texture/Menus/PlayerMenu/Left Arrow Clicked.png");
+/**Image of the right button*/
+    private Image rightBtnImage = new Image("Texture/Menus/PlayerMenu/Right Arrow.png");
+    /**Image of the right hover button*/
+    private Image rightBtnHover = new Image("Texture/Menus/PlayerMenu/Right Arrow Hover.png");
+    /**Image of the right clicked button*/
+    private Image rightBtnClicked = new Image("Texture/Menus/PlayerMenu/Right Arrow Clicked.png");
+    
+    /**Image of the USA flag*/
     private Image usaTank = new Image("Texture/Menus/MapMenu/USA.png");
+    /**Image of the North Korea flag*/
     private Image northKoreaTank = new Image("Texture/Menus/MapMenu/North Korea.png");
+    /**Image of the Canada flag*/
     private Image canadaTank = new Image("Texture/Menus/MapMenu/Canada.png");
+    /**Image of the China flag*/
     private Image chinaTank = new Image("Texture/Menus/MapMenu/China.png");
 
     private Image playBtnImage = new Image("Texture/Menus/MapMenu/Play Button.png");
     private Image playBtnHover = new Image("Texture/Menus/MapMenu/Play Button Hover.png");
     private Image playBtnClicked = new Image("Texture/Menus/MapMenu/Play Button Clicked.png");
-
-    private Image backBtnImage = new Image("Texture/Menus/PlayerMenu/Back Button.png");
-    private Image backBtnHover = new Image("Texture/Menus/PlayerMenu/Back Button Hover.png");
-    private Image backBtnClicked = new Image("Texture/Menus/playerMenu/Back Button Clicked.png");
-
-    private Image rightBtnImage = new Image("Texture/Menus/PlayerMenu/Right Arrow.png");
-    private Image rightBtnHover = new Image("Texture/Menus/PlayerMenu/Right Arrow Hover.png");
-    private Image rightBtnClicked = new Image("Texture/Menus/PlayerMenu/Right Arrow Clicked.png");
-
+    
+    /**Array List containing all the players*/
     private ArrayList<Player> players;
+    /**Array List containing all the player name*/
     private ArrayList<Text> playerNames = new ArrayList<Text>();
+    /**Array List containign all the players' tank*/
     private ArrayList<ImageView> playerTanks = new ArrayList<ImageView>();
-
+    
+    /**Name of the map currently being displayed*/
     private Text mapTitle = new Text();
+    /** Array of all the map's name*/
     private String[] titleList = new String[4];
 
     /**
-     *
+     * Constructor of the object
      * @param sounds
      */
     public MapMenu(SoundLib sounds) {
@@ -110,7 +141,7 @@ public class MapMenu extends Pane {
         setMuteBtn();
 
     }
-
+/**Sets the variable and location of the mute button*/
     private void setMuteBtn() {
         muteBtn = new ImageView(muteBtnImage);
 
@@ -138,7 +169,7 @@ public class MapMenu extends Pane {
     }
 
     /**
-     *
+     *Sets the scene of the game
      * @param scene
      * @param cursor
      * @param m
@@ -165,14 +196,14 @@ public class MapMenu extends Pane {
             cursor.setTranslateY(e.getSceneY());
         });
     }
-
+    /**Sets the elements*/
     private void setTitleList() {
         titleList[1] = "Mountains";
         titleList[2] = "Space";
         titleList[3] = "Artic";
         titleList[0] = "Desert";
     }
-
+/**Sets the elements*/
     private void setMapTitle() {
         this.getChildren().add(mapTitle);
         mapTitle.setText(titleList[backgroundIndex]);
@@ -203,7 +234,7 @@ public class MapMenu extends Pane {
         playerNames.clear();
         players.clear();
     }
-
+/**Sets the elements*/
     private void setPlayerTanks() {
         for (int i = 0; i < players.size(); i++) {
             playerTanks.add(new ImageView(tanks[players.get(i).getTeam()]));
@@ -222,14 +253,14 @@ public class MapMenu extends Pane {
         }
 
     }
-
+/**Sets the elements*/
     private void setTankList() {
         tanks[0] = northKoreaTank;
         tanks[1] = usaTank;
         tanks[2] = canadaTank;
         tanks[3] = chinaTank;
     }
-
+/**Sets the elements*/
     private void setLeaderboard() {
 
         for (int i = 0; i < playerNames.size(); i++) {
@@ -267,7 +298,7 @@ public class MapMenu extends Pane {
     public void setPlayerList(ArrayList<Player> players) {
         this.players = players;
     }
-
+/**Sets the elements*/
     private void setRightBtn() {
         rightBtn = new ImageView(rightBtnImage);
 
@@ -315,7 +346,7 @@ public class MapMenu extends Pane {
             rightBtn.setImage(rightBtnHover);
         });
     }
-
+/**Sets the elements*/
     private void setBackBtn() {
         backBtn = new ImageView(backBtnImage);
 
@@ -353,7 +384,7 @@ public class MapMenu extends Pane {
         });
 
     }
-
+/**Sets the elements*/
     private void setPlayBtn() {
         playBtn = new ImageView(playBtnImage);
 
@@ -407,7 +438,7 @@ public class MapMenu extends Pane {
          */
         return backgroundIndex;
     }
-
+/**Sets the elements*/
     private void setBackgrounds() {
         backgrounds[0] = new Background(new BackgroundImage(new Image("Texture/Menus/MapMenu/Desert Map.png", WIDTH, HEIGHT, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,

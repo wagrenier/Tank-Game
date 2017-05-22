@@ -14,20 +14,28 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 /**
- *
+ * The cannon is split from the tank so that it can rotate separately of the tank. It extends circle so that it is easier to compute its location. 
  * @author willi
  */
 public class Cannon extends Circle{
-    
+    /**Indicates whether or not the texture of the cannon has been flipped*/
     private boolean isImageFlipped = false;
+    /**The angle of the cannon, maximum is PI/2*/
     private double canonAngle = 0;
+    /**Path to the texture*/
     private String imagePath;
+    /**Path to the flipped texture*/
     private String imageReversePath;
+    /**Image of the texture*/
     private Image texture;
+    /**Image of the flipped texture*/
     private Image textureFlipped;
+    /**Image of the texture*/
     private ImagePattern texturePattern;
+    /**Image of the flipped texture*/
     private ImagePattern texturePatternFlipped;
     
+    /**Constructor*/
     Cannon(String imagePath, String imageReversePath){
         this.setRadius(50);
         
@@ -50,7 +58,7 @@ public class Cannon extends Circle{
         //setTranslateX(50);
         //setTranslateY(200);
     }  
-    
+    /**Constructor*/
     Cannon(String imagePath){
         this.imagePath = imagePath;
         texture = new Image(this.imagePath);
@@ -62,7 +70,7 @@ public class Cannon extends Circle{
     }  
     
     /**
-     *
+     *Flips the texture
      */
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
@@ -71,7 +79,7 @@ public class Cannon extends Circle{
     }
     
     /**
-     *
+     * Puts the normal texture
      */
     public void normalTexture(){
         this.setFill(texturePattern);
@@ -80,7 +88,7 @@ public class Cannon extends Circle{
     }
     
     /**
-     *
+     * Lowers the cannon's angle
      */
     public void lowerAngle(){
        
@@ -92,7 +100,7 @@ public class Cannon extends Circle{
     }
     
     /**
-     *
+     * Increases the cannon's angle
      */
     public void higherAngle(){
         
@@ -105,7 +113,7 @@ public class Cannon extends Circle{
     }
     
     /**
-     *
+     * Sets the angle for the AI
      * @param angle
      */
     public void setAICannonAngle(double angle){
@@ -114,7 +122,7 @@ public class Cannon extends Circle{
     
     /**
      *
-     * @return
+     * @return double
      */
     public double getCanonAngle() {
         return canonAngle;
@@ -122,7 +130,7 @@ public class Cannon extends Circle{
     
     /**
      *
-     * @return
+     * @return boolean
      */
     public boolean isIsImageFlipped() {
         return isImageFlipped;

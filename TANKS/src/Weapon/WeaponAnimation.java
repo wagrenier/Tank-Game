@@ -29,29 +29,46 @@ public class WeaponAnimation{
      *    to attack an other player.
      * 
      */
-    
+    /**Checks if the mine has exploded*/
     private boolean hitSomething = false;
+    /**Initial position of the weapon*/
     private double initialXPosition;
+    /**Initial position of the weapon*/
     private double initialYPosition;
+    /**Initial velocity of the weapon*/
     private double initialVelocity = .5;
+    /**Gravity of the map*/
     private double gravity = .0005;
+    /**Current position of the weapon*/
     private double currentYPosition;
+    /**The current cannonAngle*/
     private double canonAngle;
+    /**The angle at which the weapon is launched, includes the cannon's angle and the angle of the hill*/
     private double angleLaunched; // angle must be between 0 and 1 included
     
+    /**The yspeed of this weapon*/
     private double yspeed;
+    /** the x speed of this weapon*/
     private double xspeed;
     
+    /**The explosion animation of this weapon*/
     private ExplosionAnimation explosionAnimation;
+    /**The map generation*/
     private MapGeneration mapGeneration;
+    /**The weapon*/
     private Weapon weapon;
+    /**The weapon animation*/
     private Timeline animationWeapon;
+    /**Tank associated with that weapon*/
     private Tanks tank;
-    private Pane pane;
+    /**The game's pane*/
+    private Pane pane;  
+    /**The sound played for this weapon*/
     private SoundLib sounds;
     
+    
     /**
-     *
+     * Constructor
      * @param weapon
      * @param tank
      * @param mapGeneration
@@ -70,7 +87,7 @@ public class WeaponAnimation{
     }
     
     /**
-     *
+     * Constructor
      * @param weapon
      * @param tank
      * @param mapGeneration
@@ -93,7 +110,7 @@ public class WeaponAnimation{
     }
     
     /**
-     *
+     * Constructor
      * @param weapon
      * @param mapGeneration
      * @param pane
@@ -107,6 +124,7 @@ public class WeaponAnimation{
         explosionAnimation = new ExplosionAnimation(weapon, pane);
     }
     
+    /**Sets up the the animation of the weapon*/
     private void setupAnimation(){
        
         
@@ -188,7 +206,7 @@ public class WeaponAnimation{
     }
     
     /**
-     *
+     * Launches the animation of the weapon
      */
     public void launchAnimation(){
         
@@ -205,16 +223,17 @@ public class WeaponAnimation{
             
     }
     
+    /**Calculates the angle at which the projectile should rotate*/
     private double projectileRotationReverse(){
         return Math.toDegrees(Math.acos((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));
     }
-    
+    /**Calculates the angle at which the projectile should rotate*/
     private double projectileRotation(){
         return Math.toDegrees(Math.asin((yspeed / Math.sqrt(Math.pow((yspeed), 2) + Math.pow(xspeed, 2)))));
     }
     
     /**
-     *
+     * Stops the animation
      */
     public void stopAnimation(){
         animationWeapon.stop();
@@ -222,7 +241,7 @@ public class WeaponAnimation{
     }
     
     /**
-     *
+     * Removes the weapon from the pane
      */
     public void removeWeaponFromPane(){
         pane.getChildren().removeAll(weapon);

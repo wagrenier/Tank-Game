@@ -22,30 +22,45 @@ import javafx.util.Duration;
  * Animates an explosion once a weapon animation is completed
  */
 public class ExplosionAnimation {
-    /**Index*/
+    /**Index of the current frame*/
     private int frameIndex = 0;
+    /**Current Image being displayed*/
     private Image frame1 = new Image("Explosion/Explosion Animation/Frame 1.png");
+    /**Current Image being displayed*/
     private Image frame2 = new Image("Explosion/Explosion Animation/Frame 2.png");
+    /**Current Image being displayed*/
     private Image frame3 = new Image("Explosion/Explosion Animation/Frame 3.png");
+    /**Current Image being displayed*/
     private Image frame4 = new Image("Explosion/Explosion Animation/Frame 4.png");
+    /**Current Image being displayed*/
     private Image frame5 = new Image("Explosion/Explosion Animation/Frame 5.png");
+    /**Current Image being displayed*/
     private Image frame6 = new Image("Explosion/Explosion Animation/Frame 6.png");
+    /**Current Image being displayed*/
     private Image frame7 = new Image("Explosion/Explosion Animation/Frame 7.png");
+    /**Current Image being displayed*/
     private Image frame8 = new Image("Explosion/Explosion Animation/Frame 8.png");
+    /**Current Image being displayed*/
     private Image frame9 = new Image("Explosion/Explosion Animation/Frame 9.png");
+    /**Current Image being displayed*/
     private Image frame10 = new Image("Explosion/Explosion Animation/Frame 10.png");
+    /**Current Image being displayed*/
     private Image frame11 = new Image("Explosion/Explosion Animation/Frame 11.png");
+    /**Current Image being displayed*/
     private Image frame12 = new Image("Explosion/Explosion Animation/Frame 12.png");
+    /**Current Image being displayed*/
     private Image frame0 = new Image("Explosion/Explosion Animation/Frame 13.png");
-    
+    /**ImageView that holds the current frame of animation*/
     private ImageView explosion;
-    
+    /**Array that contains the 13 frames of animation*/
     private Image[] frames = new Image[13];
+    /**The animation*/
     private Timeline animation;
+    /**The weapon associated with that animation*/
     private Weapon weapon;
     
     /**
-     *
+     * Constructor for the ExplosionAnimation object
      * @param weapon
      * @param pane
      */
@@ -86,7 +101,7 @@ public class ExplosionAnimation {
     }
     
     /**
-     *
+     *Resets the position of the animation
      */
     public void resetAnimationPosition(){
         explosion.setTranslateX(weapon.getTranslateX() - 50);
@@ -94,7 +109,7 @@ public class ExplosionAnimation {
     }
     
     /**
-     *
+     * plays the explosion sound
      * @param sounds
      */
     public void playAnimation(SoundLib sounds){
@@ -108,7 +123,7 @@ public class ExplosionAnimation {
 
     /**
      *
-     * @return
+     * @return Timeline
      */
     public Timeline getAnimation() {
         return animation;

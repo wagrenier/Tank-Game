@@ -16,17 +16,25 @@ import java.io.Serializable;
  * @author Cedrik Dubois
  */
 public class Player implements Serializable {
-
+    /**sets if this player is human or controlled by an AI*/
     private boolean isAI = true;
+    /**Sets in what tem this player is*/
     private int team;
+    /**The amount of money that the player has*/
     private int money = 500;
+    /**The final score of this player, is only set once the game is over*/
     private int finalScore = 0;//The score of the player
+    /**The amount of shield available for this player*/
     private int shield = 0;
+    /**The weapons at the player's disposal*/
     private int[] weaponInventory = new int[9];
+    /**Item inventory available for the player to use*/
     private int[] itemInventory = new int[8];
+    /**The username of this player*/
     private String username;
 
     /**
+     * Default no-arg constructor
      * Index of the teams
      *
      * 0 = North Korea 1 = United States 2 = Canada 3 = China
@@ -38,7 +46,7 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     * Constructor
      * @param username
      * @param team
      */
@@ -53,7 +61,7 @@ public class Player implements Serializable {
     }
     
     /**
-     *
+     *Removes a weapon from the weapon array
      * @param index
      */
     public void removeWeapon(int index) {
@@ -69,7 +77,7 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     * Adds a weapon to the weapon array
      * @param index
      */
     public void addWeapon(int index) {
@@ -77,7 +85,7 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     *Removes an item
      * @param index
      */
     public void removeItem(int index) {
@@ -85,7 +93,7 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     * Adds an item
      * @param index
      */
     public void addItem(int index) {
@@ -93,7 +101,7 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     *Removes money from the user, returns a boolean to indicate if the player has enough money for the transaction
      * @param amount
      * @return
      */
@@ -108,13 +116,13 @@ public class Player implements Serializable {
     }
 
     /**
-     *
+     *Adds money to the player
      * @param amount
      */
     public void addMoney(int amount) {
         this.money = this.money + amount;
     }
-
+    /**Sets the initial weapon owning for the player*/
     private void setWeaponInventory() {
         weaponInventory[0] = 1;
         weaponInventory[1] = 0;
@@ -126,7 +134,8 @@ public class Player implements Serializable {
         weaponInventory[7] = 0;
         weaponInventory[8] = 0;
     }
-
+    
+    /**Sets the basic item ownership for the player*/
     private void setItemInventory() {
         itemInventory[0] = 0;
         itemInventory[1] = 0;

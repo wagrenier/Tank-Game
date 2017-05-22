@@ -33,35 +33,55 @@ public class PlayerMenu extends Pane {
 
     private SoundLib sounds;
 
+    /**Width of the pane*/
     private static final int WIDTH = 1200;
+    /**Height of the pane*/
     private static final int HEIGHT = 950;
 
     private Text playerOutput;
     private int numberOfPlayers = 2; //Default value is 2 since you cannot play this game alone
-
-    private ImageView leftBtn;
-    private ImageView rightBtn;
-    private ImageView nextBtn;
+    
+    /**The back button*/
     private ImageView backBtn;
+    /**The next button*/
+    private ImageView nextBtn;
+    /**The left button*/
+    private ImageView leftBtn;
+    /**The right button*/
+    private ImageView rightBtn;
+    
+    /**The mute button*/
     private ImageView muteBtn;
-
+    
+        /**Image of the mute button*/
     private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
-
-    private Image leftBtnImage = new Image("Texture/Menus/PlayerMenu/Left Arrow.png");
-    private Image leftBtnHover = new Image("Texture/Menus/PlayerMenu/Left Arrow Hover.png");
-    private Image leftBtnClicked = new Image("Texture/Menus/PlayerMenu/Left Arrow Clicked.png");
-
-    private Image rightBtnImage = new Image("Texture/Menus/PlayerMenu/Right Arrow.png");
-    private Image rightBtnHover = new Image("Texture/Menus/PlayerMenu/Right Arrow Hover.png");
-    private Image rightBtnClicked = new Image("Texture/Menus/PlayerMenu/Right Arrow Clicked.png");
-
-    private Image nextBtnImage = new Image("Texture/Menus/PlayerMenu/Next Button.png");
-    private Image nextBtnHover = new Image("Texture/Menus/PlayerMenu/Next Button Hover.png");
-    private Image nextBtnClicked = new Image("Texture/Menus/PlayerMenu/Next Button Clicked.png");
-
+/**Image of the next button*/
+    private Image nextBtnImage = new Image("Texture/Menus/CountryMenu/Next Button.png");
+    /**Image of the next hover button*/
+    private Image nextBtnHover = new Image("Texture/Menus/CountryMenu/Next Button Hover.png");
+    /**Image of the next clicked button*/
+    private Image nextBtnClicked = new Image("Texture/Menus/CountryMenu/Next Button Clicked.png");
+/**Image of the back button*/
     private Image backBtnImage = new Image("Texture/Menus/PlayerMenu/Back Button.png");
+    /**Image of the back hover button*/
     private Image backBtnHover = new Image("Texture/Menus/PlayerMenu/Back Button Hover.png");
+    /**Image of the button*/
     private Image backBtnClicked = new Image("Texture/Menus/playerMenu/Back Button Clicked.png");
+/**Image of the left button*/
+    private Image leftBtnImage = new Image("Texture/Menus/PlayerMenu/Left Arrow.png");
+    /**Image of the left hover button*/
+    private Image leftBtnHover = new Image("Texture/Menus/PlayerMenu/left Arrow Hover.png");
+    /**Image of the left clicked button*/
+    private Image leftBtnClicked = new Image("Texture/Menus/PlayerMenu/Left Arrow Clicked.png");
+/**Image of the right button*/
+    private Image rightBtnImage = new Image("Texture/Menus/PlayerMenu/Right Arrow.png");
+    /**Image of the right hover button*/
+    private Image rightBtnHover = new Image("Texture/Menus/PlayerMenu/Right Arrow Hover.png");
+    /**Image of the right clicked button*/
+    private Image rightBtnClicked = new Image("Texture/Menus/PlayerMenu/Right Arrow Clicked.png");
+    
+    
+
 
     /**
      *
@@ -85,7 +105,7 @@ public class PlayerMenu extends Pane {
         setMuteBtn();
 
     }
-
+/**Sets the elements*/
     private void setMuteBtn() {
         muteBtn = new ImageView(muteBtnImage);
 
@@ -140,7 +160,7 @@ public class PlayerMenu extends Pane {
             cursor.setTranslateY(e.getSceneY());
         });
     }
-    
+    /**Sets the elements*/
     private void setBackBtn() {
         backBtn = new ImageView(backBtnImage);
 
@@ -176,7 +196,7 @@ public class PlayerMenu extends Pane {
             backBtn.setImage(backBtnHover);
         });
     }
-
+/**Sets the elements*/
     private void setNextBtn() {
         nextBtn = new ImageView(nextBtnImage);
 
@@ -212,7 +232,7 @@ public class PlayerMenu extends Pane {
             nextBtn.setImage(nextBtnHover);
         });
     }
-
+    //Updates the current players selected*/
     private void updatePlayers(boolean var) {
         if (var) {
             if (numberOfPlayers > 2) {
@@ -232,7 +252,7 @@ public class PlayerMenu extends Pane {
             }
         }
     }
-
+/**Sets the elements*/
     private void setLeftBtn() {
         leftBtn = new ImageView(leftBtnImage);
 
@@ -269,7 +289,7 @@ public class PlayerMenu extends Pane {
             updatePlayers(true);
         });
     }
-
+/**Sets the elements*/
     private void setRightBtn() {
         rightBtn = new ImageView(rightBtnImage);
 
@@ -306,7 +326,7 @@ public class PlayerMenu extends Pane {
             updatePlayers(false);
         });
     }
-
+/**Sets the elements*/
     private void setText() {
         playerOutput = new Text(numberOfPlayers + "");
 
@@ -326,7 +346,7 @@ public class PlayerMenu extends Pane {
          */
         playerOutput.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
     }
-
+/**Sets the elements*/
     private void setBackground() {
         BackgroundImage myBI = new BackgroundImage(new Image("Texture/Menus/PlayerMenu/Background.png", WIDTH, HEIGHT, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,

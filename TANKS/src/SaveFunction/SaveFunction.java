@@ -17,7 +17,7 @@ import java.io.ObjectOutputStream;
 
 
 /**
- *
+ *Creates abinary file and writes the important values of the game such as tanks location, players,...
  * @author willi
  */
 public class SaveFunction {
@@ -33,13 +33,7 @@ public class SaveFunction {
      */
     
     /**
-     * Things To Save:
-     * 
-     * Tanks:
-     * MaxPixelMove
-     * 
-     * GameLoop:
-     * InitialPosition
+     * Constructor
      * 
      * @param gamePane
      */

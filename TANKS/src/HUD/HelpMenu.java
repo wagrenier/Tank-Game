@@ -24,20 +24,25 @@ import javafx.scene.text.Text;
  */
 public class HelpMenu {
     
+    /**Checks if the help menu is currently open*/
     private boolean helpOpen = false;
-    
+    /**The pane of the game*/
     private Pane pane;
-
+    
+    /**Sets the image for this object*/
     private ImageView background = new ImageView(new Image("Texture/Menus/HelpMenu/Background.png"));
+    /**Sets the image for this object*/
     private ImageView closeBtn;
-
+    
+    /**Sets the image for this object*/
     private Image closeBtnImage = new Image("Texture/Menus/HelpMenu/Close Button.png");
+    /**Sets the image for this object*/
     private Image closeBtnHover = new Image("Texture/Menus/HelpMenu/Close Button Hover.png");
-
+    /**Sets the image for this object*/
     private Text helpInformation = new Text();
     
     /**
-     *
+     *Constructor
      * @param pane
      * @param cursorImg
      */
@@ -49,7 +54,7 @@ public class HelpMenu {
     }
 
     /**
-     *
+     *Constructor
      * @param pane
      */
     public HelpMenu(Pane pane) {
@@ -58,7 +63,8 @@ public class HelpMenu {
         setTextArea();
         setCloseBtn();
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setCloseBtn(ImageCursor cursorImg) {
         closeBtn = new ImageView(closeBtnImage);
 
@@ -86,7 +92,8 @@ public class HelpMenu {
             this.pane.setCursor(cursorImg);
         });
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setCloseBtn() {
         closeBtn = new ImageView(closeBtnImage);
 
@@ -112,7 +119,8 @@ public class HelpMenu {
             closeBtn.setImage(closeBtnImage);
         });
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setTextArea() {
         String information1 = "HELP MENU\n---------\n"
                 + "Welcome to the game of TANKS. This game\n"

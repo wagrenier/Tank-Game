@@ -15,26 +15,37 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 /**
- *
+ *Loads the values of a previous game from a binary file, to allow saving object.
  * @author willi
  */
 public class LoadFunction {
     
     //Default Save file: Saves/save.txt
-    private boolean minePlaced = false;//If ever there are no mines placed on the map
-    private boolean successfulLoad = false;//If ever the fil is incompatible with the current build
-    private boolean[] direction; // The direction facing each tanks
-    private boolean[] dead; //If the tank was dead when saved
-    private int[] numOfTurnArray; //The number of turns made in the current game
-    private int[] tanksHP; // The hp left for each of the tanks
-    private int[] indexOfCurrentPlayerTurn; // The index of the current tank's turn
-    private double[][] tanksArray; // The tanks used in the pane, saves their team only, from their the tanks can be recreated
-    private double[] maxPixMove; // The maximum pixels that a tank can do
-    private double[][] mineLocation; // The lcoation of the mines in the pane
-    private GamePane gamePane; // The game pane containing all crucial information about the game
+    /**If ever there are no mines placed on the map*/
+    private boolean minePlaced = false;
+    /**If ever the file is incompatible with the current build*/
+    private boolean successfulLoad = false;
+    /**The direction facing each tanks*/
+    private boolean[] direction; 
+    /**If the tank was dead when saved*/
+    private boolean[] dead;
+    /**The number of turns made in the current game*/
+    private int[] numOfTurnArray;
+    /**The hp left for each of the tanks*/
+    private int[] tanksHP; 
+    /**The index of the current tank's turn*/
+    private int[] indexOfCurrentPlayerTurn; 
+    /**The tanks used in the pane, saves their team only, from their the tanks can be recreated*/
+    private double[][] tanksArray; 
+    /**The maximum pixels that a tank can do*/
+    private double[] maxPixMove; 
+    /**The location of the mines in the pane*/
+    private double[][] mineLocation; 
+    /**The game pane containing all crucial information about the game*/
+    private GamePane gamePane; 
     
     /**
-     *
+     *Constructor
      */
     public LoadFunction() {
         

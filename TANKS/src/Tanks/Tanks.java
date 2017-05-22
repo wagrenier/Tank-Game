@@ -20,33 +20,49 @@ import javafx.scene.shape.Circle;
  */
 public class Tanks extends Circle{
     
+    /**If the tank is still alive*/
     private boolean isTankAlive = false; //If the tank is still alive
-    private boolean isAI = false; //If this tank is controlled by an AI
-    private boolean isImageFlipped = false; //If the texture of the tank is flipped
+    /**If this tank is controlled by an AI*/
+    private boolean isAI = false; 
+    /**If the texture of the tank is flipped*/
+    private boolean isImageFlipped = false; 
+    /**The index of this tank's team*/
+    private int team; 
+    /**The amount of shield of this tank, 100=100% of damage being taken, 90=90% damage taken,...*/
+    private int shield = 100;
+    /**The amount of armour available for this tank, max is 100*/
+    private int armour = 0; 
+    /**The life points of the tank, once it reaches 0, the tank is considered as 'dead'*/
+    private int lifePoint = 100; 
     
-    private int team; //THe index of this tank's team
-    private int shield = 100; //The amount of shield of this tank, 100=100% of damage being taken, 90=90% damage taken,...
-    private int armour = 0; //The amount of armour available for this tank, max is 100
-    private int lifePoint = 100; //The life points of the tank, once it reaches 0, the tank is considered as 'dead'
+    /**The velocity in x of the tank*/
+    private double xSpeed; 
+    /**The velocity in y of the tank*/
+    private double ySpeed; 
+    /**The tanks velocity (represented as a vector)*/
+    private double Velocity = 0; 
+    /**The y location of the tank*/
+    private double y; 
+    /**The maximum number that a tank can move per turn. The limit is 500*/
+    private double maxPixelMove = 100; 
     
-    private double xSpeed; //The velocity in x of the tank
-    private double ySpeed; //The velocity in y of the tank
-    private double Velocity = 0; //The tanks velocity (represented as a vector)
-    private double y; //The y location of the tank
-    private double maxPixelMove = 100; //The maximum number that a tank can move per turn. The limit is 500
-    
-    
+    /**The path of Image*/
     private String imagePath;
+    /**The path of Image*/
     private String imageReversePath;
+    /**The Image of texture*/
     private Image texture;
+    /**The Image of texture*/
     private Image textureFlipped;
+    /**The cannon associated with this tank*/
+    private Cannon cannon;
     
-    private Cannon cannon;//The cannon associated with this tank
-    
-    
+    /**The image pattern of the texture*/
     private ImagePattern texturePattern;
+    /**The image pattern of the texture*/
     private ImagePattern texturePatternFlipped;
     
+    /**Constructor*/
     Tanks(String imagePath, String imageReversePath, String imagePathCannon, int team){
         this.imageReversePath = imageReversePath;
         this.imagePath = imagePath;
@@ -61,6 +77,7 @@ public class Tanks extends Circle{
         this.team = team;
     }  
     
+    /**Constructor*/
     Tanks(String imagePath, String imageReversePath, String imagePathCannon, String reverse, int team){
         this.setRadius(50);
         this.imageReversePath = imageReversePath;
@@ -78,7 +95,7 @@ public class Tanks extends Circle{
     } 
 
     /**
-     *
+     *Flips the texture
      */
     public void flipTexture(){
         this.setFill(texturePatternFlipped);
@@ -88,7 +105,7 @@ public class Tanks extends Circle{
     }
     
     /**
-     *
+     * Puts the normal texture
      */
     public void normalTexture(){
         this.setFill(texturePattern);
@@ -98,7 +115,7 @@ public class Tanks extends Circle{
     }
     
     /**
-     *
+     * The damage done to the tank
      * @param damage
      */
     public void damageDone(int damage){
@@ -122,7 +139,7 @@ public class Tanks extends Circle{
     }
     
     /**
-     *
+     * Restore life points to the tank
      * @param lifeToRestore
      * @return
      */
@@ -147,7 +164,7 @@ public class Tanks extends Circle{
     }
     
     /**
-     *
+     * Set the velocity of the tank
      * @param mapGen
      */
     public void setVelocities(MapGeneration mapGen){

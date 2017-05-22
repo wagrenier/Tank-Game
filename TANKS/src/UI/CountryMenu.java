@@ -33,54 +33,82 @@ import javafx.util.Duration;
  * @author Cedrik Dubois
  */
 public class CountryMenu extends Pane {
-
+    /**Width of the pane*/
     private static final int WIDTH = 1200;
+    /**Height of the pane*/
     private static final int HEIGHT = 950;
-
+    
+    /**The number of players in this game*/
     private static int player = 1;
+    /**The number of tanks int he game*/
     private static int tankCount = 0;
+    
+    /**The sounds of the menus*/ 
     private SoundLib sounds;
-
+    
+    /**The back button*/
     private ImageView backBtn;
+    /**The next button*/
     private ImageView nextBtn;
+    /**The left button*/
     private ImageView leftBtn;
+    /**The right button*/
     private ImageView rightBtn;
+    /**The tank related to this pane*/
     private ImageView tank;
+    /**The flag currently being displayed*/
     private ImageView flag;
+    /**The mute button*/
     private ImageView muteBtn;
-
+    
+    /**The checkBox for the ai, activates the AI*/
     private CheckBox ai = new CheckBox();
-
+    
+    /**The array list of all the tanks*/
     private ArrayList<Image> tankList = new ArrayList<>();
+    /**The flag list containing all the flags*/
     private ArrayList<Image> flagList = new ArrayList<>();
-
+    
+    /**Image of the mute button*/
     private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
-
+/**Image of the next button*/
     private Image nextBtnImage = new Image("Texture/Menus/CountryMenu/Next Button.png");
+    /**Image of the next hover button*/
     private Image nextBtnHover = new Image("Texture/Menus/CountryMenu/Next Button Hover.png");
+    /**Image of the next clicked button*/
     private Image nextBtnClicked = new Image("Texture/Menus/CountryMenu/Next Button Clicked.png");
-
+/**Image of the back button*/
     private Image backBtnImage = new Image("Texture/Menus/PlayerMenu/Back Button.png");
+    /**Image of the back hover button*/
     private Image backBtnHover = new Image("Texture/Menus/PlayerMenu/Back Button Hover.png");
+    /**Image of the button*/
     private Image backBtnClicked = new Image("Texture/Menus/playerMenu/Back Button Clicked.png");
-
+/**Image of the left button*/
     private Image leftBtnImage = new Image("Texture/Menus/PlayerMenu/Left Arrow.png");
+    /**Image of the left hover button*/
     private Image leftBtnHover = new Image("Texture/Menus/PlayerMenu/left Arrow Hover.png");
+    /**Image of the left clicked button*/
     private Image leftBtnClicked = new Image("Texture/Menus/PlayerMenu/Left Arrow Clicked.png");
-
+/**Image of the right button*/
     private Image rightBtnImage = new Image("Texture/Menus/PlayerMenu/Right Arrow.png");
+    /**Image of the right hover button*/
     private Image rightBtnHover = new Image("Texture/Menus/PlayerMenu/Right Arrow Hover.png");
+    /**Image of the right clicked button*/
     private Image rightBtnClicked = new Image("Texture/Menus/PlayerMenu/Right Arrow Clicked.png");
-
+    
+    /**Image of north korean flag*/
     private Image northkorea = new Image("Texture/Menus/CountryMenu/North Korea Selection Tank.png");
+    /**Image of the USA flag*/
     private Image usa = new Image("Texture/Menus/CountryMenu/USA Selection Tank.png");
+    /**Image of the Canada flag*/
     private Image canada = new Image("Texture/Menus/CountryMenu/Canada Selection Tank.png");
+    /**Image of the China flag*/
     private Image china = new Image("Texture/Menus/CountryMenu/China Selection Tank.png");
-
+    /**TextField holding the name of the username*/
     private TextField usernameField;
 
     /**
-     *
+     * Constructor
      * @param sounds
      */
     public CountryMenu(SoundLib sounds) {
@@ -105,7 +133,8 @@ public class CountryMenu extends Pane {
         setAI();
         setMuteBtn();
     }
-
+    
+    /**Sets the variable and location of the mute button*/
     private void setMuteBtn() {
         muteBtn = new ImageView(muteBtnImage);
 
@@ -133,7 +162,7 @@ public class CountryMenu extends Pane {
     }
 
     /**
-     *
+     * Sets the scene of the game
      * @param scene
      * @param cursor
      * @param m
@@ -164,7 +193,7 @@ public class CountryMenu extends Pane {
     }
 
     /**
-     *
+     * Resets the Pane 
      */
     public void resetPane() {
         setTankList();
@@ -176,7 +205,7 @@ public class CountryMenu extends Pane {
     }
 
     /**
-     *
+     * Removes a country from the possible selections
      * @param country
      */
     public void removeTeam(int country) {
@@ -187,7 +216,7 @@ public class CountryMenu extends Pane {
 
     /**
      *
-     * @return
+     * @return int
      */
     public int getCountry() {
         if (tankList.get(tankCount).equals(northkorea)) {

@@ -72,47 +72,74 @@ public class HUD extends Pane {
 
     private ImageView muteBtn;
     private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
-
+    
+    /**Sets the Image for the button*/
     private ImageView weaponBtn;
+    /**Sets the Image for the button*/
     private Image weaponBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
+    /**Sets the Image for the button*/
     private Image weaponBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
-
+    
+    /**Sets the Image for the button*/
     private ImageView itemBtn;
+    /**Sets the Image for the button*/
     private Image itemBtnImage = new Image("Texture/Menus/HUD/Right Arrow.png");
+    /**Sets the Image for the button*/
     private Image itemBtnClicked = new Image("Texture/Menus/HUD/Right Arrow Clicked.png");
-
+    
+    /**Sets the Image for the button*/
     private ImageView storeBtn;
+    /**Sets the Image for the button*/
     private Image storeBtnImage = new Image("Texture/Menus/HUD/Store Button.png");
+    /**Sets the Image for the button*/
     private Image storeBtnClicked = new Image("Texture/Menus/HUD/Store Button Clicked.png");
-
+    
+    /**Sets the Image for the button*/
     private ImageView pauseBtn;
+    /**Sets the Image for the button*/
     private Image pauseBtnImage = new Image("Texture/Menus/HUD/Pause Button.png");
+    /**Sets the Image for the button*/
     private Image pauseBtnClicked = new Image("Texture/Menus/HUD/Pause Button Clicked.png");
-
+    
+    /**Sets the Image for the button*/
     private ImageView useBtn;
+    /**Sets the Image for the button*/
     private Image useBtnImage = new Image("Texture/Menus/HUD/Use Button.png");
+    /**Sets the Image for the button*/
     private Image useBtnClicked = new Image("Texture/Menus/HUD/Use Button Clicked.png");
-
-    private String gravity;//Default value for the moment
+    
+    /**Sets the string for the gravity*/
+    private String gravity;
+    /**Sets the Text for the gravity*/
     private Text gravityLbl;
-
+    
+    /**Sets the value for the wind*/
     private double windResistance = 0.01;//Default value for the moment
+    /**Sets the text for the wind*/
     private Text wind = new Text("Wind Res.: " + windResistance + "%");
-
+    
+    /**The progress bar of the player's health*/
     private ColoredProgressBar playerHealth = new ColoredProgressBar("green-bar", 1);
-
+    
+    /**The current player's tank that is being displayed in the hud*/
     private ImageView playerTank;
 
+    /**Aray containg the four different countries*/
     private Image[] tanks = new Image[4];
+    /**The texture for the tank in the HUD*/
     private Image canadaTank = new Image("Texture/Menus/HUD/Canada Tank.png");
+    /**The texture for the tank in the HUD*/
     private Image usaTank = new Image("Texture/Menus/HUD/USA Tank.png");
+    /**The texture for the tank in the HUD*/
     private Image northKoreaTank = new Image("Texture/Menus/HUD/North Korea Tank.png");
+    /**The texture for the tank in the HUD*/
     private Image chinaTank = new Image("Texture/Menus/HUD/China Tank.png");
-
+    
+    /**The texture for the cursor in the Scene*/
     private ImageCursor cursorImg = new ImageCursor(new Image("Texture/Cursor/Cursor.png"));
 
     /**
-     *
+     *Constructor
      * @param weaponManager
      * @param gamePane
      * @param sounds
@@ -171,7 +198,7 @@ public class HUD extends Pane {
         setMuteBtn();
 
     }
-
+    /**Sets the properties for this elements*/
     private void setMuteBtn() {
         muteBtn = new ImageView(muteBtnImage);
 
@@ -207,7 +234,7 @@ public class HUD extends Pane {
     }
 
     /**
-     *
+     *Generates a new wind resistance
      */
     public void generateNewWindRes() {
         /**
@@ -231,14 +258,16 @@ public class HUD extends Pane {
         }
 
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setTanks() {
         tanks[0] = northKoreaTank;
         tanks[1] = usaTank;
         tanks[2] = canadaTank;
         tanks[3] = chinaTank;
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setUseBtn() {
         useBtn = new ImageView(useBtnImage);
 
@@ -325,7 +354,8 @@ public class HUD extends Pane {
 
         }
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setItemBtn() {
         itemBtn = new ImageView(itemBtnImage);
         this.getChildren().add(itemBtn);
@@ -466,7 +496,8 @@ public class HUD extends Pane {
             weaponLogo.setImage(weaponManager.getWeaponFromWeaponManager(weaponIndex).getTexture());
         }
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setPauseBtn() {
         pauseBtn = new ImageView(pauseBtnImage);
         this.getChildren().add(pauseBtn);
@@ -522,7 +553,8 @@ public class HUD extends Pane {
         });
 
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setStoreBtn() {
         storeBtn = new ImageView(storeBtnImage);
         this.getChildren().add(storeBtn);
@@ -578,7 +610,8 @@ public class HUD extends Pane {
         });
 
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setPlayerTank() {
 
         playerTank = new ImageView(tanks[playerTurn]);
@@ -595,7 +628,8 @@ public class HUD extends Pane {
         });
          */
     }
-
+    
+    /**Sets the value of the current player's health in the progress bar*/
     private void setHealth() {
         this.getChildren().add(playerHealth);
 
@@ -685,7 +719,8 @@ public class HUD extends Pane {
 
         return true;
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setWind() {
         this.getChildren().add(wind);
 
@@ -700,7 +735,8 @@ public class HUD extends Pane {
 
         wind.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setGravity() {
         this.getChildren().add(gravityLbl);
 
@@ -717,7 +753,8 @@ public class HUD extends Pane {
          */
         gravityLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setItem() {
         this.getChildren().addAll(item, itemLogo, itemAmount);
 
@@ -754,7 +791,8 @@ public class HUD extends Pane {
         itemLogo.setFitHeight(75);
         itemLogo.setFitWidth(75);
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setWeapon() {
         //The list of weapons will be passed on by some method
         this.getChildren().addAll(weapon, weaponLogo, weaponAmount);
@@ -794,7 +832,8 @@ public class HUD extends Pane {
         weaponLogo.setFitHeight(100);
         weaponLogo.setFitWidth(100);
     }
-
+    
+    /**Sets the properties for this elements*/
     private void setPlayer() {
         //Using player 1 - 4 for now, but these names will be passed by the Player objects
         //coming from the menu classes
@@ -813,7 +852,8 @@ public class HUD extends Pane {
         player.setFont(Font.font("Verdana", FontWeight.BOLD, 35));
 
     }    
-
+    
+    /**Sets the properties for this elements*/
     private void setBackground() {
         BackgroundImage myBI = new BackgroundImage(new Image("Texture/Menus/HUD/Background.png", WIDTH, HEIGHT, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,

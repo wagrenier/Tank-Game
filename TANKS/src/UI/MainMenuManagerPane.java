@@ -27,25 +27,39 @@ import javafx.util.Duration;
  */
 public class MainMenuManagerPane extends Pane{
     
-    
+    /**Sets the number of players in the game*/
     private static int numberOfPlayers;
+    /**Sets the count of players that have selected a tank to play with*/
     private static int playerCount = 0;
+    /**The index of the current pane being displayed at the current time*/
     private static int paneCount = 0;
     
+    /**The sounds of the menu*/
     private SoundLib sounds = new SoundLib();
+    
+    /**The GamePane of the game, containing all the crucial elements of the game*/
     private GamePane gamePane;
+    /**The load function, which loads a previous game from a binary file*/
     private LoadFunction load;
+    /**The BorderPane containing the hud and the GamePane*/
     private BorderPane borderPane = new BorderPane();
+    /**The MainMenu pane*/
     private MainMenu mainMenu = new MainMenu(sounds);
+    /**The PlayerMenu Pane*/
     private PlayerMenu playerMenu = new PlayerMenu(sounds);
+    /**The CountryMenu Pane*/
     private CountryMenu countryMenu = new CountryMenu(sounds);
+    /**The MapMenu Pane*/
     private MapMenu mapMenu = new MapMenu(sounds);
+    /**The array list containing all the panes*/
     private ArrayList<Pane> paneList = new ArrayList<>();
+    /**The array list containing all the players*/
     private ArrayList<Player> playerList = new ArrayList<>();
+    /**The background of the chosen map*/
     private Background chosenMap;
     
     /**
-     *
+     * Default no-arg constructor
      */
     public MainMenuManagerPane() {
         paneList.add(mainMenu);
@@ -180,6 +194,7 @@ public class MainMenuManagerPane extends Pane{
         });
     }
     
+    /**Resets a previous game from a save in a binary file*/
     private void resetLoad(){
         load = new LoadFunction();
         
@@ -227,10 +242,12 @@ public class MainMenuManagerPane extends Pane{
             
     }
     
+    /**Sets the image for the cursor for the Scene*/
     private void cursorSetting(Pane pane){
         pane.setCursor(new ImageCursor(new Image("Texture/Cursor/Cursor.png")));
     }
     
+    /**Registers and creates a new player and puts it into the ArrayList of players*/
     private void registerPlayer(boolean lastPlayer){
         
         playerList.get(playerCount).setName(countryMenu.getPlayerName());

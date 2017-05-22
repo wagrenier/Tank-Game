@@ -13,15 +13,13 @@ import java.util.ArrayList;
 
 /**
  *
+ * This class is used to manage the Objects weapon.
+ * This class contains all the weapon used in the game. 
  * @author willi
  */
 public class WeaponManager{
    
-    /**
-     * This class is used to manage the Objects weapon.
-     * This class contains all the weapon used in the game.
-     * 
-     */
+    
     
     private ArrayList<Weapon> weaponArrayList = new ArrayList<>();
     private ArrayList<Item> itemArrayList = new ArrayList<>();
@@ -34,7 +32,7 @@ public class WeaponManager{
     }
     
     /**
-     *
+     * Puts all the weapons and items into their appropriate array list
      */
     public void setupWeaponManager(){
         
@@ -78,18 +76,18 @@ public class WeaponManager{
     }
     
     /**
-     *
+     * Return a weapon from the weapon manager
      * @param index
-     * @return
+     * @return Weapon
      */
     public Weapon getWeaponFromWeaponManager(int index){
         return weaponArrayList.get(index);
     }
     
     /**
-     *
+     * Returns an item from the weapon manager
      * @param index
-     * @return
+     * @return Item
      */
     public Item getItemFromWeaponManager(int index){
         return itemArrayList.get(index);

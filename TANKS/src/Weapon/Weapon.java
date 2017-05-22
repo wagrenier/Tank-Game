@@ -21,21 +21,31 @@ import javafx.scene.shape.Circle;
  */
 public class Weapon extends Circle{
     
-    
+    /**The index of the weapon*/
     private int indexOfWeapon;
+    /**The cost of the weapon*/
     private int costOfWeapon;
+    /**The output damage of the weapon*/
     private int damage;
+    /**The path of the texture*/
     private String texturePath;
+    /**The path of the soundEffect*/
     private String soundEffectPath;
+    /**The name of the weapon*/
     private String weaponName;
+    /**The type of shot for the weapon*/
     private String shotType;
+    /**The texture of the weapon*/
     private Image texture;
+    /**The image pattern of the weapon to be put inside the circle*/
     private ImagePattern texturePattern;
+    /**The sound effect of the weapon*/
     private Media soundEffect;
+    /**The media player of the sound effect*/
     private MediaPlayer soundEffectPlayer;
     
     /**
-     *
+     * The constructor
      * @param damage
      * @param texturePath
      * @param indexOfWeapon
@@ -51,7 +61,7 @@ public class Weapon extends Circle{
     }
     
     /**
-     *
+     * The constructor
      * @param damage
      * @param costOfWeapon
      * @param weaponName
@@ -74,7 +84,7 @@ public class Weapon extends Circle{
     }
 
     /**
-     *
+     * The constructor
      * @param costOfWeapon
      * @param weaponName
      * @param texturePath

@@ -52,14 +52,19 @@ public class MapGeneration implements Serializable{
            this.lengthOfWave = (300 + Math.random() * lengthOfWave); //500
          **/
     
+    /**The amplitude of the wave*/
     double amplitudeOfWave;
+    /**The starting point of the map (origin point (0,0))*/
     double startingPoint;
+    /**Length of the wave*/
     double lengthOfWave;
+    /**The gravity of that map*/
     double gravity;
+    /**The index of the map, which map was chose*/
     private int mapIndex;
     
     /**
-     *
+     *Constructor
      * @param startingPoint
      * @param amplitudeOfWave
      * @param lengthOfWave
@@ -85,7 +90,7 @@ public class MapGeneration implements Serializable{
     }
     
     /**
-     *
+     *Calculates the angle at which something should be rotated to be tangent to the curve
      * @param x
      * @return
      */
@@ -95,9 +100,9 @@ public class MapGeneration implements Serializable{
     }
     
     /**
-     *
+     *Returns the Y position of the hill at a certain point X
      * @param x
-     * @return
+     * @return double
      */
     public double getY(double x){
           return (amplitudeOfWave * Math.sin(x / lengthOfWave) + startingPoint);

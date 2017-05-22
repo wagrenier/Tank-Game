@@ -29,34 +29,50 @@ import javafx.util.Duration;
  * @author Cedrik Dubois
  */
 public class MainMenu extends Pane {
-
+    /**The sounds of the menus*/
     private SoundLib sounds;
 
     private HelpMenu helpMenu = new HelpMenu(this);
 
-    private static final int HEIGHT = 950;
+    /**Width of the pane*/
     private static final int WIDTH = 1200;
+    /**Height of the pane*/
+    private static final int HEIGHT = 950;
+    /**The load function which loads the game from a binary file*/
     private LoadFunction load;
+    /**The play button*/
     private ImageView playBtn;
+    /**The load button*/
     private ImageView loadBtn;
+    /**The mute button*/
     private ImageView muteBtn;
+    /**The help button, opens the help menu*/
     private ImageView helpBtn;
-
+    
+    /**The help button texture*/
     private Image helpBtnImage = new Image("Texture/Menus/MainMenu/Help Button.png");
+    /**The help button texture*/
     private Image helpBtnHover = new Image("Texture/Menus/MainMenu/Help Button Hover.png");
-
+    
+    /**The play button texture*/
     private Image playBtnImage = new Image("Texture/Menus/MainMenu/Play Button.png");
+    /**The play button texture*/
     private Image playBtnHover = new Image("Texture/Menus/MainMenu/Play Button Hover.png");
+    /**The play button texture*/
     private Image playBtnClicked = new Image("Texture/Menus/MainMenu/Play Button Clicked.png");
-
+    
+    /**The load button texture*/
     private Image loadBtnImage = new Image("Texture/Menus/MainMenu/Load Button.png");
+    /**The load button texture*/
     private Image loadBtnHover = new Image("Texture/Menus/MainMenu/Load Button Hover.png");
+    /**The load button texture*/
     private Image loadBtnClicked = new Image("Texture/Menus/MainMenu/Load Button Clicked.png");
-
+    
+    /**The mute button texture*/
     private Image muteBtnImage = new Image("Texture/Menus/MainMenu/Mute Button.png");
 
     /**
-     *
+     * Constructor
      * @param sounds
      */
     public MainMenu(SoundLib sounds) {
@@ -78,7 +94,7 @@ public class MainMenu extends Pane {
     }
 
     /**
-     *
+     * Sets the scene for this pane
      * @param scene
      * @param cursor
      */
@@ -101,7 +117,7 @@ public class MainMenu extends Pane {
     }
 
     /**
-     *
+     * Sets the scene for this pane
      * @param scene
      * @param cursor
      * @param m
@@ -129,7 +145,8 @@ public class MainMenu extends Pane {
         });
 
     }
-
+    
+    /**Sets help the button*/
     private void setHelpBtn() {
         helpBtn = new ImageView(helpBtnImage);
 
@@ -159,7 +176,8 @@ public class MainMenu extends Pane {
             helpBtn.setImage(helpBtnImage);
         });
     }
-
+    
+    /**Sets the load button*/
     private void setLoadBtn() {
         loadBtn = new ImageView(loadBtnImage);
 
@@ -201,7 +219,8 @@ public class MainMenu extends Pane {
             loadBtn.setImage(loadBtnHover);
         });
     }
-
+    
+    /**Sets the play button*/
     private void setPlayBtn() {
 
         playBtn = new ImageView(playBtnImage);
@@ -244,7 +263,8 @@ public class MainMenu extends Pane {
         });
 
     }
-
+    
+    /**Sets the Background*/
     private void setBackground() {
         BackgroundImage myBI = new BackgroundImage(new Image("Texture/Menus/MainMenu/Background.png", WIDTH, HEIGHT, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -252,7 +272,8 @@ public class MainMenu extends Pane {
 
         this.setBackground(new Background(myBI));
     }
-
+    
+    /**Sets the mute button*/
     private void setMuteBtn() {
         muteBtn = new ImageView(muteBtnImage);
 
