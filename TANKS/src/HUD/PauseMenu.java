@@ -112,6 +112,14 @@ public class PauseMenu {
         leaderBoard.setOnMouseReleased(e -> {
             this.leaderboard.openLeaderBoard();
         });
+        
+        leaderBoard.setOnMouseEntered(e -> {
+            gamePane.setCursor(Cursor.HAND);
+        });
+        
+        leaderBoard.setOnMouseExited(e -> {
+            gamePane.setCursor(cursorImg);
+        });
     }
 
     private void setSaveMsg() {

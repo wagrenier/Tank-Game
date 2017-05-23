@@ -342,7 +342,10 @@ public class HUD extends Pane {
                 nextItemActionVerification();
             } else if (itemIndex == 0 || itemIndex == 1 || itemIndex == 2) {
                 if (gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].restoreLifePoints(weaponManager.getItemArrayList().get(itemIndex).getValue())) {
+                    System.out.println("-------TEST-------");
+                    
                     updateHealth(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getLifePoint());
+                    updateHealth(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShieldType());
                     updateItemStatus();
                     nextItemActionVerification();
                     if (sounds.isSoundPlaying()) {
@@ -667,15 +670,15 @@ public class HUD extends Pane {
     /**
      *
      */
-    public void updateHealth() {
-        if (this.playerList.get(playerIndex).getShield() == 0) {
-            System.out.println("test");
+    public void updateHealth(Player player) {
+        
+        if (player.getShield() == 0) {
             playerHealth.setBorderColor("default-color");
-        } else if (this.playerList.get(playerIndex).getShield() == 1) {
+        } else if (player.getShield() == 1) {
             playerHealth.setBorderColor("small-shield");
-        } else if (this.playerList.get(playerIndex).getShield() == 2) {
+        } else if (player.getShield() == 2) {
             playerHealth.setBorderColor("medium-shield");
-        } else if (this.playerList.get(playerIndex).getShield() == 3) {
+        } else if (player.getShield() == 3) {
             playerHealth.setBorderColor("large-shield");
         }
     }
@@ -685,7 +688,7 @@ public class HUD extends Pane {
      * @param lifePoints
      */
     public void updateHealth(int lifePoints) {
-        System.out.println("test");
+        
 
         if (lifePoints < 0) {
             playerHealth.setProgress(0);
@@ -695,12 +698,13 @@ public class HUD extends Pane {
 
         System.out.println(lifePoints);
         if (lifePoints <= 30) {
-            System.out.println("Less than 30 points");
+            
             playerHealth.setColor("red-bar");
         } else if (lifePoints > 30) {
-            System.out.println("More than 30 points");
+            
             playerHealth.setColor("green-bar");
         }
+        
 
     }
     
@@ -907,14 +911,19 @@ public class HUD extends Pane {
             System.out.println("More than 30 points");
             playerHealth.setColor("green-bar");
         }
+        
 
         if (this.playerList.get(playerIndex).getShield() == 0) {
+            System.out.println("Shield 0");
             playerHealth.setBorderColor("default-color");
         } else if (this.playerList.get(playerIndex).getShield() == 1) {
+            System.out.println("Shield 1");
             playerHealth.setBorderColor("small-shield");
         } else if (this.playerList.get(playerIndex).getShield() == 2) {
+            System.out.println("Shield 2");
             playerHealth.setBorderColor("medium-shield");
         } else if (this.playerList.get(playerIndex).getShield() == 3) {
+            System.out.println("Shield 3");
             playerHealth.setBorderColor("large-shield");
         }
     }

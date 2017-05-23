@@ -808,8 +808,9 @@ public class Store {
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
                         gamePane.getTanksAnimation().getHud().nextItemAction();
 
-                        player.setShield(1);
-                        hud.updateHealth();
+                        this.player.setShield(1);
+                        hud.updateHealth(this.player);
+                        
 
                         if (sounds.isSoundPlaying()) {
                             sounds.getBought().seek(Duration.ZERO);
@@ -819,12 +820,13 @@ public class Store {
                     } else if (index == 3) {
                         this.player.addMoney(100);
 
-                        throwStoreError("Item Already Bought");
+                        throwStoreError("Item Unavailable");
                     } else if (index == 4 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 80) {
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
                         gamePane.getTanksAnimation().getHud().nextItemAction();
-                        player.setShield(2);
-                        hud.updateHealth();
+                        
+                        this.player.setShield(2);
+                        hud.updateHealth(this.player);
 
                         if (sounds.isSoundPlaying()) {
                             sounds.getBought().seek(Duration.ZERO);
@@ -833,12 +835,14 @@ public class Store {
                     } else if (index == 4) {
                         this.player.addMoney(150);
 
-                        throwStoreError("Item Already Bought");
+                        throwStoreError("Item Unavailable");
                     } else if (index == 5 && gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield() > 70) {
                         gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].setShield(weaponManager.getItemArrayList().get(index).getValue());
                         gamePane.getTanksAnimation().getHud().nextItemAction();
-                        player.setShield(3);
-                        hud.updateHealth();
+                        
+                        this.player.setShield(3);
+                        hud.updateHealth(this.player);
+                        
 
                         if (sounds.isSoundPlaying()) {
                             sounds.getBought().seek(Duration.ZERO);
@@ -847,7 +851,7 @@ public class Store {
                     } else if (index == 5) {
                         this.player.addMoney(200);
 
-                        throwStoreError("Item Already Bought");
+                        throwStoreError("Item Unavailable");
                     }
                     System.out.println(gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].getShield());
                 } else if (index == 6) {
@@ -886,7 +890,7 @@ public class Store {
                     }
                 }
 
-                System.out.println("Bough Item");
+                
             }
         }
 

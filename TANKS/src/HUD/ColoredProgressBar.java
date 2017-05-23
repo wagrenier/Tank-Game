@@ -43,6 +43,12 @@ public class ColoredProgressBar extends ProgressBar{
      * @param color
      */
     public void setBorderColor(String color){
+        
+        getStyleClass().remove("small-shield");
+        getStyleClass().remove("medium-shield");
+        getStyleClass().remove("large-shield");
+        getStyleClass().remove("default-color");
+        
         getStyleClass().add(color);
     }
     

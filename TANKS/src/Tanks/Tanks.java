@@ -30,6 +30,8 @@ public class Tanks extends Circle{
     private int team; 
     /**The amount of shield of this tank, 100=100% of damage being taken, 90=90% damage taken,...*/
     private int shield = 100;
+    /**The type of shield active*/
+    private char shieldType = 'd';
     /**The amount of armour available for this tank, max is 100*/
     private int armour = 0; 
     /**The life points of the tank, once it reaches 0, the tank is considered as 'dead'*/
@@ -434,5 +436,13 @@ public class Tanks extends Circle{
      */
     public void setTexturePatternFlipped(ImagePattern texturePatternFlipped) {
         this.texturePatternFlipped = texturePatternFlipped;
+    }
+    
+    public void setShieldType(char var){
+        this.shieldType = var;
+    }
+    
+    public char getShieldType(){
+        return this.shieldType;
     }
 }

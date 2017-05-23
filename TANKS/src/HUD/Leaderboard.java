@@ -112,6 +112,8 @@ public class Leaderboard {
         closeBtn.setOnMouseExited(e -> {
             closeBtn.setImage(closeBtnImage);
         });
+        
+        
     }
 
     /**
