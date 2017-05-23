@@ -12,6 +12,7 @@ package UI;
 import HUD.HelpMenu;
 import LoadFunction.LoadFunction;
 import Sounds.SoundLib;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Background;
@@ -162,6 +163,13 @@ public class MainMenu extends Pane {
             System.out.println(helpBtn.getTranslateX() + ", " + helpBtn.getTranslateY());
         });
          */
+        helpBtn.setOnMouseClicked(e -> {
+            if(sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
+        });
+        
         helpBtn.setOnMouseReleased(e -> {
             if (helpMenu.isHelpOpen() == false) {
                 helpMenu.openHelpMenu();
@@ -289,6 +297,13 @@ public class MainMenu extends Pane {
             System.out.println(muteBtn.getTranslateX() + ", " + muteBtn.getTranslateY());
         });
          */
+        muteBtn.setOnMouseClicked(e -> {
+            if (sounds.isSoundPlaying()){
+                sounds.getBtnClicked().seek(Duration.ZERO);
+                sounds.getBtnClicked().play();
+            }
+        });
+        
         muteBtn.setOnMouseReleased(e -> {
             if (sounds.isSoundPlaying()) {
                 sounds.getBackgroundMusic().pause();
