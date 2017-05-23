@@ -357,7 +357,7 @@ public class GameLoop extends AnimationTimer{
                 names[0] = "\n" + playerArray[indexOfCurrentPlayerTurn].getUsername();
                  for (int i = 1; i < score.length; i++) {
 	            for(int j = i ; j > 0 ; j--){
-	                if(score[j] < score[j - 1]){
+	                if(score[j] > score[j - 1]){
 	                    int temp = score[j];
                             String temp2 = names[j];
 	                    score[j] = score[j - 1];
@@ -418,6 +418,7 @@ public class GameLoop extends AnimationTimer{
                 //Checks if a new turn has been initialized
             if(newTurn){
                 //tanksAnimation.getHud().nextItemAction();
+                
                 numOfTurns++;
                 tanksAnimation.setTurnPlayed(false);
                 leaderboard();

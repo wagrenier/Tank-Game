@@ -533,9 +533,7 @@ public class HUD extends Pane {
 
         pauseBtn.setOnMouseReleased(e -> {
             pauseBtn.setImage(pauseBtnImage);
-            if (gamePane.getTanksAnimation().getTanksArrayUsed()[gamePane.getTanksAnimation().getIndexOfCurrentPlayerTurn()].isIsAI()) {
-
-            } else {
+           
                 if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen() == false) {
                     pauseMenu.openMenuWithoutPause();
                 } else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() && pauseMenu.isMenuOpen()) {
@@ -545,7 +543,7 @@ public class HUD extends Pane {
                 } else if (pauseMenu.isGamePaused() && storeMenu.isStoreOpened() == false && pauseMenu.isMenuOpen() == true) {
                     pauseMenu.resumeGame();
                 }
-            }
+            
 
             System.out.println("Game Pause: " + pauseMenu.isGamePaused());
             System.out.println("Store Open: " + storeMenu.isStoreOpened());
