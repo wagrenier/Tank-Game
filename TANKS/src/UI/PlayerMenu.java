@@ -66,11 +66,11 @@ public class PlayerMenu extends Pane {
     /**Image of the back hover button*/
     private Image backBtnHover = new Image("Texture/Menus/PlayerMenu/Back Button Hover.png");
     /**Image of the button*/
-    private Image backBtnClicked = new Image("Texture/Menus/playerMenu/Back Button Clicked.png");
+    private Image backBtnClicked = new Image("Texture/Menus/PlayerMenu/Back Button Clicked.png");
 /**Image of the left button*/
     private Image leftBtnImage = new Image("Texture/Menus/PlayerMenu/Left Arrow.png");
     /**Image of the left hover button*/
-    private Image leftBtnHover = new Image("Texture/Menus/PlayerMenu/left Arrow Hover.png");
+    private Image leftBtnHover = new Image("Texture/Menus/PlayerMenu/Left Arrow Hover.png");
     /**Image of the left clicked button*/
     private Image leftBtnClicked = new Image("Texture/Menus/PlayerMenu/Left Arrow Clicked.png");
 /**Image of the right button*/
