@@ -111,7 +111,7 @@ public class MapMenu extends Pane {
     private ArrayList<Player> players;
     /**Array List containing all the player name*/
     private ArrayList<Text> playerNames = new ArrayList<Text>();
-    /**Array List containign all the players' tank*/
+    /**Array List containing all the players' tank*/
     private ArrayList<ImageView> playerTanks = new ArrayList<ImageView>();
     
     /**Name of the map currently being displayed*/

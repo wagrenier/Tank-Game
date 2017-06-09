@@ -96,7 +96,7 @@ public class CountryMenu extends Pane {
     /**Image of the right clicked button*/
     private Image rightBtnClicked = new Image("Texture/Menus/PlayerMenu/Right Arrow Clicked.png");
     
-    /**Image of north korean flag*/
+    /**Image of north Korean flag*/
     private Image northkorea = new Image("Texture/Menus/CountryMenu/North Korea Selection Tank.png");
     /**Image of the USA flag*/
     private Image usa = new Image("Texture/Menus/CountryMenu/USA Selection Tank.png");
