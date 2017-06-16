@@ -1,5 +1,5 @@
 
-Hello,1000,
+Player 2,7215,
 Rekt,900,
 Paradigm,800,
 Rick,700,
