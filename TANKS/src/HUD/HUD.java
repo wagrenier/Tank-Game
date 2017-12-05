@@ -106,7 +106,7 @@ public class HUD extends Pane {
     /**Sets the Image for the button*/
     private Image useBtnImage = new Image("Texture/Menus/HUD/Use Button.png");
     /**Sets the Image for the button*/
-    private Image useBtnClicked = new Image("Texture/Menus/HUD/Use Button Clicked.png");
+    private Image useBtnClicked = new Image("Texture/Menus/HUD/Use BUtton Clicked.png");
     
     /**Sets the string for the gravity*/
     private String gravity;
