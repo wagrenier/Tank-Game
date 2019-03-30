@@ -1,0 +1,11 @@
+
+Player 2,7215,
+Rekt,900,
+Paradigm,800,
+Rick,700,
+Marty,600,
+Cedrik,500,
+Laura,400,
+Bob,300,
+John,200,
+Linear Grades,56,

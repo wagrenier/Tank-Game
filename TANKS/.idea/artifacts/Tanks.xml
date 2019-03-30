@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" build-on-make="true" name="Tanks">
+    <output-path>$PROJECT_DIR$/out/artifacts/Tanks</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="sample.Main" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="icons">
+          <JavaFxApplicationIcons>
+            <option name="windowsIcon" value="$PROJECT_DIR$/src/Texture/Icons/icon.ico" />
+          </JavaFxApplicationIcons>
+        </option>
+        <option name="msgOutputLevel" value="Debug" />
+        <option name="title" value="Tanks" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Tanks.jar">
+        <element id="module-output" name="Tanks" />
+      </element>
+    </root>
+  </artifact>
+</component>

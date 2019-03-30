@@ -24,25 +24,25 @@ public class SoundLib {
     //Class will contain getter methods to retrieve said sounds.
     /**Checks if there is currently background music playing*/
     private boolean backgroundMusicPlaying = false;
-    
+
     /**Plays the sound related to that effect*/
-    private MediaPlayer backgroundMusic = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Background Music.mp3").toURI().toString()));
+    private MediaPlayer backgroundMusic = new MediaPlayer(new Media(getClass().getResource("Sounds/Background Music.mp3").toString()));
     /**Plays the sound related to that effect*/
-    private MediaPlayer tankShot = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Tank Shot.mp3").toURI().toString()));
+    private MediaPlayer tankShot = new MediaPlayer(new Media(getClass().getResource("Sounds/Tank Shot.mp3").toString()));
     /**Plays the sound related to that effect*/
-    private MediaPlayer explosion = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Explosion.mp3").toURI().toString()));
+    private MediaPlayer explosion = new MediaPlayer(new Media(getClass().getResource("Sounds/Explosion.mp3").toString()));
     /**Plays the sound related to that effect*/
-    private MediaPlayer repair = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Repair.mp3").toURI().toString()));
+    private MediaPlayer repair = new MediaPlayer(new Media(getClass().getResource("Sounds/Repair.mp3").toString()));
     /**Plays the sound related to that effect*/
-    private MediaPlayer btnClicked = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Button Clicked.mp3").toURI().toString()));
+    private MediaPlayer btnClicked = new MediaPlayer(new Media(getClass().getResource("Sounds/Button Clicked.mp3").toString()));
     /**Plays the sound related to that effect*/
-    private MediaPlayer save = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Save.mp3").toURI().toString()));
+    private MediaPlayer save = new MediaPlayer(new Media(getClass().getResource("Sounds/Save.mp3").toString()));
     /**Plays the sound related to that effect*/
-    private MediaPlayer failSave = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Fail Save.mp3").toURI().toString()));
+    private MediaPlayer failSave = new MediaPlayer(new Media(getClass().getResource("Sounds/Fail Save.mp3").toString()));
     /**Plays the sound related to that effect*/
-    private MediaPlayer bought = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Bought Sound.mp3").toURI().toString()));
+    private MediaPlayer bought = new MediaPlayer(new Media(getClass().getResource("Sounds/Bought Sound.mp3").toString()));
     /**Plays the sound related to that effect*/
-    private MediaPlayer error = new MediaPlayer(new Media(new File("src/Sounds/Sounds/Error.mp3").toURI().toString()));
+    private MediaPlayer error = new MediaPlayer(new Media(getClass().getResource("Sounds/Error.mp3").toString()));
     
     /**
      *Default no-arg constructor
